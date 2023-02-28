@@ -1,0 +1,813 @@
+\usepackage{graphicx}
+\usepackage{makeidx}
+\usepackage{datetime2}
+\usepackage{alltt}
+\usepackage[colorlinks]{hyperref}
+
+\makeindex
+
+\latex{%
+  \ifpdf
+   \pdfinfo{
+       /Author (Nicola Talbot)
+       /Title  (Creating a LaTeX Minimal Example)
+       /CreationDate (D:20081114000000Z)
+       /ModDate (\pdffilemoddate{minexample-main.tex})
+       /Subject (LaTeX)
+       /Keywords (LaTeX;debug)
+    }
+  \fi
+}
+
+% for latex2html
+\providecommand{\hyperpage}[1]{#1}
+\providecommand{\meta}[1]{\emph{#1}}
+\providecommand{\cls}[1]{\texttt{#1}}
+\providecommand{\sty}[1]{\texttt{#1}}
+\providecommand{\cs}[1]{\texttt{\textbackslash#1}}
+\providecommand{\env}[1]{\texttt{#1}}
+
+\setbaseurl{http://www.dickimaw-books.com/latex/minexample}
+
+\title{Creating a LaTeX Minimal Example}
+\author{Nicola L C Talbot}
+\date{\today\ (version 1.3)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Debugging LaTeX errors often requires creating a minimal (or
+minimum) example. This is particularly important when posting a bug
+report or request for help, as it facilitates the diagnostic
+process. Creating a minimal example will often help you identify the
+problem, without having the hassle of posting your query and waiting
+until you get a reply. This document illustrates how to create a
+minimal example.  See also \htmladdnormallink{Need More
+Help?}{http://www.dickimaw-books.com/latex/novices/html/help.html}
+and
+\htmladdnormallink{Packages and Document Classes}{http://www.dickimaw-books.com/latex/admin/html/packages.shtml}.
+
+The home page for this document is \url{\baseurl/}.
+\casemedia{}{}{This document is also available in PDF formatted either in 
+\htmladdnormallink{A4 for printing}{\baseurl/minexample-a4.pdf} or 
+\htmladdnormallink{6inx4in for on-line viewing}{\baseurl/minexample-screen.pdf}. }
+The source code for this document is available as
+\htmladdnormallink{a ZIP archive}{\baseurl/minexample.zip}.
+\end{abstract}
+
+Copyright \copyright\ 2008 Nicola L. C. Talbot Permission is granted to copy,
+distribute and/or modify this document under the terms of the GNU
+Free Documentation License, Version 1.2 or any later version
+published by the Free Software Foundation; with no Invariant
+Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of
+the license is included in the section entitled \htmlref{\qt{GNU Free
+Documentation License}}{sec:fdl}. 
+
+\tableofcontents
+
+\setnode{introduction}
+\section{Introduction}
+\label{sec:intro}
+
+A minimal example\footnote{A minimal example is sometimes called a
+\qt{minimal working example} (MWE), but this is a bit confusing as
+the purpose of a minimal example is to illustrate unexpected or
+non-working behaviour.}\ is the smallest possible complete document that
+illustrates a problem. A minimal example file should not include any
+packages or code that do not contribute to the problem, but must
+include a document class and the document environment. 
+
+There are two approaches to creating a minimal example: \qt{building
+up} and \qt{hacking down}. This document illustrates both
+approaches. Creating the minimal example may lead you to the
+solution, but if you are still stuck, you can then post the minimal
+example. (Remembering first to search for the solution in the
+\htmlref{documentation}{sec:documentation} and on the Internet, for
+example, in newsgroup archives or on forums or Q\&A sites.)
+
+Some package authors (including me) from time-to-time\footnote{How
+frequently will often depend on the author's work commitments.}\ read messages on sites such as
+\htmladdnormallink{The \LaTeX\
+Community}{http://www.latex-community.org/forum/}, 
+\htmladdnormallink{\TeX\ on
+StackExchange}{http://tex.stackexchange.com/} or on newsgroups such
+as \htmladdnormallink{comp.text.tex}{news:comp.text.tex}, so if
+you have a problem you can't solve it's generally a good idea to
+post your query in one of those places (remembering to paste the
+contents of your minimal file in your message). If you've made a
+mistake in your code, then someone may be able to point it out,
+which may mean that you get a reply quicker than you would if you
+posted your query directly to the author. Also, other people will be
+able to see your query and learn from it. Remember that no one is
+being paid or is otherwise obliged to answer your query, so be
+careful not to make your query sound like a demand or an accusation. 
+
+Note that when posting your query, you also need to give a brief
+description of the problem, and list the methods that you have tried
+to trace the problem. Don't go into a long rambling description of
+your project, as it generally doesn't help to identify the problem,
+and too much information can put people off reading your request.
+It's also a good idea to first search the
+\htmladdnormallink{comp.text.tex
+archives}{http://groups.google.com/group/comp.text.tex/} or use the
+search box on sites like \htmladdnormallink{The \LaTeX\
+Community}{http://www.latex-community.org/forum/},
+\htmladdnormallink{\TeX\ on
+StackExchange}{http://tex.stackexchange.com/} to find out if anyone
+else has asked the same question. If you ask a
+\htmladdnormallink{frequently asked
+question}{http://www.tex.ac.uk/faq}, you may get a curt reply from
+people who are tired of answering the same old question, so check
+first. 
+
+\setnode{buildingup}
+\section{Building Up}
+\label{sec:buildingup}
+
+With the building up approach, you start with the document:
+\begin{verbatim}
+\documentclass{article}
+\begin{document}
+\end{document}
+\end{verbatim}
+and add to it until you encounter your problem. If your problem
+requires the use of \cs{chapter}, then replace \cls{article} with
+either \cls{report} or \cls{book}. 
+
+This section illustrates the building up approach with an example.
+Suppose your problem document looks something like:
+\begin{verbatim}
+\documentclass{myuniversityscustomclass}
+
+\usepackage[french,USenglish]{babel}
+\usepackage[mmddyyyy]{datetime}
+\usepackage{nonstandardpackage}
+\usepackage{anothernonstandardpackage}
+% lots of other packages that may or may not be standard
+
+% lots of your own definitions
+
+\author{John Doe}
+\title{Astounding Discoveries}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\listoffigures
+\listoftables
+
+% 300 or so pages of text, graphics, tables, bibliography and
+% sundry other stuff
+
+\end{document}
+\end{verbatim}
+
+Let's suppose that your problem is that the date on the title page
+looks like November 14, 2008, but you are expecting it to appear in
+the form 11/14/2008. You have already checked that you used the
+option \texttt{mmddyyyy} when you loaded the \sty{datetime} package,
+so what's gone wrong? 
+
+Since you haven't used \cs{date}, the date on the title page is
+generated using \cs{today}, so the fault must lie in the definition of
+\cs{today}. It looks like it might be a bug in the \sty{datetime} package, so
+what should you do? This happens to be one of my
+packages,\footnote{although it's now been replaced by \sty{datetime2}} but if
+you send me your entire 300 page document plus several hundred
+graphics files and a large bibliography file, I won't be best
+pleased. Aside from filling up my inbox, I don't have your
+university's custom class file, nor am I likely to have the 
+non-standard packages installed on my system, so I won't be able to test
+the document. At which point you'll either get a request for a
+minimal example, or I'll think \qt{forget that, I'll look at it some
+other day} (or words to that effect) and then several days, or
+possibly weeks, later you'll get a request for a minimal
+example.\footnote{Actually, these days I'll just ask you to post
+your bug report on \htmladdnormallink{my bug report
+form}{http://www.dickimaw-books.com/bug-report.html}.} 
+
+You've already worked out that the problem must lie with the command
+\cs{today}. So that needs to go in the minimal example. You want to use
+the \sty{datetime} package to change the format of this command, so that
+package needs to go in the minimal example, with the package options
+you have specified in your original document:
+\begin{verbatim}
+\documentclass{article}
+\usepackage[mmddyyyy]{datetime}
+\begin{document}
+\today
+\end{document}
+\end{verbatim}
+
+Call this file, say, \texttt{test.tex}, and run \LaTeX\ on it. Have a look at
+the output. The output looks fine, so perhaps one of the other
+packages you have loaded has caused the problem. One by one try each
+of the packages you have in your problem document, in the same
+order. If adding the package has no effect on the output, then
+delete that package from the test file, and go on to the next one.
+For example, the problem document loads the babel package, so add
+that package to the test file using the same options that you used
+in your problem document. The minimal example should now look like: 
+\begin{verbatim}
+\documentclass{article}
+\usepackage[french,USenglish]{babel}
+\usepackage[mmddyyyy]{datetime}
+\begin{document}
+\today
+\end{document}
+\end{verbatim}
+Now run it through \LaTeX, and check the result. The output has
+changed to November 14, 2008, instead of 11/14/2008. This test file
+now reproduces the error, but is only six lines instead of several
+hundred or possible thousand lines. 
+
+What next? Check the \sty{datetime}
+\htmlref{documentation}{sec:documentation} to see if it mentions
+the \sty{babel} package. The \sty{datetime} documentation comes in both PDF and
+HTML format. Most PDF and HTML viewers have a function that allows
+you to search the document or page for a given word, so search for
+the word \qt{babel}. This should lead you to the sentence which states
+that the babel package must be loaded before the \sty{datetime} package.
+Check the test file. In this test file, the \sty{babel} package has been
+loaded first.
+
+Now what?  In this case, there is a FAQ for the \sty{datetime} package
+(\url{http://www.dickimaw-books.com/faqs/datetimefaq.html}) so that's the next
+place to look. This FAQ covers the most commonly used packages that
+I have written.\footnote{or more precisely, it covers the packages
+that I get the most post about.} If you look at the table of contents for the
+\sty{datetime} section, you should see the entry \qt{The date is in another
+language or in the wrong format}. This fits the problem, so click on
+that link and have a look at the answer. The answer indicates that
+there was a bug in an earlier version of the \sty{datetime} package that
+caused a problem when used in conjunction with the \sty{babel} package,
+but the bug has been fixed. So the next thing to do is check which
+version you are using. Add the command \cs{listfiles} to the test file: 
+\begin{verbatim}
+\listfiles
+\documentclass{article}
+\usepackage[french,USenglish]{babel}
+\usepackage[mmddyyyy]{datetime}
+\begin{document}
+\today
+\end{document}
+\end{verbatim}
+At the end of the log file there should now be a list of all the
+files that have been loaded, along with their release dates and
+versions. Check the version of the \sty{datetime} package. Is it the
+latest version? If not, download the latest version and try again.
+If it is the latest version, then send the author (me, in the case
+of the \sty{datetime} package) the test file and its log file.
+If you check the package documentation, you should either find the
+author's contact details or a link to a bug reporting tool.
+
+If the conflicting package is one that is not publicly available
+(for example, it's your university's custom package that can only be
+downloaded from a restricted site) then send your query to the
+author of that package. If the conflicting package is publicly
+available, but is not on \htmladdnormallink{CTAN}{http://ctan.org/}, 
+then specify from where it can be downloaded. 
+
+\setnode{hackingdown}
+\section{Hacking Down}
+\label{sec:hackingdown}
+
+The \htmlref{previous section}{sec:buildingup} illustrated how to
+build up a minimal example. This section shows how to hack down a
+minimal example. Again, we are going to start with a 300 page
+document which contains many images, tables and a bibliography. 
+\begin{verbatim}
+\documentclass{myuniversityscustomclass}
+
+\usepackage{nonstandardpackage}
+\usepackage{anothernonstandardpackage}
+% lots of other packages
+
+\usepackage{glossaries}
+
+% lots of your own command and environment definitions
+
+\newglossaryentry{minex}{name={Minimal Example},
+description={A small document illustrating failing behaviour},
+text={minimal example}}
+
+% lots more glossary definitions
+
+\author{John Doe}
+\title{Astounding Discoveries}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\listoffigures
+\listoftables
+
+% 300 or so pages of text, graphics, tables and
+% sundry other stuff
+
+% Somewhere in the document is the following:
+A \gls{minex is essential when encountering a \TeX\ or \LaTeX\ 
+error you don't understand.
+
+% Lots more text, figures, tables and a bibliography
+\end{document}
+\end{verbatim}
+This document is causing the following error:
+\begin{verbatim}
+Runaway argument?
+{minexam is essential when encountering a \TeX \ or \LaTeX \^^Merror
+\ETC.
+! Paragraph ended before \\@gls was complete.
+<to be read again>
+                   \par
+\end{verbatim}
+Suppose you don't understand what the error is or whereabouts in the
+document it is occurring\footnote{Actually, in this example it
+should print the line number in the error message since \cs{gls} is a
+short command, but not all runaway argument errors give a helpful
+line number, so let's pretend it hasn't. }.
+
+Since you don't know what command is causing the problem, you can't
+use the approach illustrated in the previous section. So you will
+need to use the hacking down approach.
+
+Before doing anything else, \textbf{make a copy} of the problem document.
+Call the copy, say, \texttt{test.tex}, and only edit this. Don't start
+messing around with the original document until you've solved the
+problem, otherwise you could lose your work! 
+
+One way of tracking down the problem is to use a binary search.
+Suppose your document contains 1000 lines of source code, then go to
+line 500 of your test document (i.e.\ half-way through it) and insert
+the line\footnote{\LaTeX\ will finish the document when it reaches the
+first \cs{end}\texttt{\{document\}}, and ignore everything that comes after it.}:
+\begin{verbatim}
+\end{document}
+\end{verbatim}
+(Make sure you don't put it inside a group or environment.)
+
+Now pass the test document to LaTeX. You may get some warning
+messages as a result of omitting half the document, but don't worry
+about that for now.
+\begin{itemize}
+ \item If the error still occurs, then the problem is in the first
+half of the document. In which case, delete everything after the
+first \verb|\end{document}| (in your test file), and repeat the process. 
+
+ \item If the error goes away, then the problem is in the second
+half of the document. In which case, delete everything after
+\verb|\begin{document}| up to, and including, the first
+\verb|\end{document}| (in your test file), and repeat the process. 
+\end{itemize}
+
+Continue the process until you only have one paragraph left in your
+document. If this has an \cs{input} or \cs{include} command, first
+remove (or comment out) the command. If the problem goes away then
+the error is in that file, in which case replace the \cs{input} or
+\cs{include} command with the contents of the relevant file in your
+test file, and repeat the process. Once you have finished, it's a
+good idea to add \cs{listfiles}. 
+
+Let's suppose we now have a test file that looks like:
+\begin{verbatim}
+\listfiles
+\documentclass{myuniversityscustomclass}
+
+\usepackage{nonstandardpackage}
+\usepackage{anothernonstandardpackage}
+% lots of other packages
+
+\usepackage{glossaries}
+
+% lots of your own command and environment definitions
+
+\newglossaryentry{minex}{name={Minimal Example},
+description={A small document illustrating failing behaviour},
+text={minimal example}}
+
+% lots more glossary definitions
+
+\begin{document}
+
+A \gls{minex is essential when encountering a \TeX\ or \LaTeX\ 
+error you don't understand.
+
+\end{document}
+\end{verbatim}
+
+It may be that you can now identify the problem, but let's suppose
+you still don't know what's wrong. The next thing to do is to remove
+unnecessary information in the preamble. If you have defined any
+commands or environments in the preamble that aren't used in the
+problem paragraph, then delete them. This includes any new theorems
+or glossary entries and so on. In this example, the problem
+paragraph contains a glossary entry, so keep the definition for that
+entry, and delete all the others: 
+\begin{verbatim}
+\listfiles
+\documentclass{myuniversityscustomclass}
+
+\usepackage{nonstandardpackage}
+\usepackage{anothernonstandardpackage}
+% lots of other packages
+
+\usepackage{glossaries}
+
+\newglossaryentry{minex}{name={Minimal Example},
+description={A small document illustrating failing behaviour},
+text={minimal example}}
+
+\begin{document}
+
+A \gls{minex is essential when encountering a \TeX\ or \LaTeX\ 
+error you don't understand.
+
+\end{document}
+\end{verbatim}
+Now, one by one, remove any packages that aren't contributing to the
+problem. Each time you remove a package, run the test file through
+\LaTeX. If the error goes away, then put the package back in. If
+removing a package causes an \qt{Undefined control sequence} error,
+then remove the undefined command as well. If the problem goes away,
+add the command and package back again. For example, if I remove the
+line:
+\begin{verbatim}
+\usepackage{glossaries}
+\end{verbatim}
+then I will get an error as neither \cs{newglossaryentry} nor
+\cs{gls} will be defined. If I remove those commands, the original
+error message will go away. So I have to leave those commands in and
+keep the glossaries package in the test file. 
+
+Next, try substituting the class file for the \cls{article} or
+\cls{report} class file. If the error goes away, then the original
+class file is contributing to the problem, in which case put it back
+again. If this class file is not publicly available (for example, it
+may be an in-house class file, such as a university thesis, which
+has restricted access) then contact the author of the class file,
+and send the test file and log file. (Remembering, of course, to
+first search the \htmlref{documentation}{sec:documentation}.)
+
+If you followed all of the above steps, then the test file should
+now look like:
+\begin{verbatim}
+\listfiles
+\documentclass{article}
+
+\usepackage{glossaries}
+
+\newglossaryentry{minex}{name={Minimal Example},
+description={A small document illustrating failing behaviour},
+text={minimal example}}
+
+\begin{document}
+
+A \gls{minex is essential when encountering a \TeX\ or \LaTeX\ 
+error you don't understand.
+
+\end{document}
+\end{verbatim}
+In this example, you should now be able to work out that there is a
+missing closing brace to the argument of \cs{gls}. If, however, you
+still can't work out the problem, then (assuming that you've already
+read the \htmlref{documentation}{sec:documentation} and searched
+relevant forums or newsgroup archives) copy and paste the test file
+in a message to somewhere like \htmladdnormallink{\TeX\ on
+StackExchange}{http://tex.stackexchange.com/} or
+\htmladdnormallink{The \LaTeX\ Community}{http://www.latex-community.org/forum/}
+or \htmladdnormallink{comp.text.tex}{news:comp.text.tex}.
+
+\setnode{additionalfiles}
+\section{Additional Files}
+\label{sec:additionalfiles}
+
+You've tried \htmlref{building up}{sec:buildingup} or
+\htmlref{hacking down}{sec:hackingdown} a minimal example, but the
+problem is caused by an additional file which you can't copy and
+paste into the minimal example file, so what do you do? 
+
+If the file is a graphics file, replace the command with a rule of
+the same dimension. For example, if your image is 4in wide by 3in
+high, then replace: 
+\begin{verbatim}
+\includegraphics{myImage}
+\end{verbatim}
+with
+\begin{verbatim}
+\rule{4in}{3in}
+\end{verbatim}
+Alternatively, the \sty{mwe} package comes with some sample images
+that you can use instead. For example, you could replace
+\begin{verbatim}
+\includegraphics{myImage}
+\end{verbatim}
+with
+\begin{verbatim}
+\includegraphics[height=3in]{example-image}
+\end{verbatim}
+(There are other test images provided by that package. See the
+\sty{mwe} documentation for further details.)
+
+If the file is a Bib\TeX\ file, then make a copy of the file, and
+remove the entries one by one until you are left with the entry that
+causes the problem. If the file is a CSV file, make a copy of the
+file, and remove the rows one by one until you are left with the
+problem row (but keep the header row if there is one.) You can then
+send this abridged file with the minimal example or you can embed it
+in the minimal example file using the \env{filecontents} or
+\env{filecontents*} environment\footnote{The starred form doesn't
+write extra comments in the file}. This environment takes one
+argument which must be the name of the file. For example:
+\begin{verbatim}
+\documentclass{article}
+
+\begin{filecontents*}{test.bib}
+@article{sample,
+ author={Ann Other},
+ title={Sample Title},
+ journal={Journal of Something},
+ year=2014
+}
+\end{filecontents*}
+
+\begin{document}
+\cite{sample}
+
+\bibliographystyle{plain}
+\bibliography{test}
+\end{document}
+\end{verbatim}
+
+Alternatively, if the problem is with the way the bibliography is
+being formatted in general, you can use the \texttt{xampl.bib} file,
+which should be available in your \TeX\ distribution.
+\begin{verbatim}
+\documentclass{article}
+
+\begin{document}
+\nocite{*}
+
+\bibliographystyle{plain}
+\bibliography{xampl}
+\end{document}
+\end{verbatim}
+
+The \sty{glossaries} package also comes with some sample files that
+you can use in a similar manner. These should be installed along
+with the \sty{glossaries} package. For example:
+\begin{verbatim}
+\documentclass{article}
+
+\usepackage{glossaries}
+\makeglossaries
+
+\loadglsentries{example-glossaries-brief}
+
+\begin{document}
+\glsaddall
+\printglossaries
+\end{document}
+\end{verbatim}
+
+\setnode{dummytext}
+\section{Dummy Text}
+\label{sec:dummytext}
+
+Sometimes a problem may only occur at a certain place or after a
+certain point, in which case you may need to create some dummy text
+to pad out your example. If so, the \sty{lipsum} package is a useful tool.
+This provides the command \cs{lipsum} which has an optional argument
+that specifies the paragraph or the range of paragraphs to typeset. 
+
+For example, suppose you are using the \cls{book} class and you don't
+understand why the page number appears on the bottom of the first
+page of the chapter and at the top of the second page. Then you
+could illustrate this as follows: 
+\begin{verbatim}
+\documentclass{book}
+
+\usepackage{lipsum}
+
+\begin{document}
+\chapter{Sample}
+
+\lipsum[1-4]
+\end{document}
+\end{verbatim}
+This will produce enough text to generate two pages. 
+
+There is another dummy text package called \sty{blindtext} that
+provides the commands \cs{blindtext} (for short blocks of text) and 
+\cs{Blindtext} (for longer blocks of text). For example:
+\begin{verbatim}
+\documentclass{book}
+
+\usepackage{blindtext}
+
+\begin{document}
+\chapter{Sample}
+
+\Blindtext
+\end{document}
+\end{verbatim}
+The \sty{blindtext} package also provides other commands to provide
+a random document, dummy lists etc. See the \sty{blindtext}
+documentation for further details.
+
+There are other dummy text generators listed on
+\htmladdnormallink{CTAN Topic
+dummy-gen}{http://ctan.org/topic/dummy-gen}.
+
+\setnode{documentation}
+\section{Where Do I Find Package Documentation?}
+\label{sec:documentation}
+
+These days most package documentation is provided as a PDF file and,
+if it is installed on your system, it can usually be obtained using
+the \htmladdnormallink{texdoc
+application}{http://www.dickimaw-books.com/latex/novices/html/texdoc.html}. 
+If you have a \htmladdnormallink{terminal or command
+prompt}{http://www.dickimaw-books.com/latex/novices/html/terminal.html},
+you can access it by typing \texttt{texdoc} followed by the name of the
+package. For example, to obtain the documentation for the
+\sty{datetime} package run: 
+\begin{verbatim}
+texdoc datetime
+\end{verbatim}
+Sometimes this may produce just the documented code rather than the
+user manual. For example:
+\begin{verbatim}
+texdoc flowfram
+\end{verbatim}
+will display the documented code. However, in this instance, the
+first paragraph of that document tells you that the user manual is
+in \texttt{ffuserguide.pdf} in which case
+\begin{verbatim}
+texdoc ffuserguide
+\end{verbatim}
+will produce the user manual.
+
+In some cases (especially for older packages) the documentation may
+be contained in a \texttt{README} file in the documentation directory or it
+may be embedded as comments either at the start or the end of the
+\texttt{.sty} or \texttt{.cls} file. 
+
+Alternatively, if the documentation was not installed on your system,
+you can obtain it from \htmladdnormallink{CTAN}{http://ctan.org/}.
+You can either use the search box on the CTAN home page or you can use the URL
+\texttt{http://ctan.org/pkg/}\meta{name} where \meta{name} is the name of the package.
+For example, to obtain information on the \sty{glossaries} package, you
+can use the URL \url{http://ctan.org/pkg/glossaries} and it will
+provide links to the documentation for that package. 
+
+There is also the \htmladdnormallink{TeXdoc Online
+Resource}{http://texdoc.net/} which is a dedicated server for
+querying and browsing \TeX\ and \LaTeX\ package information and
+documentation, where you can search for packages or topics.
+
+\setnode{errormessages}
+\section{Understanding Error Messages}
+\label{sec:errormessages}
+
+\TeX\ and \LaTeX\ error messages can be cryptic, but sometimes it's
+possible to at least find out where things have gone wrong by
+studying the message. 
+
+Consider the following document: 
+\begin{verbatim}
+\documentclass{article}
+
+\newcommand{\example}[1]{#1}
+
+\begin{document}
+This is a sample document that contains a long 
+command \example{with an error.
+
+This is the next paragraph
+\end{document}
+\end{verbatim}
+This produces the following error message: 
+\begin{verbatim}
+Runaway argument?
+{with an error. \par This is the next paragraph \end {document}
+! File ended while scanning use of \example.
+<inserted text>
+                \par
+\end{verbatim}
+The first line (\qt{Runaway argument?}) indicates the type of error.
+A runaway argument is usually caused by a missing closing brace. The
+next line indicates where \TeX\ got up to before things started to
+go wrong. In this error message there is no line number but you can
+use the information that has been supplied to help you track where
+the error might be. Copy the first part of this line (say
+\verb|{with an error|) and paste it into your editor's search
+function. This should take you to the relevant line where you can
+see that there is no closing brace.
+
+Suppose, instead, the document looked like: 
+\begin{verbatim}
+\documentclass{article}
+
+\newcommand*{\example}[1]{#1}
+
+\begin{document}
+This is a sample document that contains a short 
+command \example{with an error.
+
+This is the next paragraph
+\end{document}
+\end{verbatim}
+In this case the error message is:
+\begin{verbatim}
+Runaway argument?
+{with an error.
+! Paragraph ended before \example was complete.
+<to be read again>
+                   \par
+l.8
+\end{verbatim}
+In this example, the error message includes the line number where
+things started to go wrong (l.8) so I can use my text editor's \qt{go
+to line} function. 
+
+Sometimes the line number given in the error message doesn't
+correspond to the line number where the error actually occurs. For
+example, consider the following document: 
+\begin{verbatim}
+\documentclass{report}
+
+\author{A.N. Author}
+\title{A sample document with a \badcommand}
+\date{14th November, 2008}
+
+\begin{document}
+\maketitle
+\end{document}
+\end{verbatim}
+In this document the error is an undefined command (\cs{badcommand})
+occurring on line~4. However, the error message is: 
+\begin{verbatim}
+! Undefined control sequence.
+\@title ->A sample document with a \badcommand
+
+l.8 \maketitle
+\end{verbatim}
+which indicates that the problem occurs on line~8. This is because
+\TeX\ doesn't actually try to interpret \cs{badcommand} until line~8 when
+\cs{maketitle} tries to typeset the title page. 
+
+When this type of situation occurs, it may be necessary to do a
+little bit of detective work to try to trace the problem. In the
+above example, there are two methods to try: 
+\begin{enumerate}
+\item The first line of the error message states the nature of the
+error (an undefined control sequence) and the second line indicates
+that the undefined control sequence is \cs{badcommand}. You can then use
+your text editor to search for any instances of \cs{badcommand} and
+replace it with the correct command. Alternatively, if you have
+forgotten to use a package that defines the command or, in the case
+of a custom command, you have forgotten to define the command, then
+do so. 
+
+\item The last line of the error message states that the problem was
+encountered on line~8 which contains the command \cs{maketitle}. What
+commands affect \cs{maketitle}? For the standard classes, such as
+report, these are: \cs{author}, \cs{title} and \cs{date}, so inspect the code
+where these commands are used. Try commenting out all but one of the
+commands and see if the error still occurs. For example, if I
+comment out the lines containing the title and date, the error goes
+away, but if I comment out the author and date instead, the error
+remains. This means that the error is in the title. 
+\end{enumerate}
+
+If you have many files that have been input (using, for example,
+\cs{input} or \cs{include}) you may find it a little difficult to
+work out which file the line number is referencing. Does l.8 refer
+to line~8 of my main file \texttt{mydoc.tex} or does it refer to
+line~8 of one of the files that have been input? In this case, you
+may find it easier to use the \texttt{-file-line-error} option when
+you run \LaTeX\ (or PDF\LaTeX\ etc):
+\begin{verbatim}
+pdflatex -file-line-error mydoc.tex
+\end{verbatim}
+Now the error will be preceded by the file name and line number in
+the form:
+\begin{verbatim}
+./mydoc.tex:8: Undefined control sequence.
+\end{verbatim}
+
+For further information on understanding error messages, see
+\htmladdnormallink{How
+to approach
+errors}{http://www.tex.ac.uk/cgi-bin/texfaq2html?label=erroradvice} on the UK TeX FAQ. There is also a list of some
+\htmladdnormallink{common error
+messages}{http://www.dickimaw-books.com/latex/novices/html/commonerrors.html}
+in the document \htmladdnormallink{LaTeX for Complete
+Novices}{http://www.dickimaw-books.com/latex/novices/}
+which is available from the same site as this document. 
+
+\setnode{license}
+\input{fdl}
+
+\end{document}

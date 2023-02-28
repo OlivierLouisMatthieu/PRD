@@ -1,0 +1,499 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Masters/Doctoral Thesis
+
+% LaTeX Template
+% Version 2.5 (27/8/
+% 17)
+%
+% This template was downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Version 2.x major modifications by:
+% Vel (vel@latextemplates.com)
+%
+% This template is based on a template by:
+% Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
+% Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
+%
+% Template license:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\PassOptionsToPackage{french,english}{babel}
+\documentclass[
+11pt, % The default document font size, options: 10pt, 11pt, 12pt
+oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+%Penser à le réactiver si impression !
+english, % ngerman for German
+singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
+%toctotoc, % Uncomment to add the main table of contents to the table of contents
+parskip, % Uncomment to add space between paragraphs
+%nohyperref, % Uncomment to not load the hyperref package
+headsepline, % Uncomment to get a line under the header
+chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+%consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
+]{MastersDoctoralThesis} % The class file specifying the document structure
+
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+%usepackage[english]{babel}
+%\usepackage{cite}
+%\def\citeleft{[}
+%\def\citeright{]}
+\usepackage{amsmath}
+\usepackage{colortbl} %Colored table cells 
+%\usepackage[table,xcdraw]{xcolor}
+\usepackage{tcolorbox,listings}
+%\usepackage{lscape}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage{tabularx}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{rotating}
+\usepackage{float}
+\restylefloat{table}
+\usepackage[toc,page]{appendix}
+%%% python
+%\usepackage{pythonhighlight}
+\usepackage{listings}
+\lstloadlanguages{Python}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codegray2}{rgb}{0.1,0.1,0.1}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+\lstset{
+	language=python,
+	basicstyle=\ttfamily\footnotesize,
+	commentstyle=\ttfamily\color{gray},
+	numbers=left,
+	numberstyle=\ttfamily\color{gray}\footnotesize,
+	stepnumber=1,
+	numbersep=5pt,
+	backgroundcolor=\color{white},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	frame=true,
+	tabsize=2,
+	captionpos=b,
+	breaklines=true,
+	breakatwhitespace=false,
+	title=\lstname,
+	escapeinside={},
+	keywordstyle={},
+	morekeywords={}
+}
+%%%
+\usepackage{physics}
+\usepackage{mathpazo} % Use the Palatino font by default
+\usepackage{siunitx}
+\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+
+\addbibresource{Bibliography.bib} % The filename of the bibliography
+
+\DeclareUnicodeCharacter{00A0}{ }
+
+\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+\usepackage{hyperref}
+%\usepackage[french]{babel} %how to use [english] ?
+
+%----------------------------------------------------------------------------------------
+%	MARGIN SETTINGS
+%----------------------------------------------------------------------------------------
+
+\geometry{
+	paper=a4paper, % Change to letterpaper for US letter
+	width=150mm,
+	inner=2.cm, % Inner margin
+	outer=2.5cm, % Outer margin
+	bindingoffset=.5cm, % Binding offset
+	top=1.5cm, % Top margin
+	bottom=1.cm, % Bottom margin
+	%showframe, % Uncomment to show how the type block is set on the page
+}
+\setlength{\headsep}{5.mm}
+
+%----------------------------------------------------------------------------------------
+%	Python Code settings
+%----------------------------------------------------------------------------------------
+
+\definecolor{darkWhite}{rgb}{0.94,0.94,0.94}
+
+\lstset{
+	backgroundcolor=\color{darkWhite},
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	commentstyle=\color{red},
+	deletekeywords={...},
+	escapeinside={\%*}{*)},
+	extendedchars=true,
+	keepspaces=true,
+	keywordstyle=\color{blue},
+	language=C,
+	morekeywords={*,...},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	stepnumber=1,
+	stringstyle=\color{gray},
+	tabsize=4,
+	title=\lstname,
+}
+
+\lstdefinestyle{frameStyle}{
+	basicstyle=\footnotesize,
+	numbers=left,
+	numbersep=20pt,
+	numberstyle=\tiny\color{black}
+}
+
+\tcbuselibrary{listings,skins,breakable}
+
+\newtcblisting{customFrame}{
+	arc=0mm,
+	top=0mm,
+	bottom=0mm,
+	left=3mm,
+	right=0mm,
+	width=\textwidth,
+	listing only,
+	listing options={style=frameStyle},
+	breakable
+}
+
+%----------------------------------------------------------------------------------------
+%	Acronyms & Symbols
+%----------------------------------------------------------------------------------------
+
+\usepackage[
+    acronym     =   true,
+    symbols     =   true,
+    toc         =   false,
+    numberline  =   false,
+    nopostdot   =   false,
+    section     =   chapter,
+    nomain      =   true,
+    style       =   super,
+    nonumberlist =  false
+]{glossaries}
+\usepackage[%
+    , nonumberlist
+    %, toc
+    , translate=babel
+    , acronym           % add acronyms listing
+    , symbols           % add symbols listing
+    % , sanitizesort=false% allow \gls inside descriptions
+    , automake
+    %, nolong
+    , nosuper
+    , nolist
+    , notree
+    , nostyles
+  ]{glossaries-extra}%
+\usepackage[symbols]{glossaries-extra}
+\usepackage{glossary-mcols}
+%\usepackage{./Preambulo/glossary-xltabular}
+%\usepackage{environ}        % Used to define custom table environment
+%\setglossarystyle{xltabular}
+\setabbreviationstyle[acronym,symbols]{long-short}
+\makeglossaries % use xindy to sort
+%\makenoidxglossaries % use TeX to sort
+\renewcommand*{\glspostdescription}{} % Removes dots at the end of each entry.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	THESIS INFORMATION
+%----------------------------------------------------------------------------------------
+
+\thesistitle{Mechanical rupture of wood in mode I or in mixed mode} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
+\supervisor{Professor\textsc{Xavier, Martins, Moutou Pitti}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
+\degree{Thesis for the obtention of engineering degree - Civil Engineering Department - June 2023} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+%\frdegree{Th\`{e}se pour l'obtention du dipl\^{o}me d'ing\`{e}nieur Genie Civil - Juin 2021}
+\author{Olivier \textsc{Cochet}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+\addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
+
+\subject{Civil Engineering Sciences} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
+\keywords{Wood – Fracture Mechanics  – Mode 1 – DIC – MMCG specimen – Mixed Mode} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\university{\href{https://www.uca.fr}{Université Clermont Auvergne}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
+\department{\href{http://department.university.com}{Department of Mechanical and Industrial Engineering}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+%\frdepartment{\href{http://department.university.com}{Departement d'Ing\`{e}nieurie M\`{e}chanique et Industriel}}
+\faculty{\href{www.fct.unl.pt}{Universidade Nova Lisboa – Caparica Campus 2829-516 Lisbon PORTUGAL}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+
+\AtBeginDocument{
+\hypersetup{pdftitle={PRD}} % Set the PDF's title to your title
+\hypersetup{pdfauthor={Cochet}} % Set the PDF's author to your name
+%\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+}
+
+\begin{document}
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+\begin{center}
+
+\vspace*{.06\textheight}
+{\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
+\textsc{\Large Master Thesis}\\[0.5cm] % Thesis type
+
+\HRule \\[0.4cm] % Horizontal line
+{\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
+\HRule \\[1.5cm] % Horizontal line
+ 
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+%\href{\authorname} % Author name - remove the \href bracket to remove the link
+\end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+%\href{\supname} % Supervisor name - remove the \href bracket to remove the link  
+\end{flushright}
+\end{minipage}\\[3cm]
+ 
+\vfill
+
+\large \textit{A thesis submitted in fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+\textit{in the}\\[0.4cm]
+%\groupname\\\deptname\\[2cm] % Research group name and department name
+ 
+\vfill
+
+{\large \today}\\[4cm] % Date
+%\includegraphics{Logo} % University/department logo - uncomment to place it
+ 
+\vfill
+\end{center}
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	DECLARATION PAGE
+%----------------------------------------------------------------------------------------
+
+%\begin{declaration}
+%\addchaptertocentry{\authorshipname} % Add the declaration to the table of contents
+%\noindent I, \authorname, declare that this thesis titled, \enquote{\ttitle} and the work presented in it are my own.
+%\begin{itemize} 
+%\item This work was done wholly or mainly while in candidature for a Civil Ingineer degree at this University.
+%\\
+%\end{itemize}
+% 
+%\noindent Signed:\\
+%\rule[0.5em]{25em}{0.5pt} % This prints a line for the signature
+% 
+%\noindent Date:\\
+%\rule[0.5em]{25em}{0.5pt} % This prints a line to write the date
+%\end{declaration}
+%
+%\cleardoublepage
+
+%----------------------------------------------------------------------------------------
+%	QUOTATION PAGE
+%----------------------------------------------------------------------------------------
+
+%\vspace*{0.2\textheight}
+%
+%\noindent\enquote{\itshape To fill.}\bigbreak
+%
+%\hfill Author of the quote
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+\selectlanguage{english}
+\begin{abstract}
+\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
+Write here the abstract
+
+\end{abstract}
+
+
+%----------------------------------------------------------------------------------------
+%	Résumé PAGE
+%----------------------------------------------------------------------------------------
+\selectlanguage{french}
+\begin{extraAbstract}
+
+\addchaptertocentry{Résumé} % Add the abstract to the table of contents
+%\addsectionbib{\}
+Write here the abstract
+
+\end{extraAbstract}
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+
+\begin{acknowledgements}
+\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+Write here the acknoledgements
+
+\end{acknowledgements}
+
+%----------------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+\selectlanguage{english}
+\tableofcontents % Prints the main table of contents
+\phantomsection\pdfbookmark[0]{\contentsname}{contents}
+\listoffigures % Prints the list of figures
+\phantomsection\pdfbookmark[0]{List of Figures}{lof}
+\listoftables % Prints the list of figures
+\phantomsection\pdfbookmark[0]{List of Tables}{lot}
+%\listoftables % Prints the list of tables
+%----------------------------------------------------------------------------------------
+%	ABBREVIATIONS
+%----------------------------------------------------------------------------------------
+\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
+\textbf{BC} & \textbf{B}oundary \textbf{C}ondition \\
+
+\textbf{CCD} & Charge-Coupled Device \\
+
+\textbf{CIRAD} & \textbf{C}entre (de coopération) \textbf{I}nternnationale (en) \textbf{R}echerche\\ \textbf{A}gronomique (pour le) \textbf{D}eveloppement\\
+
+\textbf{CTOD} & \textbf{C}rack \textbf{T}ip \textbf{O}pening \textbf{D}isplacement \\
+
+\textbf{CTS} & \textbf{C}ompact \textbf{T}ension \textbf{S}hear specimen \\
+
+\textbf{DCB} & \textbf{D}ouble \textbf{C}antilever \textbf{B}eam \\
+
+\textbf{DIC} & \textbf{D}igital \textbf{I}mage \textbf{C}orrelation \\
+
+\textbf{FPZ} & \textbf{F}racture \textbf{P}rocess \textbf{Z}one\\
+
+\textbf{FEA} & \textbf{F}init \textbf{E}lement \textbf{A}nalysis\\
+
+\textbf{MC} & \textbf{M}oisture \textbf{C}ontent \\
+
+\textbf{MMCG} & \textbf{M}ixed \textbf{M}ode \textbf{C}rack \textbf{G}rowth\\
+
+\textbf{SFP} & \textbf{S}aturation \textbf{F}iber \textbf{P}oint\\
+
+\textbf{WS} & \textbf{W}edge \textbf{S}plitting\\
+
+\textbf{ZOI} & \textbf{Z}one \textbf{O}f \textbf{I}nterest\\
+
+%\textbf{WSF} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or\\
+\end{abbreviations}
+\phantomsection\pdfbookmark[0]{Abbreviations}{Abbreviations}
+%----------------------------------------------------------------------------------------
+%	PHYSICAL CONSTANTS/OTHER DEFINITIONS
+%----------------------------------------------------------------------------------------
+
+%\begin{constants}{lr@{${}={}$}l} % The list of physical constants is a three column table
+%
+%% The \SI{}{} command is provided by the siunitx package, see its documentation for instructions on how to use it
+%
+%Speed of Light & $c_{0}$ & \SI{2.99792458e8}{\meter\per\second} (exact)\\
+%%Constant Name & $Symbol$ & $Constant Value$ with units\\
+%
+%\end{constants}
+
+%----------------------------------------------------------------------------------------
+%	SYMBOLS
+%----------------------------------------------------------------------------------------
+\begin{symbols}{lll} % Include a list of Symbols (a three column table)
+$a$ & crack length & \si{\meter} \\
+$b$ & specimen width & \si{\milli\meter} \\
+$\Delta a$ & crack length expansion & \si{\meter} \\
+$C$ & Compliance & \si{\pascal^{-1}} \\
+$\Delta C$ & Compliance evolution & \si{\pascal^{-1}} \\
+$F_{c}$ & Critical force & \si{\newton} \\
+$G$ & Energy release rate & \si{\joule} \\
+$G_{Ic}$ & G critical value in mode I & \si{\joule} \\
+$H$ & Moisture Content rate & \% \\
+$J$ & Rice Integral & \si{\joule} \\
+$K$ & Stress Intensity Factor \\
+$K_{Ic}$ & K critical value in mode I \\
+$M_{0}$ & anhydrious weight & \si{\gram} \\
+$M_{s}$ & current weight & \si{\gram} \\
+$W$ & specimen width & \si{\milli\meter} \\
+%$P$ & power & \si{\watt} (\si{\joule\per\second}) \\\\
+%$a$ & distance & \si{\meter} \\
+%$P$ & power & \si{\watt} (\si{\joule\per\second}) \\
+
+%$a$ & distance & \si{\meter} \\
+%$P$ & power & \si{\watt} (\si{\joule\per\second}) \\
+%Symbol & Name & Unit \\
+
+\addlinespace % Gap  separate the Roman symbols from the Greek
+
+$\nu$ & Poisson coefficient \\
+$\Gamma$ & curvilinear contour \\
+$u$ & displacement & \si{\mm} \\
+$\varepsilon$ & strain &  \\
+$\sigma$ & stress & \si{\mega\pascal} \\
+%$\omega$ & angular frequency & \si{\radian} \\
+\end{symbols}
+
+\phantomsection\pdfbookmark[0]{Symbols}{Symbols}
+%----------------------------------------------------------------------------------------
+%	DEDICATION
+%----------------------------------------------------------------------------------------
+
+%\dedicatory{For/Dedicated to/To my\ldots} 
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\pagestyle{thesis} % Return the page headers back to the "thesis" style
+
+% Include the chapters of the thesis as separate files from the Chapters folder
+% Uncomment the lines as you write the chapters
+
+\include{Chapters/Introduction}
+\include{Chapters/Chapter1}
+\include{Chapters/Chapter2}
+%\include{Chapters/Chapter2V3}
+%\include{Chapters/Python_Reshape}
+%\include{Chapters/Chapter3V3}
+%\include{Chapters/Conclusion}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\printbibliography[heading=bibintoc]
+
+%----------------------------------------------------------------------------------------
+%------------------------------
+%	THESIS CONTENT - APPENDICES
+%------------------------------
+
+%\begin{appendices} % Cue to tell LaTeX that the following "chapters" are Appendices
+
+% Include the appendices of the thesis as separate files from the Appendices folder
+% Uncomment the lines as you write the Appendices
+
+%\include{Appendices/Appendix1}
+%\include{Appendices/Appendix2}
+%\include{Appendices/AppendixC}
+
+%\end{appendices}
+
+
+\end{document}  
