@@ -1,0 +1,512 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Masters/Doctoral Thesis
+
+% LaTeX Template
+% Version 2.5 (27/8/
+% 17)
+%
+% This template was downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Version 2.x major modifications by:
+% Vel (vel@latextemplates.com)
+%
+% This template is based on a template by:
+% Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
+% Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
+%
+% Template license:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\PassOptionsToPackage{french,english}{babel}
+\documentclass[
+11pt, % The default document font size, options: 10pt, 11pt, 12pt
+oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+%Penser à le réactiver si impression !
+english, % ngerman for German
+singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
+%toctotoc, % Uncomment to add the main table of contents to the table of contents
+parskip, % Uncomment to add space between paragraphs
+%nohyperref, % Uncomment to not load the hyperref package
+headsepline, % Uncomment to get a line under the header
+chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+%consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
+]{MastersDoctoralThesis} % The class file specifying the document structure
+
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+%usepackage[english]{babel}
+%\usepackage{cite}
+%\def\citeleft{[}
+%\def\citeright{]}
+\usepackage{amsmath}
+\usepackage{colortbl} %Colored table cells 
+%\usepackage[table,xcdraw]{xcolor}
+\usepackage{tcolorbox,listings}
+%\usepackage{lscape}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage{tabularx}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{rotating}
+\usepackage{float}
+\restylefloat{table}
+\usepackage[toc,page]{appendix}
+%%% python
+%\usepackage{pythonhighlight}
+\usepackage{listings}
+\lstloadlanguages{Python}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codegray2}{rgb}{0.1,0.1,0.1}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+\lstset{
+	language=python,
+	basicstyle=\ttfamily\footnotesize,
+	commentstyle=\ttfamily\color{gray},
+	numbers=left,
+	numberstyle=\ttfamily\color{gray}\footnotesize,
+	stepnumber=1,
+	numbersep=5pt,
+	backgroundcolor=\color{white},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	frame=true,
+	tabsize=2,
+	captionpos=b,
+	breaklines=true,
+	breakatwhitespace=false,
+	title=\lstname,
+	escapeinside={},
+	keywordstyle={},
+	morekeywords={}
+}
+%%%
+\usepackage{physics}
+\usepackage{mathpazo} % Use the Palatino font by default
+\usepackage{siunitx}
+\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+
+\addbibresource{Bibliography.bib} % The filename of the bibliography
+
+\DeclareUnicodeCharacter{00A0}{ }
+
+\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+\usepackage{hyperref}
+%\usepackage[french]{babel} %how to use [english] ?
+
+%----------------------------------------------------------------------------------------
+%	MARGIN SETTINGS
+%----------------------------------------------------------------------------------------
+
+\geometry{
+	paper=a4paper, % Change to letterpaper for US letter
+	width=150mm,
+	inner=2.cm, % Inner margin
+	outer=2.5cm, % Outer margin
+	bindingoffset=.5cm, % Binding offset
+	top=1.5cm, % Top margin
+	bottom=1.cm, % Bottom margin
+	%showframe, % Uncomment to show how the type block is set on the page
+}
+\setlength{\headsep}{5.mm}
+
+%----------------------------------------------------------------------------------------
+%	Python Code settings
+%----------------------------------------------------------------------------------------
+
+\definecolor{darkWhite}{rgb}{0.94,0.94,0.94}
+
+\lstset{
+	backgroundcolor=\color{darkWhite},
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	commentstyle=\color{red},
+	deletekeywords={...},
+	escapeinside={\%*}{*)},
+	extendedchars=true,
+	keepspaces=true,
+	keywordstyle=\color{blue},
+	language=C,
+	morekeywords={*,...},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	stepnumber=1,
+	stringstyle=\color{gray},
+	tabsize=4,
+	title=\lstname,
+}
+
+\lstdefinestyle{frameStyle}{
+	basicstyle=\footnotesize,
+	numbers=left,
+	numbersep=20pt,
+	numberstyle=\tiny\color{black}
+}
+
+\tcbuselibrary{listings,skins,breakable}
+
+\newtcblisting{customFrame}{
+	arc=0mm,
+	top=0mm,
+	bottom=0mm,
+	left=3mm,
+	right=0mm,
+	width=\textwidth,
+	listing only,
+	listing options={style=frameStyle},
+	breakable
+}
+
+%----------------------------------------------------------------------------------------
+%	Acronyms & Symbols
+%----------------------------------------------------------------------------------------
+
+\usepackage[
+    acronym     =   true,
+    symbols     =   true,
+    toc         =   false,
+    numberline  =   false,
+    nopostdot   =   false,
+    section     =   chapter,
+    nomain      =   true,
+    style       =   super,
+    nonumberlist =  false
+]{glossaries}
+\usepackage[%
+    , nonumberlist
+    %, toc
+    , translate=babel
+    , acronym           % add acronyms listing
+    , symbols           % add symbols listing
+    % , sanitizesort=false% allow \gls inside descriptions
+    , automake
+    %, nolong
+    , nosuper
+    , nolist
+    , notree
+    , nostyles
+  ]{glossaries-extra}%
+\usepackage[symbols]{glossaries-extra}
+\usepackage{glossary-mcols}
+%\usepackage{./Preambulo/glossary-xltabular}
+%\usepackage{environ}        % Used to define custom table environment
+%\setglossarystyle{xltabular}
+\setabbreviationstyle[acronym,symbols]{long-short}
+\makeglossaries % use xindy to sort
+%\makenoidxglossaries % use TeX to sort
+\renewcommand*{\glspostdescription}{} % Removes dots at the end of each entry.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	THESIS INFORMATION
+%----------------------------------------------------------------------------------------
+
+\thesistitle{Wood Fracture Mechanics} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
+\supervisor{Professor\textsc{Xavier, Martins, Moutou Pitti, Pambou}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
+\degree{Thesis for the obtention of engineering degree - Civil Engineering Department - June 2021} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+%\frdegree{Th\`{e}se pour l'obtention du dipl\^{o}me d'ing\`{e}nieur Genie Civil - Juin 2021}
+\author{Stanislas \textsc{Malfait}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+\addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
+
+\subject{Civil Engineering Sciences} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
+\keywords{Wood – Fracture Mechanics  – Mode 1 – DIC – MMCG specimen – Moisture Content – Temperature variations} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\university{\href{https://www.uca.fr}{Université Clermont Auvergne}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
+\department{\href{http://department.university.com}{Department of Mechanical and Industrial Engineering}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+%\frdepartment{\href{http://department.university.com}{Departement d'Ing\`{e}nieurie M\`{e}chanique et Industriel}}
+\faculty{\href{www.fct.unl.pt}{Universidade Nova Lisboa – Caparica Campus 2829-516 Lisbon PORTUGAL}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+
+\AtBeginDocument{
+\hypersetup{pdftitle={PRD}} % Set the PDF's title to your title
+\hypersetup{pdfauthor={Malfait}} % Set the PDF's author to your name
+%\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+}
+
+\begin{document}
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+\begin{center}
+
+\vspace*{.06\textheight}
+{\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
+\textsc{\Large Master Thesis}\\[0.5cm] % Thesis type
+
+\HRule \\[0.4cm] % Horizontal line
+{\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
+\HRule \\[1.5cm] % Horizontal line
+ 
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+%\href{\authorname} % Author name - remove the \href bracket to remove the link
+\end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+%\href{\supname} % Supervisor name - remove the \href bracket to remove the link  
+\end{flushright}
+\end{minipage}\\[3cm]
+ 
+\vfill
+
+\large \textit{A thesis submitted in fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+\textit{in the}\\[0.4cm]
+%\groupname\\\deptname\\[2cm] % Research group name and department name
+ 
+\vfill
+
+{\large \today}\\[4cm] % Date
+%\includegraphics{Logo} % University/department logo - uncomment to place it
+ 
+\vfill
+\end{center}
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	DECLARATION PAGE
+%----------------------------------------------------------------------------------------
+
+%\begin{declaration}
+%\addchaptertocentry{\authorshipname} % Add the declaration to the table of contents
+%\noindent I, \authorname, declare that this thesis titled, \enquote{\ttitle} and the work presented in it are my own.
+%\begin{itemize} 
+%\item This work was done wholly or mainly while in candidature for a Civil Ingineer degree at this University.
+%\\
+%\end{itemize}
+% 
+%\noindent Signed:\\
+%\rule[0.5em]{25em}{0.5pt} % This prints a line for the signature
+% 
+%\noindent Date:\\
+%\rule[0.5em]{25em}{0.5pt} % This prints a line to write the date
+%\end{declaration}
+%
+%\cleardoublepage
+
+%----------------------------------------------------------------------------------------
+%	QUOTATION PAGE
+%----------------------------------------------------------------------------------------
+
+%\vspace*{0.2\textheight}
+%
+%\noindent\enquote{\itshape To fill.}\bigbreak
+%
+%\hfill Author of the quote
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+\selectlanguage{english}
+\begin{abstract}
+\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
+At the dawn of an unprecedented energy transition, many fields of activity are looking to “green materials” and wood is a perfect candidate. The main advantage of this material is its incredible behavior linked to the environment. But that is also its biggest disadvantage. This is why, this work will focus on the wood behavior depending on parameters as temperature, humidity or mechanical loading. The cracking of different wood species according to the variation of these factors, allows to better understand its behavior in order to increase, future uses. Indeed, the purpose of this study would be the exploitation of species that are still not used as much as other, by proving that their behavior is suitable for uses in construction. To carry out this project, the mode I crack loading of tropical woods (Iroko, Padouck and Okoume) is compared to an European species (Pectin fir). The geometry of test specimens studied is one developed in previous works and is called Mixed Mode Crack Growth (MMCG) specimen.
+Modern image-based analysis methods allow a precise study of cracking over time as a function of the force applied to the specimen and depending on different internal humidities. The result of this study is obtained by recording the evolution of the crack tip variation during the test. Images captured and processed by Digital Image Correlation (DIC) technique involve the obtention of the energy release rate “G”. This energy parameter is determined as a result of mode I cracking which depends on the length of the crack and specimen compliance variation as a function of the crack length variation, but also the force applied and the crack opening. The Complacency method will be used to obtain G. These experimental results will be compared thanks to tools such as MatchID. But also, a script in python is developed to carry out the post-processing. Then theoretical results are calculated using the Abaqus software to go further in the comparison.
+
+Finally, each result is compared with previous work on the subject, in order to compare these experimental and theoretical values. Then, the results can be discussed, as a proof to the use of the studied species. Indeed, this comparison allow to use in various domain as construction field this “clean material”.
+
+\end{abstract}
+
+
+%----------------------------------------------------------------------------------------
+%	Résumé PAGE
+%----------------------------------------------------------------------------------------
+\selectlanguage{french}
+\begin{extraAbstract}
+
+\addchaptertocentry{Résumé} % Add the abstract to the table of contents
+%\addsectionbib{\}
+A l’aube d’une transition énergétique sans précédent, de nombreux domaines d’activité se tournent vers des matériaux propres et le bois est le parfait candidat. Le principal avantage de ce matériau est son comportement bénéfique vis-à-vis de l’environnement. Mais c’est aussi son plus gros défaut. C’est pourquoi, à la suite de nombreux travaux, nous continuons à nous intéresser à son comportement face aux variations de température, d’humidité ou de chargement mécanique. La fissuration de différentes espèces de bois en fonction de la variation de ces paramètres, permet de mieux comprendre son comportement pour une utilisation futur accrue. En effet, la finalité de cette étude, serait l’exploitation d’espèces encore peu utilisées, en prouvant que leur comportement est apte à une utilisation en construction. Afin de mener à bien ce projet, la fissuration des bois tropicaux (Iroko, Padouck et Okoumé) est comparée à celle d’une espèce Européenne (Sapin Pectiné). La géométrie des éprouvettes étudiées sont celles développées dans de précédents travaux, elles portent le nom de MMCG (Mixed Mode Crack Growth).
+Des méthodes modernes d’analyses d’images, permettent une étude précise de la fissuration au cours du temps en fonction de la force appliquée à l’éprouvette soumise à des humidités internes différentes. Les résultats de cette étude proviennent de l’enregistrement de l’évolution de la fissure, capturée et traitée par une de ces méthodes numériques appelée DIC (Digital Image Corrélation). Le taux de restitution d’énergie G déterminé à la suite de la fissuration en mode I, dépend de la longueur de la fissure, de la force appliquée et de l’ouverture de la fissure. La méthode de la Complaisance sera utilisée pour obtenir G. Ces résultats expérimentaux, après traitement par des outils tel que MatchID ou MatLab sont comparés à des résultats théoriques, calculés via le logiciel Abaqus.
+Enfin, chaque résultat a été mis en parallèle avec d’anciens travaux menés sur le sujet, afin de comparer ces valeurs expérimentales et théoriques. Ainsi, la cohérence des résultats pouvant être discutée, il est désormais assuré que ces derniers, peuvent être le support pour l’utilisation de ces essences dans le domaine de la construction en environnements variable.
+
+\end{extraAbstract}
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+
+\begin{acknowledgements}
+\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+First, I wanted to express my gratitude to this work supervisors, from France and Portugal. Mr Moutou Pitti and Mr Pambou from Polytech Clermont Ferrand, who helped me understanding part of this vast subject. By giving me access to their own thesis and reading all the parts that I wrote, their comments make me understand problematics and field of interest. Sincere thanks to Mr Xavier and Mr Martins, my Portuguese supervisors. For your incredible help, the autonomy you gave me and the observations you did. Without your patience and explanation, the Python code would not have been finished yet. Moreover, DIC and modelization of parts as the grips one, were an amazing part of the work, and you allow me to be an active member of the process. So many thanks to all of you for making this project possible and trust in it from the beginning to the end. It is a proof that even in a complex sanitary context, interaction and sharing are possible.
+
+Others thanks are directed to the Civil Engineer department of NOVA. By a presentation of the project, you answer positively to my demand. Like all the Portuguese people, I have met during these 5 months, your generosity was watertight.
+
+I also wanted to thank Poytech teachers, in particular those who transmit their passion to wood field. Since last year until the OT Bois modulus, it was a pleasure to learn about this wonderful material. 
+
+My thought are also with the thesis students from the Mechanical and Industrial Engineering Department of NOVA Universidade. You make me feel as a member of the team. Your integration efforts, your cheerfulness and your advises were oxygen, particularly on the end. So many thanks to Edgar, Rui, Viana, Diogo, Mariana, Eric S, the tall Eric, Pedro and others. The tea time conviviality and the football matches will never been forgotten.
+
+Finally, I wanted to thank my parents, this dream became reality thank to you. Your trust was my engine, and your calls, my light. Estelle, you dealt with a non sleeping man during several weeks. Your help and your kindness take an important place in my heart. 
+
+\end{acknowledgements}
+
+%----------------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+\selectlanguage{english}
+\tableofcontents % Prints the main table of contents
+\phantomsection\pdfbookmark[0]{\contentsname}{contents}
+\listoffigures % Prints the list of figures
+\phantomsection\pdfbookmark[0]{List of Figures}{lof}
+\listoftables % Prints the list of figures
+\phantomsection\pdfbookmark[0]{List of Tables}{lot}
+%\listoftables % Prints the list of tables
+%----------------------------------------------------------------------------------------
+%	ABBREVIATIONS
+%----------------------------------------------------------------------------------------
+\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
+\textbf{BC} & \textbf{B}oundary \textbf{C}ondition \\
+
+\textbf{CCD} & Charge-Coupled Device \\
+
+\textbf{CIRAD} & \textbf{C}entre (de coopération) \textbf{I}nternnationale (en) \textbf{R}echerche\\ \textbf{A}gronomique (pour le) \textbf{D}eveloppement\\
+
+\textbf{CTOD} & \textbf{C}rack \textbf{T}ip \textbf{O}pening \textbf{D}isplacement \\
+
+\textbf{CTS} & \textbf{C}ompact \textbf{T}ension \textbf{S}hear specimen \\
+
+\textbf{DCB} & \textbf{D}ouble \textbf{C}antilever \textbf{B}eam \\
+
+\textbf{DIC} & \textbf{D}igital \textbf{I}mage \textbf{C}orrelation \\
+
+\textbf{FPZ} & \textbf{F}racture \textbf{P}rocess \textbf{Z}one\\
+
+\textbf{FEA} & \textbf{F}init \textbf{E}lement \textbf{A}nalysis\\
+
+\textbf{MC} & \textbf{M}oisture \textbf{C}ontent \\
+
+\textbf{MMCG} & \textbf{M}ixed \textbf{M}ode \textbf{C}rack \textbf{G}rowth\\
+
+\textbf{SFP} & \textbf{S}aturation \textbf{F}iber \textbf{P}oint\\
+
+\textbf{WS} & \textbf{W}edge \textbf{S}plitting\\
+
+\textbf{ZOI} & \textbf{Z}one \textbf{O}f \textbf{I}nterest\\
+
+%\textbf{WSF} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or\\
+\end{abbreviations}
+\phantomsection\pdfbookmark[0]{Abbreviations}{Abbreviations}
+%----------------------------------------------------------------------------------------
+%	PHYSICAL CONSTANTS/OTHER DEFINITIONS
+%----------------------------------------------------------------------------------------
+
+%\begin{constants}{lr@{${}={}$}l} % The list of physical constants is a three column table
+%
+%% The \SI{}{} command is provided by the siunitx package, see its documentation for instructions on how to use it
+%
+%Speed of Light & $c_{0}$ & \SI{2.99792458e8}{\meter\per\second} (exact)\\
+%%Constant Name & $Symbol$ & $Constant Value$ with units\\
+%
+%\end{constants}
+
+%----------------------------------------------------------------------------------------
+%	SYMBOLS
+%----------------------------------------------------------------------------------------
+\begin{symbols}{lll} % Include a list of Symbols (a three column table)
+$a$ & crack length & \si{\meter} \\
+$b$ & specimen width & \si{\milli\meter} \\
+$\Delta a$ & crack length expansion & \si{\meter} \\
+$C$ & Compliance & \si{\pascal^{-1}} \\
+$\Delta C$ & Compliance evolution & \si{\pascal^{-1}} \\
+$F_{c}$ & Critical force & \si{\newton} \\
+$G$ & Energy release rate & \si{\joule} \\
+$G_{Ic}$ & G critical value in mode I & \si{\joule} \\
+$H$ & Moisture Content rate & \% \\
+$J$ & Rice Integral & \si{\joule} \\
+$K$ & Stress Intensity Factor \\
+$K_{Ic}$ & K critical value in mode I \\
+$M_{0}$ & anhydrious weight & \si{\gram} \\
+$M_{s}$ & current weight & \si{\gram} \\
+$W$ & specimen width & \si{\milli\meter} \\
+%$P$ & power & \si{\watt} (\si{\joule\per\second}) \\\\
+%$a$ & distance & \si{\meter} \\
+%$P$ & power & \si{\watt} (\si{\joule\per\second}) \\
+
+%$a$ & distance & \si{\meter} \\
+%$P$ & power & \si{\watt} (\si{\joule\per\second}) \\
+%Symbol & Name & Unit \\
+
+\addlinespace % Gap  separate the Roman symbols from the Greek
+
+$\nu$ & Poisson coefficient \\
+$\Gamma$ & curvilinear contour \\
+$u$ & displacement & \si{\mm} \\
+$\varepsilon$ & strain &  \\
+$\sigma$ & stress & \si{\mega\pascal} \\
+%$\omega$ & angular frequency & \si{\radian} \\
+\end{symbols}
+
+\phantomsection\pdfbookmark[0]{Symbols}{Symbols}
+%----------------------------------------------------------------------------------------
+%	DEDICATION
+%----------------------------------------------------------------------------------------
+
+%\dedicatory{For/Dedicated to/To my\ldots} 
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\pagestyle{thesis} % Return the page headers back to the "thesis" style
+
+% Include the chapters of the thesis as separate files from the Chapters folder
+% Uncomment the lines as you write the chapters
+
+\include{Chapters/Introduction}
+\include{Chapters/Chapter1V3}
+%\include{Chapters/ChapterExample}
+\include{Chapters/Chapter2V3}
+%\include{Chapters/Python_Reshape}
+\include{Chapters/Chapter3V3}
+\include{Chapters/Conclusion}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\printbibliography[heading=bibintoc]
+
+%----------------------------------------------------------------------------------------
+%------------------------------
+%	THESIS CONTENT - APPENDICES
+%------------------------------
+
+\begin{appendices} % Cue to tell LaTeX that the following "chapters" are Appendices
+
+% Include the appendices of the thesis as separate files from the Appendices folder
+% Uncomment the lines as you write the Appendices
+
+\include{Appendices/Appendix1}
+%\include{Appendices/Appendix2}
+%\include{Appendices/AppendixC}
+
+\end{appendices}
+
+
+\end{document}  
