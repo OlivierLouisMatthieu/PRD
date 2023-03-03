@@ -5,6 +5,7 @@ PyMMCG/Data
 .idea
 /venv
 
+LatexOlivier/*.ist
 Latex/chapter Old version
 Latex/Chapters/Resume.aux
 Latex/Chapters/Introduction.aux
