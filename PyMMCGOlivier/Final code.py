@@ -70,7 +70,8 @@ load = np.genfromtxt(pathdados, skip_header=3, delimiter=';')
 Test.load = load[1:]*Test.LoadConvFactor
 
 pathdados = os.path.join(cwd, 'DCB_002_displ.dat')
-disp = np.genfromtxt(pathdados, skip_header=3, delimiter=';') #create a string
+disp = np.genfromtxt(pathdados, skip_header=3, delimiter=';') 
+#create a string
 # conversion and shit P-d curve
 Test.disp = disp[1:]*Test.DisplConvFactor + 0.587461272
 
@@ -93,7 +94,8 @@ stages = glob.glob(os.path.join(cwd, 'DCB_002_*.tif.dat'))
 #the glob module is used to retrieve files/pathnames matching a specified pattern
 MatchID.stages = stages.__len__()#number of elements (or length) in an object
 del stages
-print('Number of stages: ', str(MatchID.stages))# str converts the specified value into a string
+print('Number of stages: ', str(MatchID.stages))
+# str converts the specified value into a string
 
 # Read results "....tif_#.csv" into 3D np.array
 
@@ -119,7 +121,8 @@ for i in np.arange(0, MatchID.stages, 1):
     readstr = 'DCB_002_%04d.tif_v.csv' % int(i+1)
     print('reading : ',readstr)
     pathdados = os.path.join(cwd,'v',readstr)
-    aux = np.genfromtxt(pathdados, skip_header=0, delimiter=';') #load the data from the text files
+    aux = np.genfromtxt(pathdados, skip_header=0, delimiter=';') 
+    #load the data from the text files
     UY[:, :, i] = aux[:, :-1]*Test.mm2pixel # unit: mm
 print(f'{toc():.1f} seg')
 
@@ -132,7 +135,8 @@ a0.X = int(np.argwhere(np.abs(MatchID.xCoord - a0.imgH) == 0))
 a0.Y = int(np.argwhere(np.abs(MatchID.yCoord - a0.imgV) == 0))
 
 pathdados = os.path.join(cwd,'DCB_002_0000.tif')
-img0 = cv.imread(pathdados, cv.IMREAD_GRAYSCALE) # cv.imread(pathdados, 0)
+img0 = cv.imread(pathdados, cv.IMREAD_GRAYSCALE) 
+# cv.imread(pathdados, 0)
 # imread loads an image from the specified file
 dpi = plt.rcParams['figure.dpi']
 Height, Width = img0.shape
@@ -199,7 +203,8 @@ CTODII = np.zeros((ud_lim, 3, MatchID.stages))
 for J in np.arange(0, MatchID.stages, 1):
     #goes from 0 to matchid.stages with a step of 1
     # mode II:
-    uXtemp = np.copy(UX[:, :, J])#Return an array copy of the given object
+    uXtemp = np.copy(UX[:, :, J])
+    #Return an array copy of the given object
     CTODII[:, 0, J] = np.flipud(uXtemp[a0.Y - ud_lim: a0.Y, a0.X])
     #Reverse the order of elements along axis 0
     CTODII[:, 1, J] = uXtemp[a0.Y: a0.Y + ud_lim, a0.X]
@@ -272,8 +277,10 @@ for j in np.arange(0,limsup-liminf,1):
     limt_sup = liminf + j
     xfit, yfit = xx[0:limt_sup], yy[0:limt_sup]
     p  = np.polyfit(xfit, yfit, porder)
+    #Least squares polynomial fit with porder as degree
     C_M[j] = 1/p[0]
     dev = yfit - np.mean(yfit) # deviations - measure of spread
+    #mean of table
     SST = np.sum(dev**2) # total variation to be accounted for
     resid = yfit - np.polyval(p, xfit) # residuals - measure of mismatch
     SSE = np.sum(resid**2) # variation NOT accounted for
@@ -337,6 +344,7 @@ while JJ == 1:
     m_zeros = np.zeros((1, n+1))
     # variables with displacements of the 4 corners of facets
     displ_A = np.vstack((np.hstack((displ,n_zeros)), m_zeros))/4
+    # vstack stacks arrays in sequence vertically and hstack horizontally
     # divided by 4 because sum: displ_A+displ_B+displ_C+displ_D
     displ_B = np.vstack((np.hstack((n_zeros,displ)), m_zeros))/4
     displ_C = np.vstack((m_zeros, (np.hstack((displ, n_zeros)))))/4
@@ -482,6 +490,7 @@ plt.show()
 xplot = np.arange(X_i, X_f+1, 1)
 yplot = np.arange(Y_i, Y_f, 1)
 Xplt, Yplt = np.meshgrid(xplot, yplot)
+#Return coordinate matrices from coordinate vectors.
 fig = plt.figure()
 ax = plt.axes(projection="3d")
 Zplt = fract_K[:, :, j]
