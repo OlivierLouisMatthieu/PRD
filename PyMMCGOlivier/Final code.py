@@ -386,7 +386,7 @@ alpha_stages = J
 alphamin = 1
 alphamax = int(maxK/avgK)
 alphaint = np.arange(start=alphamin,stop=alphamax+10,step=.5)
-#
+#gives indices from start to stop with a step
 # estimation of crack tip length
 tipstep = np.zeros((alphaint.shape[0],1)) # unit: substep
 tipmm = np.zeros((alphaint.shape[0],1)) # unit: mm

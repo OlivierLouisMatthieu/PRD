@@ -1,333 +1,78 @@
-\chapter{Elements of fracture mechanics and DIC method}
+\chapter{Pre and post processing work preparation}
 \label{Chapter2}
 
 \section{Introduction}
 
-Fracture mechanics aim is to characterise the cracking behaviour of diverse and complex structures using parameters that can be quantified in an engineering sense, including the stress field, crack size and cracking resistance of the material. The first theoretical developments in the analysis of displacement, strain and stress fields in the vicinity of a crack were undertaken around 1940. Since then, the development of fracture mechanics has extended to materially and geometrically nonlinear problems, mixed mode crack bifurcation problems and more recently to composites, numerical solution techniques and the state of the art in the design of various complex structures. The objective of applied fracture mechanics is to characterize the cracking behavior of structures using quantifiable parameters in the engineering sense, including stress, crack size, and material resistance to cracking.
+To complete
 
-In this chapter, a look is taken at fracture mechanics with applications to wood material. Essential notions will be reminded in order to understand the mechanics of linear fracture. First, we will look at different types of specimens used for similar studies, and then at the mechanical orthotropic fields. The second part of the chapter is devoted to the explanation of the DIC method, in particular its operation and its use.
+\section{Tools used during the test}
 
-\section{Test pieces used in fracture mechanics}
+\subsection{MMCG test piece}
 
-There are three ways of applying a force to allow a crack to propagate as shown figure \ref{fig:fig14}. Mode I is a tensile stress normal to the crack plane, mode II is a shear stress acting parallel to the crack plane and perpendicular to the crack front. Mode III is a shear stress acting parallel to the crack plane and parallel to the crack front. In general, a crack propagates in a material under a combination of stresses in all three modes. These modes can be presenting by the energy release rate (G) linked to crack length. It is called R-curve and has three characterized propagation crack zones. A first increasing phase of instability to initiate the cracking process. A second phase, which corresponds to a stabilised propagation range during which only viscoelastic effects (creep) will participate in the advance of the crack front and a last phase which symbolises the ruin of the material.
-
-\graphicspath{{Images/}}
-\begin{figure}[htp]
-	\centering
-	\includegraphics[width=10cm]{fig14}
-	\caption{Illustration of the three modes of rupture}
-	\label{fig:fig14}
-\end{figure}
-
-Moreover, the cracking failure mechanism can occur in two types of cracking: 
-
-\begin{itemize}
-	\item Abrupt cracking: for solids, or for very high strength materials, the working stresses are very high, and considerable potential energy is thus created; the presence of small cracks can then lead to abrupt failure which is often not accompanied by macroscopic plastic deformations due to the very low ductility. 
-	\item Successive cracking: this is a succession of mechanisms (brittle - ductile) which, under repeated stresses, leads to successive cracking or fatigue failure. The factors that influence the cracking behaviour of materials are of two kinds: metallurgical and mechanical. The mechanical factors relate to the state of displacements, strains and stresses, as well as environmental conditions such as temperature or relative humidity. It is easier to observe because it takes more time to involve samples destruction than a unique and sudden crack. With a material like wood, successive cracks rupture are expected.
-\end{itemize}
-
-In order to realize these different modes of rupture, we need specimens that meet certain criteria such as geometry. Indeed, some specimens were designed to solve problems for mode I while others for mode II or mixed mode. There are therefore several types of test specimens:
-
-\smallskip
-
-\textbf{DCB test piece}
-
-The double cantilever beam (DCB) specimen was developed for testing in the crack opening mode (Mode I). Its design allows to obtain a stress intensity factor that decreases when the crack propagates. However, it also allows the determination of the toughness and the critical energy restitution rate in mode I and mode II. Indeed, in the document of [YOS 2008] Mode I and Mode II fracture toughness were measured of compressed spruce by a double cantilever beam (DCB) test and a three-point bend end notched flexure (3ENF) test figure \ref{fig:fig15}.
+The MMCG test piece was developed by Moutou Piti [MOU 2008]. However, the specimens tested at the University of Lisbon are not of the same dimensions. After carefully measuring the specimens, it turns out that they have the same dimensions as the specimens studied by Odounga. Below are the dimensions of the specimens that will be tested figure \ref{fig:fig23}:
 
 \graphicspath{{Images/}}
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=5cm]{fig15}
-	\caption{Schematic representation of 3ENF test with DCB test piece. [DAV 2005]}
-	\label{fig:fig15}
+	\includegraphics[width=8cm]{fig23}
+	\caption{Dimensions of the tested MMCG specimen}
+	\label{fig:fig23}
 \end{figure}
 
-\smallskip
+\subsection{Arcan model and final grips}
 
-\textbf{Double Cantilever Beam specimen with variable inertia}
-
-The classical DCB specimen had an instability from the beginning of the crack initiation. This is why Dubois [DUB 2002] proposed a variable inertia DCB specimen with crack stability. The DCB specimen with variable inertia figure \ref{fig:fig16} was designed to ensure stabilised propagation in Mode I. Thus, after the crack initiation zone, a decrease in the rate of elastic energy restitution G is observed over a given propagation range. During this phase, only viscoelastic effects will participate in the progression of the crack front when the specimen is loaded in creep. The viscoelastic characteristics will thus be clearly decoupled from the cracking parameters. 
+To perform the tests, a steel Arcan system must be designed. It is made of high tensile steel (HLE). Indeed, this part allows to connect the 2MCG wood specimen to the press. In order to create this grip we must first take into account the dimensions of the 2MCG specimen available in Nova school described in figure \ref{fig:fig24}. The shape of the Arcan system must also allow a good visibility on the propagation of the crack. Figure 21 shows the Arcan device that we will use, which was inspired from the thesis of [ODO 2018].
 
 \graphicspath{{Images/}}
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=5cm]{fig16}
-	\caption{DCB specimen with variable inertia [DUB 2002]}
-	\label{fig:fig16}
+	\includegraphics[width=10cm]{fig24}
+	\caption{Size of the Arcan fastening system[ODO 2018]}
+	\label{fig:fig24}
 \end{figure}
 
-\smallskip
-
-\textbf{Compact Tension Shear specimen}
-
-The Compact Tension Shear (CTS) specimen figure \ref{fig:fig17} is designed to evaluate all mixed modes in different materials. It was developed for mixed loads in isotropic materials. Two steel arms are pierced with holes where symmetrical forces P oriented by angles $\beta$ of mixtures are applied. On both specimens, the crack remains oriented in the direction of high orthotropy.
+The fixing holes for the wooden specimens have a diameter $\Phi= 5 mm$, and the loading holes have a diameter $\Phi = 7 mm$. These fixing holes were drilled in order to be able to load the specimen with different angular values of the angle in relation to the vertical direction in order to activate different failure modes depending on the load angle. To connect the Arcan system to the press, a piece had to be created, as shown in figure \ref{fig:fig25}.
 
 \graphicspath{{Images/}}
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=5cm]{fig17}
-	\caption{Compact Tension Shear (CTS) specimen}
-	\label{fig:fig17}
+	\includegraphics[width=6cm]{fig25}
+	\caption{Bolt for connecting the press and the Arcan System}
+	\label{fig:fig25}
 \end{figure}
 
-
-\textbf{Mixed Mode Crack Growth specimen}
-
-The design of the Mixed Mode Crack Growth (MMCG) specimen figure \ref{fig:fig18} was based on a combination of the two geometric solutions described above. The original DCB specimen was modified by adding a lower heel to secure the mixed mode loading device. The upper heel was slightly inclined to ensure stiffness in the vicinity of the two connection fillets. The body of the specimen has increasing inertia towards the crack tip to ensure a stable rate of energy restitution. Four symmetrically arranged PVC arms are attached to the wooden specimen. Boreholes are provided to allow for loads with a variable $\beta$-mixing rate identical to that of the CTS specimen. This test piece allows for a given propagation range, in mode 1, mode 2 and in mixed mode, a stability or even a considerable decrease of the energy restitution rate[MOU 2008].
+This part has a hole of the same size as the holes of the Arcan system in order to connect them. Moreover the head of the connector is 27mm in diameter and the thread has a 2mm pitch to connect to the press. Before sending the technical drawings to a company, a 3D printer was used to verify that the system worked properly. It was then necessary to draw the assembly on solidworks in order to print the assembly and send the technical drawings. Figure \ref{fig:fig26} shows the assembled device in Solidworks.
 
 \graphicspath{{Images/}}
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=10cm]{fig18}
-	\caption{2MCG test piece [MOU 2008]}
-	\label{fig:fig18}
+	\includegraphics[width=5cm]{fig26}
+	\caption{Assembled device in Solidworks}
+	\label{fig:fig26}
 \end{figure}
 
-\section{Stress and strain fields}
+It has been shown in previous work such as [ODO 2018] that one of the main problems with the MMCG specimen is the small distance between the holes and specimen extremities. This implies several cracks in the heel between the hole and the extremity of the sample which prevents observation and analysis of the fracture. One solution proposed by Odounga is the use of washers which could be glued or to strength screw the nut. Indeed, by applying compressive stress on each side of the sample, it reduces the stress applied on the holes and distributes the load in a wider area.
 
-It is important to notice that different zones are studied. In fracture mechanics, three successive zones visible figure \ref{fig:fig19} can be distinguished schematically in a cracked medium [MOU 2020]:
+\subsection{Hydraulic press used}
 
-\begin{itemize}
-	\item The development zone or zone 1: the zone closest to the crack tip. In this part the material is very damaged, which makes its mechanical evaluation rather complex. The size of this zone determines the type of cracking that will occur. Indeed, if the size of the zone is large, ductile cracking will be observed. On the other hand, if it is small, brittle cracking will be observed.
-	\item The singular zone or zone 2: this covers the entire development zone. In this zone, the displacement, strain and stress fields are continuous and have a formulation that is independent of the distant geometry of the structure. The material has a linear viscoelastic behaviour. Its boundary with zone 1 is assumed to be continuous in stress and displacement.
-	\item The far zone or zone 3: this is the zone furthest from the crack. It connects the singular zone with the loading and displacement boundary conditions.
-\end{itemize}
+To determine experimental parameters like the load speed or the frequency of the camera recording, it was important to read previous works on the subject and determine which engines will be used to proceed the experiments. The press used for the tests is a Landmark Servohydraulic Test Systems model 661.21B-03  from MTS. It is capable of exerting a maximal applied load of 10 metric to N (figure \ref{fig:fig27}).
+In the work of Ostapska and Malo [KAT 2021] the load speed recommended was about $0.1\ mm\ {min}^{-1}$ and the record was made at a frequency of 5 Hz, so 5 images per seconds. In the work of Mambili the record was made at a frequency of 10 Hz and the load speed was about 0.3 mm/s with a pre-load of 100N. It should be remembered that this press is also chosen because of its ability to load the specimens with a constant time displacement. Indeed, it was explained that this work will use the complacency method to compare the results.
+
+As explained Stanislas Malfait [MAL 2021]  this MTS Hydraulic Press works with a cooler fluid. Indeed, a tank full of fluid mixed to water and a cooler system send this fluid mix to the press as visible on 23. Then, a hydraulic supply from MTS sends this liquid to the press itself. It is the model 506.02 serie 22 coupled with the Vickers DG4V-3-2A. Then the pressure is created thanks to the Hydraulic Service Manifold part from MTS company, model 234.11. Finally, a servo valve MOOG A076-263c increase the pressure to allow the hydraulic press operation. It is a high performance valve which drives a dry torque motor. Then a MTS load cell (661-21B-03) allows to follow the displacement of the hydraulic press.
 
 \graphicspath{{Images/}}
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=10cm]{fig19}
-	\caption{Cracking zone [MOU 2020]}
-	\label{fig:fig19}
+	\includegraphics[width=10cm]{fig27}
+	\caption{Hydraulic Press components allowing it use[MAL 2021]}
+	\label{fig:fig27}
 \end{figure}
 
-For a linear elastic material, the stress field at a point M in the vicinity of the crack can be expressed simply as a function of the stress intensity factor $K_{I,II,III}$ and the polar coordinates ( r, $\theta$). The dimensionless functions $f_{ij}$  and  $g_{ij}$ depend on the mode of loading. The intensity factor is independent of the point M. Moreover, in the vicinity of the crack tip the value of r is very small, and tends to 0. Thus the stress field is expressed :
-
-\begin{equation}
-	\sigma_{i,j} = \frac{K_{\beta}}{\sqrt{2*\pi*r}}*f_{i,j}(\theta)
-	\label{eq:1}
-\end{equation}
-
-The coefficient $K_\beta$ in the equation \ref{1} is the stress intensity factor (mode I and mode II) and is independent of the point M, Figure \ref{fig:fig20}.
-
-\graphicspath{{Images/}}
-\begin{figure}[htp]
-	\centering
-	\includegraphics[width=10cm]{fig20}
-	\caption{Crack tip scoring}
-	\label{fig:fig20}
-\end{figure}
-
-We have seen that there are three ways of applying a force, to a specimen, to allow a crack to propagate. These modes define the expression of the mechanical field in zone 2 for orthotropic material. They are defined and expressed as follows and are illustrated in Figure \ref{fig:fig14}[ODO 2018]:
-
-\textbf{Mechanical fields in the singular zone for mode 1}
-
-\begin{equation}
-	\sigma_{1,1} = \frac{K_{1}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}  \left( 1-\sin{\frac{\theta}{2}} \sin{\frac{3 \theta}{2}} \right)
-\end{equation}
-
-\begin{equation}
-	\sigma_{2,2} = \frac{K_{1}}{\sqrt{2 \pi*r}} \cos{\frac{\theta}{2}}  \left( 1+\sin{\frac{\theta}{2}} \sin{\frac{3 \theta}{2}} \right)
-\end{equation}
-
-\begin{equation}
-	\sigma_{1,2} = \frac{K_{1}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}  \sin{\frac{\theta}{2}} \cos{\frac{3 \theta}{2}}
-\end{equation}
-
-The displacement field for the mode 1 loading is written as follows:
-
-\begin{equation}
-	u_{1} = \frac{K_{1}}{4 \pi}*\sqrt{\frac{r}{2 \pi}} \left((2 \chi-1) \sin{\frac{\theta}{2}}-\sin{\frac{3 \theta}{2}}\right)
-\end{equation}
-
-\begin{equation}
-	u_{2} = \frac{K_{1}}{4 \pi} \sqrt{\frac{r}{2*\pi}} \left((2 \chi+1) \sin{\frac{\theta}{2}}-\sin{\frac{3 \theta}{2}}\right)
-\end{equation}
-
-With : 
-
-$K_1$  the mode 1 stress intensity factor
-
-$\mu=\frac{E}{2 (1+\nu)}$ , the shear coefficient of Lame
-
-$\nu=\frac{\lambda}{2 (\lambda+\mu)}$ , the shear coefficient of Poisson
-
-$E=\frac{\mu (3 \lambda+2 \mu)}{\lambda+\mu}$, the Young modulus
-
-$\lambda=\frac{\nu E}{(1-2 \nu)(1+\nu)}$ , the Lame’s Coefficients
-
-The term $\chi$ is a constant defined as follows:\ $\chi=3-4\nu$ for plane deformations and \ $\chi=\frac{3-\nu}{1-\nu}$  for plane stresses.
-
-r and $\theta$ polar coordinates of point M centred on the crack tip, Figure 11
-
-\smallskip
-
-\textbf{Mechanical fields in the singular zone for mode 2}
-
-\begin{equation}
-	\sigma_{1,1} = \frac{-K_{2}}{\sqrt{2 \pi r}} \sin{\frac{\theta}{2}}  \left( 2+\cos{\frac{\theta}{2}} \cos{\frac{3 \theta}{2}} \right)
-\end{equation}
-
-\begin{equation}
-	\sigma_{2,2} = \frac{K_{2}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}  \sin{\frac{\theta}{2}} \cos{\frac{3 \theta}{2}}
-\end{equation}
-
-\begin{equation}
-	\sigma_{1,2} = \frac{K_{2}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}  \left( 1-\sin{\frac{\theta}{2}} \sin{\frac{3 \theta}{2}} \right)
-\end{equation}
-
-The displacement field for the mode 2 loading is written as follows:
-
-\begin{equation}
-	u_{1} = \frac{-K_{2}}{4 \pi} \sqrt{\frac{r}{2 \pi}} \left((2 \chi+3) \sin{\frac{\theta}{2}}+\sin{\frac{3 \theta}{2}}\right)
-\end{equation}
-
-\begin{equation}
-	u_{2} = \frac{K_{2}}{4 \pi} \sqrt{\frac{r}{2 \pi}} \left((2 \chi+3) \cos{\frac{\theta}{2}}+\cos{\frac{3 \theta}{2}}\right)
-\end{equation}
-
-With : $K_2$  the mode 2 stress intensity factor
-
-\smallskip
-
-\textbf{Mechanical fields in the singular zone for mode 3}
-
-\begin{equation}
-	\sigma_{1,3} = \frac{-K_{3}}{\sqrt{2 \pi r}} \sin{\frac{\theta}{2}}
-\end{equation}
-
-\begin{equation}
-	\sigma_{2,3} = \frac{K_{3}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}
-\end{equation}
-
-The displacement field for the mode 3 loading is written as follows:
-
-\begin{equation}
-	u_{3} = \frac{-2 K_{3}}{\mu} \sqrt{\frac{r}{2 \pi}} \sin{\frac{\theta}{2}}
-\end{equation}
-
-With : $K_3$  the mode 3 stress intensity factor
-
-\section{Method of the complacency}
-
-In this part we give and define the different terms of the imposed displacement complacency formula. This formula will be used in the next chapters to calculate the energy restitution rate. It is defined by the ratio of two parameters: the variation of energy per unit area cracked and the crack propagation in a linear elastic material. The crack propagation will occur when the energy G reaches a critical value noted Gc. This value Gc is a measure of the toughness of the material. Let us now define the mathematical expression of G. First, let us consider a material with a crack of length a and thickness b. A crack propagation $\Delta$a will be accompanied by the following energy variations:
-
-\begin{equation}
-	\Delta W_{ext}=\Delta W_{elast}+\Delta U
-\end{equation}
-
-With:
-
-$\Delta W_{ext}$ the applied energy change (due to external forces).
-
-$\Delta W_{elast}$ the change in dissipated energy ;
-
-$\Delta$U the energy expended during crack propagation over the length $\Delta$a.
-
-The energy G reported to the unit area will be :
-
-\begin{equation}
-	G = \lim_{\Delta \to 0}= \frac{\Delta U}{\Delta A}= \frac{\partial U}{\partial A}
-\end{equation}
-
-Where $\Delta A=b\Delta a$  is the cracked area during crack propagation. b is usually equal to 1 because a unit thickness is often considered. Therefore, the energy per unit thickness will be of the form :
-
-\begin{equation}
-	G = \lim_{\Delta \to 0}= \frac{\Delta U}{\Delta a}= \frac{\partial U}{\partial a}
-\end{equation}
-
-In order to understand the meaning of the energy restitution rate, we will consider, from an initial configuration, the propagation (in a specimen of unit thickness) in the following two classical cases (Figure 18):
-
-\begin{itemize}
-	\item propagation with imposed displacement d ; 
-	\item propagation with imposed force F.
-\end{itemize}
-
-\begin{figure}[htp]
-	\centering
-	\includegraphics[width=10cm]{fig21}
-	\caption{Stable propagation with imposed force or imposed displacement [ZEG 2003].}
-	\label{fig:fig21}
-\end{figure}
-
-In our work we will limit ourselves to the case of propagation with imposed displacement. In this case if $\Delta x=0$ (with $\Delta x$ variation of the crack), the external energy variation will be zero, we then deduce the elastic energy :
-
-$W_{elast}=\frac{Fx}{2}$
-
-By introducing the complacency by the relation :
-
-$C=\frac{x}{F}$
-
-We deduce :
-
-$W_{elast}=\frac{CF^2}{2}=\frac{x^2}{2C}$
-
-$\Delta W_{elast}=\frac{\partial W_{elast}}{\partial a}\Delta a=\frac{\partial W_{elast}}{\partial a}\ \frac{\partial C}{\partial a}\Delta a=\frac{-x^2}{2C^2}\ \frac{\partial C}{\partial a}\Delta a$
-
-And because we have:
-
-$\Delta W_{ext}=0=\Delta W_{elast}+\Delta U\leftrightarrow \Delta U =-\Delta W_{elast}$
-
-Then we have:
-
-$\Delta U=\frac{x^2}{2C^2}\ \frac{\partial C}{\partial a}\Delta a$
-
-Which enables to obtain:
-
-\begin{equation}
-	G=\frac{x^2}{2C^2}\ \frac{\partial C}{\partial a}=\frac{F^2}{2}\ \frac{\partial C}{\partial a}
-	\label{2}
-\end{equation}
-
-The relationship in equation \ref{2} is related to the unit thickness. In the case where $b\neq1$
-we obtain:
-
-\begin{equation}
-	G_c=\frac{{F_{ci}}^2}{2b}\ \frac{\partial C}{\partial a}
-\end{equation}
-
-With:
-
-$G_c$ the value of energy release rate (in $J/m^2$)
-
-$F_{ci}$ the critical force which involves the crack (in N)
-
-b the thickness of the specimen (in mm)
-
-$F_{ci}$ the complacency evolution (in ${Pa}^{-1}$)
-
-$F_{ci}$ the crack length evolution (in mm)
-
-
-
-\section{Software and DIC method}
-
-\subsection{Dic method}
-
-Digital image correlation (DIC) was developed in 1983. It is a 2D or 3D optical method that measures displacements between two images. It is increasingly used in materials science to determine strain fields, detect cracks or to provide displacement fields for material property identification procedures. It is a non-contact optical method of measuring kinematic fields, based on the comparison of the signal amplitude. It relies on the grey levels of the images. The particles are optically tracked using computer algorithms to determine displacements and velocities. Rather than tracking moving particles in a fluid, DIC tracks changes in the relative position of the high contrast surface finish. It works by comparing two images, one reference and one deformed, taken during loading. Thus it must detect a pattern in the reference image and compare it to the pattern in the other images [MAM 2018]. The DIC formulation relies on the conservation of grey levels between the two instants at which the reference images S0 and the current images St are recorded. In other words, this principle is based on the comparison between a reference image and a distorted image. Each image is composed of pixels, and each pixel as a function of the light flux returns information. For 8-bit images, for example, a pixel can have a value between 0 for black and 255 for white. Each image is therefore stored in the form of a two-dimensional matrix whose cells correspond to a value. These matrices are the image correlation data. DIC compares these matrices and deduces the surface displacement field. To do this, during the analysis, the algorithm in place searches for a correlation zone, predefined in the reference image, in that of the image in the deformed state figure \ref{fig:fig22}.
-
-\graphicspath{{Images/}}
-\begin{figure}[htp]
-	\centering
-	\includegraphics[width=10cm]{fig22}
-	\caption{Example of captured images obtained by a camera for image analysis.}
-	\label{fig:fig22}
-\end{figure}
-
-The system consists of a digital camera and specialised computer software like MatchID. The camera is used to capture consecutive images of the surface of the sample under test before and during the deformation test. The digital images thus determined, which correspond to a series of photographs, are analysed by the DIC software. Displacement maps of the sample on the surface are created. The stress fields can be evaluated from the strain fields. The formula used to obtain the displacement field is shown below equation \ref{3}:
-
-\begin{equation}
-	u^k=\left[{u_z^k\atop u_y^k}\right]=\sum_{i=1}^{N}\left\{\left[{{\ \ f}_i\left(k,\Phi_k\right)\ \ {\ \ g}_i\left(k,\Phi_k\right)\atop{\ \ l}_i\left(k,\Phi_k\right)\ \ {\ \ m}_i\left(k,\Phi_k\right)}\right]\times\left[{A_1^i\atop A_2^i}\right] \times r_k^{i/2}\right\}+\left[{T_x\atop T_y}\right]+R\times\left[{y_k\atop x_k}\right] 
-	\label{3}
-\end{equation}
-
-With the polar functions $f_i$, $g_i$, $l_i$, $m_i$, k depends on the material because of the Poisson's ratio term which determines k. The T terms are correction factors for rigid body movements.
-
-If this method is used on wood, it is important to note that the 2D orthotropic elastic material model has five engineering constants as input parameters, to be entered into the image analysis system. Although it depends on the software used, it is important to know these inputs. Firstly, the Young's modulus in the longitudinal direction must be entered, $E_L=E_1$, the transverse Young's modulus $E_{trans}=E_R=E_T=E_2$. Then the shear modulus $G_{LR}=G_{LT}=G_{12}$, if the shear mode is studied. Therefore, the Poisson's ratio $\nu$ has to be introduced in the software. This coefficient can change depending on the surface under study, in or out of the plane. The initial crack length is introduced into the model. The description of the damage is presented by three main inputs, although it may change depending on the software. If we are in mode I damage, it is described by the damage initiation stress $\sigma_{ini}$, but also by the failure stress $\delta_{fl}$, and the shape coefficient of the exponential function $\alpha_l$.
+\section{Research and understanding of the parameters of the DIC method}
 
 \subsection{Characteristic of the Wood used}
 
-In this section, the values of the mechanical characteristics (moduli of elasticity, compliances and shear coefficients) are given. As no characterization tests were carried out in this study, the data from the literature are used here, following the document created by Guitard[GUI 1987]. These values which are the shearing $G_{ij}$ and longitudinal modulus $E_i$ , the Poisson’s coefficient $\nu_{ij}$ and $\rho$ change for each species. Moreover, these values can evolve due to temperature and relative humidity. By knowing the temperature, the relative humidity and the volume weight of a specimen, it is possible to obtain the characteristics wanted. Table \ref{fig:fig28} and \ref{fig:fig29} give us the characteristics for the Pinus Sp Pine at 9.7$\%$ humidity:
+In this section, the values of the mechanical characteristics (moduli of elasticity, compliances and shear coefficients) are given. As no characterization tests were carried out in this study, the data from the literature are used here, following the document created by Guitard\cite{Reference20}. These values which are the shearing $G_{ij}$ and longitudinal modulus $E_i$ , the Poisson’s coefficient $\nu_{ij}$ and $\rho$ change for each species. Moreover, these values can evolve due to temperature and relative humidity. By knowing the temperature, the relative humidity and the volume weight of a specimen, it is possible to obtain the characteristics wanted. Table \ref{fig:fig28} and \ref{fig:fig29} give us the characteristics for the Pinus Sp Pine at 9.7$\%$ humidity:
 
 \graphicspath{{Images/}}
 \begin{table}[htp]
@@ -365,7 +110,9 @@ With the MatchID software several steps are necessary:
 \end{itemize}
 
 Despite the progress and increasing use of DIC, the technique is still not standardized. It is emphasized that extrinsic and intrinsic DIC setup parameters, such as subset size, subset step, strain gauge window, shape functions, or correlation criterion, can have a considerable influence on the calculated strain fields, producing spatial resolution and resolution values that can differ by at least an order of magnitude. This paragraph will try to explain some of them. 
-The correlation criterion defines the matching criterion that will be adopted in order to determine the optimum corresponding point. [MAL 2021]  used the criterion ZNSSD. It is a least-square-based correlation criterion which is less sensitive to both image contrast reduction and light intensity shifting between images. There are 5 subset shape function which allow or not the subset certain constraints as the fact of translating, deforming, to shear etc.. Depending on the local deformation or strain gradients of the problem under analysis, affine, irregular and quadratic shape functions can be selected by the user in the DIC method [PER 2018]. The subset size is the length of the subset in the reference image and it must contain at least 3 speckles. As an indication, larger subsets improve resolution but decrease spatial resolution. This means that in a conventional mechanical tensile test with a uniform, uniaxial stress state in the central region of the specimen, large subsets can be selected to improve the accuracy of the measurements. The step size is the spacing of pixel grid points at which the subset displacements are calculated. It controls the density of points at which DIC data is computed and, to some extent, influences the spatial resolution of the measurements. Typically, a step size of one-third to one-half of the subset size is recommended, so that neighboring subsets partially overlap, though this value can vary widely depending on specific applications. Additionally, a small step size may be required to capture the peak position of a Quantity Of Interest (QOI) (without interpolation) if it varies quickly across the ZOI and if the QOI varies slowly across the ZOI, then a large step size can be used. The strain window is the local region of the ZOI of the image, containing a finite number of data points, that is used to calculate strain. Parameters such as the subset step and the strain window will define a strain spatial resolution and virtual strain gauge (VSG). VSG is the local region of the image that affects the strain value at a specific location. The three dominant variables that affect the VSG size are the subset size, step size, and strain window. If the maximum strain amplitude converges with further decreases of the VSG, then the actual maximum strain amplitude has been captured. Any VSG that is larger than the largest VSG that results in the converged actual maximum strain amplitude will underestimate the actual strain amplitude, and introduce bias into the measured strain results. If the smallest VSG allowed by the software is not sufficient, the test could be repeated with a smaller FOV. The final decision as to which size VSG to use is a matter of judgment. If capturing the highest strain gradient is essential for DIC analysis, a small VSG may be the best choice, even if noise is important. Conversely, if there are no high strain gradients it may be preferable to choose a larger VSG to reduce uncertainties. In order to determine the correct settings MatchID has a tool called Performance Analysis. With this tool, it’s possible to define a range of options to be applied in a design of experiments study. It is thus possible to vary parameters such as subset size, step size, strain window and so on. After running the performance analysis, select the parameters which work best(video 20). For the case of a uniaxial tensile test on a pre-cracked specimen by default the indicated zone of interest contains one initial subset but the ZOI is not well defined. In order to define well the ZOI it must be added an extra seed point in the ZOI but above the initial crack. After this, start the DIC analysis and exploit the results. To exploit the results in MatchID, it is possible to import data. In this case, import the data on the force applied throughout the test in order to plot the force as a function of the displacements for example (video 11).
+
+The correlation criterion defines the matching criterion that will be adopted in order to determine the optimum corresponding point. \cite{Reference10}  used the criterion ZNSSD. It is a least-square-based correlation criterion which is less sensitive to both image contrast reduction and light intensity shifting between images. 
+There are 5 subset shape function which allow or not the subset certain constraints as the fact of translating, deforming, to shear etc.. Depending on the local deformation or strain gradients of the problem under analysis, affine, irregular and quadratic shape functions can be selected by the user in the DIC method \cite{Reference21}. The subset size is the length of the subset in the reference image and it must contain at least 3 speckles. As an indication, larger subsets improve resolution but decrease spatial resolution. This means that in a conventional mechanical tensile test with a uniform, uniaxial stress state in the central region of the specimen, large subsets can be selected to improve the accuracy of the measurements. The step size is the spacing of pixel grid points at which the subset displacements are calculated. It controls the density of points at which DIC data is computed and, to some extent, influences the spatial resolution of the measurements. Typically, a step size of one-third to one-half of the subset size is recommended, so that neighboring subsets partially overlap, though this value can vary widely depending on specific applications. Additionally, a small step size may be required to capture the peak position of a Quantity Of Interest (QOI) (without interpolation) if it varies quickly across the ZOI and if the QOI varies slowly across the ZOI, then a large step size can be used. The strain window is the local region of the ZOI of the image, containing a finite number of data points, that is used to calculate strain. Parameters such as the subset step and the strain window will define a strain spatial resolution and virtual strain gauge (VSG). VSG is the local region of the image that affects the strain value at a specific location. The three dominant variables that affect the VSG size are the subset size, step size, and strain window. If the maximum strain amplitude converges with further decreases of the VSG, then the actual maximum strain amplitude has been captured. Any VSG that is larger than the largest VSG that results in the converged actual maximum strain amplitude will underestimate the actual strain amplitude, and introduce bias into the measured strain results. If the smallest VSG allowed by the software is not sufficient, the test could be repeated with a smaller FOV. The final decision as to which size VSG to use is a matter of judgment. If capturing the highest strain gradient is essential for DIC analysis, a small VSG may be the best choice, even if noise is important. Conversely, if there are no high strain gradients it may be preferable to choose a larger VSG to reduce uncertainties. In order to determine the correct settings MatchID has a tool called Performance Analysis. With this tool, it’s possible to define a range of options to be applied in a design of experiments study. It is thus possible to vary parameters such as subset size, step size, strain window and so on. After running the performance analysis, select the parameters which work best(video 20). For the case of a uniaxial tensile test on a pre-cracked specimen by default the indicated zone of interest contains one initial subset but the ZOI is not well defined. In order to define well the ZOI it must be added an extra seed point in the ZOI but above the initial crack. After this, start the DIC analysis and exploit the results. To exploit the results in MatchID, it is possible to import data. In this case, import the data on the force applied throughout the test in order to plot the force as a function of the displacements for example (video 11).
 
 \subsection{Uncertainty Quantification}
 
@@ -376,28 +123,79 @@ Bias errors are often difficult to quantify, as the true value of a QOI is usual
 The process of quantifying variance errors is often called noise floor analysis. The basic idea of a noise floor analysis is to correlate static images of a DIC pattern that were acquired under the same conditions as the test images. With no force applied or displacement on the test piece, all measured QOIs requiring deformation are errors. The evaluation of the noise floor must be performed under the same conditions as the mechanical test, both in terms of physical conditions (camera and lens selection, illumination, camera temperature, cooling or mixing fans, powered test machine) and data processing procedures (image pre-filtering, subset size, step size, VSG size, temporal or spatial filtering of the data, etc.). This means that the same user-selected DIC parameters that are used for the analysis of the test piece images during deformation should also be used for the analysis of the noise floor images. Therefore, the final noise floor analysis is typically performed after the mechanical test image analysis, but using the images acquired immediately before the mechanical test.
 Two different metrics can be used to quantify the variance error of the QOIs: a spatial standard deviation and a temporal standard deviation. To quantify the spatial variation of the QOI, compute the standard deviation of the QOI for each image and average this spatial standard deviation over time for all static images. To quantify temporal variation, calculate the standard deviation of the QOI for each subset over time and average this temporal standard deviation for each subset over all subsets in the image ZOI. It is recommended that both spatial and temporal standard deviations be calculated and evaluated to see if one is significantly larger than the other. However, the spatial and temporal standard deviations are generally similar, and a single metric or the average of the two metrics can be selected to quantify the noise floor. 
 
-\subsection{Python}
+\section{Python}
 
 Python is a computer programming language often used to create websites and software, automate tasks and perform data analysis. It is a versatile language, which means that it can be used to create a variety of different programs and is not specialized for specific problems. This versatility, along with its beginner-friendliness, has made it one of the most widely used programming languages today.
 
-A second data processing is necessary to obtain the position of the crack front and the displacements. Stanislas wrote some programs on python to process the data.
+A second data processing is necessary to obtain the position of the crack front and the displacements. Below are the processing steps:
 
-The first one enables to enter the basic parameters such as the subset size (fs), subset step, affine and quadratic displacement shape functions etc... Indeed, DIC setting parameters can have a significant influence on the kinematic fields obtained by image correlation as we saw in the previous section MatchID. These settings represent fundamental parameters since they will define the spatial resolution and accuracy associated with the DIC measurements, both in the displacement and deformation fields. Therefore, a parametric study must be performed to justify the DIC setting, with a balance between resolution and spatial resolution. 
-Secondly, it is important to determine the parameter $\alpha$. It is selected as the lowest integer satisfying the inequality:
+\textbf{Crack opening displacement (COD) or Virtual displacement}
+
+From the reference and current positions of the DIC calculation points, the Euclidean distance between each pair of points can be measured and the COD can be determined as follow:
+
+\begin{equation}
+	VD(k,i_n)=\sqrt{(x_{11bk}-x_{11tk})^2 + (x_{22bk}-x_{22tk})^2}_{i_n} - VD(k,i_0)
+\end{equation}
+
+where the indices t and b refer to the DIC data points located at the top and bottom of the crack path, k is the index of the DIC point, in is the image captured at time n, VD(k, i0) is the initial Euclidean distance between the computational points of the top and bottom reference DIC subset obtained from image i0, and $x_{11}$ and $x_{22}$ are their coordinates in the image plane.
+
+\textbf{$\alpha$ and $\beta$ parameters}
+
+Two kinds of techniques as an integer value representing the threshold can be used:
+
+The first one uses just the parameter $\alpha$ which is selected as the lowest integer satisfying the inequality:
 
 \begin{equation}
 	a(\alpha)-a_0 < f_s, \alpha \in \mathbb{N}
 \end{equation}
-								
-where fs is the spatial resolution associated to DIC measurements. This one is used on the matrix as the matrix M. Indeed, the matrix M represents, for a given step, the length of the crack by having a larger value in the crack area. If the user looks too close, the noise of the values will prevent a good analysis, but looking too high on the matrix, the crack length value will not be accurate. To move around and get an accurate idea of how the user can look at the M matrix, it is important to use $\alpha$. The alpha parameter is like a cutting tool that allows one to get as close to the noise as possible without problems. To approximate the $\alpha$ value, a correlation factor is sought using the least squares regression method. The objective is to have the best linear part.
 
-Another part aims to calculate the crack tip opening displacement (CTOD). First, part of the work is to define the zone of interest (ZOI), the one where the crack should develop. Thus, when a subset is outside this region, it will be considered as zero. Then, subsets that are placed in the crack, or somewhere where there is a defect or missing information as in the crack, the subset will be defined with a value equal to -1. Then, for all the subsets around the crack, which have a real interest in the study, they will take the value equal to 1. Using this sub-step matrix, now composed of -1, 0, 1, it is possible to plot the whole matrix in shades of gray, and to have an overview of the crack development.
+where fs is the spatial resolution associated to DIC measurements.
 
-An important step is the determination of a. This parameter is the length of the crack that evolves with time during the whole experiment.  The value of a(t) will be equal to a0 set by the user and added to a $\Delta$a which is the value of the crack length, evolving with time due to the applied force. A last part of the code allows to obtain a(t) as a function of alpha as done on [XAV 2014]. This is done by focusing on the ZOI and the number of subsets composing it. Through the matrix composed by each subset, the displacement field can be observed. It is obtained by calculating the distance between the center of a subset and its displacement from one image to the next.
+The second uses 2 parameters $\alpha$ and $\beta$ which are defined below:
+
+\begin{equation}
+	\alpha=\frac{w_0 - w_f}{i_0 - i_f}  and \beta=w_0- \alpha i_0
+\end{equation}
+
+where $w_0$ and $w_f$ can be expressed as a factor used to adjust the model to the initial ($p_0$) and final ($p_f$) crack tip positions, respectively, along $x_{11}$ axis. A virtual manual detection is performed to initialize $p_0$ and $p_f$.
+
+Therefore, the adjusted threshold line-cut (VDth) is given by:
+
+\begin{equation}
+	VD_{th}(i_n)=\overline{VD}(i_n)(\alpha i_n +\beta)
+\end{equation}
+
+where 
+
+\begin{equation}
+	\overline{VD}(i_n)=\frac{1}{k} \sum_{k=1}^{k}VD(k,i_n)
+\end{equation}
+
+
+The intersection between each $VD_{th}(i_n)$ and the corresponding $VD(k, i_n)$ curve at time n represents the $x_{11}$ position of the crack tip, denoted by ($p_n$).
+It is therefore possible to calculate the growth of the crack at instant n:
+
+\begin{equation}
+	da_n=p_n-p_0
+\end{equation}
+
+\textbf{Estimation of the crack length a(t)}
+
+An important step is the determination of a. This parameter is the length of the crack that evolves with time during the whole experiment.  The value of a(t) will be equal to a0 set by the user and added to a $\Delta$a which is the value of the crack length, evolving with time due to the applied force.
+
+\begin{equation}
+	a_n=x_n-x_0
+\end{equation}
+
+\section{Specimen preparation}
+
+\subsection{Notch and precrack}
+
+Notches were created in each specimen. A precrack is made by a cutter into the notch. The interest is to initiate a straight crack, thanks to this first one. The notch width is around 1.5mm, done by a straight electrical saw. The cutter allow to go deeper and create a precrack with a shape allowing the propagation of the crack. The precrack must be done at the center of the sample heel. Indeed, even a little eccentricity could cause a deviation of the crack and prevent a good study of the propagation. The specimen was designed with an initial crack noted $a_i$ of length  $a_i=22mm$. The total crack length is equal to: $a=a_i+\Delta a$.
 
 
 \section{Conclusion}
 
-This chapter recalled some basics of fracture mechanics and different specimens used for the observation of crack propagation. In particular, this chapter explains the choice of using the 2MCG specimen for the tests. It also recalls the basic formulas of linear fracture mechanics in orthotropic media such as the stress intensity factors and the energy restitution rate. In addition, the field measurement method called DIC was presented and the procedure to obtain the crack propagation was explained. The next chapter will present the applied experimental method and the mode 1 experimental study.
+To complete
 
 

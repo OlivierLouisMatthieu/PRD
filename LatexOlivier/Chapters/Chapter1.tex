@@ -1,13 +1,16 @@
-\chapter{Characteristic of wood}
+\chapter{Fracture mechanic of wood}
 \label{Chapter1}
 
 \section{Introduction}
 
-In this section, the mechanical properties of wood are reminded. Wood is a heterogeneous material and sensitive to moisture. Indeed, the humidity of wood is an important characteristic that has consequences on its physical and mechanical properties. Moisture content and temperature are two parameters that will greatly influence the behavior of wood material. The variation of humidity will lead to variations of dimensions, shape, volume, density and thus resistance of the wood. 
+In this section, the mechanical properties of wood are reminded as well as the basics of fracture mechanics. 
+Wood is a heterogeneous material and sensitive to moisture. Indeed, the humidity of wood is an important characteristic that has consequences on its physical and mechanical properties. Moisture content and temperature are two parameters that will strongly influence the behavior of wood material. The variation of the humidity will lead to variations of dimensions, shape, volume, density and thus of resistance of wood. 
+The objective of fracture mechanics is to characterize the cracking behavior of various and complex structures using quantifiable parameters in the sense of engineering, including the stress field, the size of the crack and the resistance to cracking of the material. The first theoretical developments in the analysis of displacement, strain and stress fields in the vicinity of a crack were undertaken around 1940. Since then, the development of fracture mechanics has extended to materially and geometrically nonlinear problems, mixed-mode crack bifurcation problems, and more recently to composites, numerical solution techniques, and the state of the art in the design of various complex structures. The objective of applied fracture mechanics is to characterize the cracking behavior of structures using quantifiable parameters in the engineering sense, including stress, crack size, and material resistance to cracking.
 
-Trees are one of the most important living reservoirs of carbon monoxide. Through the phenomenon called photosynthesis, they absorb carbon dioxide and release oxygen into the atmosphere. Wood is used for many applications. It can be used as energy, in timber frames and constructions, for packaging, in furniture and carpentry, in the paper industry or in the chemical industry for example. This document is based on the study of a resinous wood; the pine specimen which presents a less complex structure than the hardwoods. In this part, the material wood will be presented with its physical aspects and its mechanical properties. The macroscopic and microscopic aspects will be also reminded.
+This paper is based on the study of a softwood; the pine specimen which has a less complex structure than hardwoods. In this part, the material wood will be presented with its physical aspects and mechanical properties. Macroscopic and microscopic aspects will be reminded.
+In addition, a look is taken at the mechanics of fracture with applications to the wood material. Essential notions will be recalled in order to understand the mechanics of linear fracture. We will see the different types of specimens used for similar studies, then the orthotropic mechanical fields. The last part of the chapter is devoted to the explanation of the DIC method, in particular its operation and its use.
 
-\section{Generalities}
+\section{Generalities about wood}
 
 \subsection{The wood}
 
@@ -17,7 +20,7 @@ Wood is defined as 'a set of very resistant tissues that constitute the trunk, b
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=8cm]{fig1}
-	\caption{The main functions of the tree's wood[THI 2015]}
+	\caption{The main functions of the tree's wood \cite{Reference1}}
 	\label{fig:fig1}
 \end{figure}
 
@@ -63,7 +66,7 @@ In order to facilitate the studies on the physical and mechanical behaviours, we
 
 \subsection{Macroscopic Scale}
 
-The wood grows in concentric layers to the outside. It is this growth that creates heterogeneity [SED 2006]. Figure \ref{fig:fig4} shows the different elements that participate in the growth of a tree:
+The wood grows in concentric layers to the outside. It is this growth that creates heterogeneity \cite{Reference2}. Figure \ref{fig:fig4} shows the different elements that participate in the growth of a tree:
 
 \graphicspath{{Images/}}
 \begin{figure}[htp]
@@ -109,7 +112,7 @@ Hardwoods have more cell diversity than softwoods. They are composed of differen
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=10cm]{fig5}
-	\caption{Microscopic section of hardwood and softwood [THI 2015]}
+	\caption{Microscopic section of hardwood and softwood \cite{Reference1}}
 	\label{fig:fig5}
 \end{figure}
 
@@ -144,7 +147,7 @@ In this section the physical and mechanical properties of wood are presented. Di
 
 One of the defects of wood is its natural origin. This gives it a great source of variability in its characteristics. In fact, there are two types of variability: that due to the species and that due to the growth of each individual within the same species. This means that criteria need to be established to classify wood and guarantee its structural characteristics. It is due to the growth mode of the trees (normal wood and reaction wood), to the variation of the seasons (spring wood and summer wood), to the annual climate (difference between the annual rings), to the different species (hardwoods and softwoods), to its anatomy, to its mechanical, hydric and thermal history...
 
-The variability of the wood properties is also due to the growth mode of the tree which gives rise to two types of wood: normal wood and reaction wood. The difference between the two woods has been revealed by measuring growth stresses [Clair 2001]. Changes in stress states can be applied to the wood material depending on the mechanical stresses to which it is subjected (strong wind, unbalance of the trunk after the fall of a large branch, partial loosening of the trunk...). These changes in the state of stress in the wood are accompanied by a significant change in the structure of the wood cells during growth. The wood thus formed is called reaction wood, as opposed to normal wood.
+The variability of the wood properties is also due to the growth mode of the tree which gives rise to two types of wood: normal wood and reaction wood. The difference between the two woods has been revealed by measuring growth stresses \cite{Reference7}. Changes in stress states can be applied to the wood material depending on the mechanical stresses to which it is subjected (strong wind, unbalance of the trunk after the fall of a large branch, partial loosening of the trunk...). These changes in the state of stress in the wood are accompanied by a significant change in the structure of the wood cells during growth. The wood thus formed is called reaction wood, as opposed to normal wood.
 
 \smallskip
 
@@ -160,7 +163,7 @@ Tension wood is found in hardwoods. Its density is generally higher than that of
 
 \subsection{The impact of humidity}
 
-Wood has the particularity of having a moisture content that can vary and will lead to variable behaviour mechanically and with regard to its durability [TAA 2022].This rate has an influence: 
+Wood has the particularity of having a moisture content that can vary and will lead to variable behaviour mechanically and with regard to its durability \cite{Reference6}.This rate has an influence: 
 
 \begin{itemize}
 	\item on the conservation of wood. If the rate is higher than $20 \%$, the wood is vulnerable to fungi and insects
@@ -169,7 +172,7 @@ Wood has the particularity of having a moisture content that can vary and will l
 	\item On creep: moisture "softens" the wood.
 \end{itemize}
 
-The humidity is defined as the ratio of the mass of water it contains to its anhydrous mass [NGU 2016]. There are two ways to measure the moisture content of a piece of wood: either by weighing or by using a moisture meter. Below the two procedures are described:
+The humidity is defined as the ratio of the mass of water it contains to its anhydrous mass \cite{Reference3}. There are two ways to measure the moisture content of a piece of wood: either by weighing or by using a moisture meter. Below the two procedures are described:
 
 By weighing: we determine by weighing the decrease in mass of a sample between current state and dry state then we calculate in percentage the ratio between this decrease in mass and the mass of the specimen.
 
@@ -215,9 +218,9 @@ When all the free water is gone and all the bound water remains, the cell walls 
 
 \subsection{Influence of density on wood}
 
-Density is the ratio of the density of wood to that of water. Wood can change in weight and volume as a result of moisture gain and loss. Generally the reference density is calculated with 12\% moisture. In fact, some researchers have shown that Young's modulus, Poisson's ratio and shear modulus depend on wood density[HEI 2013]. The density of wood varies from one species to another and also within the same species. The more fibers the wood has, the denser it is. If we take the example of balsa, it has a low proportion of fibers and therefore a low density. Conversely, panacoco has a high proportion of fibers and therefore has a high density[THI 2015].
+Density is the ratio of the density of wood to that of water. Wood can change in weight and volume as a result of moisture gain and loss. Generally the reference density is calculated with 12\% moisture. In fact, some researchers have shown that Young's modulus, Poisson's ratio and shear modulus depend on wood density. The density of wood varies from one species to another and also within the same species. The more fibers the wood has, the denser it is. If we take the example of balsa, it has a low proportion of fibers and therefore a low density. Conversely, panacoco has a high proportion of fibers and therefore has a high density\cite{Reference1}.
 
-Bodig and Jayne [BOD 1982]  developed a formula that relates the mechanical properties of the generalized Hooke's law to the density of wood by the relation :
+Bodig and Jayne \cite{Reference4}  developed a formula that relates the mechanical properties of the generalized Hooke's law to the density of wood by the relation :
 
 \begin{equation}
 	Y = a*D^b
@@ -241,11 +244,11 @@ Wood is considered as an elastic material. It means that wood will return to its
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=8cm]{fig7}
-	\caption{Orthotropy of wood without defects [TAA 2022]}
+	\caption{Orthotropy of wood without defects \cite{Reference6}}
 	\label{fig:fig7}
 \end{figure}
 
-The curves in Figure \ref{fig:fig7} show the compressive and tensile behaviour of flawless wood loaded parallel to the fibres (solid line) and perpendicularly (dashed line) at a constant strain rate. Cellulose provides high mechanical properties in the longitudinal direction, as this is the direction in which it is oriented. In the transverse direction, the little cohesion provided by the lignin is not sufficient to hold the fibres together, only the radial tracheids provide a little strength. It can be said that wood without defects has a strong anisotropy. It is rigid and strong parallel to the fibres, sensitive to splitting and has low shear strength [TAA 2022].
+The curves in Figure \ref{fig:fig7} show the compressive and tensile behaviour of flawless wood loaded parallel to the fibres (solid line) and perpendicularly (dashed line) at a constant strain rate. Cellulose provides high mechanical properties in the longitudinal direction, as this is the direction in which it is oriented. In the transverse direction, the little cohesion provided by the lignin is not sufficient to hold the fibres together, only the radial tracheids provide a little strength. It can be said that wood without defects has a strong anisotropy. It is rigid and strong parallel to the fibres, sensitive to splitting and has low shear strength \cite{Reference6}.
 
 Considering a one-dimensional behavior model in the direction of the fibers, we can write :
 
@@ -333,9 +336,331 @@ In the figure, the light areas represent the wood, the dark areas represent the 
 	\label{fig:fig13}
 \end{table}
 
+\section{Test pieces used in fracture mechanics}
+
+There are three ways of applying a force to allow a crack to propagate as shown figure \ref{fig:fig14}. Mode I is a tensile stress normal to the crack plane, mode II is a shear stress acting parallel to the crack plane and perpendicular to the crack front. Mode III is a shear stress acting parallel to the crack plane and parallel to the crack front. In general, a crack propagates in a material under a combination of stresses in all three modes. These modes can be presenting by the energy release rate (G) linked to crack length. It is called R-curve and has three characterized propagation crack zones. A first increasing phase of instability to initiate the cracking process. A second phase, which corresponds to a stabilised propagation range during which only viscoelastic effects (creep) will participate in the advance of the crack front and a last phase which symbolises the ruin of the material.
+
+\graphicspath{{Images/}}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=10cm]{fig14}
+	\caption{Illustration of the three modes of rupture}
+	\label{fig:fig14}
+\end{figure}
+
+Moreover, the cracking failure mechanism can occur in two types of cracking: 
+
+\begin{itemize}
+	\item Abrupt cracking: for solids, or for very high strength materials, the working stresses are very high, and considerable potential energy is thus created; the presence of small cracks can then lead to abrupt failure which is often not accompanied by macroscopic plastic deformations due to the very low ductility. 
+	\item Successive cracking: this is a succession of mechanisms (brittle - ductile) which, under repeated stresses, leads to successive cracking or fatigue failure. The factors that influence the cracking behaviour of materials are of two kinds: metallurgical and mechanical. The mechanical factors relate to the state of displacements, strains and stresses, as well as environmental conditions such as temperature or relative humidity. It is easier to observe because it takes more time to involve samples destruction than a unique and sudden crack. With a material like wood, successive cracks rupture are expected.
+\end{itemize}
+
+In order to realize these different modes of rupture, we need specimens that meet certain criteria such as geometry. Indeed, some specimens were designed to solve problems for mode I while others for mode II or mixed mode. There are therefore several types of test specimens:
+
+\smallskip
+
+\textbf{DCB test piece}
+
+The double cantilever beam (DCB) specimen was developed for testing in the crack opening mode (Mode I). Its design allows to obtain a stress intensity factor that decreases when the crack propagates. However, it also allows the determination of the toughness and the critical energy restitution rate in mode I and mode II. Indeed, in the document of \cite{Reference14} Mode I and Mode II fracture toughness were measured of compressed spruce by a double cantilever beam (DCB) test and a three-point bend end notched flexure (3ENF) test figure \ref{fig:fig15}.
+
+\graphicspath{{Images/}}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=5cm]{fig15}
+	\caption{Schematic representation of 3ENF test with DCB test piece. \cite{Reference15}}
+	\label{fig:fig15}
+\end{figure}
+
+\smallskip
+
+\textbf{Double Cantilever Beam specimen with variable inertia}
+
+The classical DCB specimen had an instability from the beginning of the crack initiation. This is why Dubois \cite{Reference17} proposed a variable inertia DCB specimen with crack stability. The DCB specimen with variable inertia figure \ref{fig:fig16} was designed to ensure stabilised propagation in Mode I. Thus, after the crack initiation zone, a decrease in the rate of elastic energy restitution G is observed over a given propagation range. During this phase, only viscoelastic effects will participate in the progression of the crack front when the specimen is loaded in creep. The viscoelastic characteristics will thus be clearly decoupled from the cracking parameters. 
+
+\graphicspath{{Images/}}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=5cm]{fig16}
+	\caption{DCB specimen with variable inertia \cite{Reference17}}
+	\label{fig:fig16}
+\end{figure}
+
+\smallskip
+
+\textbf{Compact Tension Shear specimen}
+
+The Compact Tension Shear (CTS) specimen figure \ref{fig:fig17} is designed to evaluate all mixed modes in different materials. It was developed for mixed loads in isotropic materials. Two steel arms are pierced with holes where symmetrical forces P oriented by angles $\beta$ of mixtures are applied. On both specimens, the crack remains oriented in the direction of high orthotropy.
+
+\graphicspath{{Images/}}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=5cm]{fig17}
+	\caption{Compact Tension Shear (CTS) specimen}
+	\label{fig:fig17}
+\end{figure}
+
+
+\textbf{Mixed Mode Crack Growth specimen}
+
+The design of the Mixed Mode Crack Growth (MMCG) specimen figure \ref{fig:fig18} was based on a combination of the two geometric solutions described above. The original DCB specimen was modified by adding a lower heel to secure the mixed mode loading device. The upper heel was slightly inclined to ensure stiffness in the vicinity of the two connection fillets. The body of the specimen has increasing inertia towards the crack tip to ensure a stable rate of energy restitution. Four symmetrically arranged PVC arms are attached to the wooden specimen. Boreholes are provided to allow for loads with a variable $\beta$-mixing rate identical to that of the CTS specimen. This test piece allows for a given propagation range, in mode 1, mode 2 and in mixed mode, a stability or even a considerable decrease of the energy restitution rate\cite{Reference8}.
+
+\graphicspath{{Images/}}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=10cm]{fig18}
+	\caption{2MCG test piece \cite{Reference8}}
+	\label{fig:fig18}
+\end{figure}
+
+\section{Stress and strain fields}
+
+It is important to notice that different zones are studied. In fracture mechanics, three successive zones visible figure \ref{fig:fig19} can be distinguished schematically in a cracked medium:
+
+\begin{itemize}
+	\item The development zone or zone 1: the zone closest to the crack tip. In this part the material is very damaged, which makes its mechanical evaluation rather complex. The size of this zone determines the type of cracking that will occur. Indeed, if the size of the zone is large, ductile cracking will be observed. On the other hand, if it is small, brittle cracking will be observed.
+	\item The singular zone or zone 2: this covers the entire development zone. In this zone, the displacement, strain and stress fields are continuous and have a formulation that is independent of the distant geometry of the structure. The material has a linear viscoelastic behaviour. Its boundary with zone 1 is assumed to be continuous in stress and displacement.
+	\item The far zone or zone 3: this is the zone furthest from the crack. It connects the singular zone with the loading and displacement boundary conditions.
+\end{itemize}
+
+\graphicspath{{Images/}}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=10cm]{fig19}
+	\caption{Cracking zone \cite{Reference8}}
+	\label{fig:fig19}
+\end{figure}
+
+For a linear elastic material, the stress field at a point M in the vicinity of the crack can be expressed simply as a function of the stress intensity factor $K_{I,II,III}$ and the polar coordinates ( r, $\theta$). The dimensionless functions $f_{ij}$  and  $g_{ij}$ depend on the mode of loading. The intensity factor is independent of the point M. Moreover, in the vicinity of the crack tip the value of r is very small, and tends to 0. Thus the stress field is expressed :
+
+\begin{equation}
+	\sigma_{i,j} = \frac{K_{\beta}}{\sqrt{2*\pi*r}}*f_{i,j}(\theta)
+	\label{eq:eq1}
+\end{equation}
+
+The coefficient $K_\beta$ in the equation \ref{eq:eq1} is the stress intensity factor (mode I and mode II) and is independent of the point M, Figure \ref{fig:fig20}.
+
+\graphicspath{{Images/}}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=10cm]{fig20}
+	\caption{Crack tip scoring}
+	\label{fig:fig20}
+\end{figure}
+
+We have seen that there are three ways of applying a force, to a specimen, to allow a crack to propagate. These modes define the expression of the mechanical field in zone 2 for orthotropic material\cite{Reference9}. They are defined and expressed as follows and are illustrated in Figure \ref{fig:fig14}:
+
+\textbf{Mechanical fields in the singular zone for mode 1}
+
+\begin{equation}
+	\sigma_{1,1} = \frac{K_{1}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}  \left( 1-\sin{\frac{\theta}{2}} \sin{\frac{3 \theta}{2}} \right)
+\end{equation}
+
+\begin{equation}
+	\sigma_{2,2} = \frac{K_{1}}{\sqrt{2 \pi*r}} \cos{\frac{\theta}{2}}  \left( 1+\sin{\frac{\theta}{2}} \sin{\frac{3 \theta}{2}} \right)
+\end{equation}
+
+\begin{equation}
+	\sigma_{1,2} = \frac{K_{1}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}  \sin{\frac{\theta}{2}} \cos{\frac{3 \theta}{2}}
+\end{equation}
+
+The displacement field for the mode 1 loading is written as follows:
+
+\begin{equation}
+	u_{1} = \frac{K_{1}}{4 \pi}*\sqrt{\frac{r}{2 \pi}} \left((2 \chi-1) \sin{\frac{\theta}{2}}-\sin{\frac{3 \theta}{2}}\right)
+\end{equation}
+
+\begin{equation}
+	u_{2} = \frac{K_{1}}{4 \pi} \sqrt{\frac{r}{2*\pi}} \left((2 \chi+1) \sin{\frac{\theta}{2}}-\sin{\frac{3 \theta}{2}}\right)
+\end{equation}
+
+With : 
+
+$K_1$  the mode 1 stress intensity factor
+
+$\mu=\frac{E}{2 (1+\nu)}$ , the shear coefficient of Lame
+
+$\nu=\frac{\lambda}{2 (\lambda+\mu)}$ , the shear coefficient of Poisson
+
+$E=\frac{\mu (3 \lambda+2 \mu)}{\lambda+\mu}$, the Young modulus
+
+$\lambda=\frac{\nu E}{(1-2 \nu)(1+\nu)}$ , the Lame’s Coefficients
+
+The term $\chi$ is a constant defined as follows:\ $\chi=3-4\nu$ for plane deformations and \ $\chi=\frac{3-\nu}{1-\nu}$  for plane stresses.
+
+r and $\theta$ polar coordinates of point M centred on the crack tip, Figure 11
+
+\smallskip
+
+\textbf{Mechanical fields in the singular zone for mode 2}
+
+\begin{equation}
+	\sigma_{1,1} = \frac{-K_{2}}{\sqrt{2 \pi r}} \sin{\frac{\theta}{2}}  \left( 2+\cos{\frac{\theta}{2}} \cos{\frac{3 \theta}{2}} \right)
+\end{equation}
+
+\begin{equation}
+	\sigma_{2,2} = \frac{K_{2}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}  \sin{\frac{\theta}{2}} \cos{\frac{3 \theta}{2}}
+\end{equation}
+
+\begin{equation}
+	\sigma_{1,2} = \frac{K_{2}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}  \left( 1-\sin{\frac{\theta}{2}} \sin{\frac{3 \theta}{2}} \right)
+\end{equation}
+
+The displacement field for the mode 2 loading is written as follows:
+
+\begin{equation}
+	u_{1} = \frac{-K_{2}}{4 \pi} \sqrt{\frac{r}{2 \pi}} \left((2 \chi+3) \sin{\frac{\theta}{2}}+\sin{\frac{3 \theta}{2}}\right)
+\end{equation}
+
+\begin{equation}
+	u_{2} = \frac{K_{2}}{4 \pi} \sqrt{\frac{r}{2 \pi}} \left((2 \chi+3) \cos{\frac{\theta}{2}}+\cos{\frac{3 \theta}{2}}\right)
+\end{equation}
+
+With : $K_2$  the mode 2 stress intensity factor
+
+\smallskip
+
+\textbf{Mechanical fields in the singular zone for mode 3}
+
+\begin{equation}
+	\sigma_{1,3} = \frac{-K_{3}}{\sqrt{2 \pi r}} \sin{\frac{\theta}{2}}
+\end{equation}
+
+\begin{equation}
+	\sigma_{2,3} = \frac{K_{3}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}
+\end{equation}
+
+The displacement field for the mode 3 loading is written as follows:
+
+\begin{equation}
+	u_{3} = \frac{-2 K_{3}}{\mu} \sqrt{\frac{r}{2 \pi}} \sin{\frac{\theta}{2}}
+\end{equation}
+
+With : $K_3$  the mode 3 stress intensity factor
+
+\section{Method of the complacency}
+
+In this part we give and define the different terms of the imposed displacement complacency formula. This formula will be used in the next chapters to calculate the energy restitution rate. It is defined by the ratio of two parameters: the variation of energy per unit area cracked and the crack propagation in a linear elastic material. The crack propagation will occur when the energy G reaches a critical value noted Gc. This value Gc is a measure of the toughness of the material. Let us now define the mathematical expression of G. First, let us consider a material with a crack of length a and thickness b. A crack propagation $\Delta$a will be accompanied by the following energy variations:
+
+\begin{equation}
+	\Delta W_{ext}=\Delta W_{elast}+\Delta U
+\end{equation}
+
+With:
+
+$\Delta W_{ext}$ the applied energy change (due to external forces).
+
+$\Delta W_{elast}$ the change in dissipated energy ;
+
+$\Delta$U the energy expended during crack propagation over the length $\Delta$a.
+
+The energy G reported to the unit area will be :
+
+\begin{equation}
+	G = \lim_{\Delta \to 0}= \frac{\Delta U}{\Delta A}= \frac{\partial U}{\partial A}
+\end{equation}
+
+Where $\Delta A=b\Delta a$  is the cracked area during crack propagation. b is usually equal to 1 because a unit thickness is often considered. Therefore, the energy per unit thickness will be of the form :
+
+\begin{equation}
+	G = \lim_{\Delta \to 0}= \frac{\Delta U}{\Delta a}= \frac{\partial U}{\partial a}
+\end{equation}
+
+In order to understand the meaning of the energy restitution rate, we will consider, from an initial configuration, the propagation (in a specimen of unit thickness) in the following two classical cases (Figure 18):
+
+\begin{itemize}
+	\item propagation with imposed displacement d ; 
+	\item propagation with imposed force F.
+\end{itemize}
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=10cm]{fig21}
+	\caption{Stable propagation with imposed force or imposed displacement \cite{Reference7}.}
+	\label{fig:fig21}
+\end{figure}
+
+In our work we will limit ourselves to the case of propagation with imposed displacement. In this case if $\Delta x=0$ (with $\Delta x$ variation of the crack), the external energy variation will be zero, we then deduce the elastic energy :
+
+$W_{elast}=\frac{Fx}{2}$
+
+By introducing the complacency by the relation :
+
+$C=\frac{x}{F}$
+
+We deduce :
+
+$W_{elast}=\frac{CF^2}{2}=\frac{x^2}{2C}$
+
+$\Delta W_{elast}=\frac{\partial W_{elast}}{\partial a}\Delta a=\frac{\partial W_{elast}}{\partial a}\ \frac{\partial C}{\partial a}\Delta a=\frac{-x^2}{2C^2}\ \frac{\partial C}{\partial a}\Delta a$
+
+And because we have:
+
+$\Delta W_{ext}=0=\Delta W_{elast}+\Delta U\leftrightarrow \Delta U =-\Delta W_{elast}$
+
+Then we have:
+
+$\Delta U=\frac{x^2}{2C^2}\ \frac{\partial C}{\partial a}\Delta a$
+
+Which enables to obtain:
+
+\begin{equation}
+	G=\frac{x^2}{2C^2}\ \frac{\partial C}{\partial a}=\frac{F^2}{2}\ \frac{\partial C}{\partial a}
+	\label{2}
+\end{equation}
+
+The relationship in equation \ref{2} is related to the unit thickness. In the case where $b\neq1$
+we obtain:
+
+\begin{equation}
+	G_c=\frac{{F_{ci}}^2}{2b}\ \frac{\partial C}{\partial a}
+\end{equation}
+
+With:
+
+$G_c$ the value of energy release rate (in $J/m^2$)
+
+$F_{ci}$ the critical force which involves the crack (in N)
+
+b the thickness of the specimen (in mm)
+
+$F_{ci}$ the complacency evolution (in ${Pa}^{-1}$)
+
+$F_{ci}$ the crack length evolution (in mm)
+
+
+
+\section{Software and DIC method}
+
+\subsection{Dic method}
+
+Digital image correlation (DIC) was developed in 1983. It is a 2D or 3D optical method that measures displacements between two images. It is increasingly used in materials science to determine strain fields, detect cracks or to provide displacement fields for material property identification procedures. It is a non-contact optical method of measuring kinematic fields, based on the comparison of the signal amplitude. It relies on the grey levels of the images. The particles are optically tracked using computer algorithms to determine displacements and velocities. Rather than tracking moving particles in a fluid, DIC tracks changes in the relative position of the high contrast surface finish. It works by comparing two images, one reference and one deformed, taken during loading. Thus it must detect a pattern in the reference image and compare it to the pattern in the other images \cite{Reference13}. The DIC formulation relies on the conservation of grey levels between the two instants at which the reference images S0 and the current images St are recorded. In other words, this principle is based on the comparison between a reference image and a distorted image. Each image is composed of pixels, and each pixel as a function of the light flux returns information. For 8-bit images, for example, a pixel can have a value between 0 for black and 255 for white. Each image is therefore stored in the form of a two-dimensional matrix whose cells correspond to a value. These matrices are the image correlation data. DIC compares these matrices and deduces the surface displacement field. To do this, during the analysis, the algorithm in place searches for a correlation zone, predefined in the reference image, in that of the image in the deformed state figure \ref{fig:fig22}.
+
+\graphicspath{{Images/}}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=10cm]{fig22}
+	\caption{Example of captured images obtained by a camera for image analysis.}
+	\label{fig:fig22}
+\end{figure}
+
+The system consists of a digital camera and specialised computer software like MatchID. The camera is used to capture consecutive images of the surface of the sample under test before and during the deformation test. The digital images thus determined, which correspond to a series of photographs, are analysed by the DIC software. Displacement maps of the sample on the surface are created. The stress fields can be evaluated from the strain fields. The formula used to obtain the displacement field is shown below equation \ref{3}:
+
+\begin{equation}
+	u^k=\left[{u_z^k\atop u_y^k}\right]=\sum_{i=1}^{N}\left\{\left[{{\ \ f}_i\left(k,\Phi_k\right)\ \ {\ \ g}_i\left(k,\Phi_k\right)\atop{\ \ l}_i\left(k,\Phi_k\right)\ \ {\ \ m}_i\left(k,\Phi_k\right)}\right]\times\left[{A_1^i\atop A_2^i}\right] \times r_k^{i/2}\right\}+\left[{T_x\atop T_y}\right]+R\times\left[{y_k\atop x_k}\right] 
+	\label{3}
+\end{equation}
+
+With the polar functions $f_i$, $g_i$, $l_i$, $m_i$, k depends on the material because of the Poisson's ratio term which determines k. The T terms are correction factors for rigid body movements.
+
+If this method is used on wood, it is important to note that the 2D orthotropic elastic material model has five engineering constants as input parameters, to be entered into the image analysis system. Although it depends on the software used, it is important to know these inputs. Firstly, the Young's modulus in the longitudinal direction must be entered, $E_L=E_1$, the transverse Young's modulus $E_{trans}=E_R=E_T=E_2$. Then the shear modulus $G_{LR}=G_{LT}=G_{12}$, if the shear mode is studied. Therefore, the Poisson's ratio $\nu$ has to be introduced in the software. This coefficient can change depending on the surface under study, in or out of the plane. The initial crack length is introduced into the model. The description of the damage is presented by three main inputs, although it may change depending on the software. If we are in mode I damage, it is described by the damage initiation stress $\sigma_{ini}$, but also by the failure stress $\delta_{fl}$, and the shape coefficient of the exponential function $\alpha_l$.
+
+\subsection{Software used}
+
+To complete.
+
 \section{Conclusion}
 
 This chapter will have provided a better understanding of the material wood. Its definition, its various functions, its physical and mechanical properties were reminded as well as the elements which constitute it at the macroscopic and microscopic level. Moreover, it was also recalled the various parameters such as moisture that can influence the physical and mechanical characteristics of wood.
-The following chapter will present the fracture mechanics tools for the study of cracking and the experimental measurement technique used.
+This chapter recalled also some basics of fracture mechanics and different specimens used for the observation of crack propagation. In particular, it explains the choice of using the 2MCG specimen for the tests. It also recalls the basic formulas of linear fracture mechanics in orthotropic media such as the stress intensity factors and the energy restitution rate. In addition, the field measurement method called DIC was presented and the procedure to obtain the crack propagation was explained. The next chapter will present the applied experimental method.
 
 
