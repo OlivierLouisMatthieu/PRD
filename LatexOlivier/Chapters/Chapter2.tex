@@ -9,7 +9,7 @@ To complete
 
 \subsection{MMCG test piece}
 
-The MMCG test piece was developed by Moutou Piti [MOU 2008]. However, the specimens tested at the University of Lisbon are not of the same dimensions. After carefully measuring the specimens, it turns out that they have the same dimensions as the specimens studied by Odounga. Below are the dimensions of the specimens that will be tested figure \ref{fig:fig23}:
+The MMCG test piece was developed by \cite{Reference8}. However, the specimens tested at the University of Lisbon are not of the same dimensions. After carefully measuring the specimens, it turns out that they have the same dimensions as the specimens studied by Odounga. Below are the dimensions of the specimens that will be tested figure \ref{fig:fig23}:
 
 \graphicspath{{Images/}}
 \begin{figure}[htp]
@@ -92,13 +92,14 @@ In this section, the values of the mechanical characteristics (moduli of elastic
 
 \subsection{Preparation of the DIC method}
 
-Before starting the measurements with the DIC method, it is important to define some parameters. In our case, the quantity of interest is the crack length a as a function of the applied force F. It is also important to define the zone of interest (ZOI). It is the portion of the image corresponding to the zone-of-interest of the test piece.. The field of view ( FOV), the position envelope for hardware and if the test is a 2D-DIC or a stereo DIC are parameters to take into account. In our case, a 2D-DIC is suitable because the test piece is assumed to be planar and perpendicular to the camera optical axis. The camera and lens have to be well selected in order to obtain the desired FOV and spatial resolution for example. With a pre-determined aperture of the lens, it’s important to select lighting and an exposure time to have sufficient contrast between the white and black regions of the DIC pattern. The contrast should be uniform over the entire ZOI of the image and constant in time. The DIC pattern is one important parameter. All the specimens are painted to obtain a speckle pattern suitable for image correlation. A thin layer of white paint is firstly added using a mate spray, followed by a diffuse distribution of black paint to create a unique local pattern across the ZOI at the crack tip. Estimate the spatial gradients which means determine such as the subset size and the step size. This will determine the required spatial resolution of the DIC system. It’s also necessary to determine the acceptable noise floor and the frame rate. The DIC images need to be synchronized to the force applied by the press. To finish, the calibration must be done. The goal of calibration of a 2D-DIC system is to establish the image scale, i.e. the number of pixels in the image that corresponds to a certain physical distance on the test piece, and to correct for lens distortions.
+It is possible to process the images with different software. This image processing will allow to obtain the maps of deformations and displacements. For this work will be used MatchID and python. In our case, the quantity of interest is the crack length a as a function of the applied force F. The field of view ( FOV), the position envelope for hardware and if the test is a 2D-DIC or a stereo DIC are parameters to take into account. In our case, a 2D-DIC is suitable because the test piece is assumed to be planar and perpendicular to the camera optical axis. The DIC pattern is one important parameter. All the specimens are painted to obtain a speckle pattern suitable for image correlation. A thin layer of white paint is firstly added using a mate spray, followed by a diffuse distribution of black paint to create a unique local pattern across the ZOI at the crack tip.
+
+Before starting the test, some parameters must be set on MatchID.grab. It is possible to vary parameters such as the exposure time. The speckle pattern is an image composed of black and white dots. By varying the exposure time, the speckle pattern will have a greater or lesser range of gray (from 0 to 255). On the other hand, a longer exposure time will result in color saturation. Then, it is important to adjust the quality of the speckle using two parameters, the focus and the aperture. With some cameras, it is sometimes impossible to adjust the focus. It is therefore necessary to play with the distance camera-specimen. After adjusting these 3 parameters, the calibration can begin. Its goal is to establish the image scale. It is necessary to take at least 50 images of a calibration sheet given by MatchID while making translations and rotations of this sheet.
+After saving the calibration data, it is no longer possible to change these parameters. This calibration will be used for the tests.
 
 \subsection{MatchID}
 
-Once the tests are completed, the data is saved on a hard disk for processing. It is possible to process the images with different software. Mambili used Ncorr and matlab while Stanislas Malfait used MatchID and Python. This image processing will allow to obtain the maps of deformations and displacements. For this work will be used matchid and python.
-
-With the MatchID software several steps are necessary:
+After calibration and recording of the tests, the datas must be processed. Several steps are necessary:
 
 \begin{itemize}
 	\item Choose a reference image that corresponds to the first image of the test 
@@ -109,25 +110,70 @@ With the MatchID software several steps are necessary:
 	\item Exploit the results
 \end{itemize}
 
-Despite the progress and increasing use of DIC, the technique is still not standardized. It is emphasized that extrinsic and intrinsic DIC setup parameters, such as subset size, subset step, strain gauge window, shape functions, or correlation criterion, can have a considerable influence on the calculated strain fields, producing spatial resolution and resolution values that can differ by at least an order of magnitude. This paragraph will try to explain some of them. 
+Despite the progress and increasing use of DIC, the technique is still not standardized. It is emphasized that extrinsic and intrinsic DIC setup parameters, such as subset size, subset step, strain gauge window, shape functions, or correlation criterion, can have a considerable influence on the calculated strain fields, producing spatial resolution and resolution values that can differ by at least an order of magnitude. The next paragraph will try to explain some of them. 
 
-The correlation criterion defines the matching criterion that will be adopted in order to determine the optimum corresponding point. \cite{Reference10}  used the criterion ZNSSD. It is a least-square-based correlation criterion which is less sensitive to both image contrast reduction and light intensity shifting between images. 
-There are 5 subset shape function which allow or not the subset certain constraints as the fact of translating, deforming, to shear etc.. Depending on the local deformation or strain gradients of the problem under analysis, affine, irregular and quadratic shape functions can be selected by the user in the DIC method \cite{Reference21}. The subset size is the length of the subset in the reference image and it must contain at least 3 speckles. As an indication, larger subsets improve resolution but decrease spatial resolution. This means that in a conventional mechanical tensile test with a uniform, uniaxial stress state in the central region of the specimen, large subsets can be selected to improve the accuracy of the measurements. The step size is the spacing of pixel grid points at which the subset displacements are calculated. It controls the density of points at which DIC data is computed and, to some extent, influences the spatial resolution of the measurements. Typically, a step size of one-third to one-half of the subset size is recommended, so that neighboring subsets partially overlap, though this value can vary widely depending on specific applications. Additionally, a small step size may be required to capture the peak position of a Quantity Of Interest (QOI) (without interpolation) if it varies quickly across the ZOI and if the QOI varies slowly across the ZOI, then a large step size can be used. The strain window is the local region of the ZOI of the image, containing a finite number of data points, that is used to calculate strain. Parameters such as the subset step and the strain window will define a strain spatial resolution and virtual strain gauge (VSG). VSG is the local region of the image that affects the strain value at a specific location. The three dominant variables that affect the VSG size are the subset size, step size, and strain window. If the maximum strain amplitude converges with further decreases of the VSG, then the actual maximum strain amplitude has been captured. Any VSG that is larger than the largest VSG that results in the converged actual maximum strain amplitude will underestimate the actual strain amplitude, and introduce bias into the measured strain results. If the smallest VSG allowed by the software is not sufficient, the test could be repeated with a smaller FOV. The final decision as to which size VSG to use is a matter of judgment. If capturing the highest strain gradient is essential for DIC analysis, a small VSG may be the best choice, even if noise is important. Conversely, if there are no high strain gradients it may be preferable to choose a larger VSG to reduce uncertainties. In order to determine the correct settings MatchID has a tool called Performance Analysis. With this tool, it’s possible to define a range of options to be applied in a design of experiments study. It is thus possible to vary parameters such as subset size, step size, strain window and so on. After running the performance analysis, select the parameters which work best(video 20). For the case of a uniaxial tensile test on a pre-cracked specimen by default the indicated zone of interest contains one initial subset but the ZOI is not well defined. In order to define well the ZOI it must be added an extra seed point in the ZOI but above the initial crack. After this, start the DIC analysis and exploit the results. To exploit the results in MatchID, it is possible to import data. In this case, import the data on the force applied throughout the test in order to plot the force as a function of the displacements for example (video 11).
+\begin{itemize}
+	\item The \textbf{correlation criterion} defines the matching criterion that will be adopted in order to determine the optimum corresponding point. \cite{Reference10}  used the criterion ZNSSD. It is a least-square-based correlation criterion which is less sensitive to both image contrast reduction and light intensity shifting between images. It's a robust correlation criterion which can be used with confidence. 
+	\item There are 5 \textbf{subset shape function} which allow or not the subset certain constraints as the fact of translating, deforming, to shear etc.. Depending on the local deformation or strain gradients of the problem under analysis, affine, irregular and quadratic shape functions can be selected by the user in the DIC method \cite{Reference21}. 
+	\item The \textbf{subset size} is the length of the subset in the reference image and it must contain at least 3 speckles. As an indication, larger subsets improve resolution but decrease spatial resolution. This means that in a conventional mechanical tensile test with a uniform, uniaxial stress state in the central region of the specimen, large subsets can be selected to improve the accuracy of the measurements.
+	\item The \textbf{step size} is the spacing of pixel grid points at which the subset displacements are calculated. It controls the density of points at which DIC data is computed and, to some extent, influences the spatial resolution of the measurements. Typically, a step size of one-third to one-half of the subset size is recommended, so that neighboring subsets partially overlap, though this value can vary widely depending on specific applications. Additionally, a small step size may be required to capture the peak position of a Quantity Of Interest (QOI) (without interpolation) if it varies quickly across the ZOI and if the QOI varies slowly across the ZOI, then a large step size can be used. 
+	\item The \textbf{strain window} is the local region of the ZOI of the image, containing a finite number of data points, that is used to calculate strain. Parameters such as the subset step and the strain window will define a strain spatial resolution and virtual strain gauge (VSG). 
+	\item \textbf{VSG} is the local region of the image that affects the strain value at a specific location. The three dominant variables that affect the VSG size are the subset size, step size, and strain window. If the maximum strain amplitude converges with further decreases of the VSG, then the actual maximum strain amplitude has been captured. Any VSG that is larger than the largest VSG that results in the converged actual maximum strain amplitude will underestimate the actual strain amplitude, and introduce bias into the measured strain results. If the smallest VSG allowed by the software is not sufficient, the test could be repeated with a smaller FOV. The final decision as to which size VSG to use is a matter of judgment. If capturing the highest strain gradient is essential for DIC analysis, a small VSG may be the best choice, even if noise is important. Conversely, if there are no high strain gradients it may be preferable to choose a larger VSG to reduce uncertainties.
+\end{itemize}
 
-\subsection{Uncertainty Quantification}
+In order to determine the correct settings MatchID has a tool called Performance Analysis. With this tool, it’s possible to define a range of options to be applied in a design of experiments study. It is thus possible to vary parameters such as subset size, step size, strain window and so on. After running the performance analysis, select the parameters which work best(video 20). 
+For the case of a uniaxial tensile test on a pre-cracked specimen by default the indicated zone of interest contains one initial subset but the ZOI is not well defined. In order to define well the ZOI it must be added an extra seed point in the ZOI but above the initial crack. After this, start the DIC analysis and exploit the results. To exploit the results in MatchID, it is possible to import data. In this case, import the data on the force applied throughout the test in order to plot the force as a function of the displacements for example (video 11).
 
-There are two types of errors in DIC measurements, namely variance errors and bias errors. The main sources of noise in DIC measurements are camera noise and matching errors during the correlation process. Bias can be introduced by smoothing of spatial gradients in a QOI, uncorrected lens distortions, poor camera calibration, and out-of-plane motion in 2D-DIC measurements, to name a few sources. Establishing the uncertainty of the QOIs accounting for bias and noise errors is essential for intelligent evaluation and use of DIC results. Without quantifying the uncertainty, it is impossible to know whether a reported QOI value is meaningful and relevant, or whether it is the result of random noise and bias.
 
-Bias errors are often difficult to quantify, as the true value of a QOI is usually not known. However, some sources of bias can be assessed. Even if no bias errors are detected, unknown bias errors may still exist!
-
-The process of quantifying variance errors is often called noise floor analysis. The basic idea of a noise floor analysis is to correlate static images of a DIC pattern that were acquired under the same conditions as the test images. With no force applied or displacement on the test piece, all measured QOIs requiring deformation are errors. The evaluation of the noise floor must be performed under the same conditions as the mechanical test, both in terms of physical conditions (camera and lens selection, illumination, camera temperature, cooling or mixing fans, powered test machine) and data processing procedures (image pre-filtering, subset size, step size, VSG size, temporal or spatial filtering of the data, etc.). This means that the same user-selected DIC parameters that are used for the analysis of the test piece images during deformation should also be used for the analysis of the noise floor images. Therefore, the final noise floor analysis is typically performed after the mechanical test image analysis, but using the images acquired immediately before the mechanical test.
-Two different metrics can be used to quantify the variance error of the QOIs: a spatial standard deviation and a temporal standard deviation. To quantify the spatial variation of the QOI, compute the standard deviation of the QOI for each image and average this spatial standard deviation over time for all static images. To quantify temporal variation, calculate the standard deviation of the QOI for each subset over time and average this temporal standard deviation for each subset over all subsets in the image ZOI. It is recommended that both spatial and temporal standard deviations be calculated and evaluated to see if one is significantly larger than the other. However, the spatial and temporal standard deviations are generally similar, and a single metric or the average of the two metrics can be selected to quantify the noise floor. 
 
 \section{Python}
 
 Python is a computer programming language often used to create websites and software, automate tasks and perform data analysis. It is a versatile language, which means that it can be used to create a variety of different programs and is not specialized for specific problems. This versatility, along with its beginner-friendliness, has made it one of the most widely used programming languages today.
 
-A second data processing is necessary to obtain the position of the crack front and the displacements. Below are the processing steps:
+A second data processing is necessary to obtain the position of the crack front and the displacements. This will allow later to plot the force as a function of the crack opening or as a function of the crack length. This will also allow to plot the energy release rate G as a function of the crack length a. Below are described two methods:
+
+\subsection{Method 1}
+
+\textbf{Mapping function and mapping mask}
+
+The method used is based on the variation of the relative position between adjacent subsets which gives an estimate of the damage occurrence. To begin with, a matching function A(x,y) is determined based on the norm of the relative position vectors as follows:
+
+\begin{equation}
+	A(x,y)=max(\lVert u_i-u_k\rVert;\lVert u_j-u_l\rVert)
+\end{equation}
+
+where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. A mapping mask is then defined assuming threshold segmentation according to the following inequalities.
+
+\begin{equation}
+	M(x,y)=
+	\begin{cases}
+		1 \text{ if } A(x,y) \geq \alpha \overline{A} \\
+		0 \text{ if } A(x,y)< \alpha \overline{A}\\
+		-1 \text{ if } A(x,y)= no data 
+	\end{cases}
+\end{equation}
+
+The matrix M represents, for a given step, the length of the crack by having a larger value in the crack area. If the user looks too close, the noise of the values will prevent a good analysis, but looking too high on the matrix, the crack length value will not be accurate. To move around and get an accurate idea of how the user can look at the M matrix, it is important to use $\alpha$. The alpha parameter is like a cutting tool that allows one to get as close to the noise as possible without problems. Thus, when a subset is outside this region, it will be considered as zero. Then, subsets that are placed in the crack, or somewhere where there is a defect or missing information as in the crack, the subset will be defined with a value equal to -1. Then, for all the subsets around the crack, which have a real interest in the study, they will take the value equal to 1. Using this sub-step matrix, now composed of -1, 0, 1, it is possible to plot the whole matrix in shades of gray, and to have an overview of the crack development.
+
+\textbf{$\alpha$ parameter}
+
+The parameter $\alpha$ is selected as the lowest integer satisfying the inequality:
+
+\begin{equation}
+	a(\alpha)-a_0 < f_s, \alpha \in \mathbb{N}
+\end{equation}
+
+where fs is the spatial resolution associated to DIC measurements.
+
+\textbf{Crack opening displacement}
+
+To obtain CTOD, it is important to pay attention to the choice a0. Indeed, the chosen subset will be determinant. By considering the image as a matrix composed of subsets, the chosen subset is a position given by its m rows and n columns. Looking at the subset from top to bottom allows one to follow the displacement of the crack tip and measure it. The point is to determine which pair of subsets is the best which means being closer or less close to the crack. If one is too close to the crack there will be no information and if one is too far away the measurement will be less accurate. By looking at these displacements, it is possible to obtain the value of the crack opening at each step.
+
+\textbf{Crack length}
+
+A final part of the code allows us to obtain a(t) as a function of alpha. This is done by focusing on the ZOI and the number of subsets that compose it. Through the matrix composed by each subset, the displacement field can be observed. It is obtained by calculating the distance between the center of a subset and its displacement from one image to another, as described in the literature review. To simplify the code, this calculation is not performed on each subset but only on the four corners. By calculating the distance between the opposite corners, the maximum displacement in x and the displacement in y are introduced in a last matrix.
+
+\subsection{Method 2}
 
 \textbf{Crack opening displacement (COD) or Virtual displacement}
 
@@ -141,17 +187,13 @@ where the indices t and b refer to the DIC data points located at the top and bo
 
 \textbf{$\alpha$ and $\beta$ parameters}
 
-Two kinds of techniques as an integer value representing the threshold can be used:
-
-The first one uses just the parameter $\alpha$ which is selected as the lowest integer satisfying the inequality:
+The first step towards detecting the crack tip is to take the average value of VD:
 
 \begin{equation}
-	a(\alpha)-a_0 < f_s, \alpha \in \mathbb{N}
+	\overline{VD}(i_n)=\frac{1}{k} \sum_{k=1}^{k}VD(k,i_n)
 \end{equation}
 
-where fs is the spatial resolution associated to DIC measurements.
-
-The second uses 2 parameters $\alpha$ and $\beta$ which are defined below:
+The threshold value need to be adjusted with 2 parameters $\alpha$ and $\beta$ which are defined below:
 
 \begin{equation}
 	\alpha=\frac{w_0 - w_f}{i_0 - i_f}  and \beta=w_0- \alpha i_0
@@ -165,13 +207,6 @@ Therefore, the adjusted threshold line-cut (VDth) is given by:
 	VD_{th}(i_n)=\overline{VD}(i_n)(\alpha i_n +\beta)
 \end{equation}
 
-where 
-
-\begin{equation}
-	\overline{VD}(i_n)=\frac{1}{k} \sum_{k=1}^{k}VD(k,i_n)
-\end{equation}
-
-
 The intersection between each $VD_{th}(i_n)$ and the corresponding $VD(k, i_n)$ curve at time n represents the $x_{11}$ position of the crack tip, denoted by ($p_n$).
 It is therefore possible to calculate the growth of the crack at instant n:
 
@@ -179,12 +214,32 @@ It is therefore possible to calculate the growth of the crack at instant n:
 	da_n=p_n-p_0
 \end{equation}
 
-\textbf{Estimation of the crack length a(t)}
+\subsection{Energy restitution rate}
 
-An important step is the determination of a. This parameter is the length of the crack that evolves with time during the whole experiment.  The value of a(t) will be equal to a0 set by the user and added to a $\Delta$a which is the value of the crack length, evolving with time due to the applied force.
+After using one of the two previous methods, we can calculate the energy restitution rate in mode 1 and in mixed mode.
+
+For mode 1, the formula is the one explained in chapter 1:
 
 \begin{equation}
-	a_n=x_n-x_0
+	G_c=\frac{{F_{ci}}^2}{2b}\ \frac{\partial C}{\partial a}
+\end{equation}
+
+For mixed mode, the formula becomes:
+
+\begin{equation}
+	\begin{cases}
+		G_I=\frac{{F_{cx}}^2}{2b}\ \frac{\partial C}{\partial a} \\
+		G_{II}=\frac{{F_{cy}}^2}{2b}\ \frac{\partial C}{\partial a}\\ 
+	\end{cases}
+\end{equation}
+
+In mixed mode the camera will have the same inclination as the specimen. The crack opening values will therefore be projected directly along the x and y axes. The force is projected along the x and y axes, so we have:
+
+\begin{equation}
+	\begin{cases}
+		F_{cy}=F \sin(\alpha) \\
+		F_{cx}=F \cos(\alpha) \\ 
+	\end{cases}
 \end{equation}
 
 \section{Specimen preparation}

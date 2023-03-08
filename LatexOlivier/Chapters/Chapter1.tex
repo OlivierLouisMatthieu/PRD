@@ -218,9 +218,9 @@ When all the free water is gone and all the bound water remains, the cell walls 
 
 \subsection{Influence of density on wood}
 
-Density is the ratio of the density of wood to that of water. Wood can change in weight and volume as a result of moisture gain and loss. Generally the reference density is calculated with 12\% moisture. In fact, some researchers have shown that Young's modulus, Poisson's ratio and shear modulus depend on wood density. The density of wood varies from one species to another and also within the same species. The more fibers the wood has, the denser it is. If we take the example of balsa, it has a low proportion of fibers and therefore a low density. Conversely, panacoco has a high proportion of fibers and therefore has a high density\cite{Reference1}.
+Density is the ratio of the density of wood to that of water. Wood can change in weight and volume as a result of moisture gain and loss. Generally the reference density is calculated with 12\% moisture. In fact, some researchers have shown that Young's modulus, Poisson's ratio and shear modulus depend on wood density. The density of wood varies from one species to another and also within the same species. The more fibers the wood has, the denser it is. If we take the example of balsa, it has a low proportion of fibers and therefore a low density. Conversely, panacoco has a high proportion of fibers and therefore has a high density \cite{Reference1}.
 
-Bodig and Jayne \cite{Reference4}  developed a formula that relates the mechanical properties of the generalized Hooke's law to the density of wood by the relation :
+\cite{Reference4}  developed a formula that relates the mechanical properties of the generalized Hooke's law to the density of wood by the relation :
 
 \begin{equation}
 	Y = a*D^b
@@ -258,9 +258,8 @@ Considering a one-dimensional behavior model in the direction of the fibers, we 
 
 With the proportionality between the stress $\sigma$ and the deformation $\epsilon$ along the fiber axis with respect to the wood grain, $ E_L $ represents the "longitudinal modulus of elasticity" which must in all rigor be characterized for each load case in tension, compression, bending etc.
 
-\newpage
 
-\textbf{Compression wood}
+\textbf{Compressive behaviour}
 
 In order to determine the behaviour of the material in compression, it must be stressed in both directions (parallel and orthogonal to the fibres). This is known as axial compression and transverse compression. The test is carried out on a parallelepipedic specimen, 20 x 20 x 60  with a loading speed of 40 MPa/mm. The variation of the stress as a function of the strain is plotted on the figure \ref{fig:fig8}:
 
@@ -300,6 +299,8 @@ Figure \ref{fig:fig10} shows the variation of the compressive strength of wood a
 	\sigma_{\alpha} = \frac{\sigma_{0}*\sigma_{90}}{\sigma_{\alpha}*sin(\alpha)^2+\sigma_{90}*cos(\alpha)^2}
 \end{equation}
 
+\textbf{Tensile behaviour}
+
 Wood has an almost elastic tensile behaviour until it breaks. Its tensile elastic modulus is equivalent to that in axial compression. The breaking stress is up to twice as high as that in compression. We can retain $f_{t0}=80$ to 140 MPa.
 
 \graphicspath{{Images/}}
@@ -314,7 +315,7 @@ In the same way as for compression, the oblique tensile strength can be theoreti
 
 \smallskip
 
-\textbf{Wood shearing}
+\textbf{Shearing behaviour}
 
 In order to measure the shear strength of wood in the longitudinal direction, a preferential shear plane must be created by the shape of the specimen. This is illustrated in Figure \ref{fig:fig12} :
 
@@ -375,7 +376,7 @@ The double cantilever beam (DCB) specimen was developed for testing in the crack
 
 \textbf{Double Cantilever Beam specimen with variable inertia}
 
-The classical DCB specimen had an instability from the beginning of the crack initiation. This is why Dubois \cite{Reference17} proposed a variable inertia DCB specimen with crack stability. The DCB specimen with variable inertia figure \ref{fig:fig16} was designed to ensure stabilised propagation in Mode I. Thus, after the crack initiation zone, a decrease in the rate of elastic energy restitution G is observed over a given propagation range. During this phase, only viscoelastic effects will participate in the progression of the crack front when the specimen is loaded in creep. The viscoelastic characteristics will thus be clearly decoupled from the cracking parameters. 
+The classical DCB specimen had an instability from the beginning of the crack initiation. This is why \cite{Reference17} proposed a variable inertia DCB specimen with crack stability. The DCB specimen with variable inertia figure \ref{fig:fig16} was designed to ensure stabilised propagation in Mode I. Thus, after the crack initiation zone, a decrease in the rate of elastic energy restitution G is observed over a given propagation range. During this phase, only viscoelastic effects will participate in the progression of the crack front when the specimen is loaded in creep. The viscoelastic characteristics will thus be clearly decoupled from the cracking parameters. 
 
 \graphicspath{{Images/}}
 \begin{figure}[htp]
@@ -447,7 +448,7 @@ The coefficient $K_\beta$ in the equation \ref{eq:eq1} is the stress intensity f
 	\label{fig:fig20}
 \end{figure}
 
-We have seen that there are three ways of applying a force, to a specimen, to allow a crack to propagate. These modes define the expression of the mechanical field in zone 2 for orthotropic material\cite{Reference9}. They are defined and expressed as follows and are illustrated in Figure \ref{fig:fig14}:
+We have seen that there are three ways of applying a force, to a specimen, to allow a crack to propagate. These modes define the expression of the mechanical field in zone 2 for orthotropic material \cite{Reference9}. They are defined and expressed as follows and are illustrated in Figure \ref{fig:fig14}:
 
 \textbf{Mechanical fields in the singular zone for mode 1}
 
@@ -653,6 +654,15 @@ The system consists of a digital camera and specialised computer software like M
 With the polar functions $f_i$, $g_i$, $l_i$, $m_i$, k depends on the material because of the Poisson's ratio term which determines k. The T terms are correction factors for rigid body movements.
 
 If this method is used on wood, it is important to note that the 2D orthotropic elastic material model has five engineering constants as input parameters, to be entered into the image analysis system. Although it depends on the software used, it is important to know these inputs. Firstly, the Young's modulus in the longitudinal direction must be entered, $E_L=E_1$, the transverse Young's modulus $E_{trans}=E_R=E_T=E_2$. Then the shear modulus $G_{LR}=G_{LT}=G_{12}$, if the shear mode is studied. Therefore, the Poisson's ratio $\nu$ has to be introduced in the software. This coefficient can change depending on the surface under study, in or out of the plane. The initial crack length is introduced into the model. The description of the damage is presented by three main inputs, although it may change depending on the software. If we are in mode I damage, it is described by the damage initiation stress $\sigma_{ini}$, but also by the failure stress $\delta_{fl}$, and the shape coefficient of the exponential function $\alpha_l$.
+
+\subsection{Uncertainty Quantification}
+
+There are two types of errors in DIC measurements, namely variance errors and bias errors. The main sources of noise in DIC measurements are camera noise and matching errors during the correlation process. Bias can be introduced by smoothing of spatial gradients in a QOI, uncorrected lens distortions, poor camera calibration, and out-of-plane motion in 2D-DIC measurements, to name a few sources. Establishing the uncertainty of the QOIs accounting for bias and noise errors is essential for intelligent evaluation and use of DIC results. Without quantifying the uncertainty, it is impossible to know whether a reported QOI value is meaningful and relevant, or whether it is the result of random noise and bias.
+
+Bias errors are often difficult to quantify, as the true value of a QOI is usually not known. However, some sources of bias can be assessed. Even if no bias errors are detected, unknown bias errors may still exist!
+
+The process of quantifying variance errors is often called noise floor analysis. The basic idea of a noise floor analysis is to correlate static images of a DIC pattern that were acquired under the same conditions as the test images. With no force applied or displacement on the test piece, all measured QOIs requiring deformation are errors. The evaluation of the noise floor must be performed under the same conditions as the mechanical test, both in terms of physical conditions (camera and lens selection, illumination, camera temperature, cooling or mixing fans, powered test machine) and data processing procedures (image pre-filtering, subset size, step size, VSG size, temporal or spatial filtering of the data, etc.). This means that the same user-selected DIC parameters that are used for the analysis of the test piece images during deformation should also be used for the analysis of the noise floor images. Therefore, the final noise floor analysis is typically performed after the mechanical test image analysis, but using the images acquired immediately before the mechanical test.
+Two different metrics can be used to quantify the variance error of the QOIs: a spatial standard deviation and a temporal standard deviation. To quantify the spatial variation of the QOI, compute the standard deviation of the QOI for each image and average this spatial standard deviation over time for all static images. To quantify temporal variation, calculate the standard deviation of the QOI for each subset over time and average this temporal standard deviation for each subset over all subsets in the image ZOI. It is recommended that both spatial and temporal standard deviations be calculated and evaluated to see if one is significantly larger than the other. However, the spatial and temporal standard deviations are generally similar, and a single metric or the average of the two metrics can be selected to quantify the noise floor. 
 
 \subsection{Software used}
 
