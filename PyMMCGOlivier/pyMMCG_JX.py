@@ -31,8 +31,8 @@ plt.rcParams.update(params)
 
 ###  USER #####################################################################
 # cwd = os.getcwd()
-# Job = 'DCB_002'
-Job = 'e1p3'
+# Job = 'e1p3'
+Job = 'DCB_002'
 
 runuser = 'Xavier'
 if runuser == 'Xavier':
