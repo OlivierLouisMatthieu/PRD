@@ -39,7 +39,7 @@ cwd = os.path.join(pwd_Stanislas, Job) #join Job to pwd_Stanislas
 
 #cwd = os.path.join('C:\\Users\\pc\\Desktop\\PRD essai\\DCB_002',Job) #why Job Here ?
 
-cwd = os.path.join('C:\\Users\\pc\\Desktop\\Wood_Fracture_Mechanics_2\\PRD essai\\DCB_002')
+cwd = os.path.join('D:\PRD\EXP\Pinus\DCB_002')
 ###############################################################################
 
 print('working directory: ', cwd)
@@ -79,7 +79,7 @@ del load, disp #Delete an user-defined object
 
 #%% Read matchid DIC data
 
-pathdados = os.path.join(cwd,'x_pic\\DCB_002_0001.tif_x_pic.csv')
+pathdados = os.path.join(cwd,'x_pic\\DCB_002_0001.tif_x_pic.csv')#reference image 0001
 MatchID.x_pic = np.genfromtxt(pathdados, skip_header=0, delimiter=';')
 MatchID.x_pic = MatchID.x_pic[:,0:-1] 
 #takes all the lines and for the column it returns all elements [:] except the last one -1
