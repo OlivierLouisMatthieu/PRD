@@ -37,8 +37,8 @@ Job = 'e1p3'
 runuser = 'Xavier'
 if runuser == 'Xavier':
     # maincwd = "X:\\jxavier\\Orient\\Erasmus\\2021\\Polytech_Clermont-FD\\Stanislas\\EXP\\MMCGTests"
-    maincwd = "/home/jxav/Github_repos/StanMLF/Wood_Fracture_Mechanics/PyMMCG/MMCGTests"
-elif runuser == 'Stanislas':
+    maincwd = "/home/slimbook/Documents/GitHub/OlivierLouisMatthieu/PRD/MMCGTests"
+elif runuser == 'Olivier':
     maincwd = "C:\\Users\\pc\\Desktop\\MMCGTests"
 
 cwd = os.path.join(maincwd, Job)
