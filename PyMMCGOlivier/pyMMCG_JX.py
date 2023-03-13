@@ -32,14 +32,14 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 # Job = 'DCB_002'
-Job = 'e1p3'
+Job = 'e1o1'
 
-runuser = 'Xavier'
+runuser = 'Olivier'
 if runuser == 'Xavier':
     # maincwd = "X:\\jxavier\\Orient\\Erasmus\\2021\\Polytech_Clermont-FD\\Stanislas\\EXP\\MMCGTests"
     maincwd = "/home/jxav/Github_repos/StanMLF/Wood_Fracture_Mechanics/PyMMCG/MMCGTests"
-elif runuser == 'Stanislas':
-    maincwd = "C:\\Users\\pc\\Desktop\\MMCGTests"
+elif runuser == 'Olivier':
+    maincwd = "D:\PRD\EXP\MMCGTests"
 
 cwd = os.path.join(maincwd, Job)
 
