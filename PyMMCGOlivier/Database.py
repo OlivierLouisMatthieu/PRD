@@ -6,9 +6,9 @@ LX, LY = 34.98, 29.18 # unit: mm
 # pixel to mm magnification factor
 Test.mm2pixel = LX / H
 # Load conversion factor - testing machine
-Test.LoadConvFactor = 1000  # converning kN to N, unit: N
+Test.LoadConvFactor = 1000.  # converning kN to N, unit: N
 # Displacement conversion factor - testing machine
-Test.DisplConvFactor = 1 # unit: mm
+Test.DisplConvFactor = 1. # unit: mm
 Test.meanPreLoad = 69.1 # unit: N
 
 if Job == 'e1o1':

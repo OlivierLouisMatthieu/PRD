@@ -1,8 +1,11 @@
 Specimens weight.xlsx
+MMCGTests
 PyMMCG/DCB_002
 PyMMCG/MMCGTests
 PyMMCG/Data
 .idea
+.vscode
+.fleet
 /venv
 
 LatexOlivier/*.ist
