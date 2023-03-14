@@ -109,12 +109,20 @@ if Load[0] < 0:  # unit: N
 ##########################################
 
 fig, ax = plt.subplots(figsize=(7,5))
+plt.plot(test.Displ.values.astype(float), test.Load.values.astype(float), 'k-', linewidth=3)
+plt.ylabel('Load [N]')
+plt.xlabel('Displacement [mm]')
+plt.grid()
+plt.show()
+#plot the raw d ata
+
+fig, ax = plt.subplots(figsize=(7,5))
 plt.plot(Displ, Load, 'k-', linewidth=3)
 plt.ylabel('Load [N]')
 plt.xlabel('Displacement [mm]')
 plt.grid()
 plt.show()
-
+#plot the shift data
 
 #%% Read matchid DIC data
 
@@ -222,6 +230,12 @@ aux = MatchID.load - np.max(MatchID.load)
 idx = np.argwhere(np.abs(aux) == np.min(np.abs(aux)))
 fig = plt.figure()
 plt.imshow(UY[:, :, int(idx[0])])
+plt.plot(a0.X,a0.Y,'sr')
+plt.colorbar()
+plt.show()
+
+fig = plt.figure()
+plt.imshow(UY[:, :, 40])
 plt.plot(a0.X,a0.Y,'sr')
 plt.colorbar()
 plt.show()
@@ -603,7 +617,7 @@ for i in np.arange(0,len(alpha_alphaV),1):
 # pixel > mm: [macro - pixel * (pixel / macro - pixel) * (mm / pixel)
 crackL_J_mm = Test.a0 + crackL_J_pixel_X*MatchID.mm2step #crack length
 
-j = 30
+j = 20
 fig = plt.figure()
 plt.imshow(UY[:, :, j])
 plt.plot(UY.shape[1]-crackL_J_pixel_X[j, chos_alp],crackL_J_pixel_Y[j, chos_alp],'sr')
