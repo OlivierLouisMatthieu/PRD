@@ -34,9 +34,9 @@ plt.rcParams.update(params)
 # Job = 'DCB_002'
 Job = 'e1o1'
 
-runuser = 'Olivier'
+runuser = 'Xavier'
 if runuser == 'Xavier':
-    maincwd = "X:\\jxavier\\Orient\\Erasmus\\2021\\Polytech_Clermont-FD\\Stanislas\\EXP\\MMCGTests"
+    maincwd = "/home/slimbook/Documents/GitHub/OlivierLouisMatthieu/PRD/MMCGTests"
 elif runuser == 'Olivier':
     maincwd = "D:\Recherche PRD\EXP\MMCGTests"
 
@@ -278,8 +278,8 @@ X_i, X_f = 0, a0.X
 filtro = 'yes' # 'yes'; 'no'
 
 ####
-#### alpha evaluation :::::::::::::::::::::::::::::::::::::::::::::::::::::
-### Selecting stage for investigating alpha
+#### 1st alpha evaluation :::::::::::::::::::::::::::::::::::::::::::::::::::::
+### Selecting stage for investigating alpha from P-d curve
 ####
 
 # least-squares linear regression
@@ -333,8 +333,8 @@ plt.grid()
 plt.show()
 
 ####
-#### alpha evaluation :::::::::::::::::::::::::::::::::::::::::::::::::::::
-### 2 criterion for checking stage
+#### 2nd alpha evaluation :::::::::::::::::::::::::::::::::::::::::::::::::::::
+### 2 criterion for checking stage from displacament field processing
 ####
 inb = 3
 # standard deviation * inb (to be checked by user)
@@ -401,7 +401,6 @@ while JJ == 1:
 # save selected stage - stage used to compute automatically the alpha thresh
 # at this stage one assumes that there is no crack propagation a(t) = a0
 alpha_stages = J
-
 
 alphamin = 1
 alphamax = int(maxK/avgK)
