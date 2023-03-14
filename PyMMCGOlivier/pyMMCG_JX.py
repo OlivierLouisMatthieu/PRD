@@ -39,7 +39,7 @@ if runuser == 'Xavier':
     # maincwd = "X:\\jxavier\\Orient\\Erasmus\\2021\\Polytech_Clermont-FD\\Stanislas\\EXP\\MMCGTests"
     maincwd = "/home/jxav/Github_repos/StanMLF/Wood_Fracture_Mechanics/PyMMCG/MMCGTests"
 elif runuser == 'Olivier':
-    maincwd = "D:\PRD\EXP\MMCGTests"
+    maincwd = "D:\Recherche PRD\EXP\MMCGTests"
 
 cwd = os.path.join(maincwd, Job)
 
@@ -52,6 +52,7 @@ print('starting structured variables..')
 # anonymous class
 class Struct:
     def __init__(self, **entries): self.__dict__.update(entries)
+    #dictionnaire des entrées
 
 MatchID = Struct()
 a0 = Struct()
@@ -69,9 +70,11 @@ print('reading : load and displacement from the test machine')
 
 pathdados = os.path.join(cwd, Job + '_load.csv')
 test = pd.read_csv(pathdados, delimiter=";", decimal=".", names=['Time', 'Load', 'Displ'])
-
+#decimal avec nombre . colonne 1 time
 Time = test.Time.values.astype(float)
+#récupère la colonne temps
 Time = Time - Time[0]
+#temps réel
 incTime = int(1/Time[1])
 
 Displ = test.Displ.values.astype(float)*Test.DisplConvFactor # unit: mm
@@ -96,20 +99,27 @@ MatchID.yCoord = MatchID.y_pic[:,0]
 # Area of Interest
 MatchID.SubsetXi, MatchID.SubsetYi = int(MatchID.xCoord[0]), int(MatchID.yCoord[0])
 MatchID.SubsetXf, MatchID.SubsetYf = int(MatchID.xCoord[-1]), int(MatchID.yCoord[-1])
+# indice -1 pour le dernier indice
 
 # determining the number of stages by inspecting MatchID processing files
 MatchID.stages = len(os.listdir(os.path.join(cwd,'U')))
 MatchID.time = np.arange(1, MatchID.stages+1, 1)
+#tableau de 122 case allant de 1 à 122
 
 auxD, auxL = [], []
+#2 tab vides
 for i in MatchID.time:
     aux = Time - MatchID.time[i-1]
+    #aux tab temps-
     idx = np.argwhere(np.abs(aux) == np.min(np.abs(aux)))
+    # indice le + proche de 0
     auxD.append(float(Displ[idx[0]]))
     auxL.append(float(Load[idx[0]]))
-
+#récupérer les points dipl et load les plus proches 
+#synchronise les images par rapport au temps et force donc 122 pts temps etc...
 MatchID.displ = np.array(auxD)
 MatchID.load = np.array(auxL)
+#tab dep et load
 
 print('Number of stages: ', str(MatchID.stages))
 
@@ -128,6 +138,9 @@ plt.show()
 
 MatchID.SubsetsX = MatchID.x_pic.shape[1]
 MatchID.SubsetsY = MatchID.x_pic.shape[0]
+#to do
+print(MatchID.SubsetsX)
+print(MatchID.SubsetsY)
 
 # U displacement
 UX = np.zeros((MatchID.SubsetsY, MatchID.SubsetsX, MatchID.stages))
@@ -140,6 +153,7 @@ for i in np.arange(0, MatchID.stages, 1):
     aux = pd.read_csv(pathdados, delimiter=';')
     xend, yend = aux.shape[1], aux.shape[0]
     UX[0:yend, 0:xend-1, i] = aux.values[:, :-1]*Test.mm2pixel # unit: mm
+    #tab 3D avec valeur excel et stages
 print(f'{toc():.1f} seg')
 
 # V displacement
@@ -165,6 +179,7 @@ pathdados = os.path.join(cwd,Job+'_0000_0.tiff')
 img0 = cv.imread(pathdados, cv.IMREAD_GRAYSCALE) # cv.imread(pathdados, 0)
 dpi = plt.rcParams['figure.dpi']
 Height, Width = img0.shape
+#hauteur largeur img
 
 # What size does the figure need to be in inches to fit the image?
 print('plotting: image + roi + subsets mesh..')
@@ -211,9 +226,12 @@ CTODII = np.zeros((ud_lim, 3, MatchID.stages))
 
 for J in np.arange(0, MatchID.stages, 1):
     # mode II:
-    uXtemp = np.copy(UX[:, :, J])
+    uXtemp = np.copy(UX[:, :, J])# J par rapport au stage
     CTODII[:, 0, J] = np.flipud(uXtemp[a0.Y - ud_lim: a0.Y, a0.X])
+    #updown limit récupère de a0.Y-udlim jusqu'à a0.Y donc pareil 10 valeurs pour a0.X
+    #prend en dessous de la fissure et flip pour comparer avec au dessus de la fissure
     CTODII[:, 1, J] = uXtemp[a0.Y: a0.Y + ud_lim, a0.X]
+    #récupère de a0.Y-udlim jusqu'à a0.Y donc pareil 10 valeurs pour a0.X
     CTODII[:, 2, J] = np.abs(CTODII[:, 1, J] - CTODII[:, 0, J])
     # mode I:
     uYtemp = np.copy(UY[:, :, J])
@@ -222,6 +240,7 @@ for J in np.arange(0, MatchID.stages, 1):
     CTODI[:, 2, J] = np.abs(CTODI[:, 1, J] - CTODI[:, 0, J])
 
 COD.wI = CTODI[COD.cod_pair, 2, :]
+#prend une paire de substet voulue
 COD.wII = CTODII[COD.cod_pair, 2, :]
 
 ud_limitup = COD.cod_pair + 1

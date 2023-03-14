@@ -32,13 +32,13 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 # Job = 'DCB_002'
-Job = 'e2p2'
+Job = 'e1o1'
 
-runuser = 'Xavier'
+runuser = 'Olivier'
 if runuser == 'Xavier':
     maincwd = "X:\\jxavier\\Orient\\Erasmus\\2021\\Polytech_Clermont-FD\\Stanislas\\EXP\\MMCGTests"
-elif runuser == 'Stanislas':
-    maincwd = "C:\\Users\\pc\\Desktop\\MMCGTests"
+elif runuser == 'Olivier':
+    maincwd = "D:\Recherche PRD\EXP\MMCGTests"
 
 cwd = os.path.join(maincwd, Job)
 
@@ -122,6 +122,7 @@ pathdados = os.path.join(cwd,'X[Pixels]\\'+Job+'_0001_0.tiff_X[Pixels].csv')
 MatchID.x_pic = np.genfromtxt(pathdados, skip_header=0, delimiter=';')
 MatchID.x_pic = MatchID.x_pic[:,0:-1]
 MatchID.xCoord = MatchID.x_pic[0,:]
+#take just the first line
 pathdados = os.path.join(cwd,'Y[Pixels]\\'+Job+'_0001_0.tiff_Y[Pixels].csv')
 MatchID.y_pic = np.genfromtxt(pathdados, skip_header=0, delimiter=';')
 MatchID.y_pic = MatchID.y_pic[:,0:-1]
@@ -158,6 +159,7 @@ plt.show()
 # Read results "....tif_#.csv" into 3D np.array
 
 MatchID.SubsetsX = MatchID.x_pic.shape[1]
+#.shape[1] for nb of column
 MatchID.SubsetsY = MatchID.x_pic.shape[0]
 
 # U displacement
@@ -165,7 +167,7 @@ UX = np.zeros((MatchID.SubsetsY, MatchID.SubsetsX, MatchID.stages))
 # tic()
 for i in np.arange(0, MatchID.stages, 1):
     readstr = Job+'_%04d_0.tiff_U.csv' % int(i+1)
-    print('reading : ',readstr)
+    #print('reading : ',readstr)
     pathdados = os.path.join(cwd,'U',readstr)
     aux = np.genfromtxt(pathdados, skip_header=0, delimiter=';')
     xend, yend = aux.shape[1], aux.shape[0]
@@ -177,7 +179,7 @@ UY = np.zeros((MatchID.SubsetsY, MatchID.SubsetsX, MatchID.stages))
 # tic()
 for i in np.arange(0, MatchID.stages, 1):
     readstr = Job+'_%04d_0.tiff_V.csv' % int(i+1)
-    print('reading : ',readstr)
+    #print('reading : ',readstr)
     pathdados = os.path.join(cwd,'V',readstr)
     aux = np.genfromtxt(pathdados, skip_header=0, delimiter=';')
     xend, yend = aux.shape[1], aux.shape[0]
@@ -272,6 +274,7 @@ i, incr = 1, 1
 # incr : is used to step over stages if required (default = 1: all stages)
 Y_i, Y_f = 0, UY.shape[0]
 X_i, X_f = 0, a0.X
+#donne nombre ligne UY.shape[0] et UY.shape[1] nb colonne
 filtro = 'yes' # 'yes'; 'no'
 
 ####
@@ -311,7 +314,7 @@ plt.plot(MatchID.displ, MatchID.load, 'k-', linewidth=3)
 plt.plot(MatchID.displ[liminf:limsup], MatchID.load[liminf:limsup],'r--',linewidth=4)
 plt.plot(MatchID.displ[J], MatchID.load[J],'bo', markersize=10)
 x = np.linspace(0,MatchID.displ[liminf]*2.2)
-y = np.linspace(0,MatchID.load[liminf]*2.2)
+y = np.linspace(0,MatchID.load[liminf]*2.2) #why?
 plt.plot(x,y,'k--')
 plt.xlabel('Displacment, mm')
 plt.ylabel('Load, N')
@@ -384,9 +387,12 @@ while JJ == 1:
     displ_DB = np.abs(displ_D-displ_B)
     # auxiliar function for the crack tip location criterion
     K = np.maximum(displ_CA, displ_DB)
+    #prend le max de CA et de DB
     avgK = np.nanmean(K) #mean ignoring nan values.
     stdK = np.nanstd(K)
     maxK = np.nanmax(K)
+    print(avgK + inb*stdK)
+    print(maxK)
     if maxK < avgK + inb*stdK:
         J = J + 1
     else:
@@ -493,6 +499,7 @@ for J in stagEval:
     #     K = imfilter(K, H, 'replicate');
     # end
     fract_K[:,:,J] = K
+    #where there is the greatest displacement there is the fracture?
 
 j = 20
 fig = plt.figure()

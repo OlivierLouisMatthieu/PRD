@@ -2,6 +2,7 @@ roi = 'crop' # 'all'; 'crop'
 i, incr = 1, 1
 # incr : is used to step over stages if required (default = 1: all stages)
 Y_i, Y_f = 0, UY.shape[0]
+#donne nombre ligne UY.shape[0] et UY.shape[1] nb colonne
 X_i, X_f = 0, a0.X
 filtro = 'yes' # 'yes'; 'no'
 
@@ -20,6 +21,7 @@ limsup = int(0.75*np.argwhere(max(yy)==yy)[-1])
 liminf = int(np.round((1/3)*limsup))# number of minimum data points for LSR
 
 xx, yy = xx[0:limsup], yy[0:limsup]
+#donne la plage de données en x et y
 Rtot = np.zeros((limsup-liminf,1))
 C_M = np.zeros((limsup-liminf,1))
 for j in np.arange(0,limsup-liminf,1):
@@ -35,8 +37,8 @@ for j in np.arange(0,limsup-liminf,1):
 
 # position for the best fitting point parameters
 jmax = np.max(np.argwhere(np.max(Rtot)==Rtot))
+#where Rtot is max
 J = int(liminf + jmax)
-
 fig, ax = plt.subplots(figsize=(7,5))
 plt.plot(MatchID.displ, MatchID.load, 'k-', linewidth=3)
 plt.plot(MatchID.displ[liminf:limsup], MatchID.load[liminf:limsup],'r--',linewidth=4)
@@ -65,9 +67,11 @@ if Job == 'e2p2':
 
 plt.axes([.075, .0, .875, 1.2])
 plt.imshow(UY[:, :, J ])
+#plot for the best stage
 plt.xticks(color='w')
 plt.yticks(color='w')
 plt.plot(a0.X,a0.Y,'sr')
+#plot the pos of the crack tip
 plt.title('UY, mm', color='black')
 plt.text(a0.X*.985, a0.Y*.95,'a0', color='black')
 cax = plt.axes([0.075, 0.2, .875, 0.1])
@@ -93,6 +97,7 @@ while JJ == 1:
     if roi == 'crop':
             displ_x = displ_x[Y_i:Y_f,X_i:X_f]
             displ_y = displ_y[Y_i:Y_f,X_i:X_f]
+            #ne prend que les valurs de initial à final
 
     # find the dimensions of the matrix
     m = displ_x.shape[0] #  y - row
