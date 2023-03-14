@@ -126,12 +126,12 @@ plt.show()
 
 #%% Read matchid DIC data
 
-pathdados = os.path.join(cwd,'X[Pixels]\\'+Job+'_0001_0.tiff_X[Pixels].csv')
+pathdados = os.path.join(cwd,'X[Pixels]',Job+'_0001_0.tiff_X[Pixels].csv')
 MatchID.x_pic = np.genfromtxt(pathdados, skip_header=0, delimiter=';')
 MatchID.x_pic = MatchID.x_pic[:,0:-1]
 MatchID.xCoord = MatchID.x_pic[0,:]
 #take just the first line
-pathdados = os.path.join(cwd,'Y[Pixels]\\'+Job+'_0001_0.tiff_Y[Pixels].csv')
+pathdados = os.path.join(cwd,'Y[Pixels]',Job+'_0001_0.tiff_Y[Pixels].csv')
 MatchID.y_pic = np.genfromtxt(pathdados, skip_header=0, delimiter=';')
 MatchID.y_pic = MatchID.y_pic[:,0:-1]
 MatchID.yCoord = MatchID.y_pic[:,0]
