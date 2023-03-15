@@ -57,7 +57,7 @@ In order to facilitate the studies on the physical and mechanical behaviours, we
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=15cm]{fig3}
+	\includegraphics[width=10cm]{fig3}
 	\caption{Main orthotropic directions and planes in Wood}
 	\label{fig:fig3}
 \end{figure}
@@ -73,7 +73,7 @@ The wood grows in concentric layers to the outside. It is this growth that creat
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=8cm]{fig4}
+	\includegraphics[width=10cm]{fig4}
 	\caption{Sectional view of the wood}
 	\label{fig:fig4}
 \end{figure}
@@ -113,7 +113,7 @@ Hardwoods have more cell diversity than softwoods. They are composed of differen
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=10cm]{fig5}
+	\includegraphics[width=12cm]{fig5}
 	\caption{Microscopic section of hardwood and softwood \cite{Thibaut2015phd}}
 	\label{fig:fig5}
 \end{figure}
@@ -213,7 +213,7 @@ When all the free water is gone and all the bound water remains, the cell walls 
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=8cm]{fig6}
+	\includegraphics[width=10cm]{fig6}
 	\caption{3 types of wood shrinkage}
 	\label{fig:galaxy}
 \end{figure}
@@ -245,7 +245,7 @@ Wood is considered as an elastic material. It means that wood will return to its
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=8cm]{fig7}
+	\includegraphics[width=10cm]{fig7}
 	\caption{Orthotropy of wood without defects \cite{Taazount2021}}
 	\label{fig:fig7}
 \end{figure}
@@ -263,25 +263,32 @@ With the proportionality between the stress $\sigma$ and the deformation $\epsil
 
 \textbf{Compressive behaviour}
 
-In order to determine the behaviour of the material in compression, it must be stressed in both directions (parallel and orthogonal to the fibres). This is known as axial compression and transverse compression. The test is carried out on a parallelepipedic specimen, 20 x 20 x 60  with a loading speed of 40 MPa/mm. The variation of the stress as a function of the strain is plotted on the figure \ref{fig:fig8}:
+In order to determine the behaviour of the material in compression, it must be stressed in both directions (parallel and orthogonal to the fibres). This is known as axial compression and transverse compression. The test is carried out on a parallelepipedic specimen, 20 x 20 x 60  with a loading speed of 40 MPa/mm. The variation of the stress as a function of the strain is plotted on the figure \ref{fig:fig8}.
 
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=8cm]{fig8}
+	\includegraphics[width=10cm]{fig8}
 	\caption{Axial and transverse compression of wood}
 	\label{fig:fig8}
 \end{figure}
 
-Orders of magnitude of axial compressive strengths and elastic moduli can be given for each type of wood species in table \ref{fig:fig9}: 
+Orders of magnitude of axial compressive strengths and elastic moduli can be given for each type of wood species in table \ref{fig:fig9}. 
 
-
-\begin{table}[htp]
-	\centering
-	\includegraphics[width=8cm]{fig9}
+\begin{table} \centering
+	\begin{tabular}{ccc}
+		\toprule % horizontal line at the top of the table
+		& Resinous wood & Deciduous wood  \\\midrule
+		Axial compression strength & 45 \unit{\mega\pascal}
+		& 55 \unit{\mega\pascal} \\\midrule
+		Elasticity modulus & 12000 \unit{\mega\pascal}
+		& 14000 \unit{\mega\pascal} \\
+		\bottomrule % horizontal line at the bottom of the table
+	\end{tabular}
 	\caption{Orders of magnitude of axial compressive strengths and elastic moduli}
-	\label{fig:fig9}
+	\label{fig:fig13}
 \end{table}
+
 
 For transverse compression and regardless of the wood species, the strength is divided by 7 (i.e. strength < 10 MPa). 
 
@@ -376,8 +383,6 @@ Moreover, the cracking failure mechanism can occur in two types of cracking:
 
 In order to realize these different modes of rupture, we need specimens that meet certain criteria such as geometry. Indeed, some specimens were designed to solve problems for mode I while others for mode II or mixed mode. There are therefore several types of test specimens:
 
-\smallskip
-
 \textbf{DCB test piece}
 
 The double cantilever beam (DCB) specimen was developed for testing in the crack opening mode (Mode I). Its design allows to obtain a stress intensity factor that decreases when the crack propagates. However, it also allows the determination of the toughness and the critical energy restitution rate in mode I and mode II. Indeed, in the document of \cite{YoshiharaandNobusue2008} Mode I and Mode II fracture toughness were measured of compressed spruce by a double cantilever beam (DCB) test and a three-point bend end notched flexure (3ENF) test figure \ref{fig:fig15}.
@@ -385,13 +390,12 @@ The double cantilever beam (DCB) specimen was developed for testing in the crack
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=.7\textwidth]{fig15}
+	\includegraphics[width=.6\textwidth]{fig15}
 	\caption{Schematic representation of 3ENF test with DCB test piece. \cite{DavidsonandSun2005}}
 	\label{fig:fig15}
 \end{figure}
 
-\smallskip
-
+\newpage
 \textbf{Double Cantilever Beam specimen with variable inertia}
 
 The classical DCB specimen had an instability from the beginning of the crack initiation. This is why \cite{Dubois2002} proposed a variable inertia DCB specimen with crack stability. The DCB specimen with variable inertia figure \ref{fig:fig16} was designed to ensure stabilised propagation in Mode I. Thus, after the crack initiation zone, a decrease in the rate of elastic energy restitution G is observed over a given propagation range. During this phase, only viscoelastic effects will participate in the progression of the crack front when the specimen is loaded in creep. The viscoelastic characteristics will thus be clearly decoupled from the cracking parameters. 
@@ -405,12 +409,16 @@ The classical DCB specimen had an instability from the beginning of the crack in
 \end{figure}
 
 
-\smallskip
-
 \textbf{Compact Tension Shear specimen}
 
 The Compact Tension Shear (CTS) specimen figure \ref{fig:fig17} is designed to evaluate all mixed modes in different materials. It was developed for mixed loads in isotropic materials. Two steel arms are pierced with holes where symmetrical forces P oriented by angles $\beta$ of mixtures are applied. On both specimens, the crack remains oriented in the direction of high orthotropy.
 
+\begin{figure}[tp]
+	\centering
+	\includegraphics[width=.4\textwidth]{fig17}
+	\caption{Compact Tension Shear (CTS) specimen}
+	\label{fig:fig17}
+\end{figure}
 
 \textbf{Mixed Mode Crack Growth specimen}
 
@@ -418,16 +426,11 @@ The design of the Mixed Mode Crack Growth (MMCG) specimen figure \ref{fig:fig18}
 
 
 
-\begin{figure}[tp]
-	\centering
-	\includegraphics[width=.6\textwidth]{fig17}
-	\caption{Compact Tension Shear (CTS) specimen}
-	\label{fig:fig17}
-\end{figure}
+
 
 \begin{figure}[tp]
 	\centering
-	\includegraphics[width=.9\textwidth]{fig18}
+	\includegraphics[width=.6\textwidth]{fig18}
 	\caption{2MCG test piece \cite{MoutouPitti2008}}
 	\label{fig:fig18}
 \end{figure}
@@ -462,7 +465,7 @@ The coefficient $K_\beta$ in the equation \ref{eq:eq1} is the stress intensity f
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=10cm]{fig20}
+	\includegraphics[width=8cm]{fig20}
 	\caption{Crack tip scoring}
 	\label{fig:fig20}
 \end{figure}

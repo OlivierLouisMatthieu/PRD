@@ -34,7 +34,7 @@ plt.rcParams.update(params)
 # Job = 'DCB_002'
 Job = 'e1o1'
 
-runuser = 'Xavier'
+runuser = 'Olivier'
 if runuser == 'Xavier':
     maincwd = "/home/slimbook/Documents/GitHub/OlivierLouisMatthieu/PRD/MMCGTests"
 elif runuser == 'Olivier':
@@ -513,13 +513,30 @@ for J in stagEval:
     # end
     fract_K[:,:,J] = K
     #where there is the greatest displacement there is the fracture?
-
-j = 20
-fig = plt.figure()
-plt.imshow(fract_K[:, :, j])
-plt.plot(a0.X,a0.Y,'sr')
-plt.colorbar()
-plt.show()
+    
+#j=20
+#make a video!
+for j in stagEval:
+    fig = plt.figure()
+    plt.imshow(fract_K[:, :, j])
+    plt.plot(a0.X,a0.Y,'sr')
+    plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(j)+".png")
+    plt.colorbar()
+    plt.show()
+    
+path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
+files = os.listdir(path)
+files.sort()
+fourcc = cv.VideoWriter_fourcc(*'XVID')
+output = cv.VideoWriter(path+'output.avi', fourcc, 10.0, (640, 480))  
+      
+for j in stagEval: 
+    img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
+    img = cv.resize(img, (640, 480))
+    output.write(img)
+    os.remove(os.path.join(path, "Img"+str(j)+".png"))
+output.release()
+cv.destroyAllWindows()  
 
 # xplot = np.arange(X_i, X_f+1, 1)
 # yplot = np.arange(Y_i, Y_f, 1)
