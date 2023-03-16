@@ -221,9 +221,45 @@ plt.imshow(img0, cmap='gray', vmin=0, vmax=255)
 #     for j in np.arange(start=0, stop=MatchID.x_pic.shape[0], step=1):
 #         plt.plot(MatchID.x_pic[j,i], MatchID.y_pic[j,i], color='red',
 #                  marker='.', markerfacecolor='red', markersize=1)
-plt.plot(a0.imgHuse,a0.imgVuse, color='blue', marker='+', markersize=30)
+plt.plot(a0.imgHuse,a0.imgVuse, color='red', marker='+', markersize=50)
 plt.show()
 # print(f'{toc():.1f} seg')
+########################################
+
+run=0
+#run = int(input("Please enter 1 if you want the video: "))
+if run == 1:
+    for i in MatchID.time:
+        pathdados = os.path.join(cwd, Job + "_" + f"{i:04d}" + '_0.tiff')
+        img0 = cv.imread(pathdados, cv.IMREAD_GRAYSCALE) # cv.imread(pathdados, 0)
+        dpi = plt.rcParams['figure.dpi']
+        Height, Width = img0.shape
+        print(i)
+        figsize = Width/float(dpi), Height/float(dpi)
+        fig = plt.figure(figsize=figsize)
+        cor = (255, 255, 255)
+        thickness = 1
+        start_point = (MatchID.SubsetXi,MatchID.SubsetYi)
+        end_point = (MatchID.SubsetXf,MatchID.SubsetYf)
+        img0 = cv.rectangle(img0, start_point, end_point, cor, thickness)
+        plt.imshow(img0, cmap='gray', vmin=0, vmax=255)
+        plt.plot(a0.imgHuse,a0.imgVuse, color='red', marker='+', markersize=50)
+        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(i)+".png")
+        plt.show()
+        
+    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
+    files = os.listdir(path)
+    files.sort()
+    fourcc = cv.VideoWriter_fourcc(*'XVID')
+    output = cv.VideoWriter(path+'\MMCG.avi', fourcc, 10.0, (640, 480))  
+          
+    for j in MatchID.time: 
+        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
+        img = cv.resize(img, (640, 480))
+        output.write(img)
+        os.remove(os.path.join(path, "Img"+str(j)+".png"))
+    output.release()
+    cv.destroyAllWindows()
 
 #######################################
 aux = MatchID.load - np.max(MatchID.load)
@@ -279,6 +315,39 @@ plt.grid()
 plt.legend(loc=2, prop={'size': 8})
 fig.tight_layout()
 plt.show()
+
+
+run=0
+#run = int(input("Please enter 1 if you want the video: "))
+if run == 1:
+    for i in range(len(COD.wI)):
+        fig, ax = plt.subplots(figsize=(7,5))
+        plt.plot(COD.wI[:i+1], MatchID.load[:i+1], 'b-', linewidth=4, label='Mode I with COD pair : %d' %COD.cod_pair)
+        plt.plot(COD.wII[:i+1], MatchID.load[:i+1], 'k--', label='Mode II with COD pair : %d' %COD.cod_pair)
+        plt.xlim(0, 1)
+        plt.ylim(0, 250)
+        plt.xlabel('CTOD, mm')
+        plt.ylabel('Load, N')
+        ax.set_xlim(xmin=0)
+        ax.set_ylim(bottom=0)
+        plt.grid()
+        plt.legend(loc=2, prop={'size': 8})
+        fig.tight_layout()
+        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(i)+".png")
+        plt.show()
+    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
+    files = os.listdir(path)
+    files.sort()
+    fourcc = cv.VideoWriter_fourcc(*'XVID')
+    output = cv.VideoWriter(path+'\CTOD.avi', fourcc, 10.0, (640, 480))
+    for j in range(len(COD.wI)): 
+        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
+        img = cv.resize(img, (640, 480))
+        output.write(img)
+        os.remove(os.path.join(path, "Img"+str(j)+".png"))
+    output.release()
+    cv.destroyAllWindows()
+    
 
 #%% Computing aDIC
 print('computing aDIC..')
@@ -516,27 +585,30 @@ for J in stagEval:
     
 #j=20
 #make a video!
-for j in stagEval:
-    fig = plt.figure()
-    plt.imshow(fract_K[:, :, j])
-    plt.plot(a0.X,a0.Y,'sr')
-    plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(j)+".png")
-    plt.colorbar()
-    plt.show()
-    
-path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
-files = os.listdir(path)
-files.sort()
-fourcc = cv.VideoWriter_fourcc(*'XVID')
-output = cv.VideoWriter(path+'output.avi', fourcc, 10.0, (640, 480))  
-      
-for j in stagEval: 
-    img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
-    img = cv.resize(img, (640, 480))
-    output.write(img)
-    os.remove(os.path.join(path, "Img"+str(j)+".png"))
-output.release()
-cv.destroyAllWindows()  
+run=0
+#run = int(input("Please enter 1 if you want the video: "))
+if run == 1:
+    for j in stagEval:
+        fig = plt.figure()
+        plt.imshow(fract_K[:, :, j])
+        plt.plot(a0.X,a0.Y,'sr')
+        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(j)+".png")
+        plt.colorbar()
+        plt.show()
+        
+    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
+    files = os.listdir(path)
+    files.sort()
+    fourcc = cv.VideoWriter_fourcc(*'XVID')
+    output = cv.VideoWriter(path+'\output.avi', fourcc, 10.0, (640, 480))  
+          
+    for j in stagEval: 
+        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
+        img = cv.resize(img, (640, 480))
+        output.write(img)
+        os.remove(os.path.join(path, "Img"+str(j)+".png"))
+    output.release()
+    cv.destroyAllWindows()  
 
 # xplot = np.arange(X_i, X_f+1, 1)
 # yplot = np.arange(Y_i, Y_f, 1)
@@ -558,6 +630,7 @@ ax = plt.axes(projection='3d')
 ax.plot_surface(x, y, z,cmap='viridis', edgecolor='none')
 ax.set_title('Surface plot')
 plt.show()
+#peut se plotter sans autres variables ?
 
 # treshold range
 # if int(alpha_alphasel/10) == 0:
@@ -570,9 +643,10 @@ plt.show()
 #         inc = 9
 #     else:
 #         inc = 10
-# creating vetor of alpha values
+# creating vector of alpha values
 alpha_alphaV = np.round(alpha_alphasel*np.arange(.7,1.3,.1),1)
-
+#print(alpha_alphasel)
+#print(alpha_alphaV)
 # differen values for alpha(treshold criterion)
 d = { }
 for i in np.arange(0,len(alpha_alphaV),1):
@@ -615,7 +689,9 @@ crackL_J_pixel_X = np.zeros((len(stagEval),len(alpha_alphaV)))
 crackL_J_pixel_Y = np.zeros((len(stagEval),len(alpha_alphaV)))
 
 for i in np.arange(0,len(alpha_alphaV),1):
+    #pour tous les alphas
     for J in stagEval:
+        #pour tte la FPZ
         istr = 'fract_Kt'+str(i)
         Ktemp = d[istr][:,:,J]
         # n1 deve ser relativo a 'a0'
@@ -634,6 +710,33 @@ for i in np.arange(0,len(alpha_alphaV),1):
 # pixel > mm: [macro - pixel * (pixel / macro - pixel) * (mm / pixel)
 crackL_J_mm = Test.a0 + crackL_J_pixel_X*MatchID.mm2step #crack length
 
+run=0
+#run = int(input("Please enter 1 if you want the video: "))
+if run == 1:
+    for j in stagEval:
+        fig = plt.figure()
+        plt.imshow(UY[:, :, j])
+        plt.plot(UY.shape[1]-crackL_J_pixel_X[j, chos_alp],crackL_J_pixel_Y[j, chos_alp],'sr')
+        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(j)+".png")
+        plt.colorbar()
+        plt.title(Job)
+        plt.show()
+        
+    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
+    files = os.listdir(path)
+    files.sort()
+    fourcc = cv.VideoWriter_fourcc(*'XVID')
+    output = cv.VideoWriter(path+'\Cracklength.avi', fourcc, 10.0, (640, 480))  
+          
+    for j in stagEval: 
+        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
+        img = cv.resize(img, (640, 480))
+        output.write(img)
+        os.remove(os.path.join(path, "Img"+str(j)+".png"))
+    output.release()
+    cv.destroyAllWindows() 
+
+
 j = 20
 fig = plt.figure()
 plt.imshow(UY[:, :, j])
@@ -642,7 +745,7 @@ plt.colorbar()
 plt.title(Job)
 plt.show()
 
-i = 1
+
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.displ,crackL_J_mm[:,chos_alp], '*r--', linewidth=3)
 plt.xlabel('Displacement, mm')
@@ -651,6 +754,36 @@ plt.title(Job)
 fig.tight_layout()
 plt.grid()
 plt.show()
+
+run=0
+#run = int(input("Please enter 1 if you want the video: "))
+if run == 1:
+    for i in range(len(MatchID.displ)):
+        fig, ax = plt.subplots(figsize=(7,5))
+        plt.xlim(0, 2)
+        plt.ylim(20,50)
+        plt.plot(MatchID.displ[:i+1],crackL_J_mm[:i+1,chos_alp], '*r--', linewidth=3)
+        plt.xlabel('Displacement, mm')
+        plt.ylabel('Crack length, a(t), mm')
+        plt.title(Job)
+        fig.tight_layout()
+        plt.grid()
+        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(i)+".png")
+        plt.show()
+    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
+    files = os.listdir(path)
+    files.sort()
+    fourcc = cv.VideoWriter_fourcc(*'XVID')
+    output = cv.VideoWriter(path+'\Crack-Disp.avi', fourcc, 10.0, (640, 480))
+    for j in range(len(COD.wI)): 
+        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
+        img = cv.resize(img, (640, 480))
+        output.write(img)
+        os.remove(os.path.join(path, "Img"+str(j)+".png"))
+    output.release()
+    cv.destroyAllWindows()
+
+
 
 fig = plt.figure()
 plt.plot(crackL_J_mm[:,0], 'k--', linewidth=1)
@@ -758,9 +891,10 @@ COD_max = np.max(COD.wI)
 #     writer.writerow = (Job, COD.wI, Lc, Gc)
 #
 fig = plt.figure(figsize=(7,5))
-plt.plot(a_t, G, 'b:', linewidth=2, label='R-Curve alpha 6')
+plt.plot(a_t, G, 'b:', linewidth=2, label='R-Curve alpha '+ str(chos_alp))
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G_{Ic}, J$')
+plt.legend(loc=2, prop={'size': 8})
 plt.grid()
 plt.title(Job)
 plt.show()
@@ -781,6 +915,28 @@ out_file.write(str(COD_max) + '\n')
 out_file.write(str(Lc) + '\n')
 out_file.write(str(Gc) + '\n')
 out_file.close()
+
+
+
+print('computing GI and GII (R-curve)..')
+beta=15
+a_t = crackL_J_mm[:,chos_alp]
+C = MatchID.displ/MatchID.load
+ALPI = ((MatchID.load*np.cos(beta))**2)/(2*Test.thickness)
+ALPII = ((MatchID.load*np.sin(beta))**2)/(2*Test.thickness)
+BET = C/a_t
+GI = ALPI*BET
+GII = ALPII*BET
+
+fig = plt.figure(figsize=(7,5))
+plt.plot(a_t, GI, 'b:', linewidth=2, label='R-Curve-modeI alpha '+ str(chos_alp))
+plt.plot(a_t, GII, 'r:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
+plt.xlabel('Crack length, a(t), mm')
+plt.ylabel('$G, J$')
+plt.legend(loc=2, prop={'size': 8})
+plt.grid()
+plt.title(Job)
+plt.show()
 #
 # plt.legend(loc=2, prop={'size': 8})
 # fig.tight_layout()
@@ -897,3 +1053,54 @@ out_file.close()
 # fnome = [test.pathFiles,test.project.name,'_aDIC-a_d_',tipoanal];
 # print(script.imgformat,script.resol,fnome)
 # crop([fnome,script.filetype])
+   
+# Ouvrir les 4 vidéos
+run=0
+if run==1:
+    path =  "D:\Recherche PRD\EXP\MMCGTests\Video"
+    cap1 = cv.VideoCapture(path+'\Crack-Disp.avi')
+    cap2 = cv.VideoCapture(path+'\MMCG.avi')
+    cap3 = cv.VideoCapture(path+'\CTOD.avi')
+    cap4 = cv.VideoCapture(path+'\output.avi')
+    
+    # Récupérer les dimensions de la vidéo
+    width = int(cap1.get(cv.CAP_PROP_FRAME_WIDTH))
+    height = int(cap1.get(cv.CAP_PROP_FRAME_HEIGHT))
+    
+    # Créer un objet VideoWriter pour écrire la vidéo combinée
+    fourcc = cv.VideoWriter_fourcc(*'mp4v')
+    combined_video = cv.VideoWriter(path+'\combined_video.mp4', fourcc, 25.0, (2*width, 2*height))
+    
+    # Boucle pour lire les images de chaque vidéo et les combiner
+    while True:
+        # Lire les images des 4 vidéos
+        ret1, frame1 = cap1.read()
+        ret2, frame2 = cap2.read()
+        ret3, frame3 = cap3.read()
+        ret4, frame4 = cap4.read()
+    
+        # Vérifier si toutes les vidéos ont été lues
+        if not ret1 or not ret2 or not ret3 or not ret4:
+            break
+    
+        # Redimensionner les images à la même taille
+        frame1 = cv.resize(frame1, (width, height))
+        frame2 = cv.resize(frame2, (width, height))
+        frame3 = cv.resize(frame3, (width, height))
+        frame4 = cv.resize(frame4, (width, height))
+    
+        # Combiner les 4 images en une seule
+        combined_frame = cv.vconcat([cv.hconcat([frame1, frame2]), cv.hconcat([frame3, frame4])])
+    
+        # Écrire la frame combinée dans la vidéo
+        combined_video.write(combined_frame)
+        
+    
+    
+    # Fermer toutes les fenêtres et libérer les ressources
+    cap1.release()
+    cap2.release()
+    cap3.release()
+    cap4.release()
+    combined_video.release()
+    cv.destroyAllWindows()
