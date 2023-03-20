@@ -653,6 +653,7 @@ we obtain:
 
 \begin{equation}
 	G_c=\frac{{F_{ci}}^2}{2b}\ \frac{\partial C}{\partial a}
+	\label{3}
 \end{equation}
 
 With:
@@ -702,10 +703,6 @@ Bias errors are often difficult to quantify, as the true value of a QOI is usual
 
 The process of quantifying variance errors is often called noise floor analysis. The basic idea of a noise floor analysis is to correlate static images of a DIC pattern that were acquired under the same conditions as the test images. With no force applied or displacement on the test piece, all measured QOIs requiring deformation are errors. The evaluation of the noise floor must be performed under the same conditions as the mechanical test, both in terms of physical conditions (camera and lens selection, illumination, camera temperature, cooling or mixing fans, powered test machine) and data processing procedures (image pre-filtering, subset size, step size, VSG size, temporal or spatial filtering of the data, etc.). This means that the same user-selected DIC parameters that are used for the analysis of the test piece images during deformation should also be used for the analysis of the noise floor images. Therefore, the final noise floor analysis is typically performed after the mechanical test image analysis, but using the images acquired immediately before the mechanical test.
 Two different metrics can be used to quantify the variance error of the QOIs: a spatial standard deviation and a temporal standard deviation. To quantify the spatial variation of the QOI, compute the standard deviation of the QOI for each image and average this spatial standard deviation over time for all static images. To quantify temporal variation, calculate the standard deviation of the QOI for each subset over time and average this temporal standard deviation for each subset over all subsets in the image ZOI. It is recommended that both spatial and temporal standard deviations be calculated and evaluated to see if one is significantly larger than the other. However, the spatial and temporal standard deviations are generally similar, and a single metric or the average of the two metrics can be selected to quantify the noise floor. 
-
-\subsection{Software used}
-
-To complete.
 
 \section{Conclusion}
 

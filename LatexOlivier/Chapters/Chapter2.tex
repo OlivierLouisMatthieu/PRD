@@ -41,7 +41,7 @@ The fixing holes for the wooden specimens have a diameter $\Phi= 5 mm$, and the 
 	\label{fig:fig25}
 \end{figure}
 
-This part has a hole of the same size as the holes of the Arcan system in order to connect them. Moreover the head of the connector is 27mm in diameter and the thread has a 2mm pitch to connect to the press. Before sending the technical drawings to a company, a 3D printer was used to verify that the system worked properly. It was then necessary to draw the assembly on solidworks in order to print the assembly and send the technical drawings. Figure \ref{fig:fig26} shows the assembled device in Solidworks.
+This part has a hole of the same size as the holes of the Arcan system in order to connect them. Moreover the head of the connector is 27mm in diameter and the thread has a 2mm pitch to connect to the press. Before sending the technical drawings to a company, a 3D printer was used to verify that the system worked properly. It was then necessary to draw the assembly on solidworks in order to print the assembly and send the technical drawings. Figure \ref{fig:fig26} shows the assembled device in Solidworks. Solidworks is a 3D modeler owned by Dassault using parametric design. It generates 3 types of files related to three basic concepts: the part, the assembly and the drawing. These files are related and any modification at any level is reflected in all the files concerned.
 
 
 \begin{figure}[htp]
@@ -64,7 +64,7 @@ As explained \cite{MALFAIT2021}  this MTS Hydraulic Press works with a cooler fl
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=10cm]{fig27}
-	\caption{Hydraulic Press components allowing it use}
+	\caption{Hydraulic Press components allowing it use \cite{MALFAIT2021}}
 	\label{fig:fig27}
 \end{figure}
 
@@ -111,7 +111,8 @@ In this section, the values of the mechanical characteristics (moduli of elastic
 
 \subsection{Preparation of the DIC method}
 
-It is possible to process the images with different software. This image processing will allow to obtain the maps of deformations and displacements. For this work will be used MatchID and python. In our case, the quantity of interest is the crack length a as a function of the applied force F. The field of view ( FOV), the position envelope for hardware and if the test is a 2D-DIC or a stereo DIC are parameters to take into account. In our case, a 2D-DIC is suitable because the test piece is assumed to be planar and perpendicular to the camera optical axis. The DIC pattern is one important parameter. All the specimens are painted to obtain a speckle pattern suitable for image correlation. A thin layer of white paint is firstly added using a mate spray, followed by a diffuse distribution of black paint to create a unique local pattern across the ZOI at the crack tip.
+It is possible to process the images with different software. This image processing will allow to obtain the maps of deformations and displacements. For this work will be used MatchID a correlation image software and python.
+In our case, the quantity of interest is the crack length a as a function of the applied force F. The field of view ( FOV), the position envelope for hardware and if the test is a 2D-DIC or a stereo DIC are parameters to take into account. In our case, a 2D-DIC is suitable because the test piece is assumed to be planar and perpendicular to the camera optical axis. The DIC pattern is one important parameter. All the specimens are painted to obtain a speckle pattern suitable for image correlation. A thin layer of white paint is firstly added using a mate spray, followed by a diffuse distribution of black paint to create a unique local pattern across the ZOI at the crack tip.
 
 Before starting the test, some parameters must be set on MatchID.grab. It is possible to vary parameters such as the exposure time. The speckle pattern is an image composed of black and white dots. By varying the exposure time, the speckle pattern will have a greater or lesser range of gray (from 0 to 255). On the other hand, a longer exposure time will result in color saturation. Then, it is important to adjust the quality of the speckle using two parameters, the focus and the aperture. With some cameras, it is sometimes impossible to adjust the focus. It is therefore necessary to play with the distance camera-specimen. After adjusting these 3 parameters, the calibration can begin. Its goal is to establish the image scale. It is necessary to take at least 50 images of a calibration sheet given by MatchID while making translations and rotations of this sheet.
 After saving the calibration data, it is no longer possible to change these parameters. This calibration will be used for the tests.
@@ -153,6 +154,19 @@ A second data processing is necessary to obtain the position of the crack front 
 
 \subsection{Method 1}
 
+\textbf{Database}
+
+The first step in Method 1 is to retrieve all important information of the test in order to perform the analysis of the specimen. Thus, a python database file is created which allows to obtain adjustment factors for the displacements and the force exerted by the machine. This file also gives information for each specimen such as the initial crack tip, the thickness of the specimen etc.. Finally this file gives the DIC parameters used.
+
+\textbf{Inserting DIC values in python}
+
+With the main program, the first lines of code consist in recovering the force and the displacements of the press, the coordinates of the first image and the displacement UX and UY.
+Another part of the code allows to put at the same frequency the force and the displacement to be able to use them with the other parameters such as the CTOD.
+
+\textbf{Crack tip opening displacement}
+
+To obtain CTOD, it is important to pay attention to the choice a0. Indeed, the chosen subset will be determinant. By considering the image as a matrix composed of subsets, the chosen subset is a position given by its m rows and n columns. Looking at the subset from top to bottom allows one to follow the displacement of the crack tip and measure it. The point is to determine which pair of subsets is the best which means being closer or less close to the crack. If one is too close to the crack there will be no information and if one is too far away the measurement will be less accurate. By looking at these displacements, it is possible to obtain the value of the crack opening at each step.
+
 \textbf{Mapping function and mapping mask}
 
 The method used is based on the variation of the relative position between adjacent subsets which gives an estimate of the damage occurrence \cite{Xavieretal2014}. To begin with, a matching function A(x,y) is determined based on the norm of the relative position vectors as follows:
@@ -176,21 +190,13 @@ The matrix M represents, for a given step, the length of the crack by having a l
 
 \textbf{$\alpha$ parameter}
 
-The parameter $\alpha$ is selected as the lowest integer satisfying the inequality:
-
-\begin{equation}
-	a(\alpha)-a_0 < f_s, \alpha \in \mathbb{N}
-\end{equation}
-
-where fs is the spatial resolution associated to DIC measurements.
-
-\textbf{Crack opening displacement}
-
-To obtain CTOD, it is important to pay attention to the choice a0. Indeed, the chosen subset will be determinant. By considering the image as a matrix composed of subsets, the chosen subset is a position given by its m rows and n columns. Looking at the subset from top to bottom allows one to follow the displacement of the crack tip and measure it. The point is to determine which pair of subsets is the best which means being closer or less close to the crack. If one is too close to the crack there will be no information and if one is too far away the measurement will be less accurate. By looking at these displacements, it is possible to obtain the value of the crack opening at each step.
+It is important to determine the $\alpha$ parameter. This one is used on the matrix as the matrix M. It is a tricky part of the code.To approximate the $\alpha$ value, a first correlation factor is sought using the least squares regression method. Indeed, we know that during the test, there are 3 main zones on the Displacement-Force curve: a first linear one which corresponds to a stationary zone, a second one where the fracture propagates and finally a third one which corresponds to the specimen rupture. With this correlation factor we find the stage between the stationary zone and the FPZ. Then, a second stage verification criterion from the displacement field processing is used to verify the correct stage of the FPZ.
+Thanks to these two steps, we know the stage where there is the begining of the FPZ and values which are possible for $\alpha$.
+It is then possible to plot for different $\alpha$ all the stages of the crack propagation and have an idea on the $\alpha$ value needed to have the greatest a(t).
 
 \textbf{Crack length}
 
-A final part of the code allows us to obtain a(t) as a function of alpha. This is done by focusing on the ZOI and the number of subsets that compose it. Through the matrix composed by each subset, the displacement field can be observed. It is obtained by calculating the distance between the center of a subset and its displacement from one image to another, as described in the literature review. To simplify the code, this calculation is not performed on each subset but only on the four corners. By calculating the distance between the opposite corners, the maximum displacement in x and the displacement in y are introduced in a last matrix.
+Another part of the code allows us to obtain a(t) as a function of alpha. This is done by focusing on the ZOI and the number of subsets that compose it. Through the matrix composed by each subset, the displacement field can be observed. It is obtained by calculating the distance between the center of a subset and its displacement from one image to another, as described in the literature review. To simplify the code, this calculation is not performed on each subset but only on the four corners. By calculating the distance between the opposite corners, the maximum displacement in x and the displacement in y are introduced in a last matrix.
 
 \subsection{Method 2}
 
