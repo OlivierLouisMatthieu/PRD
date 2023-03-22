@@ -4,10 +4,23 @@ import numpy as np
 import re
 from PIL import Image
 
+class Struct:
+    def __init__(self, **entries): self.__dict__.update(entries)
+
+MatchID = Struct()
+a0 = Struct()
+af = Struct()
+COD = Struct()
+Test = Struct()
+
+Job = 'e1o1'
+
+exec(open('Database.py').read())
 # Récupérer la liste des fichiers TIF dans le dossier Image_Selection
 #path='D:\Recherche PRD\SPR_00_02\SPR_00_02'
 #endS = os.path.join(os.getcwd(), path + '\Image_Selection')
-path='D:\Recherche PRD\EXP\MMCGTests\e1o1'
+maincwd='D:\Recherche PRD\EXP\MMCGTests'
+path = os.path.join(maincwd, Job)
 endS = os.path.join(os.getcwd(), path)
 os.chdir(endS)
 os.chdir(endS)
@@ -22,13 +35,12 @@ n_images = len(fileNames)
 
 # Charger l'image
 img = Image.open('D:\Recherche PRD\EXP\MMCGTests\e1o1\e1O1_0000_0.tiff')
+#img = Image.open('D:\Recherche PRD\SPR_00_02\SPR_00_02\Image_Selection\Image1.tif')
 # Obtenir la taille de l'image
 largeur, hauteur = img.size
 # Afficher la taille de l'image
 print("La taille de l'image est de {} x {} pixels.".format(largeur, hauteur))
 
-# Initialiser la matrice X
-X = np.zeros((int(n_images/10)+1, 2))
 
 def select_points(image_path, n_points):
     """
@@ -75,17 +87,53 @@ def select_points(image_path, n_points):
 
     # Retourne la liste des points
     return points
+
+# Initialiser la matrice X
+nbimages=2
+X = np.zeros((nbimages, 2))#in pixel
+Xmm=np.zeros((nbimages, 2))
+
+# Allied Manta G-505B
+H, V  = 2448, 2050 # unit: pixels
+# 'TC2336' telecentric lens
+LX, LY = 34.98, 29.18 # unit: mm
+
+# pixel to mm magnification factor
+mm2pixel = LX / H
+nombre = input("La dernière image avant la rupture est : ")
+
+d=np.linspace(0, int(nombre)-1,nbimages)
 a=0
 points_list = []
-for k in range(n_images - 1, -1, -10):
+for k in range(nbimages):
     print(k)
     a=a+1
-    points = select_points(fileNames[k], 1)
+    points = select_points(fileNames[int(d[k])], 1)
     points_list.append(points)
     X[a-1,1]=k
     X[a-1,0]=points_list[a-1][0]
+    Xmm[a-1,0]=X[a-1,0]*Test.mm2pixel
+    Xmm[a-1,1]=int(d[k])
     
+cracklength=np.abs(Xmm[-1,0]-Xmm[0,0])+Test.a0
+print('The crack length with python is: ', cracklength)
+
+print(a0.imgHuse)
+########################################
+#With Matchid
+
+class Struct:
+    def __init__(self, **entries): self.__dict__.update(entries)
+
+af = Struct()
+
+#af.imgHuse, af.imgVuse = 614, 1013#obtained in Matchid for e1o1
+af.imgHuse, af.imgVuse = 1886, 1064# for e4e1
+af.imgHuse, af.imgVuse = 1613, 1094
+cracklength=np.abs(a0.imgHuse-af.imgHuse)*Test.mm2pixel+Test.a0
+print('The crack length with Matchid is: ',cracklength)
+
+
 
 # Sauvegarder la matrices X
 np.savetxt('D:\Recherche PRD\SPR_00_02\SPR_00_02\X.txt', X)
-

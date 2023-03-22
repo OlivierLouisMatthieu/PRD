@@ -169,6 +169,8 @@ for k in range(1, nImagens):
     plt.gca().spines['left'].set_linewidth(0.5)
     plt.gca().xaxis.set_tick_params(width=0.5)
     plt.gca().yaxis.set_tick_params(width=0.5)
+    plt.gca().set_xlim([4, 11])
+    plt.gca().set_ylim([0, 8])
     plt.grid(False)
 plt.show()
 
@@ -200,7 +202,10 @@ for k in range(0, nImagens, 2):
     plt.grid(False)
     #ax[0].box(True)
     plt.show()
-      
+    
+#x=np.zeros(int(nImagens/2))
+#y=np.zeros(int(nImagens/2)) 
+#a=0
 for k in range(0, nImagens, 2):    
     #print(k)
     # create a figure with two subplots, and select the second one
@@ -214,6 +219,10 @@ for k in range(0, nImagens, 2):
     plt.plot(CODxx[0:1000, 0:k-1:2], CODyy[:, 0:k-1:2], 'b-')
     plt.plot([0, 35], [MEANd[0:k-1:2], MEANd[0:k-1:2]], 'r-')
     plt.plot(ad[k-1], CODyy[aid[k-1], k-1], 'gx')
+    #x[a]=ad[k-1]
+    #y[a]=CODyy[aid[k-1], k-1]
+    #a=a+1
+    #plt.plot(x[a], y[a], 'gx')
     # I don't arrive to plot all the gx
     
     # set the x and y labels, and the font size

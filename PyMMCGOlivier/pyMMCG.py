@@ -54,6 +54,7 @@ class Struct:
 
 MatchID = Struct()
 a0 = Struct()
+af = Struct()
 COD = Struct()
 Test = Struct()
 
@@ -199,6 +200,16 @@ print('Selecting the subset closest to the initial crack tip..')
 
 a0.X = int(np.argwhere(np.abs(MatchID.xCoord - a0.imgHuse) == 0))
 a0.Y = int(np.argwhere(np.abs(MatchID.yCoord - a0.imgVuse) == 0))
+
+#%% Selecting af
+#print('Selecting the subset closest to the end of the crack tip..')
+
+#af.imgHuse, af.imgVuse = 299, 1013
+#af.X = int(np.argwhere(np.abs(MatchID.xCoord - af.imgHuse) == 0))
+#af.Y = int(np.argwhere(np.abs(MatchID.yCoord - af.imgVuse) == 0))
+
+#cracklength=np.abs(a0.imgHuse-af.imgHuse)*Test.mm2pixel+Test.a0
+#print(cracklength)
 
 pathdados = os.path.join(cwd,Job+'_0000_0.tiff')
 img0 = cv.imread(pathdados, cv.IMREAD_GRAYSCALE) # cv.imread(pathdados, 0)
@@ -709,6 +720,10 @@ for i in np.arange(0,len(alpha_alphaV),1):
 
 # pixel > mm: [macro - pixel * (pixel / macro - pixel) * (mm / pixel)
 crackL_J_mm = Test.a0 + crackL_J_pixel_X*MatchID.mm2step #crack length
+indice = np.argmax(crackL_J_mm == np.max(crackL_J_mm))/crackL_J_mm.shape[1]
+print('The last image to open for obtaining the crack length',indice)
+exec(open('Readcrack.py').read())
+#look at the crackJ in order to see which alpha is best in function of what you found for the crack length
 
 run=0
 #run = int(input("Please enter 1 if you want the video: "))
@@ -754,6 +769,17 @@ plt.title(Job)
 fig.tight_layout()
 plt.grid()
 plt.show()
+
+fig = plt.figure(figsize=(7,5))
+plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3)
+plt.xlabel('Images')
+plt.ylabel('Crack length, a(t), mm')
+plt.title(Job)
+fig.tight_layout()
+plt.grid()
+plt.show()
+
+print('The crack length with alpha is:' ,np.max(crackL_J_mm[:,chos_alp]))
 
 run=0
 #run = int(input("Please enter 1 if you want the video: "))

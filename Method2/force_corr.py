@@ -43,17 +43,24 @@ ForcaMaq = dados[:,1]
 
 DeslocMaq = dados[:,0]
 
+C=DeslocMaq/ForcaMaq
+
 ForcaImagens = np.interp(tempoImagens, tempoMaq[ind], ForcaMaq[ind])
 DeslocImagens = np.interp(tempoImagens, tempoMaq[ind], DeslocMaq[ind])
 #just 300 images the number of images
 
 ForcaImagens = ForcaImagens[~np.isnan(ForcaImagens)]
 DeslocImagens = DeslocImagens[~np.isnan(ForcaImagens)]
+C=DeslocImagens/ForcaImagens
 
 # Illustrative figure of each captured instant:
 fig2, ax2 = plt.subplots()
 ax2.plot(DeslocMaq, ForcaMaq)
 ax2.plot(DeslocImagens, ForcaImagens, 'ro')
+
+fig2, ax2 = plt.subplots()
+ax2.plot(DeslocImagens, C)
+
 
 # Saves the correct .dat file considering the captured instants.
 np.savetxt('forca.dat', ForcaImagens, fmt='%.18e')
