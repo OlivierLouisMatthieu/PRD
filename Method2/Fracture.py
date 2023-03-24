@@ -13,6 +13,7 @@ Cal = Valmm/Valpixel   # Calibration factor from pixel to mm;
 ina = 0.75
 inb = 0.53
 CTODimage = 281
+#how tobtain them ????
 
 path='D:\Recherche PRD\SPR_00_02\SPR_00_02'
 
@@ -65,7 +66,8 @@ for k in range(nImagens):
     Xm[:, :, k] = np.loadtxt(endC + '/' + fileNamesX[k])
     Ym[:, :, k] = np.loadtxt(endC + '/' + fileNamesY[k])
     Um[:, :, k] = np.loadtxt(endC + '/' + fileNamesUm[k])
-    Vm[:, :, k] = np.loadtxt(endC + '/' + fileNamesVm[k])# why 2*201*77
+    Vm[:, :, k] = np.loadtxt(endC + '/' + fileNamesVm[k])
+    # why 2*201*77
     CODy[:, k] = Ym[1, :, k] - Ym[0, :, k]
     CODx[:, k] = (Xm[1, :, k] + Xm[0, :, k]) / 2 
     #create a mean I think they have already chosen the pair of subset
@@ -73,7 +75,7 @@ for k in range(nImagens):
 dx = Xm[0, 1, 0] - Xm[0, 0, 0]
 dy = CODy[:, 0]
 
-CODy = CODy - CODy[:, [0]]
+CODy = CODy - CODy[:, [0]]#VD=0 for the 1st image to shift
 
 STRAINy = np.zeros((columns, nImagens))
 
@@ -109,12 +111,12 @@ for k in range(nImagens):
     aa = (ina - inb) / (1 - nImagens) #alpha and beta parameters!
     bb = ina - aa
 
-    MEANd[k] = np.mean(CODyy[:, k]) * (aa * k + bb)
-    MEANs[k] = np.mean(STRAINyy[:, k]) * (aa * k + bb)
+    MEANd[k] = np.mean(CODyy[:, k]) * (aa * k + bb)#VDth
+    MEANs[k] = np.mean(STRAINyy[:, k]) * (aa * k + bb)#VDth step
 
     for i in range(1000):
-        if CODyy[i, k] - MEANd[k] < 0.02:
-            if CODxx[i, k] < CTODimage * Cal:
+        if CODyy[i, k] - MEANd[k] < 0.02: # if VD-VDth<0.02
+            if CODxx[i, k] < CTODimage * Cal:#if 
                 aid[k] = i
                 ad[k] = CTODimage * Cal
             else:
@@ -176,15 +178,8 @@ plt.show()
 
 #part3
 
-a = None
-b = None
-#fig, ax = plt.subplots(1, 2)
 for k in range(0, nImagens, 2):
-    #ax[0].clear()
-    #ax[1].clear()
-    #b = plt.add_patch(plt.Rectangle((0.14, 0.82), 0.08, 0.08, facecolor='white', alpha=0.8))
-    #a = plt.annotate(f"Image {k}", xy=(0.14, 0.82), xycoords='axes fraction', color='black', alpha=1)
-    # Afficher l'image
+    print(k)
     plt.imshow(I[:, :, k])
     
     # Ajouter les éléments supplémentaires
@@ -200,80 +195,55 @@ for k in range(0, nImagens, 2):
     plt.axis([0, I.shape[1], 350, I.shape[0]-100])
     plt.axis('off')
     plt.grid(False)
-    #ax[0].box(True)
+    plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(k)+".png")
     plt.show()
     
-#x=np.zeros(int(nImagens/2))
-#y=np.zeros(int(nImagens/2)) 
-#a=0
-for k in range(0, nImagens, 2):    
-    #print(k)
-    # create a figure with two subplots, and select the second one
-    #fig, (ax1, ax2) = plt.subplots(1, 2)
-    #ax = ax2
+path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
+files = os.listdir(path)
+files.sort()
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+output = cv2.VideoWriter(path+'\COD.avi', fourcc, 10.0, (640, 480))    
+for j in range(0, nImagens, 2):
+    img = cv2.imread(os.path.join(path, "Img"+str(j)+".png"))
+    img = cv2.resize(img, (640, 480))
+    output.write(img)
+    os.remove(os.path.join(path, "Img"+str(j)+".png"))
+output.release()
+cv2.destroyAllWindows()
     
-    # plot the data on the selected subplot
+
+for k in range(0, nImagens, 2):    
     plt.plot(CODxx[0:1000, 0], CODyy[:, 0], 'b-', label='VD')
     plt.plot([0, 35], [MEANd[0], MEANd[0]], 'r-',label='VDth')
     plt.plot(ad[0], CODyy[aid[0], 0], 'gx', label='Crack tip')
-    plt.plot(CODxx[0:1000, 0:k-1:2], CODyy[:, 0:k-1:2], 'b-')
-    plt.plot([0, 35], [MEANd[0:k-1:2], MEANd[0:k-1:2]], 'r-')
+    plt.plot(CODxx[0:1000, 0:k-1], CODyy[:, 0:k-1], 'b-')
+    plt.plot([0, 35], [MEANd[0:k-1], MEANd[0:k-1]], 'r-')
     plt.plot(ad[k-1], CODyy[aid[k-1], k-1], 'gx')
-    #x[a]=ad[k-1]
-    #y[a]=CODyy[aid[k-1], k-1]
-    #a=a+1
-    #plt.plot(x[a], y[a], 'gx')
-    # I don't arrive to plot all the gx
-    
-    # set the x and y labels, and the font size
-    #plt.xlabel('$x_{11} \quad \left[\mathrm{mm} \right]$', fontsize=14)
-    #plt.ylabel('$\mathrm{VD} \quad \left[\mathrm{mm} \right]$', fontsize=14)
-    
     # set the font and size for the axes and legend
     plt.tick_params(axis='both', labelsize=14)
     plt.legend(fontsize=12)
-    
     # set the axis limits and turn on the box
     plt.gca().set_xlim([4, 11])
     plt.gca().set_ylim([0, 8])
-    
     # turn off the grid and set the background color of the plot
     plt.grid(False)
     plt.box(True)
-    
     # display the plot
+    plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(k)+".png")
     plt.show()
 
-
-'''
-
-import imageio
-
-fig = plt.figure()
-
-for k in range(10):  # loop over frames
-    plt.plot([0, 1, 2], [k, k+1, k+2])  # example plot
-
-    # Set the position and size of the figure window
-    fig.set_size_inches(10, 4)
-    fig.canvas.manager.window.move(100, 100)
-
-    # Update the figure window and capture the frame as an image
-    fig.canvas.draw()
-    frame = fig.canvas.renderer.buffer_rgba()
-
-    # Convert the frame to an indexed image with a colormap
-    im = imageio.core.util.buf_to_image(frame)
-    im = im.convert('P', palette=imageio.plugins.matplotlib.get_matplotlib_colormap())
-
-    if k == 0:
-        # Write the first frame to a new animated GIF file
-        imageio.mimsave('testAnimated.gif', [im], loop=0)
-    else:
-        # Append the frame to the existing animated GIF file
-        with imageio.get_writer('testAnimated.gif', mode='I', loop=0) as writer:
-            writer.append_data(im)
-'''
+path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
+files = os.listdir(path)
+files.sort()
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+output = cv2.VideoWriter(path+'\VD.avi', fourcc, 10.0, (640, 480))    
+for j in range(0, nImagens, 2):
+    img = cv2.imread(os.path.join(path, "Img"+str(j)+".png"))
+    img = cv2.resize(img, (640, 480))
+    output.write(img)
+    os.remove(os.path.join(path, "Img"+str(j)+".png"))
+output.release()
+cv2.destroyAllWindows()
 
 dad = ad - ad[0]
 das = aas - aas[0]
@@ -322,8 +292,50 @@ ax.set_box_aspect(1)
 ax.grid()
 plt.show()
 
+print(np.max(CTOD))
 
 np.savetxt('das.txt', das)
 np.savetxt('dad.txt', dad)
 np.savetxt('CTOD.txt', CTOD)
 np.savetxt('CTOA.txt', CTOA)
+
+
+run=1
+if run==1:
+    path =  "D:\Recherche PRD\EXP\MMCGTests\Video"
+    cap1 = cv2.VideoCapture(path+'\COD.avi')
+    cap2 = cv2.VideoCapture(path+'\VD.avi')
+    
+    # Récupérer les dimensions de la vidéo
+    width = int(cap1.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap1.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    
+    # Créer un objet VideoWriter pour écrire la vidéo combinée
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    combined_video = cv2.VideoWriter(path+'\combined_video.mp4', fourcc, 25.0, (2*width, height))
+    
+    # Boucle pour lire les images de chaque vidéo et les combiner
+    while True:
+        # Lire les images des 2 vidéos
+        ret1, frame1 = cap1.read()
+        ret2, frame2 = cap2.read()
+    
+        # Vérifier si toutes les vidéos ont été lues
+        if not ret1 or not ret2:
+            break
+    
+        # Redimensionner les images à la même taille
+        frame1 = cv2.resize(frame1, (width, height))
+        frame2 = cv2.resize(frame2, (width, height))
+    
+        # Combiner les 2 images en une seule
+        combined_frame = cv2.hconcat([frame1, frame2])
+    
+        # Écrire la frame combinée dans la vidéo
+        combined_video.write(combined_frame)
+        
+    # Fermer toutes les fenêtres et libérer les ressources
+    cap1.release()
+    cap2.release()
+    combined_video.release()
+    cv2.destroyAllWindows()

@@ -18,6 +18,7 @@ if Job == 'e1o1':
     Test.a0 = 24.975 # unit  mm
     # Selecting image coordinates of subset directly from MatdhID, unit: pixels
     a0.imgHuse, a0.imgVuse = 2314, 1013
+    af.imgHuse, af.imgVuse = 614, 1013
     Delta = 1.525 # average okoume, unit: mm
     Deltapix = Delta*(1/Test.mm2pixel) # convert mm to pixel
     a0.imgH, a0.imgV = a0.imgHuse-Deltapix, a0.imgVuse
@@ -165,6 +166,7 @@ elif Job == 'e2e2': #e2p1
     Test.a0 = 27.4  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
     a0.imgHuse, a0.imgVuse = 2161, 1002
+    af.imgHuse, af.imgVuse = 1613, 1094
     Delta = 1.6  # average padouck
     Deltapix = Delta * (1 / Test.mm2pixel)
     a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
@@ -300,6 +302,7 @@ elif Job == 'e4e1':
     Test.a0 = 23.975  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
     a0.imgHuse, a0.imgVuse = 2251,944
+    af.imgHuse, af.imgVuse = 1886, 1064
     Delta = 1.525
     Deltapix = Delta * (1 / Test.mm2pixel)
     a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse

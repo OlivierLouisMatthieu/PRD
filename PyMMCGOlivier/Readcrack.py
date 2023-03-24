@@ -111,18 +111,10 @@ print(a0.imgHuse)
 ########################################
 #With Matchid
 
-class Struct:
-    def __init__(self, **entries): self.__dict__.update(entries)
-
-af = Struct()
-
-af.imgHuse, af.imgVuse = 614, 1013#obtained in Matchid for e1o1
-#af.imgHuse, af.imgVuse = 1886, 1064# for e4e1
-#af.imgHuse, af.imgVuse = 1613, 1094#for e2e1
 cracklength=np.abs(a0.imgHuse-af.imgHuse)*Test.mm2pixel+Test.a0
 print('The crack length with Matchid is: ',cracklength)
 
 
 
 # Sauvegarder la matrices X
-np.savetxt('D:\Recherche PRD\SPR_00_02\SPR_00_02\X.txt', X)
+#*np.savetxt('D:\Recherche PRD\SPR_00_02\SPR_00_02\X.txt', X)

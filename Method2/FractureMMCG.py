@@ -68,8 +68,6 @@ Load = test.Load.values.astype(float)*Test.LoadConvFactor # unit: N
 if Load[0] < 0:  # unit: N
     Load = Load - Load[0] + Test.meanPreLoad
 
-
-
 ##########################################
 
 fig, ax = plt.subplots(figsize=(7,5))
@@ -128,7 +126,6 @@ MatchID.SubsetsY = MatchID.x_pic.shape[0]
 
 # U displacement
 UX = np.zeros((MatchID.SubsetsY, MatchID.SubsetsX, MatchID.stages))
-# tic()
 for i in np.arange(0, MatchID.stages, 1):
     readstr = Job+'_%04d_0.tiff_U.csv' % int(i+1)
     #print('reading : ',readstr)
@@ -215,19 +212,19 @@ plt.legend(loc=2, prop={'size': 8})
 fig.tight_layout()
 plt.show()
 
-Ubot  = np.zeros((MatchID.SubsetsX, MatchID.stages))
-Utop=  np.zeros((MatchID.SubsetsX, MatchID.stages))
-Vbot=  np.zeros((MatchID.SubsetsX, MatchID.stages)) 
-Vtop=  np.zeros((MatchID.SubsetsX, MatchID.stages))                
+Ubot  = np.zeros((a0.X, MatchID.stages))
+Utop=  np.zeros((a0.X, MatchID.stages))
+Vbot=  np.zeros((a0.X, MatchID.stages)) 
+Vtop=  np.zeros((a0.X, MatchID.stages))                
 
 for i in np.arange(0, MatchID.stages, 1):
-    Ubot[:,i]=UX[a0.Y-COD.cod_pair,:,i]
-    Utop[:,i]=UX[a0.Y+COD.cod_pair,:,i]
-    Vbot[:,i]=UY[a0.Y-COD.cod_pair,:,i]
-    Vtop[:,i]=UY[a0.Y+COD.cod_pair,:,i]
+    Ubot[:,i]=UX[a0.Y-COD.cod_pair,0:a0.X,i]
+    Utop[:,i]=UX[a0.Y+COD.cod_pair,0:a0.X,i]
+    Vbot[:,i]=UY[a0.Y-COD.cod_pair,0:a0.X,i]
+    Vtop[:,i]=UY[a0.Y+COD.cod_pair,0:a0.X,i]
 
-Xm = np.zeros((2, MatchID.SubsetsX, MatchID.stages))
-Ym = np.zeros((2, MatchID.SubsetsX, MatchID.stages))
+Xm = np.zeros((2, a0.X, MatchID.stages))
+Ym = np.zeros((2, a0.X, MatchID.stages))
 
 for i in np.arange(0, 2, 1):
     Xm[0,:,:]=Ubot[:,:]
@@ -241,7 +238,7 @@ Valmm = 9.94           # Amount of mm to perform calibration;
 Cal = Valmm/Valpixel   # Calibration factor from pixel to mm;
 
 ina = 0.75
-inb = 0.53
+inb = 0.75
 CTODimage = 281
 
 
@@ -272,24 +269,27 @@ for k, fileName in enumerate(fileNames):
 
 os.chdir('..')
 
+#for k in range(0, nImagens, 2):
+    #plt.imshow(I[:, :, k])
+    #plt.show()
 
-
-CODy = np.zeros((MatchID.SubsetsX, MatchID.stages))
-CODx = np.zeros((MatchID.SubsetsX, MatchID.stages))
+CODy = np.zeros((a0.X, MatchID.stages))
+CODx = np.zeros((a0.X, MatchID.stages))
 
 for k in range(MatchID.stages):
-    CODy[:, k] = Vtop[:,k]-Vbot[:,k]
+    CODy[:, k] = np.abs(Vtop[:,k]-Vbot[:,k])
     CODx[:, k] = (Ubot[:,i]+Utop[:,i])/2
     
 dx = Xm[0, 1, 0] - Xm[0, 0, 0]
 dy = CODy[:, 0]
 
-CODy = CODy - CODy[:, [0]]
+CODy = np.abs(CODy - CODy[:, [0]])
 
-STRAINy = np.zeros((MatchID.SubsetsX, MatchID.stages))
+STRAINy = np.zeros((a0.X, MatchID.stages))
 
 for k in range(MatchID.stages):
     STRAINy[:, k] = CODy[:, k] / dy[0]
+#attention indice dans l'autre sens!!
 
 CODxx = np.zeros((1000, MatchID.stages))
 CODyy = np.zeros((1000, MatchID.stages))

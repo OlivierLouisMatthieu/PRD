@@ -32,7 +32,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 # Job = 'DCB_002'
-Job = 'e1o1'
+Job = 'e2e2'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -485,8 +485,6 @@ while JJ == 1:
     avgK = np.nanmean(K) #mean ignoring nan values.
     stdK = np.nanstd(K)
     maxK = np.nanmax(K)
-    print(avgK + inb*stdK)
-    print(maxK)
     if maxK < avgK + inb*stdK:
         J = J + 1
     else:

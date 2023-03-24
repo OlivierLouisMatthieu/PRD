@@ -23,7 +23,7 @@ if Job == 'e1o1':
     a0.imgH, a0.imgV = a0.imgHuse-Deltapix, a0.imgVuse
     ##########################################################################
     # Selecting pair
-    COD.cod_pair = 3
+    COD.cod_pair = 6
     # Selecting alpha
     chos_alp = 1
 elif Job == 'e1o2':
