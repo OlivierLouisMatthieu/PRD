@@ -82,21 +82,12 @@ nbimages=2
 X = np.zeros((nbimages, 2))#in pixel
 Xmm=np.zeros((nbimages, 2))
 
-# Allied Manta G-505B
-H, V  = 2448, 2050 # unit: pixels
-# 'TC2336' telecentric lens
-LX, LY = 34.98, 29.18 # unit: mm
-
-# pixel to mm magnification factor
-mm2pixel = LX / H
-#nombre = input("La dernière image avant la rupture est : ")
-nombre=indice
-
-d=np.linspace(0, int(nombre)-1,nbimages)
+nombre = input("La dernière image avant la rupture est : ")
+nombre=int(nombre)
+d=np.linspace(0, nombre,nbimages)
 a=0
 points_list = []
 for k in range(nbimages):
-    print(k)
     a=a+1
     points = select_points(fileNames[int(d[k])], 1)
     points_list.append(points)
@@ -107,13 +98,14 @@ for k in range(nbimages):
     
 cracklength=np.abs(Xmm[-1,0]-Xmm[0,0])+Test.a0
 print('The crack length with python is: ', cracklength)
+a1=Xmm[0,0]
+af=Xmm[-1,0]
 
-print(a0.imgHuse)
 ########################################
 #With Matchid
 
-cracklength=np.abs(a0.imgHuse-af.imgHuse)*Test.mm2pixel+Test.a0
-print('The crack length with Matchid is: ',cracklength)
+#cracklength=np.abs(a0.imgHuse-af.imgHuse)*Test.mm2pixel+Test.a0
+#print('The crack length with Matchid is: ',cracklength)
 
 
 

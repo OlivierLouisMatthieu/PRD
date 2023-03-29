@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import re
 from PIL import Image
 
+exec(open('Readcrackfracture.py').read())
+
 # INITIALIZATION:
 Valpixel = 391         # Number of pixels to perform calibration;
 Valmm = 9.94           # Amount of mm to perform calibration;
@@ -12,7 +14,7 @@ Cal = Valmm/Valpixel   # Calibration factor from pixel to mm;
 
 ina = 0.75
 inb = 0.53
-CTODimage = 281
+CTODimage = 281 # initial crack tip!!!!
 #how tobtain them ????
 
 path='D:\Recherche PRD\SPR_00_02\SPR_00_02'
@@ -108,8 +110,36 @@ for k in range(nImagens):
     Y[1, :, k] = np.interp(X[1, :, k], Xm[1, :, k], Ym[1, :, k])
     #put all the variables with 1000 values
 
-    aa = (ina - inb) / (1 - nImagens) #alpha and beta parameters!
-    bb = ina - aa
+# trouver l'indice de la valeur la plus proche
+indice_plus_prochea1 = int(np.abs(CODxx[0:1000, 1] - a1).argmin())
+indice_plus_procheaf = int(np.abs(CODxx[0:1000, -1] - af).argmin())
+#a1 et af good!
+
+# Entrée des coefficients du système
+a11 = np.mean(CODyy[:, -1])*(nImagens)#VDmeanf*if
+a12 = np.mean(CODyy[:, -1])#VDmeanf
+b1 = CODyy[indice_plus_procheaf, -1]#VDthf
+a21 = np.mean(CODyy[:, 1])#VDmean1*i1
+a22 = np.mean(CODyy[:, 1])#VDmean1
+b2 = CODyy[indice_plus_prochea1, 1]#VDth1
+
+# Application de la méthode d'élimination de Gauss
+coeff = a21/a11
+a22 = a22 - coeff*a12
+b2 = b2 - coeff*b1
+x2 = b2/a22
+x1 = (b1 - a12*x2)/a11
+
+# Affichage des résultats
+print("La solution du système est :")
+print("x1 = ", x1)
+print("x2 = ", x2)
+
+for k in range(nImagens):
+    #aa = (ina - inb) / (1 - nImagens) #alpha and beta parameters!
+    #bb = ina - aa
+    aa=x1
+    bb=x2
 
     MEANd[k] = np.mean(CODyy[:, k]) * (aa * k + bb)#VDth
     MEANs[k] = np.mean(STRAINyy[:, k]) * (aa * k + bb)#VDth step
@@ -177,9 +207,8 @@ for k in range(1, nImagens):
 plt.show()
 
 #part3
-
+'''
 for k in range(0, nImagens, 2):
-    print(k)
     plt.imshow(I[:, :, k])
     
     # Ajouter les éléments supplémentaires
@@ -216,9 +245,9 @@ for k in range(0, nImagens, 2):
     plt.plot(CODxx[0:1000, 0], CODyy[:, 0], 'b-', label='VD')
     plt.plot([0, 35], [MEANd[0], MEANd[0]], 'r-',label='VDth')
     plt.plot(ad[0], CODyy[aid[0], 0], 'gx', label='Crack tip')
-    plt.plot(CODxx[0:1000, 0:k-1], CODyy[:, 0:k-1], 'b-')
-    plt.plot([0, 35], [MEANd[0:k-1], MEANd[0:k-1]], 'r-')
-    plt.plot(ad[k-1], CODyy[aid[k-1], k-1], 'gx')
+    plt.plot(CODxx[0:1000, 0:k], CODyy[:, 0:k], 'b-')
+    plt.plot([0, 35], [MEANd[0:k], MEANd[0:k]], 'r-')
+    plt.plot(ad[k], CODyy[aid[k], k], 'gx')
     # set the font and size for the axes and legend
     plt.tick_params(axis='both', labelsize=14)
     plt.legend(fontsize=12)
@@ -244,10 +273,11 @@ for j in range(0, nImagens, 2):
     os.remove(os.path.join(path, "Img"+str(j)+".png"))
 output.release()
 cv2.destroyAllWindows()
-
+'''
 dad = ad - ad[0]
 das = aas - aas[0]
 
+#Plot crack tip vs Images
 plt.plot(range(1,nImagens+1), dad, 'o')
 plt.plot(range(1,nImagens+1), das, 'x')
 plt.xlabel('Images')
@@ -292,7 +322,6 @@ ax.set_box_aspect(1)
 ax.grid()
 plt.show()
 
-print(np.max(CTOD))
 
 np.savetxt('das.txt', das)
 np.savetxt('dad.txt', dad)
@@ -300,7 +329,7 @@ np.savetxt('CTOD.txt', CTOD)
 np.savetxt('CTOA.txt', CTOA)
 
 
-run=1
+run=0
 if run==1:
     path =  "D:\Recherche PRD\EXP\MMCGTests\Video"
     cap1 = cv2.VideoCapture(path+'\COD.avi')
@@ -339,3 +368,24 @@ if run==1:
     cap2.release()
     combined_video.release()
     cv2.destroyAllWindows()
+
+ 
+'''
+#print(ad[-1]-ad[0])
+print(ad[-1])
+print(MEANd[-1])
+print(np.mean(CODyy[:, -1]))
+print(CODyy[int(aid[-1]), -1])   
+
+print(ad[1])
+print(MEANd[1])
+print(np.mean(CODyy[:, 1]))
+print(CODyy[int(aid[1]), 1]) 
+
+print(np.mean(CODyy[:, -1])*(nImagens))
+print(np.mean(CODyy[:, -1]))
+print(CODyy[indice_plus_procheaf, -1])
+print(np.mean(CODyy[:, 1]))
+print(np.mean(CODyy[:, 1]))
+print(CODyy[indice_plus_prochea1, 1])
+'''

@@ -49,6 +49,8 @@ Test = Struct()
 # run database with data from the project/specimen
 exec(open('Database.py').read())
 
+exec(open('ReadcrackfractureMMCG.py').read())
+
 #%% Read P-d curve data
 
 print('reading : load and displacement from the test machine')
@@ -211,36 +213,12 @@ plt.grid()
 plt.legend(loc=2, prop={'size': 8})
 fig.tight_layout()
 plt.show()
-
-Ubot  = np.zeros((a0.X, MatchID.stages))
-Utop=  np.zeros((a0.X, MatchID.stages))
-Vbot=  np.zeros((a0.X, MatchID.stages)) 
-Vtop=  np.zeros((a0.X, MatchID.stages))                
-
-for i in np.arange(0, MatchID.stages, 1):
-    Ubot[:,i]=UX[a0.Y-COD.cod_pair,0:a0.X,i]
-    Utop[:,i]=UX[a0.Y+COD.cod_pair,0:a0.X,i]
-    Vbot[:,i]=UY[a0.Y-COD.cod_pair,0:a0.X,i]
-    Vtop[:,i]=UY[a0.Y+COD.cod_pair,0:a0.X,i]
-
-Xm = np.zeros((2, a0.X, MatchID.stages))
-Ym = np.zeros((2, a0.X, MatchID.stages))
-
-for i in np.arange(0, 2, 1):
-    Xm[0,:,:]=Ubot[:,:]
-    Xm[1,:,:]=Utop[:,:]
     
 #############################################################################
-
-# INITIALIZATION:
-Valpixel = 391         # Number of pixels to perform calibration;
-Valmm = 9.94           # Amount of mm to perform calibration;
-Cal = Valmm/Valpixel   # Calibration factor from pixel to mm;
-
-ina = 0.75
-inb = 0.75
-CTODimage = 281
-
+#ina = 0.75
+#inb = 0.53
+CTODimage = MatchID.xCoord[a0.X]
+print(CTODimage)
 
 endS = os.path.join(os.getcwd(), cwd)
 
@@ -256,7 +234,8 @@ nImagens = len(fileNames)
 
 
 # Charger l'image
-img = Image.open(cwd + '\e1O1_0002_0.tiff')
+cwd = os.path.join(cwd,Job+'_0001_0.tiff')
+img = Image.open(cwd)
 # Obtenir la taille de l'image
 largeur, hauteur = img.size
 # Afficher la taille de l'image
@@ -272,39 +251,54 @@ os.chdir('..')
 #for k in range(0, nImagens, 2):
     #plt.imshow(I[:, :, k])
     #plt.show()
-
-CODy = np.zeros((a0.X, MatchID.stages))
-CODx = np.zeros((a0.X, MatchID.stages))
-
-for k in range(MatchID.stages):
-    CODy[:, k] = np.abs(Vtop[:,k]-Vbot[:,k])
-    CODx[:, k] = (Ubot[:,i]+Utop[:,i])/2
     
+Xm = np.zeros((2, a0.X, nombre))
+Ym = np.zeros((2, a0.X, nombre))               
+print(a0.Y-COD.cod_pair)
+for i in np.arange(0, nombre, 1):
+    Xm[0,:,i]=UX[a0.Y-COD.cod_pair,0:a0.X,i]+MatchID.xCoord[0:a0.X]*Test.mm2pixel
+    Xm[1,:,i]=UX[a0.Y+COD.cod_pair,0:a0.X,i]+MatchID.xCoord[0:a0.X]*Test.mm2pixel
+    Ym[0,:,i]=UY[a0.Y-COD.cod_pair,0:a0.X,i]+MatchID.yCoord[a0.Y-COD.cod_pair]*Test.mm2pixel
+    Ym[1,:,i]=UY[a0.Y+COD.cod_pair,0:a0.X,i]+MatchID.yCoord[a0.Y+COD.cod_pair]*Test.mm2pixel
+
+#Ym=Ym[:,::-1,:] 
+#Xm = Xm[:,::-1,:]
+
+CODy = np.zeros((a0.X, nombre))
+CODx = np.zeros((a0.X, nombre))
+
+for k in range(nombre):
+    CODy[:, k] = np.abs(Ym[1,:,k]-Ym[0,:,k]) #COD
+    CODx[:, k] = (Xm[0,:,k]+Xm[1,:,k])/2
+    #Coordinates of each subset in function of time
+
+#CODy = CODy[::-1,:]    
 dx = Xm[0, 1, 0] - Xm[0, 0, 0]
 dy = CODy[:, 0]
 
 CODy = np.abs(CODy - CODy[:, [0]])
 
-STRAINy = np.zeros((a0.X, MatchID.stages))
 
-for k in range(MatchID.stages):
+STRAINy = np.zeros((a0.X, nombre))
+
+for k in range(nombre):
     STRAINy[:, k] = CODy[:, k] / dy[0]
 #attention indice dans l'autre sens!!
 
-CODxx = np.zeros((1000, MatchID.stages))
-CODyy = np.zeros((1000, MatchID.stages))
-STRAINyy = np.zeros((1000, MatchID.stages))
-X = np.zeros((2, 1000, MatchID.stages))
-Y = np.zeros((2, 1000, MatchID.stages))
+CODxx = np.zeros((1000, nombre))
+CODyy = np.zeros((1000, nombre))
+STRAINyy = np.zeros((1000, nombre))
+X = np.zeros((2, 1000, nombre))
+Y = np.zeros((2, 1000, nombre))
 
-MEANd=np.zeros(MatchID.stages)
-MEANs=np.zeros(MatchID.stages)
-aid=np.zeros(MatchID.stages, dtype=int)
-ad=np.zeros(MatchID.stages)
-ais=np.zeros(MatchID.stages)
-aas=np.zeros(MatchID.stages)
+MEANd=np.zeros(nombre)
+MEANs=np.zeros(nombre)
+aid=np.zeros(nombre, dtype=int)
+ad=np.zeros(nombre)
+ais=np.zeros(nombre)
+aas=np.zeros(nombre)
 
-for k in range(MatchID.stages):
+for k in range(nombre):
     CODxx[:, k] = np.linspace(CODx[0, k], CODx[-1, k], 1000)
     #same than CODx but 1000 values whereas 201
     CODyy[:, k] = np.interp(CODxx[:, k], CODx[:, k], CODy[:, k])
@@ -317,17 +311,48 @@ for k in range(MatchID.stages):
     Y[1, :, k] = np.interp(X[1, :, k], Xm[1, :, k], Ym[1, :, k])
     #put all the variables with 1000 values
 
-    aa = (ina - inb) / (1 - nImagens) #alpha and beta parameters!
-    bb = ina - aa
+# trouver l'indice de la valeur la plus proche
+indice_plus_prochea1 = int(np.abs(CODxx[0:1000, 1] - a1).argmin())
+indice_plus_procheaf = int(np.abs(CODxx[0:1000, -1] - af).argmin())
 
-    MEANd[k] = np.mean(CODyy[:, k]) * (aa * k + bb)
-    MEANs[k] = np.mean(STRAINyy[:, k]) * (aa * k + bb)
+# Entrée des coefficients du système
+a11 = np.nanmean(CODyy[:, nombre-1])*(nombre-1)#VDmeanf*if
+a12 = np.nanmean(CODyy[:, nombre-1])#VDmeanf
+b1 = CODyy[indice_plus_procheaf, nombre-1]#VDthf
+a21 = np.nanmean(CODyy[:, 1])#VDmean1*i1
+a22 = np.nanmean(CODyy[:, 1])#VDmean1
+b2 = CODyy[indice_plus_prochea1, 1]#VDth1
 
+print(CODyy[indice_plus_prochea1, 1])
+print(CODyy[indice_plus_procheaf, -1])
+
+# Application de la méthode d'élimination de Gauss
+coeff = a21/a11
+a22 = a22 - coeff*a12
+b2 = b2 - coeff*b1
+x2 = b2/a22
+x1 = (b1 - a12*x2)/a11
+
+# Affichage des résultats
+print("La solution du système est :")
+print("x1 = ", x1)
+print("x2 = ", x2)
+
+
+for k in range(nombre):
+    #aa = (ina - inb) / (1 - nImagens) #alpha and beta parameters!
+    #bb = ina - aa
+    aa=x1
+    bb=x2
+
+    MEANd[k] = np.nanmean(CODyy[:, k]) * (aa * k + bb)
+    MEANs[k] = np.nanmean(STRAINyy[:, k]) * (aa * k + bb)
+    
     for i in range(1000):
         if CODyy[i, k] - MEANd[k] < 0.02:
-            if CODxx[i, k] < CTODimage * Cal:
+            if CODxx[i, k] < CTODimage * Test.mm2pixel:
                 aid[k] = i
-                ad[k] = CTODimage * Cal
+                ad[k] = CTODimage * Test.mm2pixel
             else:
                 aid[k] = i
                 ad[k] = CODxx[i, k]
@@ -335,32 +360,121 @@ for k in range(MatchID.stages):
 
     for i in range(1000):
         if STRAINyy[i, k] - MEANs[k] < 0.02:
-            if CODxx[i, k] < CTODimage * Cal:
+            if CODxx[i, k] < CTODimage * Test.mm2pixel:
                 ais[k] = i
-                aas[k] = CTODimage * Cal
+                aas[k] = CTODimage * Test.mm2pixel
             else:
                 ais[k] = i
                 aas[k] = CODxx[i, k]
             break
+        
+    a=int(np.abs(CODyy[0:1000, k] - MEANd[k]).argmin())
+    aid[k] = a
+    if CODxx[i, k] > CTODimage * Test.mm2pixel:
+        ad[k] = CTODimage * Test.mm2pixel
+    else:
+        ad[k] = CODxx[a, k]
+    
+    b=int(np.abs(STRAINyy[0:1000, k] - MEANs[k]).argmin())
+    ais[k] = b
+    if CODxx[i, k] > CTODimage * Test.mm2pixel:
+        aas[k] = CTODimage * Test.mm2pixel
+    else:
+        aas[k] = CODxx[b, k]
+        
+  
+ad.sort()
+dad = ad - ad[0]+Test.a0 
+aas.sort()  
+das = aas - aas[0]+Test.a0
+plt.plot(range(1,nombre+1), dad, 'o')
+plt.plot(range(1,nombre+1), das, 'b')
 
-Md= np.zeros((MatchID.stages)) 
-Ms= np.zeros((MatchID.stages))
+#aid=sorted(aid, reverse=True)
+#ais=sorted(ais, reverse=True)
+
+Md= np.zeros((nombre)) 
+Ms= np.zeros((nombre))
 
 Md = np.sort(np.unique(aid))
-CTODid = int(Md[2])
+CTODid = int(Md[-3])
 
 Ms = np.sort(np.unique(ais))
 CTODis = int(Ms[2])
 
-CTOD=np.zeros((MatchID.stages))
-CTOA=np.zeros((MatchID.stages))
-tang1=np.zeros((41, MatchID.stages))
-tang2=np.zeros((41, MatchID.stages))
+CTOD=np.zeros((nombre))
+CTOA=np.zeros((nombre))
+tang1=np.zeros((41, nombre))
+tang2=np.zeros((41, nombre))
 
-for k in range(MatchID.stages):
+for k in range(nombre):
     CTOD[k] = CODyy[CTODid, k]
     dyy1 = (Y[0, CTODid+5, k] - Y[0, CTODid-5, k]) / (X[0, CTODid+5, k] - X[0, CTODid-5, k])
     dyy2 = (Y[1, CTODid+5, k] - Y[1, CTODid-5, k]) / (X[1, CTODid+5, k] - X[1, CTODid-5, k])
     tang1[:,k] = ((np.arange(-20,21)-X[0,CTODid,k])*dyy1) + Y[0,CTODid,k]
     tang2[:,k] = ((np.arange(-20,21)-X[1,CTODid,k])*dyy2) + Y[1,CTODid,k]
     CTOA[k] = np.arctan(dyy1) - np.arctan(dyy2)
+    
+for k in range(1, nombre):
+    plt.plot(CODxx[0:1000, k], CODyy[:, k], 'b-')
+    plt.plot([0, 35], [MEANd[k], MEANd[k]], 'r-')
+    plt.plot(ad[k], CODyy[int(aid[k]), k], 'gx')
+    plt.xlabel('x11 [mm]', fontname='Times New Roman')
+    plt.ylabel('COD [mm]', fontname='Times New Roman')
+    plt.xticks(fontsize=16)
+    plt.yticks(fontsize=16)
+    plt.gca().spines['top'].set_visible(False)
+    plt.gca().spines['right'].set_visible(False)
+    plt.gca().spines['bottom'].set_linewidth(0.5)
+    plt.gca().spines['left'].set_linewidth(0.5)
+    plt.gca().xaxis.set_tick_params(width=0.5)
+    plt.gca().yaxis.set_tick_params(width=0.5)
+    plt.gca().set_xlim([20, 35])
+    plt.gca().set_ylim([0, 0.4])
+    plt.grid(False)
+plt.show()
+
+#Plot crack tip vs Images
+plt.plot(range(1,nombre+1), dad, 'o')
+plt.plot(range(1,nombre+1), das, 'x')
+plt.xlabel('Images')
+plt.ylabel('Crack tip [mm]')
+plt.gca().spines['right'].set_visible(False)
+plt.gca().spines['top'].set_visible(False)
+plt.gca().xaxis.set_ticks_position('bottom')
+plt.gca().yaxis.set_ticks_position('left')
+plt.grid()
+plt.box(True)
+
+# Plot CTOD vs Images
+fig, ax = plt.subplots()
+ax.plot(range(1, nombre+1), CTOD)
+ax.set_xlabel('Images')
+ax.set_ylabel('CTOD [mm]')
+ax.tick_params(labelsize=16)
+ax.set_facecolor('white')
+ax.set_box_aspect(1)
+ax.grid()
+plt.show()
+    
+'''
+print(a1+Test.a0)
+print(af+Test.a0)
+indicetestif = int(np.abs(CODyy[:, nombre-1] - CODyy[indice_plus_procheaf, nombre-1]).argmin())
+print(indicetestif)
+print(CODxx[indicetestif, nombre-1]+Test.a0)
+indicetesti1 = int(np.abs(CODyy[:, 1] - CODyy[indice_plus_prochea1, 1]).argmin())
+print(indicetesti1)
+print(CODxx[indicetesti1,1]+Test.a0)
+
+print(a1)
+print(MatchID.xCoord[a0.X]*Test.mm2pixel)
+print(MatchID.xCoord[-1]*Test.mm2pixel)
+print(af)
+a1=MatchID.xCoord[a0.X]*Test.mm2pixel-a1
+af=MatchID.xCoord[a0.X]*Test.mm2pixel-a1
+
+Xm = Xm[:,::-1,:]
+Ym=Ym[:,::-1,:]
+#CODy = CODy[::-1,:]
+'''

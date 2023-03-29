@@ -4,28 +4,13 @@ import numpy as np
 import re
 from PIL import Image
 
-class Struct:
-    def __init__(self, **entries): self.__dict__.update(entries)
 
-MatchID = Struct()
-a0 = Struct()
-af = Struct()
-COD = Struct()
-Test = Struct()
-
-Job = 'e1o1'
-
-exec(open('Database.py').read())
 # Récupérer la liste des fichiers TIF dans le dossier Image_Selection
-#path='D:\Recherche PRD\SPR_00_02\SPR_00_02'
-#endS = os.path.join(os.getcwd(), path + '\Image_Selection')
-maincwd='D:\Recherche PRD\EXP\MMCGTests'
-path = os.path.join(maincwd, Job)
-endS = os.path.join(os.getcwd(), path)
-os.chdir(endS)
+path='D:\Recherche PRD\SPR_00_02\SPR_00_02'
+endS = os.path.join(os.getcwd(), path + '\Image_Selection')
 os.chdir(endS)
 
-fileNames = sorted([file for file in os.listdir() if file.endswith('.tiff')])
+fileNames = sorted([file for file in os.listdir() if file.endswith('.tif')])
 pattern = re.compile(r'\d+')
 # Utiliser sorted() pour trier la liste en utilisant les nombres extraits des noms de fichier
 fileNames = sorted(fileNames, key=lambda x: int(pattern.findall(x)[0]))
@@ -34,8 +19,7 @@ fileNames = sorted(fileNames, key=lambda x: int(pattern.findall(x)[0]))
 n_images = len(fileNames)
 
 # Charger l'image
-img = Image.open('D:\Recherche PRD\EXP\MMCGTests\e1o1\e1O1_0000_0.tiff')
-#img = Image.open('D:\Recherche PRD\SPR_00_02\SPR_00_02\Image_Selection\Image1.tif')
+img = Image.open('D:\Recherche PRD\SPR_00_02\SPR_00_02\Image_Selection\Image1.tif')
 # Obtenir la taille de l'image
 largeur, hauteur = img.size
 # Afficher la taille de l'image
@@ -92,48 +76,27 @@ def select_points(image_path, n_points):
 nbimages=2
 X = np.zeros((nbimages, 2))#in pixel
 Xmm=np.zeros((nbimages, 2))
+Valpixel = 391         # Number of pixels to perform calibration;
+Valmm = 9.94           # Amount of mm to perform calibration;
+Cal = Valmm/Valpixel   # Calibration factor from pixel to mm;
 
-# Allied Manta G-505B
-H, V  = 2448, 2050 # unit: pixels
-# 'TC2336' telecentric lens
-LX, LY = 34.98, 29.18 # unit: mm
-
-# pixel to mm magnification factor
-mm2pixel = LX / H
 nombre = input("La dernière image avant la rupture est : ")
 
-d=np.linspace(0, int(nombre)-1,nbimages)
+d=np.linspace(2, int(nombre)-1,nbimages)
 a=0
 points_list = []
 for k in range(nbimages):
-    print(k)
     a=a+1
     points = select_points(fileNames[int(d[k])], 1)
     points_list.append(points)
     X[a-1,1]=k
     X[a-1,0]=points_list[a-1][0]
-    Xmm[a-1,0]=X[a-1,0]*Test.mm2pixel
-    Xmm[a-1,1]=int(d[k])
-    
-cracklength=np.abs(Xmm[-1,0]-Xmm[0,0])+Test.a0
-print('The crack length with python is: ', cracklength)
-
-print(a0.imgHuse)
-########################################
-#With Matchid
-
-class Struct:
-    def __init__(self, **entries): self.__dict__.update(entries)
-
-af = Struct()
-
-#af.imgHuse, af.imgVuse = 614, 1013#obtained in Matchid for e1o1
-af.imgHuse, af.imgVuse = 1886, 1064# for e4e1
-af.imgHuse, af.imgVuse = 1613, 1094
-cracklength=np.abs(a0.imgHuse-af.imgHuse)*Test.mm2pixel+Test.a0
-print('The crack length with Matchid is: ',cracklength)
-
-
-
+    print(X[a-1,0])
+    Xmm[a-1,0]=X[a-1,0]*Cal
+    Xmm[a-1,1]=int(d[k])   
+deltacrack=np.abs(Xmm[-1,0]-Xmm[0,0])
+print('The crack length with python is: ', deltacrack)
+a1=Xmm[0,0]
+af=Xmm[-1,0]
 # Sauvegarder la matrices X
-np.savetxt('D:\Recherche PRD\SPR_00_02\SPR_00_02\X.txt', X)
+#np.savetxt('D:\Recherche PRD\SPR_00_02\SPR_00_02\X.txt', X)
