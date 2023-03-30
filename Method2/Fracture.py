@@ -207,7 +207,7 @@ for k in range(1, nImagens):
 plt.show()
 
 #part3
-'''
+
 for k in range(0, nImagens, 2):
     plt.imshow(I[:, :, k])
     
@@ -240,14 +240,19 @@ for j in range(0, nImagens, 2):
 output.release()
 cv2.destroyAllWindows()
     
-
-for k in range(0, nImagens, 2):    
+x = []
+y = []
+for k in range(0, nImagens, 2):
     plt.plot(CODxx[0:1000, 0], CODyy[:, 0], 'b-', label='VD')
     plt.plot([0, 35], [MEANd[0], MEANd[0]], 'r-',label='VDth')
     plt.plot(ad[0], CODyy[aid[0], 0], 'gx', label='Crack tip')
     plt.plot(CODxx[0:1000, 0:k], CODyy[:, 0:k], 'b-')
     plt.plot([0, 35], [MEANd[0:k], MEANd[0:k]], 'r-')
-    plt.plot(ad[k], CODyy[aid[k], k], 'gx')
+    
+    x.append(ad[k])
+    y.append(CODyy[aid[k], k])
+    
+    plt.plot(x, y, 'gx')
     # set the font and size for the axes and legend
     plt.tick_params(axis='both', labelsize=14)
     plt.legend(fontsize=12)
@@ -273,7 +278,7 @@ for j in range(0, nImagens, 2):
     os.remove(os.path.join(path, "Img"+str(j)+".png"))
 output.release()
 cv2.destroyAllWindows()
-'''
+
 dad = ad - ad[0]
 das = aas - aas[0]
 

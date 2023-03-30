@@ -218,7 +218,7 @@ plt.show()
 #ina = 0.75
 #inb = 0.53
 CTODimage = MatchID.xCoord[a0.X]
-print(CTODimage)
+print(CTODimage*Test.mm2pixel)
 
 endS = os.path.join(os.getcwd(), cwd)
 
@@ -241,45 +241,49 @@ largeur, hauteur = img.size
 # Afficher la taille de l'image
 print("La taille de l'image est de {} x {} pixels.".format(largeur, hauteur))
 
-I = np.zeros((int(hauteur/4), int(largeur/4), nImagens))
+'''
+I = np.zeros((int(hauteur/8), int(largeur/8), nImagens))
 
 for k, fileName in enumerate(fileNames):
-    I[:, :, k] = cv.resize(cv.imread(os.path.join(endS, fileName), cv.IMREAD_GRAYSCALE), (int(largeur/4), int(hauteur/4)))
+    I[:, :, k] = cv.resize(cv.imread(os.path.join(endS, fileName), cv.IMREAD_GRAYSCALE), (int(largeur/8), int(hauteur/8)))
 
 os.chdir('..')
 
-#for k in range(0, nImagens, 2):
-    #plt.imshow(I[:, :, k])
-    #plt.show()
-    
-Xm = np.zeros((2, a0.X, nombre))
-Ym = np.zeros((2, a0.X, nombre))               
-print(a0.Y-COD.cod_pair)
-for i in np.arange(0, nombre, 1):
-    Xm[0,:,i]=UX[a0.Y-COD.cod_pair,0:a0.X,i]+MatchID.xCoord[0:a0.X]*Test.mm2pixel
-    Xm[1,:,i]=UX[a0.Y+COD.cod_pair,0:a0.X,i]+MatchID.xCoord[0:a0.X]*Test.mm2pixel
-    Ym[0,:,i]=UY[a0.Y-COD.cod_pair,0:a0.X,i]+MatchID.yCoord[a0.Y-COD.cod_pair]*Test.mm2pixel
-    Ym[1,:,i]=UY[a0.Y+COD.cod_pair,0:a0.X,i]+MatchID.yCoord[a0.Y+COD.cod_pair]*Test.mm2pixel
 
-#Ym=Ym[:,::-1,:] 
-#Xm = Xm[:,::-1,:]
+for k in range(0, nImagens, 2):
+    plt.imshow(I[:, :, k])
+    plt.show()
+'''  
 
-CODy = np.zeros((a0.X, nombre))
-CODx = np.zeros((a0.X, nombre))
+COD.cod_pair=  COD.cod_pair+5  #we are moving away from the fracture
+Xm = np.zeros((2, a0.X+1, nombre))
+Ym = np.zeros((2, a0.X+1, nombre))  
+Xm[0,:,0]=MatchID.xCoord[0:a0.X+1]*Test.mm2pixel
+Xm[1,:,0]=MatchID.xCoord[0:a0.X+1]*Test.mm2pixel  
+Ym[0,:,0]=MatchID.yCoord[a0.Y-COD.cod_pair]*Test.mm2pixel        
+Ym[1,:,0]=MatchID.yCoord[a0.Y+COD.cod_pair]*Test.mm2pixel  #Xm and Ym for stage 0  
+
+for i in np.arange(0, nombre-1, 1):
+    Xm[0,:,i+1]=UX[a0.Y-COD.cod_pair,0:a0.X+1,i]+MatchID.xCoord[0:a0.X+1]*Test.mm2pixel
+    Xm[1,:,i+1]=UX[a0.Y+COD.cod_pair,0:a0.X+1,i]+MatchID.xCoord[0:a0.X+1]*Test.mm2pixel
+    Ym[0,:,i+1]=-np.abs(UY[a0.Y-COD.cod_pair,0:a0.X+1,i]-UY[a0.Y+COD.cod_pair,0:a0.X+1,i])/2+MatchID.yCoord[a0.Y-COD.cod_pair]*Test.mm2pixel
+    Ym[1,:,i+1]=np.abs(UY[a0.Y-COD.cod_pair,0:a0.X+1,i]-UY[a0.Y+COD.cod_pair,0:a0.X+1,i])/2+MatchID.yCoord[a0.Y+COD.cod_pair]*Test.mm2pixel
+
+CODy = np.zeros((a0.X+1, nombre))
+CODx = np.zeros((a0.X+1, nombre))
 
 for k in range(nombre):
     CODy[:, k] = np.abs(Ym[1,:,k]-Ym[0,:,k]) #COD
     CODx[:, k] = (Xm[0,:,k]+Xm[1,:,k])/2
     #Coordinates of each subset in function of time
-
-#CODy = CODy[::-1,:]    
+   
 dx = Xm[0, 1, 0] - Xm[0, 0, 0]
 dy = CODy[:, 0]
 
 CODy = np.abs(CODy - CODy[:, [0]])
 
 
-STRAINy = np.zeros((a0.X, nombre))
+STRAINy = np.zeros((a0.X+1, nombre))
 
 for k in range(nombre):
     STRAINy[:, k] = CODy[:, k] / dy[0]
@@ -334,54 +338,61 @@ x2 = b2/a22
 x1 = (b1 - a12*x2)/a11
 
 # Affichage des résultats
-print("La solution du système est :")
+print("The system solution is :")
 print("x1 = ", x1)
 print("x2 = ", x2)
 
+#aa = (ina - inb) / (1 - nImagens) #alpha and beta parameters!
+#bb = ina - aa
+aa=x1
+bb=x2
+MEANd = np.linspace(CODyy[indice_plus_prochea1, 1], CODyy[indice_plus_procheaf, nombre-1], nombre)
 
 for k in range(nombre):
-    #aa = (ina - inb) / (1 - nImagens) #alpha and beta parameters!
-    #bb = ina - aa
-    aa=x1
-    bb=x2
 
-    MEANd[k] = np.nanmean(CODyy[:, k]) * (aa * k + bb)
+    #MEANd[k] = np.nanmean(CODyy[:, k]) * (aa * k + bb)
     MEANs[k] = np.nanmean(STRAINyy[:, k]) * (aa * k + bb)
-    
-    for i in range(1000):
-        if CODyy[i, k] - MEANd[k] < 0.02:
-            if CODxx[i, k] < CTODimage * Test.mm2pixel:
-                aid[k] = i
-                ad[k] = CTODimage * Test.mm2pixel
-            else:
-                aid[k] = i
-                ad[k] = CODxx[i, k]
-            break
 
-    for i in range(1000):
-        if STRAINyy[i, k] - MEANs[k] < 0.02:
-            if CODxx[i, k] < CTODimage * Test.mm2pixel:
-                ais[k] = i
-                aas[k] = CTODimage * Test.mm2pixel
-            else:
-                ais[k] = i
-                aas[k] = CODxx[i, k]
-            break
-        
+    
     a=int(np.abs(CODyy[0:1000, k] - MEANd[k]).argmin())
     aid[k] = a
-    if CODxx[i, k] > CTODimage * Test.mm2pixel:
+    if CODxx[a, k] > CTODimage * Test.mm2pixel:
         ad[k] = CTODimage * Test.mm2pixel
     else:
         ad[k] = CODxx[a, k]
+        
     
     b=int(np.abs(STRAINyy[0:1000, k] - MEANs[k]).argmin())
     ais[k] = b
-    if CODxx[i, k] > CTODimage * Test.mm2pixel:
+    ais[0] = 999
+    if CODxx[a, k] > CTODimage * Test.mm2pixel:
         aas[k] = CTODimage * Test.mm2pixel
     else:
         aas[k] = CODxx[b, k]
         
+aid[0]=999 
+ad[0]=CODxx[999, k]    
+ais[0]=999 
+aas[0]=CODxx[999, k]   
+
+for k in range(1, nombre,4):
+    plt.plot(CODxx[0:1000, k], CODyy[:, k], 'b-')
+    plt.plot([0, 35], [MEANd[k], MEANd[k]], 'r-')
+    plt.plot(ad[k], CODyy[int(aid[k]), k], 'gx')
+    plt.xlabel('x11 [mm]', fontname='Times New Roman')
+    plt.ylabel('COD [mm]', fontname='Times New Roman')
+    plt.xticks(fontsize=16)
+    plt.yticks(fontsize=16)
+    plt.gca().spines['top'].set_visible(False)
+    plt.gca().spines['right'].set_visible(False)
+    plt.gca().spines['bottom'].set_linewidth(0.5)
+    plt.gca().spines['left'].set_linewidth(0.5)
+    plt.gca().xaxis.set_tick_params(width=0.5)
+    plt.gca().yaxis.set_tick_params(width=0.5)
+    plt.gca().set_xlim([0, 35])
+    plt.gca().set_ylim([0, 1])
+    plt.grid(False)
+plt.show()  
   
 ad.sort()
 dad = ad - ad[0]+Test.a0 
@@ -397,7 +408,7 @@ Md= np.zeros((nombre))
 Ms= np.zeros((nombre))
 
 Md = np.sort(np.unique(aid))
-CTODid = int(Md[-3])
+CTODid = int(Md[2])
 
 Ms = np.sort(np.unique(ais))
 CTODis = int(Ms[2])
@@ -414,25 +425,20 @@ for k in range(nombre):
     tang1[:,k] = ((np.arange(-20,21)-X[0,CTODid,k])*dyy1) + Y[0,CTODid,k]
     tang2[:,k] = ((np.arange(-20,21)-X[1,CTODid,k])*dyy2) + Y[1,CTODid,k]
     CTOA[k] = np.arctan(dyy1) - np.arctan(dyy2)
+
+'''
+Cal=    Test.mm2pixel*8
+for k in range(0, nombre-1, 1):
+    plt.imshow(I[:, :, k])
     
-for k in range(1, nombre):
-    plt.plot(CODxx[0:1000, k], CODyy[:, k], 'b-')
-    plt.plot([0, 35], [MEANd[k], MEANd[k]], 'r-')
-    plt.plot(ad[k], CODyy[int(aid[k]), k], 'gx')
-    plt.xlabel('x11 [mm]', fontname='Times New Roman')
-    plt.ylabel('COD [mm]', fontname='Times New Roman')
-    plt.xticks(fontsize=16)
-    plt.yticks(fontsize=16)
-    plt.gca().spines['top'].set_visible(False)
-    plt.gca().spines['right'].set_visible(False)
-    plt.gca().spines['bottom'].set_linewidth(0.5)
-    plt.gca().spines['left'].set_linewidth(0.5)
-    plt.gca().xaxis.set_tick_params(width=0.5)
-    plt.gca().yaxis.set_tick_params(width=0.5)
-    plt.gca().set_xlim([20, 35])
-    plt.gca().set_ylim([0, 0.4])
-    plt.grid(False)
-plt.show()
+    plt.plot([ad[-1]/Cal, ad[-1]/Cal], [0, 1000], color=[0, 1, 0, 0.5], linewidth=2)
+    plt.plot([ad[-(1+k)]/Cal, ad[-(1+k)]/Cal], [0, 1000], color='green', linewidth=2)
+    plt.plot(X[0, range(0, 1000, 50), k]/Cal, Y[0, range(0, 1000, 50), k]/Cal, 'x', color='red', markersize=8, linewidth=2)
+    plt.plot(X[1, range(0, 1000, 50), k]/Cal, Y[1, range(0, 1000, 50), k]/Cal, 'x', color='red', markersize=8, linewidth=2)
+    #plt.gca().set_xlim([0, 2200])
+    plt.gca().set_ylim([0, int(hauteur/8)])
+    plt.show()
+'''
 
 #Plot crack tip vs Images
 plt.plot(range(1,nombre+1), dad, 'o')
@@ -477,4 +483,24 @@ af=MatchID.xCoord[a0.X]*Test.mm2pixel-a1
 Xm = Xm[:,::-1,:]
 Ym=Ym[:,::-1,:]
 #CODy = CODy[::-1,:]
+
+    for i in range(1000):
+        if CODyy[i, k] - MEANd[k] < 0.02:
+            if CODxx[i, k] < CTODimage * Test.mm2pixel:
+                aid[k] = i
+                ad[k] = CTODimage * Test.mm2pixel
+            else:
+                aid[k] = i
+                ad[k] = CODxx[i, k]
+            break
+
+    for i in range(1000):
+        if STRAINyy[i, k] - MEANs[k] < 0.02:
+            if CODxx[i, k] < CTODimage * Test.mm2pixel:
+                ais[k] = i
+                aas[k] = CTODimage * Test.mm2pixel
+            else:
+                ais[k] = i
+                aas[k] = CODxx[i, k]
+            break
 '''

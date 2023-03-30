@@ -16,7 +16,7 @@ In addition, a look is taken at the mechanics of fracture with applications to t
 
 \subsubsection{The wood}
 
-Wood is defined as 'a set of very resistant tissues that constitute the trunk, branches and roots of woody plants, formed by vessels conducting raw sap, fibres and parenchyma' (\ref{fig:fig1}). In other words, wood is a set of tissues composed of woody fibres, tracheids parenchyma and vessels.
+Wood is defined as 'a set of very resistant tissues that constitute the trunk, branches and roots of woody plants, formed by vessels conducting raw sap, fibres and parenchyma' (\ref{fig:fig1}). 
 
 
 \begin{figure}[htp]
@@ -587,9 +587,9 @@ In this part we give and define the different terms of the imposed displacement 
 
 With:
 
-$\Delta W_{ext}$ the applied energy change (due to external forces).
+$\Delta W_{ext}$ the applied energy change (due to external forces)
 
-$\Delta W_{elast}$ the change in dissipated energy ;
+$\Delta W_{elast}$ the change in dissipated energy 
 
 $\Delta$U the energy expended during crack propagation over the length $\Delta$a.
 
@@ -699,7 +699,7 @@ If this method is used on wood, it is important to note that the 2D orthotropic 
 
 There are two types of errors in DIC measurements, namely variance errors and bias errors. The main sources of noise in DIC measurements are camera noise and matching errors during the correlation process. Bias can be introduced by smoothing of spatial gradients in a QOI, uncorrected lens distortions, poor camera calibration, and out-of-plane motion in 2D-DIC measurements, to name a few sources. Establishing the uncertainty of the QOIs accounting for bias and noise errors is essential for intelligent evaluation and use of DIC results. Without quantifying the uncertainty, it is impossible to know whether a reported QOI value is meaningful and relevant, or whether it is the result of random noise and bias.
 
-Bias errors are often difficult to quantify, as the true value of a QOI is usually not known. However, some sources of bias can be assessed. Even if no bias errors are detected, unknown bias errors may still exist!
+Bias errors are often difficult to quantify, as the true value of a QOI is usually not known. However, some sources of bias can be assessed. Even if no bias errors are detected, unknown bias errors may still exist.
 
 The process of quantifying variance errors is often called noise floor analysis. The basic idea of a noise floor analysis is to correlate static images of a DIC pattern that were acquired under the same conditions as the test images. With no force applied or displacement on the test piece, all measured QOIs requiring deformation are errors. The evaluation of the noise floor must be performed under the same conditions as the mechanical test, both in terms of physical conditions (camera and lens selection, illumination, camera temperature, cooling or mixing fans, powered test machine) and data processing procedures (image pre-filtering, subset size, step size, VSG size, temporal or spatial filtering of the data, etc.). This means that the same user-selected DIC parameters that are used for the analysis of the test piece images during deformation should also be used for the analysis of the noise floor images. Therefore, the final noise floor analysis is typically performed after the mechanical test image analysis, but using the images acquired immediately before the mechanical test.
 Two different metrics can be used to quantify the variance error of the QOIs: a spatial standard deviation and a temporal standard deviation. To quantify the spatial variation of the QOI, compute the standard deviation of the QOI for each image and average this spatial standard deviation over time for all static images. To quantify temporal variation, calculate the standard deviation of the QOI for each subset over time and average this temporal standard deviation for each subset over all subsets in the image ZOI. It is recommended that both spatial and temporal standard deviations be calculated and evaluated to see if one is significantly larger than the other. However, the spatial and temporal standard deviations are generally similar, and a single metric or the average of the two metrics can be selected to quantify the noise floor. 

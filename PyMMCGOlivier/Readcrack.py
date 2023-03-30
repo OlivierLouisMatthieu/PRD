@@ -114,7 +114,8 @@ print(a0.imgHuse)
 
 cracklength=np.abs(a0.imgHuse-af.imgHuse)*Test.mm2pixel+Test.a0
 print('The crack length with Matchid is: ',cracklength)
-
+a1=Xmm[0,0]
+af=Xmm[-1,0]
 
 
 # Sauvegarder la matrices X
