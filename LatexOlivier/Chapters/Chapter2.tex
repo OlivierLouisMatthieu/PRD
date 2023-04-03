@@ -190,15 +190,18 @@ The matrix M represents, for a given step, the length of the crack by having a l
 
 \textbf{$\alpha$ parameter}
 
-It is important to determine the $\alpha$ parameter. This one is used on the matrix as the matrix M. It is a tricky part of the code.To approximate the $\alpha$ value, a first correlation factor is sought using the least squares regression method. Indeed, we know that during the test, there are 3 main zones on the Displacement-Force curve: a first linear one which corresponds to a stationary zone, a second one where the fracture propagates and finally a third one which corresponds to the specimen rupture. With this correlation factor we find the stage between the stationary zone and the FPZ. Then, a second stage verification criterion from the displacement field processing is used to verify the correct stage of the FPZ.
+It is important to determine the $\alpha$ parameter. This one is used on the matrix as the matrix M. It is a tricky part of the code.To approximate the $\alpha$ value, a first correlation factor is sought using the least squares regression method. Indeed, we know that during the test, there are 3 main zones on the Displacement-Force curve: a first linear one which corresponds to a stationary zone, a second one where the fracture propagates and finally a third one which corresponds to the specimen rupture. With this correlation factor we find the stage between the stationary zone and the Fracture process zone FPZ. Then, a second stage verification criterion from the displacement field processing is used to verify the correct stage of the FPZ.
 Thanks to these two steps, we know the stage where there is the begining of the FPZ and values which are possible for $\alpha$.
-It is then possible to plot for different $\alpha$ all the stages of the crack propagation and have an idea on the $\alpha$ value needed to have the greatest a(t).
+It is then possible to plot for different $\alpha$ all the stages of the crack propagation and have an idea on the $\alpha$ value needed to have the greatest a(t). Normally, the alpha chosen is the smallest. However, a curve with a simpler geometry is preferred if the length a(t) does not change.
+A part of the code allows to check the length of the crack graphically by selecting a0 and af directly in python. This allows some alphas that do not have the correct crack length to be eliminated directly.
 
 \textbf{Crack length}
 
 Another part of the code allows us to obtain a(t) as a function of alpha. This is done by focusing on the ZOI and the number of subsets that compose it. Through the matrix composed by each subset, the displacement field can be observed. It is obtained by calculating the distance between the center of a subset and its displacement from one image to another, as described in the literature review. To simplify the code, this calculation is not performed on each subset but only on the four corners. By calculating the distance between the opposite corners, the maximum displacement in x and the displacement in y are introduced in a last matrix.
 
 \subsection{Method 2}
+
+Method 2 uses the crack opening along the entire length of the wooden specimen to determine the length of the crack. 
 
 \textbf{Crack opening displacement (COD) or Virtual displacement}
 
@@ -208,7 +211,10 @@ From the reference and current positions of the DIC calculation points, the Eucl
 	VD(k,i_n)=\sqrt{(x_{11bk}-x_{11tk})^2 + (x_{22bk}-x_{22tk})^2}_{i_n} - VD(k,i_0)
 \end{equation}
 
-where the indices t and b refer to the DIC data points located at the top and bottom of the crack path, k is the index of the DIC point, in is the image captured at time n, VD(k, i0) is the initial Euclidean distance between the computational points of the top and bottom reference DIC subset obtained from image i0, and $x_{11}$ and $x_{22}$ are their coordinates in the image plane.
+where the indices t and b refer to the DIC data points located at the top and bottom of the crack path, k is the index of the DIC point, $i_n$ is the image captured at time n, VD(k, i0) is the initial Euclidean distance between the computational points of the top and bottom reference DIC subset obtained from image i0, and $x_{11}$ and $x_{22}$ are their coordinates in the image plane.
+
+From the data of method 1, we already know the position of a0 and all the displacements over time that have occurred on the entire wooden specimen. However, for method 2, we only need 2 horizontal lines placed above and below the fracture. It is therefore sufficient to take only one part of the data from the specimen. Moreover, it was chosen to take these two lines far enough away from the fracture in order not to have subsets without any data.
+
 
 \textbf{$\alpha$ and $\beta$ parameters}
 
@@ -218,15 +224,18 @@ The first step towards detecting the crack tip is to take the average value of V
 	\overline{VD}(i_n)=\frac{1}{k} \sum_{k=1}^{k}VD(k,i_n)
 \end{equation}
 
-The threshold value need to be adjusted with 2 parameters $\alpha$ and $\beta$ which are defined below:
+The threshold value must be adjusted using the two parameters $\alpha$ and $\beta$ which are obtained by solving the equation below:
 
 \begin{equation}
-	\alpha=\frac{w_0 - w_f}{i_0 - i_f}  and \beta=w_0- \alpha i_0
+	\begin{cases}
+		VD_{th}(i_1)=\overline{VD}(i_1)(\alpha i_1 +\beta)\\
+		VD_{th}(i_f)=\overline{VD}(i_f)(\alpha i_f +\beta)\\ 
+	\end{cases}
 \end{equation}
 
-where $w_0$ and $w_f$ can be expressed as a factor used to adjust the model to the initial ($p_0$) and final ($p_f$) crack tip positions, respectively, along $x_{11}$ axis. A virtual manual detection is performed to initialize $p_0$ and $p_f$.
+In order to obtain $VD_{th}(i_1)$ and $VD_{th}(i_f)$, it was first necessary to read graphically the position of the crack tip of the first and last image and then to find the intersection between the position of the crack tip and the crack opening VD for those two stages.
 
-Therefore, the adjusted threshold line-cut (VDth) is given by:
+Therefore, the adjusted threshold line-cut $VD_{th}(i_n)$ is given by:
 
 \begin{equation}
 	VD_{th}(i_n)=\overline{VD}(i_n)(\alpha i_n +\beta)

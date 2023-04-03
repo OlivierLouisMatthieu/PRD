@@ -5,7 +5,11 @@ import matplotlib.pyplot as plt
 import re
 from PIL import Image
 
-exec(open('Readcrackfracture.py').read())
+a1=7.219847
+af=9.889156
+print(af-a1)
+if a1==0 or af==0:
+    exec(open('Readcrackfracture.py').read())
 
 # INITIALIZATION:
 Valpixel = 391         # Number of pixels to perform calibration;
@@ -15,7 +19,6 @@ Cal = Valmm/Valpixel   # Calibration factor from pixel to mm;
 ina = 0.75
 inb = 0.53
 CTODimage = 281 # initial crack tip!!!!
-#how tobtain them ????
 
 path='D:\Recherche PRD\SPR_00_02\SPR_00_02'
 
@@ -136,13 +139,14 @@ print("x1 = ", x1)
 print("x2 = ", x2)
 
 for k in range(nImagens):
-    #aa = (ina - inb) / (1 - nImagens) #alpha and beta parameters!
-    #bb = ina - aa
+    #aa1 = (ina - inb) / (1 - nImagens) #alpha and beta parameters!
+    #bb1 = ina - aa1
     aa=x1
     bb=x2
 
     MEANd[k] = np.mean(CODyy[:, k]) * (aa * k + bb)#VDth
     MEANs[k] = np.mean(STRAINyy[:, k]) * (aa * k + bb)#VDth step
+    #MEANs[k] = np.mean(CODyy[:, k]) * (aa1 * k + bb1)
 
     for i in range(1000):
         if CODyy[i, k] - MEANd[k] < 0.02: # if VD-VDth<0.02
@@ -153,9 +157,10 @@ for k in range(nImagens):
                 aid[k] = i
                 ad[k] = CODxx[i, k]
             break
-
+    
     for i in range(1000):
         if STRAINyy[i, k] - MEANs[k] < 0.02:
+        #if CODyy[i, k] - MEANs[k] < 0.02:    
             if CODxx[i, k] < CTODimage * Cal:
                 ais[k] = i
                 aas[k] = CTODimage * Cal
@@ -207,7 +212,7 @@ for k in range(1, nImagens):
 plt.show()
 
 #part3
-
+'''
 for k in range(0, nImagens, 2):
     plt.imshow(I[:, :, k])
     
@@ -278,7 +283,7 @@ for j in range(0, nImagens, 2):
     os.remove(os.path.join(path, "Img"+str(j)+".png"))
 output.release()
 cv2.destroyAllWindows()
-
+'''
 dad = ad - ad[0]
 das = aas - aas[0]
 

@@ -23,9 +23,12 @@ if Job == 'e1o1':
     a0.imgH, a0.imgV = a0.imgHuse-Deltapix, a0.imgVuse
     ##########################################################################
     # Selecting pair
-    COD.cod_pair = 6
+    COD.cod_pair = 3
     # Selecting alpha
     chos_alp = 1
+    a1=32.679436
+    af=7.3875245
+    nombre=118
 elif Job == 'e1o2':
     ddeplac = 0.057
     ##########################################################################
@@ -173,6 +176,9 @@ elif Job == 'e2e2': #e2p1
     COD.cod_pair = 3
     # Selecting alpha
     chos_alp = 0
+    a1=30.936
+    af=23.077
+    nombre=59
 elif Job == 'e2p2':
     ddeplac = 0.15
     ##########################################################################
@@ -218,6 +224,9 @@ elif Job == 'e3o1':
     COD.cod_pair = 2
     # Selecting alpha
     chos_alp = 2
+    a1=32.679436
+    af=7.3875245
+    nombre=0
 elif Job == 'e3o2':
     ddeplac = 0.15
     ##########################################################################
@@ -308,6 +317,9 @@ elif Job == 'e4e1':
     COD.cod_pair = 2
     # Selecting alpha
     chos_alp = 2
+    a1=32.336124
+    af=26.892304
+    nombre=212
 elif Job == 'e4p1':
     ddeplac = 0.1
     ##########################################################################

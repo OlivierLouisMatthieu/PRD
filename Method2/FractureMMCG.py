@@ -21,7 +21,7 @@ params = {"ytick.color" : (0, 0, 0),
 plt.rcParams.update(params)
 
 ###  USER #####################################################################
-Job = 'e1o1'
+Job = 'e2e2'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -49,7 +49,9 @@ Test = Struct()
 # run database with data from the project/specimen
 exec(open('Database.py').read())
 
-exec(open('ReadcrackfractureMMCG.py').read())
+
+if a1==0 or af==0 or nombre==0:
+    exec(open('ReadcrackfractureMMCG.py').read())
 
 #%% Read P-d curve data
 
@@ -214,7 +216,8 @@ plt.legend(loc=2, prop={'size': 8})
 fig.tight_layout()
 plt.show()
     
-#############################################################################
+#%% Method2
+
 #ina = 0.75
 #inb = 0.53
 CTODimage = MatchID.xCoord[a0.X]
@@ -241,7 +244,7 @@ largeur, hauteur = img.size
 # Afficher la taille de l'image
 print("La taille de l'image est de {} x {} pixels.".format(largeur, hauteur))
 
-'''
+
 I = np.zeros((int(hauteur/8), int(largeur/8), nImagens))
 
 for k, fileName in enumerate(fileNames):
@@ -253,9 +256,9 @@ os.chdir('..')
 for k in range(0, nImagens, 2):
     plt.imshow(I[:, :, k])
     plt.show()
-'''  
+'''
 
-COD.cod_pair=  COD.cod_pair+5  #we are moving away from the fracture
+COD.cod_pair=  COD.cod_pair+20  #we are moving away from the fracture
 Xm = np.zeros((2, a0.X+1, nombre))
 Ym = np.zeros((2, a0.X+1, nombre))  
 Xm[0,:,0]=MatchID.xCoord[0:a0.X+1]*Test.mm2pixel
@@ -347,11 +350,13 @@ print("x2 = ", x2)
 aa=x1
 bb=x2
 MEANd = np.linspace(CODyy[indice_plus_prochea1, 1], CODyy[indice_plus_procheaf, nombre-1], nombre)
+mean=np.zeros(nombre)
 
 for k in range(nombre):
 
     #MEANd[k] = np.nanmean(CODyy[:, k]) * (aa * k + bb)
     MEANs[k] = np.nanmean(STRAINyy[:, k]) * (aa * k + bb)
+    mean[k]=np.nanmean(CODyy[:, k])
 
     
     a=int(np.abs(CODyy[0:1000, k] - MEANd[k]).argmin())
@@ -393,7 +398,32 @@ for k in range(1, nombre,4):
     plt.gca().set_ylim([0, 1])
     plt.grid(False)
 plt.show()  
-  
+ 
+x = []
+y = []
+for k in range(0, nombre, 4):
+    plt.plot(CODxx[0:1000, 0], CODyy[:, 0], 'b-', label='VD')
+    plt.plot([0, 35], [MEANd[0], MEANd[0]], 'r-',label='VDth')
+    plt.plot(ad[0], CODyy[aid[0], 0], 'gx', label='Crack tip')
+    plt.plot(CODxx[0:1000, 0:k], CODyy[:, 0:k], 'b-')
+    plt.plot([0, 35], [MEANd[0:k], MEANd[0:k]], 'r-')
+    
+    x.append(ad[k])
+    y.append(CODyy[aid[k], k])
+    
+    plt.plot(x, y, 'gx')
+    # set the font and size for the axes and legend
+    plt.tick_params(axis='both', labelsize=14)
+    plt.legend(fontsize=12)
+    # set the axis limits and turn on the box
+    plt.gca().set_xlim([0, 40])
+    plt.gca().set_ylim([0, 1])
+    # turn off the grid and set the background color of the plot
+    plt.grid(False)
+    plt.box(True)
+    # display the plot
+    plt.show()
+ 
 ad.sort()
 dad = ad - ad[0]+Test.a0 
 aas.sort()  

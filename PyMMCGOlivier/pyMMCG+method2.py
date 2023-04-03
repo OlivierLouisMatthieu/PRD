@@ -6,9 +6,11 @@ import matplotlib.pyplot as plt
 import os
 import cv2 as cv
 import csv
+import re
 import pandas as pd
 import statsmodels.formula.api as smf
 from scipy.optimize import curve_fit
+from PIL import Image
 # import tkinter as tk
 # from PIL import Image, ImageTk
 import glob
@@ -201,7 +203,7 @@ print('Selecting the subset closest to the initial crack tip..')
 a0.X = int(np.argwhere(np.abs(MatchID.xCoord - a0.imgHuse) == 0))
 a0.Y = int(np.argwhere(np.abs(MatchID.yCoord - a0.imgVuse) == 0))
 
-#%% Selecting af
+
 #print('Selecting the subset closest to the end of the crack tip..')
 
 #af.imgHuse, af.imgVuse = 299, 1013
@@ -713,7 +715,9 @@ for i in np.arange(0,len(alpha_alphaV),1):
 crackL_J_mm = Test.a0 + crackL_J_pixel_X*MatchID.mm2step #crack length
 indice = int(np.argmax(crackL_J_mm == np.max(crackL_J_mm))/crackL_J_mm.shape[1])
 print('The last image to open for obtaining the crack length',indice)
-exec(open('Readcrack.py').read())
+
+if a1==0 or af==0 or nombre==0:
+    exec(open('ReadcrackfractureMMCG.py').read())
 #look at the crackJ in order to see which alpha is best in function of what you found for the crack length
 
 run=0
@@ -846,12 +850,12 @@ while i < MatchID.stages :
     i=i+1
     
 ###############################################
-#Method 2
+#%%Method 2
 ###############################################
 CTODimage = MatchID.xCoord[a0.X]
 print(CTODimage*Test.mm2pixel)
 
-COD.cod_pair=  COD.cod_pair+5  #we are moving away from the fracture
+COD.cod_pair= COD.cod_pair+20  #we are moving away from the fracture
 Xm = np.zeros((2, a0.X+1, nombre))
 Ym = np.zeros((2, a0.X+1, nombre))  
 Xm[0,:,0]=MatchID.xCoord[0:a0.X+1]*Test.mm2pixel
@@ -878,32 +882,21 @@ dy = CODy[:, 0]
 
 CODy = np.abs(CODy - CODy[:, [0]])
 
-
-STRAINy = np.zeros((a0.X+1, nombre))
-
-for k in range(nombre):
-    STRAINy[:, k] = CODy[:, k] / dy[0]
-#attention indice dans l'autre sens!!
-
 CODxx = np.zeros((1000, nombre))
 CODyy = np.zeros((1000, nombre))
-STRAINyy = np.zeros((1000, nombre))
 X = np.zeros((2, 1000, nombre))
 Y = np.zeros((2, 1000, nombre))
 
 MEANd=np.zeros(nombre)
+mean=np.zeros(nombre)
 MEANs=np.zeros(nombre)
 aid=np.zeros(nombre, dtype=int)
 ad=np.zeros(nombre)
-ais=np.zeros(nombre)
-aas=np.zeros(nombre)
 
 for k in range(nombre):
     CODxx[:, k] = np.linspace(CODx[0, k], CODx[-1, k], 1000)
     #same than CODx but 1000 values whereas 201
     CODyy[:, k] = np.interp(CODxx[:, k], CODx[:, k], CODy[:, k])
-    #same
-    STRAINyy[:, k] = np.interp(CODxx[:, k], CODx[:, k], STRAINy[:, k])
 
     X[0, :, k] = np.linspace(Xm[0, 0, k], Xm[0, -1, k], 1000)
     X[1, :, k] = np.linspace(Xm[1, 0, k], Xm[1, -1, k], 1000)
@@ -915,16 +908,24 @@ for k in range(nombre):
 indice_plus_prochea1 = int(np.abs(CODxx[0:1000, 1] - a1).argmin())
 indice_plus_procheaf = int(np.abs(CODxx[0:1000, -1] - af).argmin())
 
-# Entrée des coefficients du système
-a11 = np.nanmean(CODyy[:, nombre-1])*(nombre-1)#VDmeanf*if
-a12 = np.nanmean(CODyy[:, nombre-1])#VDmeanf
-b1 = CODyy[indice_plus_procheaf, nombre-1]#VDthf
-a21 = np.nanmean(CODyy[:, 1])#VDmean1*i1
-a22 = np.nanmean(CODyy[:, 1])#VDmean1
-b2 = CODyy[indice_plus_prochea1, 1]#VDth1
+#MEANd = np.linspace(CODyy[indice_plus_prochea1, 1], CODyy[indice_plus_procheaf, nombre-1], nombre)
+a=[]
+for k in range(nombre):
+    mean[k]=np.nanmean(CODyy[:, k])
+    if mean[k]>CODyy[indice_plus_prochea1, 1]:
+        a.append(mean[k])
+#plt.plot(range(0,nombre),mean)     
+#plt.plot(range(0,nombre),MEANd)   
+MEANd = np.interp(range(0,nombre), range(0,len(a)), a)
 
-print(CODyy[indice_plus_prochea1, 1])
-print(CODyy[indice_plus_procheaf, -1])
+# Entrée des coefficients du système
+
+a11 = MEANd[nombre-1]*(nombre-1)#VDmeanf*if
+a12 = MEANd[nombre-1]#VDmeanf
+b1 = CODyy[indice_plus_procheaf, nombre-1]#VDthf
+a21 = MEANd[1]#VDmean1*i1
+a22 = MEANd[1]#VDmean1
+b2 = CODyy[indice_plus_prochea1, 1]#VDth1
 
 # Application de la méthode d'élimination de Gauss
 coeff = a21/a11
@@ -940,13 +941,13 @@ print("x2 = ", x2)
 
 aa=x1
 bb=x2
-MEANd = np.linspace(CODyy[indice_plus_prochea1, 1], CODyy[indice_plus_procheaf, nombre-1], nombre)
+
+#I have a problem to compute because my mean are too small for the fists images
 
 for k in range(nombre):
 
-    #MEANd[k] = np.nanmean(CODyy[:, k]) * (aa * k + bb)
-    MEANs[k] = np.nanmean(STRAINyy[:, k]) * (aa * k + bb)
-
+    MEANd[k] = MEANd[k] * (aa * k + bb)
+    #MEANd = np.linspace(CODyy[indice_plus_prochea1, 1], CODyy[indice_plus_procheaf, nombre-1], nombre)
     
     a=int(np.abs(CODyy[0:1000, k] - MEANd[k]).argmin())
     aid[k] = a
@@ -955,19 +956,8 @@ for k in range(nombre):
     else:
         ad[k] = CODxx[a, k]
         
-    
-    b=int(np.abs(STRAINyy[0:1000, k] - MEANs[k]).argmin())
-    ais[k] = b
-    ais[0] = 999
-    if CODxx[a, k] > CTODimage * Test.mm2pixel:
-        aas[k] = CTODimage * Test.mm2pixel
-    else:
-        aas[k] = CODxx[b, k]
-        
 aid[0]=999 
-ad[0]=CODxx[999, k]    
-ais[0]=999 
-aas[0]=CODxx[999, k]   
+ad[0]=CODxx[999, 0]      
 
 for k in range(1, nombre,4):
     plt.plot(CODxx[0:1000, k], CODyy[:, k], 'b-')
@@ -986,19 +976,84 @@ for k in range(1, nombre,4):
     plt.gca().set_xlim([0, 35])
     plt.gca().set_ylim([0, 1])
     plt.grid(False)
-plt.show()  
+plt.show()
+
+x = []
+y = []
+for k in range(0, nombre, 8):
+    plt.plot(CODxx[0:1000, 0], CODyy[:, 0], 'b-', label='VD')
+    plt.plot([0, 35], [MEANd[0], MEANd[0]], 'r-',label='VDth')
+    plt.plot(ad[0], CODyy[aid[0], 0], 'gx', label='Crack tip')
+    plt.plot(CODxx[0:1000, 0:k], CODyy[:, 0:k], 'b-')
+    plt.plot([0, 35], [MEANd[0:k], MEANd[0:k]], 'r-')
+    
+    x.append(ad[k])
+    y.append(CODyy[aid[k], k])
+    
+    plt.plot(x, y, 'gx')
+    # set the font and size for the axes and legend
+    plt.tick_params(axis='both', labelsize=14)
+    plt.legend(fontsize=12)
+    # set the axis limits and turn on the box
+    plt.gca().set_xlim([0, 40])
+    plt.gca().set_ylim([0, 1])
+    # turn off the grid and set the background color of the plot
+    plt.grid(False)
+    plt.box(True)
+    # display the plot
+    plt.show()  
   
 ad.sort()
 dad = ad - ad[0]+Test.a0 
-aas.sort()  
-das = aas - aas[0]+Test.a0
+
+# READING THE IMAGES:
+endS = os.path.join(os.getcwd(), cwd)
+os.chdir(endS)
+
+fileNames = sorted([file for file in os.listdir() if file.endswith('.tiff')])
+pattern = re.compile(r'\d+')
+# Utiliser sorted() pour trier la liste en utilisant les nombres extraits des noms de fichier
+fileNames = sorted(fileNames, key=lambda x: int(pattern.findall(x)[0]))
+# Afficher la liste triée
+nImagens = len(fileNames)
+
+# Charger l'image
+cwd = os.path.join(cwd,Job+'_0001_0.tiff')
+img = Image.open(cwd)
+# Obtenir la taille de l'image
+largeur, hauteur = img.size
+# Afficher la taille de l'image
+print("La taille de l'image est de {} x {} pixels.".format(largeur, hauteur))
+
+I = np.zeros((int(hauteur/8), int(largeur/8), nImagens))
+
+for k, fileName in enumerate(fileNames):
+    I[:, :, k] = cv.resize(cv.imread(os.path.join(endS, fileName), cv.IMREAD_GRAYSCALE), (int(largeur/8), int(hauteur/8)))
+
+os.chdir('..')
+
+Cal=    Test.mm2pixel*8
+for k in range(0, nombre-1, 1):
+    plt.imshow(I[:, :, k])
+    
+    plt.plot([ad[-1]/Cal, ad[-1]/Cal], [0, 1000], color=[0, 1, 0, 0.5], linewidth=2)
+    plt.plot([ad[-(1+k)]/Cal, ad[-(1+k)]/Cal], [0, 1000], color='green', linewidth=2)
+    plt.plot(X[0, range(0, 1000, 50), k]/Cal, Y[0, range(0, 1000, 50), k]/Cal, 'x', color='red', markersize=8, linewidth=2)
+    plt.plot(X[1, range(0, 1000, 50), k]/Cal, Y[1, range(0, 1000, 50), k]/Cal, 'x', color='red', markersize=8, linewidth=2)
+    #plt.gca().set_xlim([0, 2200])
+    plt.gca().set_ylim([0, int(hauteur/8)])
+    plt.show()
+
+for k in range (MatchID.stages-nombre):
+    dad = np.append(dad, dad[-1])
 
 fig = plt.figure(figsize=(7,5))
-plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3)
-plt.plot(range(1,nombre+1), dad, 'r')
-plt.plot(range(1,nombre+1), das, 'b')
+plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
+plt.plot(MatchID.time, dad, 'b', label='Method2')
 plt.xlabel('Images')
 plt.ylabel('Crack length, a(t), mm')
+plt.tick_params(axis='both', labelsize=14)
+plt.legend(fontsize=12)
 plt.title(Job)
 fig.tight_layout()
 plt.grid()
@@ -1053,14 +1108,16 @@ ALP = (MatchID.load**2)/(2*Test.thickness)
 # plt.grid()
 # plt.show()
 #
-BET = C/a_t #changing the value of alpha from the crack length will change G values
+BET1 = C/a_t #changing the value of alpha from the crack length will change G values
+BET2 = C/dad
 #
 # G = ALP*C_modif
 # G = ALP*fit_a1
-G = ALP*BET
+G1 = ALP*BET1
+G2 = ALP*BET2
 # G = np.dot(ALP,BET)
 
-Gc = np.max(G)
+Gc = np.max(G1)
 Lc = np.max(Load)
 COD_max = np.max(COD.wI)
 # with open(maincwd + 'Results.csv','a+',newline='', encoding= 'utf-8') as csvfile :
@@ -1068,15 +1125,17 @@ COD_max = np.max(COD.wI)
 #     writer.writerow = (Job, COD.wI, Lc, Gc)
 #
 fig = plt.figure(figsize=(7,5))
-plt.plot(a_t, G, 'b:', linewidth=2, label='R-Curve alpha '+ str(chos_alp))
+plt.plot(a_t, G1, 'r:', linewidth=2, label='R-Curve alpha '+ str(chos_alp))
+plt.plot(dad, G2, 'b:', linewidth=2, label='Method2')
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G_{Ic}, J$')
 plt.legend(loc=2, prop={'size': 8})
 plt.grid()
 plt.title(Job)
 plt.show()
+'''
 # write array results on a csv file:
-RES = np.array([MatchID.displ[:], MatchID.load[:], C[:], COD.wI[:], a_t[:], G[:]])
+RES = np.array([MatchID.displ[:], MatchID.load[:], C[:], COD.wI[:], a_t[:], G1[:]])
 RES = np.transpose(RES)
 # pd.DataFrame(RES).to_csv("path/to/file.csv")
 # converting it to a pandas dataframe
@@ -1092,9 +1151,9 @@ out_file.write(str(COD_max) + '\n')
 out_file.write(str(Lc) + '\n')
 out_file.write(str(Gc) + '\n')
 out_file.close()
+'''
 
-
-
+'''
 print('computing GI and GII (R-curve)..')
 beta=15
 a_t = crackL_J_mm[:,chos_alp]
@@ -1121,7 +1180,7 @@ plt.show()
 # ax.set_ylim(bottom=0)
 # plt.grid()
 # plt.show()
-
+'''
 # GI = f(CTOD) ?
 
 #############################################
