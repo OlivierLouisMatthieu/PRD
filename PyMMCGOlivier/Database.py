@@ -18,7 +18,7 @@ if Job == 'e1o1':
     Test.a0 = 24.975 # unit  mm
     # Selecting image coordinates of subset directly from MatdhID, unit: pixels
     a0.imgHuse, a0.imgVuse = 2314, 1013
-    af.imgHuse, af.imgVuse = 614, 1013
+    #af.imgHuse, af.imgVuse = 614, 1013
     Delta = 1.525 # average okoume, unit: mm
     Deltapix = Delta*(1/Test.mm2pixel) # convert mm to pixel
     a0.imgH, a0.imgV = a0.imgHuse-Deltapix, a0.imgVuse
@@ -27,7 +27,7 @@ if Job == 'e1o1':
     COD.cod_pair = 3
     # Selecting alpha
     chos_alp = 1
-    a1=32.679436
+    a1=27.649632
     af=7.3875245
     nombre=118
 elif Job == 'e1o2':
@@ -169,7 +169,7 @@ elif Job == 'e2e2': #e2p1
     Test.a0 = 27.4  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
     a0.imgHuse, a0.imgVuse = 2161, 1002
-    af.imgHuse, af.imgVuse = 1613, 1094
+    #af.imgHuse, af.imgVuse = 1613, 1094
     Delta = 1.6  # average padouck
     Deltapix = Delta * (1 / Test.mm2pixel)
     a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
@@ -178,7 +178,7 @@ elif Job == 'e2e2': #e2p1
     COD.cod_pair = 3
     # Selecting alpha
     chos_alp = 0
-    a1=30.936
+    a1=31.122
     af=18.077
     nombre=59
 elif Job == 'e2p2':
@@ -226,7 +226,7 @@ elif Job == 'e3o1':
     COD.cod_pair = 2
     # Selecting alpha
     chos_alp = 2
-    a1=32.393652
+    a1=23.52
     af=17.947255
     nombre=90
 elif Job == 'e3o2':
@@ -311,7 +311,7 @@ elif Job == 'e4e1':
     Test.a0 = 23.975  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
     a0.imgHuse, a0.imgVuse = 2251,944
-    af.imgHuse, af.imgVuse = 1886, 1064
+    #af.imgHuse, af.imgVuse = 1886, 1064
     Delta = 1.525
     Deltapix = Delta * (1 / Test.mm2pixel)
     a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
@@ -320,7 +320,7 @@ elif Job == 'e4e1':
     COD.cod_pair = 2
     # Selecting alpha
     chos_alp = 2
-    a1=32.336124
+    a1=30.164534
     af=26.892304
     nombre=212
 elif Job == 'e4p1':

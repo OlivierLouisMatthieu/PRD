@@ -201,7 +201,7 @@ Another part of the code allows us to obtain a(t) as a function of alpha. This i
 
 \subsection{Method 2}
 
-Method 2 uses the crack opening along the entire length of the wooden specimen to determine the length of the crack. 
+Method 2 uses the crack opening along the entire length of the wooden specimen to determine the length of the crack (\cite{FilhoJ2022}). 
 
 \textbf{Crack opening displacement (COD) or Virtual displacement}
 
@@ -211,10 +211,14 @@ From the reference and current positions of the DIC calculation points, the Eucl
 	VD(k,i_n)=\sqrt{(x_{11bk}-x_{11tk})^2 + (x_{22bk}-x_{22tk})^2}_{i_n} - VD(k,i_0)
 \end{equation}
 
-where the indices t and b refer to the DIC data points located at the top and bottom of the crack path, k is the index of the DIC point, $i_n$ is the image captured at time n, VD(k, i0) is the initial Euclidean distance between the computational points of the top and bottom reference DIC subset obtained from image i0, and $x_{11}$ and $x_{22}$ are their coordinates in the image plane.
+where the indices t and b refer to the DIC data points located at the top and bottom of the crack path, k is the index of the DIC point, $i_n$ is the image captured at time n, VD(k, i0) is the initial Euclidean distance between the computational points of the top and bottom reference DIC subset obtained from image i0, and $x_{11}$ and $x_{22}$ are their coordinates in the image plane. VD can be defined as a displacement gauge along the crack path \ref{fig:fig30}.
 
-From the data of method 1, we already know the position of a0 and all the displacements over time that have occurred on the entire wooden specimen. However, for method 2, we only need 2 horizontal lines placed above and below the fracture. It is therefore sufficient to take only one part of the data from the specimen. Moreover, it was chosen to take these two lines far enough away from the fracture in order not to have subsets without any data.
-
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=7cm]{fig30}
+	\caption{DIC-based virtual displacement gauge (VDG), \cite{FilhoJ2022}}
+	\label{fig:fig30}
+\end{figure}
 
 \textbf{$\alpha$ and $\beta$ parameters}
 
@@ -239,6 +243,7 @@ Therefore, the adjusted threshold line-cut $VD_{th}(i_n)$ is given by:
 
 \begin{equation}
 	VD_{th}(i_n)=\overline{VD}(i_n)(\alpha i_n +\beta)
+	\label{eq:eqVDth}
 \end{equation}
 
 The intersection between each $VD_{th}(i_n)$ and the corresponding $VD(k, i_n)$ curve at time n represents the $x_{11}$ position of the crack tip, denoted by ($p_n$).
@@ -247,6 +252,70 @@ It is therefore possible to calculate the growth of the crack at instant n:
 \begin{equation}
 	da_n=p_n-p_0
 \end{equation}
+
+\subsection{Difficulties in applying method 2}
+
+This method was originally used for a fibrous soft material. The first step was to translate the Matlab code given by Joao into a python code to be able to use both methods simultaneously and compare them.
+After translating the code, we realised that this method did not work properly for the wood material and the DIC data we had with Stanislas' tests.
+From the data of method 1, we already know the position of a0 and all the displacements over time that have occurred on the entire wooden specimen. However, for method 2, we only need 2 horizontal lines placed above and below the fracture. It is therefore sufficient to take only one part of the data from the specimen. Moreover, it was chosen to take these two lines far enough away from the fracture in order not to have subsets without any data.
+However, method 2 still did not work well and we will try to explain why it does not work properly.
+
+The figure \ref{fig:fig31} corresponds to the plot of $\overline{VD}$ and $VD_{th}$ with Joao's data, the author of the method. We read graphically $a_1$ and $a_f$, which allowed us to know the $VD_{th}$ for index 1 and the last index which are the bounds on the y-axis for the yellow curve. We notice that the yellow curve has the same shape as the blue curve, is still increasing but has only been reduced at the ordinate level. This is what we want to achieve for the MMCG specimens.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=6cm]{fig31}
+	\caption{$\overline{VD}$ and $VD_{th}$ with Joao's data}
+	\label{fig:fig31}
+\end{figure}
+
+For the MMCG test data, by applying $VD_{th1}$ and $VD_{thf}$ as in Joao's data, we notice that the $VD_{th}$ curve increases and then decreases, which is not normal since the COD should normally increase with time (figure \ref{fig:fig32}). This is due to the alpha and beta factors which increase $\overline{VD}$ for the first indices and then decrease $\overline{VD}$ for the last indices. According to the equation \ref{eq:eqVDth} alpha is multiplied by $i_n$ which will decrease the multiplier coefficient of $\overline{VD}$ over time if alpha is negative and beta positive. This is the reason why $VD_{th}$ is under $\overline{VD}$  for the latest indices.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=6cm]{fig32}
+	\caption{$\overline{VD}$ and $VD_{th}$ with MMCG data}
+	\label{fig:fig32}
+\end{figure}
+
+Method 1 was then used to find out from which image the fracture process starts. Method 2 directly increased the length of the crack for the first images, which is not normally the case for wood.  Indeed, it is considered that for all the images before the fracture zone there is a(t)=a0. We therefore read $a_1$ and $a_f$ with $a_1$ the index of the beginning of the fracture process and $a_f$ the last image before the material breaks. The graph \ref{fig:fig33} is then obtained:
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=6cm]{fig33}
+	\caption{Crack length with FPZ taken into account)}
+	\label{fig:fig33}
+\end{figure}
+
+Ihe fracture for method 2 starts much later than method 1 and are different. 
+Because the $\overline{VD}$ is too small compared to the graphically obtained $VD_{th1}$, an interpolation is made to increase the $\overline{VD}$. The graph \ref{fig:fig34} is obtained:
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=6cm]{fig34}
+	\caption{Interpolation of $\overline{VD}$}
+	\label{fig:fig34}
+\end{figure}
+
+Thanks to this interpolation, we apply alpha and beta (figure \ref{fig:fig35}) and obtain $VD_{th}$. Finally, we obtain the crack length graph \ref{fig:fig36}:
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=6cm]{fig35}
+	\caption{$VD_{th}$ with interpolation}
+	\label{fig:fig35}
+\end{figure}
+
+
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=7cm]{fig36}
+	\caption{Final crack length e1o1}
+	\label{fig:fig36}
+\end{figure}
+
+To conclude, the crack propagation does not start at the same stage between the two methods and the crack length is different over time. Moreover we had to modify a lot Joao's initial method to apply it to wood material. We are not sure that it works efficiently. Moreover, it adds uncertainties since we have to read graphically $a_1$ and $a_f$ to obtain the crack length thresholds at the beginning and at the end of the propagation. Method 2 gives a "smoother" curve than method 1, but this is not necessarily a good thing since the fracture of wood material usually works in fits and starts. Method 2 probably does not work with wood, because the COD (VDmean) is not as linear as with soft fibrus material  as we can see in figure \ref{fig:fig31} and \ref{fig:fig32}.
 
 \subsection{Energy restitution rate}
 

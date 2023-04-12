@@ -1,5 +1,4 @@
 #%% Import modules + Database
-
 print('import modules..')
 import numpy as np
 import matplotlib.pyplot as plt
@@ -34,7 +33,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 # Job = 'DCB_002'
-Job = 'e2e2'
+Job = 'e1o1'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -56,7 +55,6 @@ class Struct:
 
 MatchID = Struct()
 a0 = Struct()
-af = Struct()
 COD = Struct()
 Test = Struct()
 
@@ -167,35 +165,6 @@ plt.xlabel('Displacement [mm]')
 plt.grid()
 plt.show()
 
-run=0
-#run = int(input("Please enter 1 if you want the video: "))
-if run == 1:
-    for i in range(len(MatchID.displ)):
-        fig, ax = plt.subplots(figsize=(7,5))
-        plt.plot(MatchID.displ, MatchID.load, 'k-', linewidth=3)
-        plt.plot(MatchID.displ[i], MatchID.load[i],'bo', markersize=10)
-        plt.xlabel('Displacement, mm')
-        plt.ylabel('Load, N')
-        plt.xlim(0, 1.4)
-        plt.ylim(0, 500)
-        plt.title(Job)
-        fig.tight_layout()
-        plt.grid()
-        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(i)+".png")
-        plt.show()
-    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
-    files = os.listdir(path)
-    files.sort()
-    fourcc = cv.VideoWriter_fourcc(*'XVID')
-    output = cv.VideoWriter(path+'\Disp-Load.avi', fourcc, 10.0, (640, 480))
-    for j in range(len(MatchID.displ)): 
-        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
-        img = cv.resize(img, (640, 480))
-        output.write(img)
-        os.remove(os.path.join(path, "Img"+str(j)+".png"))
-    output.release()
-    cv.destroyAllWindows()
-
 # Read results "....tif_#.csv" into 3D np.array
 
 MatchID.SubsetsX = MatchID.x_pic.shape[1]
@@ -261,44 +230,8 @@ img0 = cv.rectangle(img0, start_point, end_point, cor, thickness)
 plt.imshow(img0, cmap='gray', vmin=0, vmax=255)
 plt.plot(a0.imgHuse,a0.imgVuse, color='red', marker='+', markersize=50)
 plt.show()
-########################################
 
-run=0
-#run = int(input("Please enter 1 if you want the video: "))
-if run == 1:
-    for i in MatchID.time:
-        pathdados = os.path.join(cwd, Job + "_" + f"{i:04d}" + '_0.tiff')
-        img0 = cv.imread(pathdados, cv.IMREAD_GRAYSCALE) # cv.imread(pathdados, 0)
-        dpi = plt.rcParams['figure.dpi']
-        Height, Width = img0.shape
-        print(i)
-        figsize = Width/float(dpi), Height/float(dpi)
-        fig = plt.figure(figsize=figsize)
-        cor = (255, 255, 255)
-        thickness = 1
-        start_point = (MatchID.SubsetXi,MatchID.SubsetYi)
-        end_point = (MatchID.SubsetXf,MatchID.SubsetYf)
-        img0 = cv.rectangle(img0, start_point, end_point, cor, thickness)
-        plt.imshow(img0, cmap='gray', vmin=0, vmax=255)
-        plt.plot(a0.imgHuse,a0.imgVuse, color='red', marker='+', markersize=50)
-        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(i)+".png")
-        plt.show()
-        
-    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
-    files = os.listdir(path)
-    files.sort()
-    fourcc = cv.VideoWriter_fourcc(*'XVID')
-    output = cv.VideoWriter(path+'\MMCG.avi', fourcc, 10.0, (640, 480))  
-          
-    for j in MatchID.time: 
-        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
-        img = cv.resize(img, (640, 480))
-        output.write(img)
-        os.remove(os.path.join(path, "Img"+str(j)+".png"))
-    output.release()
-    cv.destroyAllWindows()
 
-#######################################
 aux = MatchID.load - np.max(MatchID.load)
 idx = np.argwhere(np.abs(aux) == np.min(np.abs(aux)))
 fig = plt.figure()
@@ -352,38 +285,6 @@ plt.grid()
 plt.legend(loc=2, prop={'size': 8})
 fig.tight_layout()
 plt.show()
-
-
-run=0
-#run = int(input("Please enter 1 if you want the video: "))
-if run == 1:
-    for i in range(len(COD.wI)):
-        fig, ax = plt.subplots(figsize=(7,5))
-        plt.plot(COD.wI[:i+1], MatchID.load[:i+1], 'b-', linewidth=4, label='Mode I with COD pair : %d' %COD.cod_pair)
-        plt.plot(COD.wII[:i+1], MatchID.load[:i+1], 'k--', label='Mode II with COD pair : %d' %COD.cod_pair)
-        plt.xlim(0, 1)
-        plt.ylim(0, 250)
-        plt.xlabel('CTOD, mm')
-        plt.ylabel('Load, N')
-        ax.set_xlim(xmin=0)
-        ax.set_ylim(bottom=0)
-        plt.grid()
-        plt.legend(loc=2, prop={'size': 8})
-        fig.tight_layout()
-        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(i)+".png")
-        plt.show()
-    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
-    files = os.listdir(path)
-    files.sort()
-    fourcc = cv.VideoWriter_fourcc(*'XVID')
-    output = cv.VideoWriter(path+'\CTOD.avi', fourcc, 10.0, (640, 480))
-    for j in range(len(COD.wI)): 
-        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
-        img = cv.resize(img, (640, 480))
-        output.write(img)
-        os.remove(os.path.join(path, "Img"+str(j)+".png"))
-    output.release()
-    cv.destroyAllWindows()
     
 
 #%% Computing aDIC
@@ -618,30 +519,6 @@ for J in stagEval:
     fract_K[:,:,J] = K
     #where there is the greatest displacement there is the fracture?
     
-run=0
-#run = int(input("Please enter 1 if you want the video: "))
-if run == 1:
-    for j in stagEval:
-        fig = plt.figure()
-        plt.imshow(fract_K[:, :, j])
-        plt.plot(a0.X,a0.Y,'sr')
-        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(j)+".png")
-        plt.colorbar()
-        plt.show()
-        
-    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
-    files = os.listdir(path)
-    files.sort()
-    fourcc = cv.VideoWriter_fourcc(*'XVID')
-    output = cv.VideoWriter(path+'\output.avi', fourcc, 10.0, (640, 480))  
-          
-    for j in stagEval: 
-        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
-        img = cv.resize(img, (640, 480))
-        output.write(img)
-        os.remove(os.path.join(path, "Img"+str(j)+".png"))
-    output.release()
-    cv.destroyAllWindows()  
 
 # xplot = np.arange(X_i, X_f+1, 1)
 # yplot = np.arange(Y_i, Y_f, 1)
@@ -749,32 +626,6 @@ if a1==0 or af==0 or nombre==0:
     exec(open('ReadcrackfractureMMCG.py').read())
 #look at the crackJ in order to see which alpha is best in function of what you found for the crack length
 
-run=0
-#run = int(input("Please enter 1 if you want the video: "))
-if run == 1:
-    for j in stagEval:
-        fig = plt.figure()
-        plt.imshow(UY[:, :, j])
-        plt.plot(UY.shape[1]-crackL_J_pixel_X[j, chos_alp],crackL_J_pixel_Y[j, chos_alp],'sr')
-        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(j)+".png")
-        plt.colorbar()
-        plt.title(Job)
-        plt.show()
-        
-    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
-    files = os.listdir(path)
-    files.sort()
-    fourcc = cv.VideoWriter_fourcc(*'XVID')
-    output = cv.VideoWriter(path+'\Cracklength.avi', fourcc, 10.0, (640, 480))  
-          
-    for j in stagEval: 
-        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
-        img = cv.resize(img, (640, 480))
-        output.write(img)
-        os.remove(os.path.join(path, "Img"+str(j)+".png"))
-    output.release()
-    cv.destroyAllWindows() 
-
 
 j = 20
 fig = plt.figure()
@@ -804,36 +655,6 @@ plt.grid()
 plt.show()
 
 print('The crack length with alpha is:' ,np.max(crackL_J_mm[:,chos_alp]))
-
-run=0
-#run = int(input("Please enter 1 if you want the video: "))
-if run == 1:
-    for i in range(len(MatchID.displ)):
-        fig, ax = plt.subplots(figsize=(7,5))
-        plt.xlim(0, 2)
-        plt.ylim(20,50)
-        plt.plot(MatchID.displ[:i+1],crackL_J_mm[:i+1,chos_alp], '*r--', linewidth=3)
-        plt.xlabel('Displacement, mm')
-        plt.ylabel('Crack length, a(t), mm')
-        plt.title(Job)
-        fig.tight_layout()
-        plt.grid()
-        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(i)+".png")
-        plt.show()
-    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
-    files = os.listdir(path)
-    files.sort()
-    fourcc = cv.VideoWriter_fourcc(*'XVID')
-    output = cv.VideoWriter(path+'\Crack-Disp.avi', fourcc, 10.0, (640, 480))
-    for j in range(len(COD.wI)): 
-        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
-        img = cv.resize(img, (640, 480))
-        output.write(img)
-        os.remove(os.path.join(path, "Img"+str(j)+".png"))
-    output.release()
-    cv.destroyAllWindows()
-
-
 
 fig = plt.figure()
 plt.plot(crackL_J_mm[:,0], 'k--', linewidth=1)
@@ -881,6 +702,7 @@ while i < MatchID.stages :
 ###############################################
 #%%Method 2
 ###############################################
+
 CTODimage = MatchID.xCoord[a0.X]
 print(CTODimage*Test.mm2pixel)
 
@@ -909,6 +731,7 @@ for k in range(nombre):
 dx = Xm[0, 1, 0] - Xm[0, 0, 0]
 dy = CODy[:, 0]
 
+
 CODy = np.abs(CODy - CODy[:, [0]])
 
 CODxx = np.zeros((1000, nombre))
@@ -934,27 +757,32 @@ for k in range(nombre):
     #put all the variables with 1000 values
 
 # trouver l'indice de la valeur la plus proche
-indice_plus_prochea1 = int(np.abs(CODxx[0:1000, 1] - a1).argmin())
+indice_plus_prochea1 = int(np.abs(CODxx[0:1000, alpha_stages] - a1).argmin())
 indice_plus_procheaf = int(np.abs(CODxx[0:1000, -1] - af).argmin())
 
-MEANd = np.linspace(CODyy[indice_plus_prochea1, 1], CODyy[indice_plus_procheaf, nombre-1], nombre)
-a=[]
-for k in range(nombre):
+ab=[]
+for k in range(alpha_stages,nombre,1):
     mean[k]=np.nanmean(CODyy[:, k])
-    if mean[k]>CODyy[indice_plus_prochea1, 1]:
-        a.append(mean[k])
-plt.plot(range(0,nombre),mean)     
-plt.plot(range(0,nombre),MEANd)   
-MEANd = np.interp(np.linspace(0,len(a),nombre), range(0,len(a)), a)
-
+    if mean[k]>CODyy[indice_plus_prochea1, alpha_stages]:
+        ab.append(mean[k]) 
+MEANd = np.interp(np.linspace(0,len(ab),nombre-alpha_stages), range(0,len(ab)), ab)
+for k in range(alpha_stages):
+    MEANd = np.insert(MEANd, 0, 0)
+'''    
+plt.plot(range(0,nombre),MEANd,label='VDmean upgraded')
+plt.plot(range(0,nombre),mean, label='VDmean')
+plt.xlabel('Images')
+plt.ylabel('COD [mm]')
+plt.legend(fontsize=12)
+plt.grid()
+'''
 # Entrée des coefficients du système
-
 a11 = MEANd[nombre-1]*(nombre-1)#VDmeanf*if
 a12 = MEANd[nombre-1]#VDmeanf
 b1 = CODyy[indice_plus_procheaf, nombre-1]#VDthf
-a21 = MEANd[1]#VDmean1*i1
-a22 = MEANd[1]#VDmean1
-b2 = CODyy[indice_plus_prochea1, 1]#VDth1
+a21 = MEANd[alpha_stages]*(alpha_stages-1)#VDmean1*i1
+a22 = MEANd[alpha_stages]#VDmean1
+b2 = CODyy[indice_plus_prochea1, alpha_stages]#VDth1
 
 # Application de la méthode d'élimination de Gauss
 coeff = a21/a11
@@ -973,7 +801,7 @@ bb=x2
 
 #I have a problem to compute because my mean are too small for the fists images
 
-for k in range(nombre):
+for k in range(alpha_stages,nombre,1):
 
     MEANd[k] = MEANd[k] * (aa * k + bb)
     #MEANd = np.linspace(CODyy[indice_plus_prochea1, 1], CODyy[indice_plus_procheaf, nombre-1], nombre)
@@ -984,9 +812,14 @@ for k in range(nombre):
         ad[k] = CTODimage * Test.mm2pixel
     else:
         ad[k] = CODxx[a, k]
-        
-aid[0]=999 
-ad[0]=CODxx[999, 0]      
+
+for k in range(alpha_stages):           
+    aid[k]=999 
+    ad[k]=CODxx[999, 0]  
+
+for k in range(nombre-1): 
+    if ad[k]<ad[k+1]:
+        ad[k+1]=ad[k]
 
 for k in range(1, nombre,4):
     plt.plot(CODxx[0:1000, k], CODyy[:, k], 'b-')
@@ -1002,19 +835,21 @@ for k in range(1, nombre,4):
     plt.gca().spines['left'].set_linewidth(0.5)
     plt.gca().xaxis.set_tick_params(width=0.5)
     plt.gca().yaxis.set_tick_params(width=0.5)
-    plt.gca().set_xlim([0, 35])
-    plt.gca().set_ylim([0, 1])
+    plt.gca().set_xlim([0, 32])
+    plt.gca().set_ylim([0, 0.6])
     plt.grid(False)
 plt.show()
 
 x = []
 y = []
-for k in range(0, nombre, 8):
+for k in range(0, nombre, 4):
     plt.plot(CODxx[0:1000, 0], CODyy[:, 0], 'b-', label='VD')
     plt.plot([0, 35], [MEANd[0], MEANd[0]], 'r-',label='VDth')
     plt.plot(ad[0], CODyy[aid[0], 0], 'gx', label='Crack tip')
     plt.plot(CODxx[0:1000, 0:k], CODyy[:, 0:k], 'b-')
     plt.plot([0, 35], [MEANd[0:k], MEANd[0:k]], 'r-')
+    plt.xlabel('x11 [mm]', fontname='Times New Roman')
+    plt.ylabel('COD [mm]', fontname='Times New Roman')
     
     x.append(ad[k])
     y.append(CODyy[aid[k], k])
@@ -1024,8 +859,8 @@ for k in range(0, nombre, 8):
     plt.tick_params(axis='both', labelsize=14)
     plt.legend(fontsize=12)
     # set the axis limits and turn on the box
-    plt.gca().set_xlim([0, 40])
-    plt.gca().set_ylim([0, 1])
+    plt.gca().set_xlim([0, 32])
+    plt.gca().set_ylim([0, 0.6])
     # turn off the grid and set the background color of the plot
     plt.grid(False)
     plt.box(True)
@@ -1033,48 +868,68 @@ for k in range(0, nombre, 8):
     plt.show()  
   
 ad.sort()
-dad = ad - ad[0]+Test.a0 
-
-# READING THE IMAGES:
-endS = os.path.join(os.getcwd(), cwd)
-os.chdir(endS)
-
-fileNames = sorted([file for file in os.listdir() if file.endswith('.tiff')])
-pattern = re.compile(r'\d+')
-# Utiliser sorted() pour trier la liste en utilisant les nombres extraits des noms de fichier
-fileNames = sorted(fileNames, key=lambda x: int(pattern.findall(x)[0]))
-# Afficher la liste triée
-nImagens = len(fileNames)
-
-# Charger l'image
-cwd = os.path.join(cwd,Job+'_0001_0.tiff')
-img = Image.open(cwd)
-# Obtenir la taille de l'image
-largeur, hauteur = img.size
-# Afficher la taille de l'image
-print("La taille de l'image est de {} x {} pixels.".format(largeur, hauteur))
-
-I = np.zeros((int(hauteur/8), int(largeur/8), nImagens))
-
-for k, fileName in enumerate(fileNames):
-    I[:, :, k] = cv.resize(cv.imread(os.path.join(endS, fileName), cv.IMREAD_GRAYSCALE), (int(largeur/8), int(hauteur/8)))
-
-os.chdir('..')
-
-Cal=    Test.mm2pixel*8
-for k in range(0, nombre-1, 1):
-    plt.imshow(I[:, :, k])
-    
-    plt.plot([ad[-1]/Cal, ad[-1]/Cal], [0, 1000], color=[0, 1, 0, 0.5], linewidth=2)
-    plt.plot([ad[-(1+k)]/Cal, ad[-(1+k)]/Cal], [0, 1000], color='green', linewidth=2)
-    plt.plot(X[0, range(0, 1000, 50), k]/Cal, Y[0, range(0, 1000, 50), k]/Cal, 'x', color='red', markersize=8, linewidth=2)
-    plt.plot(X[1, range(0, 1000, 50), k]/Cal, Y[1, range(0, 1000, 50), k]/Cal, 'x', color='red', markersize=8, linewidth=2)
-    #plt.gca().set_xlim([0, 2200])
-    plt.gca().set_ylim([0, int(hauteur/8)])
-    plt.show()
-
 for k in range (MatchID.stages-nombre):
-    dad = np.append(dad, dad[-1])
+    ad=np.insert(ad, 0, ad[0])
+dad = np.abs(ad - ad[-1])+Test.a0 
+dad.sort()
+
+run=0
+#run = int(input("Please enter 1 if you want the video: "))
+if run == 1:
+    
+    # READING THE IMAGES:
+    endS = os.path.join(os.getcwd(), cwd)
+    os.chdir(endS)
+    
+    fileNames = sorted([file for file in os.listdir() if file.endswith('.tiff')])
+    pattern = re.compile(r'\d+')
+    # Utiliser sorted() pour trier la liste en utilisant les nombres extraits des noms de fichier
+    fileNames = sorted(fileNames, key=lambda x: int(pattern.findall(x)[0]))
+    # Afficher la liste triée
+    nImagens = len(fileNames)
+    
+    # Charger l'image
+    cwd = os.path.join(cwd,Job+'_0001_0.tiff')
+    img = Image.open(cwd)
+    # Obtenir la taille de l'image
+    largeur, hauteur = img.size
+    # Afficher la taille de l'image
+    print("La taille de l'image est de {} x {} pixels.".format(largeur, hauteur))
+    
+    I = np.zeros((int(hauteur/8), int(largeur/8), nImagens))
+    
+    for k, fileName in enumerate(fileNames):
+        I[:, :, k] = cv.resize(cv.imread(os.path.join(endS, fileName), cv.IMREAD_GRAYSCALE), (int(largeur/8), int(hauteur/8)))
+    
+    os.chdir('..')
+
+    Cal=    Test.mm2pixel*8
+    for k in range(0, MatchID.stages, 1):
+        plt.imshow(I[:, :, k])
+        
+        plt.plot([ad[-1]/Cal, ad[-1]/Cal], [0, 1000], color=[0, 1, 0, 0.5], linewidth=2)
+        plt.plot([ad[-(1+k)]/Cal, ad[-(1+k)]/Cal], [0, 1000], color='green', linewidth=2,label='Method2')
+        plt.plot([CTODimage/8-(crackL_J_mm[k,chos_alp]-Test.a0)/Cal, CTODimage/8-(crackL_J_mm[k,chos_alp]-Test.a0)/Cal], [0, 1000], color='red', linewidth=2, label='Method1')
+        plt.legend(fontsize=12)
+        #plt.plot(X[0, range(0, 1000, 50), k]/Cal, Y[0, range(0, 1000, 50), k]/Cal, 'x', color='red', markersize=8, linewidth=2)
+        #plt.plot(X[1, range(0, 1000, 50), k]/Cal, Y[1, range(0, 1000, 50), k]/Cal, 'x', color='red', markersize=8, linewidth=2)
+        #plt.gca().set_xlim([0, 2200])
+        plt.gca().set_ylim([0, int(hauteur/8)])
+        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(k)+".png")
+        plt.show()
+    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
+    files = os.listdir(path)
+    files.sort()
+    fourcc = cv.VideoWriter_fourcc(*'XVID')
+    output = cv.VideoWriter(path+'\Crackspecimen.avi', fourcc, 10.0, (640, 480))
+    for j in range(MatchID.stages): 
+        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
+        img = cv.resize(img, (640, 480))
+        output.write(img)
+        os.remove(os.path.join(path, "Img"+str(j)+".png"))
+    output.release()
+    cv.destroyAllWindows()
+
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
@@ -1086,37 +941,7 @@ plt.legend(fontsize=12)
 plt.title(Job)
 fig.tight_layout()
 plt.grid()
-plt.show()
-
-run=0
-#run = int(input("Please enter 1 if you want the video: "))
-if run == 1:
-    for i in range(len(MatchID.displ)):
-        fig, ax = plt.subplots(figsize=(7,5))
-        plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
-        plt.plot(MatchID.time, dad, 'b', label='Method2')
-        plt.xlabel('Images')
-        plt.ylabel('Crack length, a(t), mm')
-        #plt.xlim(0, 1.4)
-        #plt.ylim(0, 500)
-        plt.title(Job)
-        fig.tight_layout()
-        plt.grid()
-        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(i)+".png")
-        plt.show()
-    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
-    files = os.listdir(path)
-    files.sort()
-    fourcc = cv.VideoWriter_fourcc(*'XVID')
-    output = cv.VideoWriter(path+'\a(t)-t.avi', fourcc, 10.0, (640, 480))
-    for j in range(len(MatchID.displ)): 
-        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
-        img = cv.resize(img, (640, 480))
-        output.write(img)
-        os.remove(os.path.join(path, "Img"+str(j)+".png"))
-    output.release()
-    cv.destroyAllWindows()
-
+plt.show()   
 
 #%% computing GI (R-curve)
 
@@ -1128,44 +953,75 @@ a_t = crackL_J_mm[:,chos_alp]
 # LOAD, DISP , B, CTOD, aDIC
 
 C = MatchID.displ/MatchID.load
-
-# # Curve fitting
-# porder = 3
-# fitCa = np.polyfit(a_t, C, porder)
-#
-# df = pd.DataFrame(columns=['C', 'a_t'])
-# df['C'] = C
-# df['a_t'] = a_t
-#
-# weights = np.polyfit(a_t, C, porder)
-# # p[0] + p[1]*x + ... + p[N]*x**N
-# print(weights)
-# model = np.poly1d(weights)
-# print(model)
-# results = smf.ols(formula='C ~ model(a_t)', data=df).fit()
-#
-# def compliancea(a,m):
-#     return 3*m*a**2
-#
-# popa1, pcov1 = curve_fit(compliancea, a_t, C)
-# fit_a1 = compliancea(a_t, *popa1)
-#print(C)
-# P**2/2/B* dC / da
 ALP = (MatchID.load**2)/(2*Test.thickness)
-# print(ALP)
-#
-# C = MatchID.displ/MatchID.load
-# atry=crackL_J_mm[:,i]
-# print('C values are :',C)
-# fig, ax = plt.subplots(figsize=(7,5), dpi=80)
-# plt.plot(atry, C, 'k-.', linewidth=2, label='Compliance evolution')
-# plt.ylabel('$C, Pa^{-1}$')
-# plt.xlabel('Crack length, a(t), mm')
-# plt.legend(loc=2, prop={'size': 8})
-# fig.tight_layout()
-# plt.grid()
-# plt.show()
-#
+
+first_value = a_t[0]
+first_indice = 0
+for i in range(1, MatchID.stages):
+    if a_t[i] != first_value:
+        first_indice = i
+        break
+    
+last_value = a_t[-1]
+last_indice = 0
+for i in range(MatchID.stages-1, -1, -1):
+    if a_t[i] != last_value:
+        last_indice = i
+        break
+    
+    
+#Polynomal fit for G
+x=a_t[first_indice-1:last_indice+2]
+y=C[first_indice-1:last_indice+2]
+ALPinterp=ALP[first_indice-1:last_indice+2]
+
+fig = plt.figure(figsize=(7,5))
+plt.plot(x,y, 'k-', linewidth=3)
+plt.plot(a_t,C)
+plt.xlabel('Crack length, a(t), mm')
+plt.ylabel('$C, {Pa}^{-1}$')
+plt.grid()
+plt.title(Job)
+plt.show()
+
+# Définir la fonction pour l'interpolation
+def polyfit(x, y, degree):
+    results = {}
+    coeffs = np.polyfit(x, y, degree)
+    results['polynomial'] = coeffs.tolist()
+
+    # Calculer le R-squared
+    p = np.poly1d(coeffs)
+    yhat = p(x)
+    ybar = np.sum(y)/len(y)
+    ssreg = np.sum((yhat-ybar)**2)
+    sstot = np.sum((y-ybar)**2)
+    results['determination'] = ssreg / sstot
+
+    return results
+
+# Interpoler la fonction avec un polynôme de degré 3
+results = polyfit(x, y, 2)
+coeffs = results['polynomial']
+r_squared = results['determination']
+p = np.poly1d(coeffs)
+dp = p.deriv()
+print("Les coefficients du polynôme sont:", coeffs)
+print("Le coefficient de détermination (R-squared) est:", r_squared)
+
+# Tracer la fonction interpolée
+fig = plt.figure(figsize=(7,5))
+plt.plot(x, y, '.', x, p(x), '-')
+plt.xlabel('Crack length, a(t), mm')
+plt.ylabel('$C, {Pa}^{-1}$')
+plt.grid()
+plt.title(Job)
+plt.show()
+
+#plt.plot(x, dp(x), '-')
+
+Ginterp = ALPinterp*dp(x)
+
 BET1 = C/a_t #changing the value of alpha from the crack length will change G values
 BET2 = C/dad
 #
@@ -1184,6 +1040,7 @@ COD_max = np.max(COD.wI)
 #
 fig = plt.figure(figsize=(7,5))
 plt.plot(a_t, G1, 'r:', linewidth=2, label='R-Curve alpha '+ str(chos_alp))
+plt.plot(x, Ginterp, 'g:', linewidth=2, label='R-Curve interpolated alpha  '+ str(chos_alp))
 plt.plot(dad, G2, 'b:', linewidth=2, label='Method2')
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G_{Ic}, J$')
@@ -1191,6 +1048,7 @@ plt.legend(loc=2, prop={'size': 8})
 plt.grid()
 plt.title(Job)
 plt.show()
+
 '''
 # write array results on a csv file:
 RES = np.array([MatchID.displ[:], MatchID.load[:], C[:], COD.wI[:], a_t[:], G1[:]])
@@ -1239,162 +1097,5 @@ plt.show()
 # plt.grid()
 # plt.show()
 '''
-# GI = f(CTOD) ?
-
-#############################################
-#Interlaminar Fracture Thougness
-#############################################
-
-
-#a isn't the crack length chosen between some alphas values,
-#it is obtained from linear least square regression fitting.
-# IFT=Inter+Slop*(crackL_J_mm[:,4]*crackL_J_mm[:,4]*crackL_J_mm[:,4])
-
-# aCUB=crackL_J_mm[:,i]*crackL_J_mm[:,i]*crackL_J_mm[:,i]
-#a must be the CBBM one
-
-#C is the same
-
-# fig, ax = plt.subplots(figsize=(7,5), dpi=80)
-# plt.plot(aCUB,C , 'k-.', linewidth=2, label='Compliance evolution')
-# plt.ylabel('$C, Pa^{-1}$')
-# plt.xlabel('Crack length, $a^{3}, mm^{3}$')
-# plt.legend(loc=2, prop={'size': 8})
-# fig.tight_layout()
-# plt.grid()
-# plt.show()
-
-# Inter=C[0]
-# X1=aCUB[0]
-# Y1=C[0]
-# X2=aCUB[230]
-# Y2=aCUB[230]
-#
-# slope=(Y2-Y1)/(X2-X1)
-#
-# newC= slope*aCUB+Inter
-# print('slope value is :',slope)
-# print('Inter value is :',Inter)
-# print('C with CBBM is now :',newC)
-#Slop= will depend on the curve "cubic fit" which is an average on all the points
-
-#############################################
-#Mode II Interlaminar Fracture Thougness
-#############################################
-#
-# GIIc=(3*slope*MatchID.load*MatchID.load*crackL_J_mm[:,i]*crackL_J_mm[:,i])/(2*Test.thickness)
-# print('Mode II Interlaminar Fracture Thougness are :', GIIc)
-
-# Issues with Units at the end =/ Joules because of the N²
-
-#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-#MatLab process transcription
-#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-#a_cbbm2 to create
-#fitresult to create to
-
-# Plot fit with data.
-# fig1 = figure(Name=test.project.name)
-# h0 = plt.plot(a_cbbm2,C,'--k',lineWidth=1,label='a_{eq}')
-# h1 = plt.plot(xX,yY,'--r',MarkerSize=10,label='a_{DIC}')
-# h2 = plt.plot(fitresult,'-k',lineWidth=2,label='cubic fit')
-# plt.legend(loc=2, prop={'size': 8})
-# plt.ylabel('$C, Pa^{-1}$')
-# plt.xlabel('Crack length, $a^{3}, mm^{3}$')
-
-# # Label axes
-#
-# fnome = [test.pathFiles,test.project.name,'_aDIC-a_C_',tipoanal];
-# print(script.imgformat,script.resol,fnome)
-# crop([fnome,script.filetype])
-#
-# || aDIC - aeq ||
-# j1 = i1;
-# stgmax = '1';
-# switch stgmax
-#     case '1' % step at maximum load
-#         j2 = round(find(max(MatchID.load)==MatchID.load,1,'last')); % number of maximum data points for LSR
-#     case '2' % last valid step
-#         j2 = i2;
-# end
-# % -
-# d3      = d(j1:j2);
-# a_cbbm3 = a_cbbm(j1:j2);
-# a_dic3  = a_dic(j1:j2);
-#
-# JJ1 = j1;
-# JJ2 = j2;
-# % Plot fit with data.
-# close all
-# fig1 = figure('Color',[1 1 1],'Name',test.project.name);
-# axes('Position',[.12 .3 .35 .35],'FontName',script.nomeF,'FontSize',script.size_font1,'Parent',fig1);
-# plot(MatchID.displ2,MatchID.load,'-k','LineWidth',4); hold on; box on;
-# plot(MatchID.displ2(j1),MatchID.load(j1),'sr','MarkerFaceColor',[1 0 0]);
-# plot(MatchID.displ2(j2),MatchID.load(j2),'sr','MarkerFaceColor',[1 0 0]);
-# plot([0;MatchID.displ2],1./DCB.res.C.*[0;MatchID.displ2],'--k','MarkerFaceColor',[1 0 0]);
-# xlim([0 max(MatchID.displ2)]); ylim([0 max(MatchID.load)])
-# xlabel('{\it \delta}, mm','FontName',script.nomeF,'FontSize',script.size_font1)
-# ylabel('{\it P}, N','FontName',script.nomeF,'FontSize',script.size_font1)
-# axes('Position',[.6 .3 .35 .35],'FontName',script.nomeF,'FontSize',script.size_font1,'Parent',fig1);
-# plot(d3,abs(a_dic3-a_cbbm3),'--k','LineWidth',2); hold on;
-# % Label axes
-# xlim([min(d3) max(d3)])
-# ylim([min(abs(a_dic3-a_cbbm3)) max(abs(a_dic3-a_cbbm3))])
-# xlabel('{\it \delta}, mm','FontName',script.nomeF,'FontSize',script.size_font1,'visible','on');
-# ylabel('||{\it a}_{DIC} - {\it a}_{eq}||, mm','FontName',script.nomeF,'FontSize',script.size_font1,'visible','on')
-# % -
-# fnome = [test.pathFiles,test.project.name,'_aDIC-a_d_',tipoanal];
-# print(script.imgformat,script.resol,fnome)
-# crop([fnome,script.filetype])
-   
-# Ouvrir les 4 vidéos
-run=0
-if run==1:
-    path =  "D:\Recherche PRD\EXP\MMCGTests\Video"
-    cap1 = cv.VideoCapture(path+'\Crack-Disp.avi')
-    cap2 = cv.VideoCapture(path+'\MMCG.avi')
-    cap3 = cv.VideoCapture(path+'\CTOD.avi')
-    cap4 = cv.VideoCapture(path+'\output.avi')
     
-    # Récupérer les dimensions de la vidéo
-    width = int(cap1.get(cv.CAP_PROP_FRAME_WIDTH))
-    height = int(cap1.get(cv.CAP_PROP_FRAME_HEIGHT))
-    
-    # Créer un objet VideoWriter pour écrire la vidéo combinée
-    fourcc = cv.VideoWriter_fourcc(*'mp4v')
-    combined_video = cv.VideoWriter(path+'\combined_video.mp4', fourcc, 25.0, (2*width, 2*height))
-    
-    # Boucle pour lire les images de chaque vidéo et les combiner
-    while True:
-        # Lire les images des 4 vidéos
-        ret1, frame1 = cap1.read()
-        ret2, frame2 = cap2.read()
-        ret3, frame3 = cap3.read()
-        ret4, frame4 = cap4.read()
-    
-        # Vérifier si toutes les vidéos ont été lues
-        if not ret1 or not ret2 or not ret3 or not ret4:
-            break
-    
-        # Redimensionner les images à la même taille
-        frame1 = cv.resize(frame1, (width, height))
-        frame2 = cv.resize(frame2, (width, height))
-        frame3 = cv.resize(frame3, (width, height))
-        frame4 = cv.resize(frame4, (width, height))
-    
-        # Combiner les 4 images en une seule
-        combined_frame = cv.vconcat([cv.hconcat([frame1, frame2]), cv.hconcat([frame3, frame4])])
-    
-        # Écrire la frame combinée dans la vidéo
-        combined_video.write(combined_frame)
-        
-    
-    
-    # Fermer toutes les fenêtres et libérer les ressources
-    cap1.release()
-    cap2.release()
-    cap3.release()
-    cap4.release()
-    combined_video.release()
-    cv.destroyAllWindows()
+#exec(open('Videomaker.py').read())

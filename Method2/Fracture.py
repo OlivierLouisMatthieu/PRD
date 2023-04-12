@@ -126,6 +126,9 @@ a21 = np.mean(CODyy[:, 1])#VDmean1*i1
 a22 = np.mean(CODyy[:, 1])#VDmean1
 b2 = CODyy[indice_plus_prochea1, 1]#VDth1
 
+print(CODyy[indice_plus_procheaf, -1])
+print(CODyy[indice_plus_prochea1, 1])
+
 # Application de la méthode d'élimination de Gauss
 coeff = a21/a11
 a22 = a22 - coeff*a12
@@ -137,6 +140,7 @@ x1 = (b1 - a12*x2)/a11
 print("La solution du système est :")
 print("x1 = ", x1)
 print("x2 = ", x2)
+
 
 for k in range(nImagens):
     #aa1 = (ina - inb) / (1 - nImagens) #alpha and beta parameters!
@@ -168,6 +172,16 @@ for k in range(nImagens):
                 ais[k] = i
                 aas[k] = CODxx[i, k]
             break
+        
+mean=np.zeros(nImagens)
+for k in range(nImagens):
+    mean[k]=np.mean(CODyy[:, k])
+plt.plot(range(0,nImagens),mean,label='VDmean')
+plt.plot(range(0,nImagens),MEANd, label='VDth')
+plt.xlabel('Images')
+plt.ylabel('COD [mm]')
+plt.legend(fontsize=12)
+plt.grid()
 
 Md= np.zeros((nImagens)) 
 Ms= np.zeros((nImagens))

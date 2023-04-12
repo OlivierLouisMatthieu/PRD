@@ -244,7 +244,7 @@ largeur, hauteur = img.size
 # Afficher la taille de l'image
 print("La taille de l'image est de {} x {} pixels.".format(largeur, hauteur))
 
-
+'''
 I = np.zeros((int(hauteur/8), int(largeur/8), nImagens))
 
 for k, fileName in enumerate(fileNames):
@@ -345,6 +345,8 @@ print("The system solution is :")
 print("x1 = ", x1)
 print("x2 = ", x2)
 
+
+
 #aa = (ina - inb) / (1 - nImagens) #alpha and beta parameters!
 #bb = ina - aa
 aa=x1
@@ -354,7 +356,7 @@ mean=np.zeros(nombre)
 
 for k in range(nombre):
 
-    #MEANd[k] = np.nanmean(CODyy[:, k]) * (aa * k + bb)
+    MEANd[k] = np.nanmean(CODyy[:, k]) * (aa * k + bb)
     MEANs[k] = np.nanmean(STRAINyy[:, k]) * (aa * k + bb)
     mean[k]=np.nanmean(CODyy[:, k])
 
@@ -433,7 +435,7 @@ plt.plot(range(1,nombre+1), das, 'b')
 
 #aid=sorted(aid, reverse=True)
 #ais=sorted(ais, reverse=True)
-
+'''
 Md= np.zeros((nombre)) 
 Ms= np.zeros((nombre))
 
@@ -456,7 +458,7 @@ for k in range(nombre):
     tang2[:,k] = ((np.arange(-20,21)-X[1,CTODid,k])*dyy2) + Y[1,CTODid,k]
     CTOA[k] = np.arctan(dyy1) - np.arctan(dyy2)
 
-'''
+
 Cal=    Test.mm2pixel*8
 for k in range(0, nombre-1, 1):
     plt.imshow(I[:, :, k])
@@ -468,7 +470,7 @@ for k in range(0, nombre-1, 1):
     #plt.gca().set_xlim([0, 2200])
     plt.gca().set_ylim([0, int(hauteur/8)])
     plt.show()
-'''
+
 
 #Plot crack tip vs Images
 plt.plot(range(1,nombre+1), dad, 'o')
@@ -492,6 +494,7 @@ ax.set_facecolor('white')
 ax.set_box_aspect(1)
 ax.grid()
 plt.show()
+'''
     
 '''
 print(a1+Test.a0)

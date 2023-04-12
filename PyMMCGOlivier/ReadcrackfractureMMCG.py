@@ -84,7 +84,7 @@ Xmm=np.zeros((nbimages, 2))
 
 nombre = input("La dernière image avant la rupture est : ")
 nombre=int(nombre)
-d=np.linspace(0, nombre,nbimages)
+d=np.linspace(alpha_stages, nombre,nbimages)
 a=0
 points_list = []
 for k in range(nbimages):
