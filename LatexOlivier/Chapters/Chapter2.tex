@@ -3,7 +3,8 @@
 
 \section{Introduction}
 
-To complete
+This chapter focuses on the preparation of the tests and the tools used to obtain results. Another section is devoted to the application of the DIC method and the proper use of MatchID. It explains some important parameters such as subset size, step size in order to make the DIC analysis as accurate as possible.
+Finally, two fracture analysis methods are presented. A Python code was developed for both methods, and this section also allows a comparison of these two methods and a judgment on which is the most effective.
 
 \section{Tools used during the test}
 
@@ -21,7 +22,7 @@ The MMCG test piece was developed by \cite{MoutouPitti2008}. However, the specim
 
 \subsection{Arcan model and final grips}
 
-To perform the tests, a steel Arcan system must be designed. It is made of high tensile steel (HLE). Indeed, this part allows to connect the 2MCG wood specimen to the press. In order to create this grip we must first take into account the dimensions of the 2MCG specimen available in Nova school described in figure \ref{fig:fig24}. The shape of the Arcan system must also allow a good visibility on the propagation of the crack. Figure 21 shows the Arcan device that we will use, which was inspired from the thesis of \cite{Odounga2018phd}.
+To perform the tests, a steel Arcan system must be designed. Indeed, this part allows to connect the 2MCG wood specimen to the press. In order to create this grip we must first take into account the dimensions of the 2MCG specimen available in Nova school described in figure \ref{fig:fig23}. The shape of the Arcan system must also allow a good visibility on the propagation of the crack. Figure \ref{fig:fig24} shows the Arcan device that we will use, which was inspired from the thesis of \cite{Odounga2018phd}.
 
 
 \begin{figure}[htp]
@@ -31,7 +32,7 @@ To perform the tests, a steel Arcan system must be designed. It is made of high 
 	\label{fig:fig24}
 \end{figure}
 
-The fixing holes for the wooden specimens have a diameter $\Phi= 5 mm$, and the loading holes have a diameter $\Phi = 7 mm$. These fixing holes were drilled in order to be able to load the specimen with different angular values of the angle in relation to the vertical direction in order to activate different failure modes depending on the load angle. To connect the Arcan system to the press, a piece had to be created, as shown in figure \ref{fig:fig25}.
+The fixing holes for the wooden specimens have a diameter $\Phi= 4 mm$, and the loading holes have a diameter $\Phi = 7 mm$. These fixing holes were drilled in order to be able to load the specimen with different angular values of the angle in relation to the vertical direction in order to activate different failure modes depending on the load angle. To connect the Arcan system to the press, a piece had to be created, as shown in figure \ref{fig:fig25}.
 
 
 \begin{figure}[htp]
@@ -41,7 +42,7 @@ The fixing holes for the wooden specimens have a diameter $\Phi= 5 mm$, and the 
 	\label{fig:fig25}
 \end{figure}
 
-This part has a hole of the same size as the holes of the Arcan system in order to connect them. Moreover the head of the connector is 27mm in diameter and the thread has a 2mm pitch to connect to the press. Before sending the technical drawings to a company, a 3D printer was used to verify that the system worked properly. It was then necessary to draw the assembly on solidworks in order to print the assembly and send the technical drawings. Figure \ref{fig:fig26} shows the assembled device in Solidworks. Solidworks is a 3D modeler owned by Dassault using parametric design. It generates 3 types of files related to three basic concepts: the part, the assembly and the drawing. These files are related and any modification at any level is reflected in all the files concerned.
+This part has a hole of the same size as the holes of the Arcan system in order to connect them. Moreover the head of the connector is 27mm in diameter and the thread has a 2mm pitch to connect to the press. Before sending the technical drawings to a company, a 3D printer was used to verify that the system worked properly. It was then necessary to draw the assembly on solidworks in order to print the assembly and send the technical drawings. Figure \ref{fig:fig26} shows the assembled device in Solidworks. Solidworks is a 3D modeler owned by Dassault using parametric design which generates 3 types of files related to three basic concepts: the part, the assembly and the drawing.
 
 
 \begin{figure}[htp]
@@ -56,9 +57,9 @@ It has been shown in previous work such as \cite{Odounga2018phd} that one of the
 \subsection{Hydraulic press used}
 
 To determine experimental parameters like the load speed or the frequency of the camera recording, it was important to read previous works on the subject and determine which engines will be used to proceed the experiments. The press used for the tests is a Landmark Servohydraulic Test Systems model 661.21B-03  from MTS. It is capable of exerting a maximal applied load of 10 metric to N (figure \ref{fig:fig27}).
-In the work of \cite{Ostapska2021} the load speed recommended was about $0.1\ mm\ {min}^{-1}$ and the record was made at a frequency of 5 Hz, so 5 images per seconds. In the work of Mambili the record was made at a frequency of 10 Hz and the load speed was about 0.3 mm/s with a pre-load of 100N. It should be remembered that this press is also chosen because of its ability to load the specimens with a constant time displacement. Indeed, it was explained that this work will use the complacency method to compare the results.
+In the work of \cite{Ostapska2021} the load speed recommended was about $0.1\ mm\ {min}^{-1}$ and the record was made at a frequency of 5 Hz, so 5 images per seconds. In the work of \cite{Mambili2018} the record was made at a frequency of 10 Hz and the load speed was about 0.3 mm/s with a pre-load of 100N. It should be remembered that this press is also chosen because of its ability to load the specimens with a constant time displacement. Indeed, it was explained that this work will use the complacency method to compare the results.
 
-As explained \cite{MALFAIT2021}  this MTS Hydraulic Press works with a cooler fluid. Indeed, a tank full of fluid mixed to water and a cooler system send this fluid mix to the press as visible on 23. Then, a hydraulic supply from MTS sends this liquid to the press itself. It is the model 506.02 serie 22 coupled with the Vickers DG4V-3-2A. Then the pressure is created thanks to the Hydraulic Service Manifold part from MTS company, model 234.11. Finally, a servo valve MOOG A076-263c increase the pressure to allow the hydraulic press operation. It is a high performance valve which drives a dry torque motor. Then a MTS load cell (661-21B-03) allows to follow the displacement of the hydraulic press.
+As explained \cite{MALFAIT2021}  this MTS Hydraulic Press works with a cooler fluid. Indeed, a tank full of fluid mixed to water and a cooler system send this fluid mix to the press as visible on \ref{fig:fig27}. Then, a hydraulic supply from MTS sends this liquid to the press itself. It is the model 506.02 serie 22 coupled with the Vickers DG4V-3-2A. Then the pressure is created thanks to the Hydraulic Service Manifold part from MTS company, model 234.11. Finally, a servo valve MOOG A076-263c increase the pressure to allow the hydraulic press operation. It is a high performance valve which drives a dry torque motor. Then a MTS load cell (661-21B-03) allows to follow the displacement of the hydraulic press.
 
 
 \begin{figure}[htp]
@@ -160,12 +161,19 @@ The first step in Method 1 is to retrieve all important information of the test 
 
 \textbf{Inserting DIC values in python}
 
-With the main program, the first lines of code consist in recovering the force and the displacements of the press, the coordinates of the first image and the displacement UX and UY.
-Another part of the code allows to put at the same frequency the force and the displacement to be able to use them with the other parameters such as the CTOD.
+With the main program, the first lines of code consist in recovering the force and the displacements of the press, the coordinates of the first image and the displacement UX and UY for each stages.
+Another part of the code allows to put at the same frequency the force and the displacement to be able to use them with the other parameters such as UX and UY.
 
 \textbf{Crack tip opening displacement}
 
 To obtain CTOD, it is important to pay attention to the choice a0. Indeed, the chosen subset will be determinant. By considering the image as a matrix composed of subsets, the chosen subset is a position given by its m rows and n columns. Looking at the subset from top to bottom allows one to follow the displacement of the crack tip and measure it. The point is to determine which pair of subsets is the best which means being closer or less close to the crack. If one is too close to the crack there will be no information and if one is too far away the measurement will be less accurate. By looking at these displacements, it is possible to obtain the value of the crack opening at each step.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=8cm]{fig29bis}
+	\caption{Pair of subsets around the chosen subset a0}
+	\label{fig:fig29bis}
+\end{figure}
 
 \textbf{Mapping function and mapping mask}
 
@@ -197,7 +205,7 @@ A part of the code allows to check the length of the crack graphically by select
 
 \textbf{Crack length}
 
-Another part of the code allows us to obtain a(t) as a function of alpha. This is done by focusing on the ZOI and the number of subsets that compose it. Through the matrix composed by each subset, the displacement field can be observed. It is obtained by calculating the distance between the center of a subset and its displacement from one image to another, as described in the literature review. To simplify the code, this calculation is not performed on each subset but only on the four corners. By calculating the distance between the opposite corners, the maximum displacement in x and the displacement in y are introduced in a last matrix.
+Another part of the code allows us to obtain a(t) as a function of alpha. This is done by focusing on the ZOI and the number of subsets that compose it. Through the matrix composed by each subset, the displacement field can be observed. It is obtained by calculating the distance between the center of a subset and its displacement from one image to another. To simplify the code, this calculation is not performed on each subset but only on the four corners. By calculating the distance between the opposite corners, the maximum displacement in x and the displacement in y are introduced in a last matrix. Finally, the value of a(t) is equal to $a_0$ set by the user in the database and to $\Delta a$ which is the value of the crack length, evolving in time under the effect of the applied force.
 
 \subsection{Method 2}
 
@@ -215,7 +223,7 @@ where the indices t and b refer to the DIC data points located at the top and bo
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=7cm]{fig30}
+	\includegraphics[width=8cm]{fig30}
 	\caption{DIC-based virtual displacement gauge (VDG), \cite{FilhoJ2022}}
 	\label{fig:fig30}
 \end{figure}
@@ -255,64 +263,68 @@ It is therefore possible to calculate the growth of the crack at instant n:
 
 \subsection{Difficulties in applying method 2}
 
-This method was originally used for a fibrous soft material. The first step was to translate the Matlab code given by Joao into a python code to be able to use both methods simultaneously and compare them.
+This method was originally used for a fibrous soft material. The first step was to translate the Matlab code given by \cite{FilhoJ2022} into a python code to be able to use both methods simultaneously and compare them.
 After translating the code, we realised that this method did not work properly for the wood material and the DIC data we had with Stanislas' tests.
 From the data of method 1, we already know the position of a0 and all the displacements over time that have occurred on the entire wooden specimen. However, for method 2, we only need 2 horizontal lines placed above and below the fracture. It is therefore sufficient to take only one part of the data from the specimen. Moreover, it was chosen to take these two lines far enough away from the fracture in order not to have subsets without any data.
 However, method 2 still did not work well and we will try to explain why it does not work properly.
 
 The figure \ref{fig:fig31} corresponds to the plot of $\overline{VD}$ and $VD_{th}$ with Joao's data, the author of the method. We read graphically $a_1$ and $a_f$, which allowed us to know the $VD_{th}$ for index 1 and the last index which are the bounds on the y-axis for the yellow curve. We notice that the yellow curve has the same shape as the blue curve, is still increasing but has only been reduced at the ordinate level. This is what we want to achieve for the MMCG specimens.
 
-\begin{figure}[htp]
-	\centering
-	\includegraphics[width=6cm]{fig31}
-	\caption{$\overline{VD}$ and $VD_{th}$ with Joao's data}
-	\label{fig:fig31}
-\end{figure}
-
 For the MMCG test data, by applying $VD_{th1}$ and $VD_{thf}$ as in Joao's data, we notice that the $VD_{th}$ curve increases and then decreases, which is not normal since the COD should normally increase with time (figure \ref{fig:fig32}). This is due to the alpha and beta factors which increase $\overline{VD}$ for the first indices and then decrease $\overline{VD}$ for the last indices. According to the equation \ref{eq:eqVDth} alpha is multiplied by $i_n$ which will decrease the multiplier coefficient of $\overline{VD}$ over time if alpha is negative and beta positive. This is the reason why $VD_{th}$ is under $\overline{VD}$  for the latest indices.
 
 \begin{figure}[htp]
-	\centering
-	\includegraphics[width=6cm]{fig32}
-	\caption{$\overline{VD}$ and $VD_{th}$ with MMCG data}
-	\label{fig:fig32}
+	\begin{minipage}[c]{.46\linewidth}
+		\centering
+		\includegraphics[width=7cm]{fig31}
+		\caption{$\overline{VD}$ and $VD_{th}$ with Joao's data}
+		\label{fig:fig31}
+	\end{minipage}
+	\hfill%
+	\begin{minipage}[c]{.46\linewidth}
+		\centering
+		\includegraphics[width=7cm]{fig32}
+		\caption{$\overline{VD}$ and $VD_{th}$ with MMCG data}
+		\label{fig:fig32}
+	\end{minipage}
 \end{figure}
+
 
 Method 1 was then used to find out from which image the fracture process starts. Method 2 directly increased the length of the crack for the first images, which is not normally the case for wood.  Indeed, it is considered that for all the images before the fracture zone there is a(t)=a0. We therefore read $a_1$ and $a_f$ with $a_1$ the index of the beginning of the fracture process and $a_f$ the last image before the material breaks. The graph \ref{fig:fig33} is then obtained:
 
+
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=6cm]{fig33}
+	\includegraphics[width=7cm]{fig33}
 	\caption{Crack length with FPZ taken into account)}
 	\label{fig:fig33}
 \end{figure}
 
-Ihe fracture for method 2 starts much later than method 1 and are different. 
+The fracture for method 2 starts much later than method 1 and are different. 
 Because the $\overline{VD}$ is too small compared to the graphically obtained $VD_{th1}$, an interpolation is made to increase the $\overline{VD}$. The graph \ref{fig:fig34} is obtained:
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=6cm]{fig34}
+	\includegraphics[width=7cm]{fig34}
 	\caption{Interpolation of $\overline{VD}$}
 	\label{fig:fig34}
 \end{figure}
 
 Thanks to this interpolation, we apply alpha and beta (figure \ref{fig:fig35}) and obtain $VD_{th}$. Finally, we obtain the crack length graph \ref{fig:fig36}:
 
-\begin{figure}[htp]
-	\centering
-	\includegraphics[width=6cm]{fig35}
-	\caption{$VD_{th}$ with interpolation}
-	\label{fig:fig35}
-\end{figure}
-
-
-
-\begin{figure}[htp]
-	\centering
-	\includegraphics[width=7cm]{fig36}
-	\caption{Final crack length e1o1}
-	\label{fig:fig36}
+\begin{figure}[h]
+	\begin{minipage}[c]{.46\linewidth}
+		\centering
+		\includegraphics[width=7cm]{fig35}
+		\caption{$VD_{th}$ with interpolation}
+		\label{fig:fig35}
+	\end{minipage}
+	\hfill%
+	\begin{minipage}[c]{.46\linewidth}
+		\centering
+		\includegraphics[width=7cm]{fig36}
+		\caption{Final crack length e1o1}
+		\label{fig:fig36}
+	\end{minipage}
 \end{figure}
 
 To conclude, the crack propagation does not start at the same stage between the two methods and the crack length is different over time. Moreover we had to modify a lot Joao's initial method to apply it to wood material. We are not sure that it works efficiently. Moreover, it adds uncertainties since we have to read graphically $a_1$ and $a_f$ to obtain the crack length thresholds at the beginning and at the end of the propagation. Method 2 gives a "smoother" curve than method 1, but this is not necessarily a good thing since the fracture of wood material usually works in fits and starts. Method 2 probably does not work with wood, because the COD (VDmean) is not as linear as with soft fibrus material  as we can see in figure \ref{fig:fig31} and \ref{fig:fig32}.
@@ -344,6 +356,8 @@ In mixed mode the camera will have the same inclination as the specimen. The cra
 		F_{cx}=F \cos(\alpha) \\ 
 	\end{cases}
 \end{equation}
+
+In concrete terms, G defines an overall energy parameter that accounts for the change in potential energy that accompanies the propagation of a crack in a structure.
 
 \section{Specimen preparation}
 

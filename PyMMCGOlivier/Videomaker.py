@@ -1,5 +1,5 @@
 #Video Displ-Load
-run=1
+run=0
 #run = int(input("Please enter 1 if you want the video: "))
 if run == 1:
     for i in range(len(MatchID.displ)):
@@ -63,15 +63,15 @@ if run == 1:
     cv.destroyAllWindows()
 
 #Video CTOD    
-run=1
+run=0
 #run = int(input("Please enter 1 if you want the video: "))
 if run == 1:
     for i in range(len(COD.wI)):
         fig, ax = plt.subplots(figsize=(7,5))
-        plt.plot(COD.wI[:i+1], MatchID.load[:i+1], 'b-', linewidth=4, label='Mode I with COD pair : %d' %COD.cod_pair)
-        plt.plot(COD.wII[:i+1], MatchID.load[:i+1], 'k--', label='Mode II with COD pair : %d' %COD.cod_pair)
-        plt.xlim(0, 1)
-        plt.ylim(0, 250)
+        plt.plot(MatchID.displ[:i+1], COD.wI[:i+1], 'b-', linewidth=4, label='Mode I with COD pair : %d' %COD.cod_pair)
+        plt.plot(MatchID.displ[:i+1], COD.wII[:i+1], 'k--', label='Mode II with COD pair : %d' %COD.cod_pair)
+        plt.xlim(0, 1.4)
+        plt.ylim(0, 0.35)
         plt.xlabel('CTOD, mm')
         plt.ylabel('Load, N')
         ax.set_xlim(xmin=0)
@@ -95,7 +95,7 @@ if run == 1:
     cv.destroyAllWindows()
 
 #Video Crack
-run=1
+run=0
 #run = int(input("Please enter 1 if you want the video: "))
 if run == 1:
     for j in stagEval:
@@ -121,7 +121,7 @@ if run == 1:
     cv.destroyAllWindows()
 
 #Video Crack2    
-run=1
+run=0
 #run = int(input("Please enter 1 if you want the video: "))
 if run == 1:
     for j in stagEval:
@@ -148,7 +148,7 @@ if run == 1:
     cv.destroyAllWindows()
 
 #Video Crack length    
-run=1
+run=0
 #run = int(input("Please enter 1 if you want the video: "))
 if run == 1:
     for i in range(len(MatchID.displ)):
@@ -157,8 +157,8 @@ if run == 1:
         plt.plot(MatchID.time[:i], dad[:i], 'b', label='Method2')
         plt.xlabel('Images')
         plt.ylabel('Crack length, a(t), mm')
-        plt.xlim(0, 125)
-        plt.ylim(24, 52)
+        plt.xlim(0, 75)
+        plt.ylim(27, 42)
         plt.title(Job)
         fig.tight_layout()
         plt.grid()
@@ -178,7 +178,7 @@ if run == 1:
     cv.destroyAllWindows()
 
 #Video G    
-run=1
+run=0
 #run = int(input("Please enter 1 if you want the video: "))
 if run == 1:
     for i in range(len(MatchID.displ)):
@@ -188,8 +188,8 @@ if run == 1:
         plt.xlabel('Crack length, a(t), mm')
         plt.ylabel('$G_{Ic}, J$')
         plt.legend(loc=2, prop={'size': 8})
-        plt.xlim(24, 52)
-        plt.ylim(0, 0.45)
+        plt.xlim(27, 42)
+        plt.ylim(0, 600)
         plt.title(Job)
         fig.tight_layout()
         plt.grid()
@@ -209,7 +209,7 @@ if run == 1:
     cv.destroyAllWindows()
     
 #Combined videos
-run=1
+run=0
 if run==1:
     path =  "D:\Recherche PRD\EXP\MMCGTests\Video"
     cap1 = cv.VideoCapture(path+'\Disp-Load.avi')

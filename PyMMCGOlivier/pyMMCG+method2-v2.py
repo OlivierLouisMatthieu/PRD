@@ -33,7 +33,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 # Job = 'DCB_002'
-Job = 'e1o1'
+Job = 'e2e2'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -706,7 +706,7 @@ while i < MatchID.stages :
 CTODimage = MatchID.xCoord[a0.X]
 print(CTODimage*Test.mm2pixel)
 
-COD.cod_pair= COD.cod_pair+20  #we are moving away from the fracture
+COD.cod_pair= COD.cod_pair+20  #we are moving away from the fracture if we put 10 for ex the cod is full of nan in the line
 Xm = np.zeros((2, a0.X+1, nombre))
 Ym = np.zeros((2, a0.X+1, nombre))  
 Xm[0,:,0]=MatchID.xCoord[0:a0.X+1]*Test.mm2pixel
@@ -766,8 +766,10 @@ for k in range(alpha_stages,nombre,1):
     if mean[k]>CODyy[indice_plus_prochea1, alpha_stages]:
         ab.append(mean[k]) 
 MEANd = np.interp(np.linspace(0,len(ab),nombre-alpha_stages), range(0,len(ab)), ab)
+#takes only CODs above the COD at index a1 and interpolate in order to have the same number of values
 for k in range(alpha_stages):
     MEANd = np.insert(MEANd, 0, 0)
+#in order to resize MEANd 
 '''    
 plt.plot(range(0,nombre),MEANd,label='VDmean upgraded')
 plt.plot(range(0,nombre),mean, label='VDmean')
@@ -816,6 +818,7 @@ for k in range(alpha_stages,nombre,1):
 for k in range(alpha_stages):           
     aid[k]=999 
     ad[k]=CODxx[999, 0]  
+#a(t)=a0 before the FPZ
 
 for k in range(nombre-1): 
     if ad[k]<ad[k+1]:
@@ -867,11 +870,9 @@ for k in range(0, nombre, 4):
     # display the plot
     plt.show()  
   
-ad.sort()
 for k in range (MatchID.stages-nombre):
-    ad=np.insert(ad, 0, ad[0])
-dad = np.abs(ad - ad[-1])+Test.a0 
-dad.sort()
+    ad=np.insert(ad, -1, ad[-1])
+dad = np.abs(ad - ad[0])+Test.a0 
 
 run=0
 #run = int(input("Please enter 1 if you want the video: "))
@@ -907,8 +908,8 @@ if run == 1:
     for k in range(0, MatchID.stages, 1):
         plt.imshow(I[:, :, k])
         
-        plt.plot([ad[-1]/Cal, ad[-1]/Cal], [0, 1000], color=[0, 1, 0, 0.5], linewidth=2)
-        plt.plot([ad[-(1+k)]/Cal, ad[-(1+k)]/Cal], [0, 1000], color='green', linewidth=2,label='Method2')
+        plt.plot([ad[0]/Cal, ad[0]/Cal], [0, 1000], color=[0, 1, 0, 0.5], linewidth=2)
+        plt.plot([ad[k]/Cal, ad[k]/Cal], [0, 1000], color='green', linewidth=2,label='Method2')
         plt.plot([CTODimage/8-(crackL_J_mm[k,chos_alp]-Test.a0)/Cal, CTODimage/8-(crackL_J_mm[k,chos_alp]-Test.a0)/Cal], [0, 1000], color='red', linewidth=2, label='Method1')
         plt.legend(fontsize=12)
         #plt.plot(X[0, range(0, 1000, 50), k]/Cal, Y[0, range(0, 1000, 50), k]/Cal, 'x', color='red', markersize=8, linewidth=2)
@@ -1020,15 +1021,15 @@ plt.show()
 
 #plt.plot(x, dp(x), '-')
 
-Ginterp = ALPinterp*dp(x)
+Ginterp = ALPinterp*dp(x)*10**3
 
 BET1 = C/a_t #changing the value of alpha from the crack length will change G values
 BET2 = C/dad
 #
 # G = ALP*C_modif
 # G = ALP*fit_a1
-G1 = ALP*BET1
-G2 = ALP*BET2
+G1 = ALP*BET1*10**3
+G2 = ALP*BET2*10**3
 # G = np.dot(ALP,BET)
 
 Gc = np.max(G1)
@@ -1043,7 +1044,7 @@ plt.plot(a_t, G1, 'r:', linewidth=2, label='R-Curve alpha '+ str(chos_alp))
 plt.plot(x, Ginterp, 'g:', linewidth=2, label='R-Curve interpolated alpha  '+ str(chos_alp))
 plt.plot(dad, G2, 'b:', linewidth=2, label='Method2')
 plt.xlabel('Crack length, a(t), mm')
-plt.ylabel('$G_{Ic}, J$')
+plt.ylabel('$G_{Ic}, J/m^2$')
 plt.legend(loc=2, prop={'size': 8})
 plt.grid()
 plt.title(Job)
@@ -1098,4 +1099,4 @@ plt.show()
 # plt.show()
 '''
     
-#exec(open('Videomaker.py').read())
+exec(open('Videomaker.py').read())
