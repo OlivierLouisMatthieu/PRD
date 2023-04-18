@@ -227,7 +227,8 @@ elif Job == 'e3o1':
     # Selecting alpha
     chos_alp = 2
     a1=23.52
-    af=17.947255
+    #af=17.947255
+    af=0.5
     nombre=90
 elif Job == 'e3o2':
     ddeplac = 0.15
@@ -320,8 +321,8 @@ elif Job == 'e4e1':
     COD.cod_pair = 2
     # Selecting alpha
     chos_alp = 2
-    a1=30.164534
-    af=26.892304
+    a1=30.664534
+    af=26.492304
     nombre=212
 elif Job == 'e4p1':
     ddeplac = 0.1

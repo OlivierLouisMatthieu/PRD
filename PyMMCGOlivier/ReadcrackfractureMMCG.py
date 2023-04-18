@@ -4,7 +4,7 @@ import numpy as np
 import re
 from PIL import Image
 
-exec(open('Database.py').read())
+#exec(open('Database.py').read())
 # Récupérer la liste des fichiers TIF dans le dossier Image_Selection
 #path='D:\Recherche PRD\SPR_00_02\SPR_00_02'
 #endS = os.path.join(os.getcwd(), path + '\Image_Selection')
@@ -79,12 +79,14 @@ def select_points(image_path, n_points):
 
 # Initialiser la matrice X
 nbimages=2
+#nbimages=10
 X = np.zeros((nbimages, 2))#in pixel
 Xmm=np.zeros((nbimages, 2))
 
 nombre = input("La dernière image avant la rupture est : ")
 nombre=int(nombre)
 d=np.linspace(alpha_stages, nombre,nbimages)
+#d=np.linspace(0, MatchID.stages,nbimages)
 a=0
 points_list = []
 for k in range(nbimages):
@@ -96,8 +98,8 @@ for k in range(nbimages):
     Xmm[a-1,0]=X[a-1,0]*Test.mm2pixel
     Xmm[a-1,1]=int(d[k])
     
-cracklength=np.abs(Xmm[-1,0]-Xmm[0,0])+Test.a0
-print('The crack length with python is: ', cracklength)
+#cracklength=np.abs(Xmm[-1,0]-Xmm[0,0])+Test.a0
+#print('The crack length with python is: ', cracklength)
 a1=Xmm[0,0]
 af=Xmm[-1,0]
 

@@ -10,6 +10,7 @@ import pandas as pd
 import statsmodels.formula.api as smf
 from scipy.optimize import curve_fit
 from PIL import Image
+from scipy.spatial.distance import euclidean
 # import tkinter as tk
 # from PIL import Image, ImageTk
 import glob
@@ -32,8 +33,8 @@ plt.rcParams.update(params)
 
 ###  USER #####################################################################
 # cwd = os.getcwd()
-# Job = 'DCB_002'
-Job = 'e2e2'
+#Job = 'DCB_002'
+Job = 'e1o1'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -42,6 +43,7 @@ elif runuser == 'Olivier':
     maincwd = "D:\Recherche PRD\EXP\MMCGTests"
 
 cwd = os.path.join(maincwd, Job)
+
 
 ###############################################################################
 
@@ -278,6 +280,18 @@ plt.plot(MatchID.displ, CTODI[ud_limitup, 2, :], 'r--', linewidth=1, label='COD 
 plt.plot(MatchID.displ, CTODI[ud_limitdown, 2, :], 'k+', linewidth=2, label='COD pair : %d' %ud_limitdown)
 plt.plot(MatchID.displ, COD.wII, 'k--', label='Mode II with COD pair : %d' %COD.cod_pair)
 plt.xlabel('Displacement, mm')
+plt.ylabel('CTOD, mm')
+ax.set_xlim(xmin=0)
+ax.set_ylim(bottom=0)
+plt.grid()
+plt.legend(loc=2, prop={'size': 8})
+fig.tight_layout()
+plt.show()
+
+fig, ax = plt.subplots(figsize=(7,5))
+plt.plot(COD.wI, MatchID.load, 'b-', linewidth=4, label='Mode I with COD pair : %d' %COD.cod_pair) #chosen among 10 one by the user
+plt.plot(COD.wII, MatchID.load, 'k--', label='Mode II with COD pair : %d' %COD.cod_pair)
+plt.xlabel('Load, N')
 plt.ylabel('CTOD, mm')
 ax.set_xlim(xmin=0)
 ax.set_ylim(bottom=0)
@@ -931,10 +945,13 @@ if run == 1:
     output.release()
     cv.destroyAllWindows()
 
+#exec(open('ReadcrackfractureMMCG.py').read())
+#Xmm[:,0]=CTODimage*Test.mm2pixel-Xmm[:,0]+Test.a0
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
 plt.plot(MatchID.time, dad, 'b', label='Method2')
+#plt.plot(Xmm[:,1], Xmm[:,0],'bo', markersize=5)
 plt.xlabel('Images')
 plt.ylabel('Crack length, a(t), mm')
 plt.tick_params(axis='both', labelsize=14)
@@ -944,6 +961,14 @@ fig.tight_layout()
 plt.grid()
 plt.show()   
 
+# Calculer la distance euclidienne entre les deux courbes
+distance = euclidean(crackL_J_mm[:,chos_alp], dad)
+
+# Afficher la distance euclidienne
+print("The Euclidean distance between the two curves is :", distance)
+
+#In the case of two curves plotted in a plot, the Euclidean distance between these curves measures the difference between the values of the corresponding points on the two curves. If the Euclidean distance is small, it means that the curves are similar.
+#distance(C1, C2) = sqrt((P1[1]-P2[1])^2 + (P1[2]-P2[2])^2 + ... + (P1[n]-P2[n])^2)
 #%% computing GI (R-curve)
 
 print('computing GI (R-curve)..')
@@ -1099,4 +1124,4 @@ plt.show()
 # plt.show()
 '''
     
-exec(open('Videomaker.py').read())
+#exec(open('Videomaker.py').read())

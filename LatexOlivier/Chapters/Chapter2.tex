@@ -268,7 +268,7 @@ After translating the code, we realised that this method did not work properly f
 From the data of method 1, we already know the position of a0 and all the displacements over time that have occurred on the entire wooden specimen. However, for method 2, we only need 2 horizontal lines placed above and below the fracture. It is therefore sufficient to take only one part of the data from the specimen. Moreover, it was chosen to take these two lines far enough away from the fracture in order not to have subsets without any data.
 However, method 2 still did not work well and we will try to explain why it does not work properly.
 
-The figure \ref{fig:fig31} corresponds to the plot of $\overline{VD}$ and $VD_{th}$ with Joao's data, the author of the method. We read graphically $a_1$ and $a_f$, which allowed us to know the $VD_{th}$ for index 1 and the last index which are the bounds on the y-axis for the yellow curve. We notice that the yellow curve has the same shape as the blue curve, is still increasing but has only been reduced at the ordinate level. This is what we want to achieve for the MMCG specimens.
+The figure \ref{fig:fig31} corresponds to the plot of $\overline{VD}$ and $VD_{th}$ with Joao's data, the author of the method. We read graphically $a_1$ and $a_f$, which allowed us to know the $VD_{th}$ for index 1 and the last index which are the bounds on the y-axis for the $VD_{th}$ curve. We notice that the $VD_{th}$ curve has the same shape as the $\overline{VD}$ curve, is still increasing but has only been reduced at the ordinate level. This is what we want to achieve for the MMCG specimens.
 
 For the MMCG test data, by applying $VD_{th1}$ and $VD_{thf}$ as in Joao's data, we notice that the $VD_{th}$ curve increases and then decreases, which is not normal since the COD should normally increase with time (figure \ref{fig:fig32}). This is due to the alpha and beta factors which increase $\overline{VD}$ for the first indices and then decrease $\overline{VD}$ for the last indices. According to the equation \ref{eq:eqVDth} alpha is multiplied by $i_n$ which will decrease the multiplier coefficient of $\overline{VD}$ over time if alpha is negative and beta positive. This is the reason why $VD_{th}$ is under $\overline{VD}$  for the latest indices.
 
@@ -289,17 +289,17 @@ For the MMCG test data, by applying $VD_{th1}$ and $VD_{thf}$ as in Joao's data,
 \end{figure}
 
 
-Method 1 was then used to find out from which image the fracture process starts. Method 2 directly increased the length of the crack for the first images, which is not normally the case for wood.  Indeed, it is considered that for all the images before the fracture zone there is a(t)=a0. We therefore read $a_1$ and $a_f$ with $a_1$ the index of the beginning of the fracture process and $a_f$ the last image before the material breaks. The graph \ref{fig:fig33} is then obtained:
+Method 1 was then used to find out from which image the fracture process starts. Method 2 directly increased the length of the crack for the first images, which is not normally the case for wood.  Indeed, it is considered that for all the images before the FPZ there is a(t)=a0. We therefore read $a_1$ and $a_f$ with $a_1$ the index of the beginning of the fracture process and $a_f$ the last image before the material breaks. The graph \ref{fig:fig33} is then obtained:
 
 
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=7cm]{fig33}
-	\caption{Crack length with FPZ taken into account)}
+	\caption{Crack length with FPZ taken into account}
 	\label{fig:fig33}
 \end{figure}
 
-The fracture for method 2 starts much later than method 1 and are different. 
+The fracture for method 2 starts much later than method 1 and are different over the time. Furthermore, the crack length does not end at the same place, because for method 2 the fracture at the last index is read graphically which is less accurate.
 Because the $\overline{VD}$ is too small compared to the graphically obtained $VD_{th1}$, an interpolation is made to increase the $\overline{VD}$. The graph \ref{fig:fig34} is obtained:
 
 \begin{figure}[htp]
@@ -327,7 +327,7 @@ Thanks to this interpolation, we apply alpha and beta (figure \ref{fig:fig35}) a
 	\end{minipage}
 \end{figure}
 
-To conclude, the crack propagation does not start at the same stage between the two methods and the crack length is different over time. Moreover we had to modify a lot Joao's initial method to apply it to wood material. We are not sure that it works efficiently. Moreover, it adds uncertainties since we have to read graphically $a_1$ and $a_f$ to obtain the crack length thresholds at the beginning and at the end of the propagation. Method 2 gives a "smoother" curve than method 1, but this is not necessarily a good thing since the fracture of wood material usually works in fits and starts. Method 2 probably does not work with wood, because the COD (VDmean) is not as linear as with soft fibrus material  as we can see in figure \ref{fig:fig31} and \ref{fig:fig32}.
+To conclude, the crack propagation does not start at the same stage between the two methods and the crack length is different over time. Moreover we had to modify a lot Joao's initial method to apply it to wood material. Moreover, it adds uncertainties since we have to read graphically $a_1$ and $a_f$ to obtain the crack length thresholds at the beginning and at the end of the propagation. Reading the points $a_1$ and $a_f$ is really difficult to evaluate manually for this material because the fracture is not clearly visible on the images. In addition, the index for $a_1$ and $a_f$ is given by method 1 which adds further uncertainties. Method 2 gives a "smoother" curve than method 1, but this is not necessarily a good thing since the fracture of wood material usually works in fits and starts. Method 2 probably does not work with wood, because the $\overline{VD}$ is not as linear as with soft fibrous material  as we can see in figure \ref{fig:fig31} and \ref{fig:fig32}.
 
 \subsection{Energy restitution rate}
 
