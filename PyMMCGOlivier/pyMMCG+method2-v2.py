@@ -34,7 +34,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e1o1'
+Job = 'e4e1'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -876,7 +876,7 @@ for k in range(0, nombre, 4):
     plt.tick_params(axis='both', labelsize=14)
     plt.legend(fontsize=12)
     # set the axis limits and turn on the box
-    plt.gca().set_xlim([0, 32])
+    plt.gca().set_xlim([0, 34])
     plt.gca().set_ylim([0, 0.6])
     # turn off the grid and set the background color of the plot
     plt.grid(False)
@@ -946,12 +946,12 @@ if run == 1:
     cv.destroyAllWindows()
 
 #exec(open('ReadcrackfractureMMCG.py').read())
-#Xmm[:,0]=CTODimage*Test.mm2pixel-Xmm[:,0]+Test.a0
+crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
 plt.plot(MatchID.time, dad, 'b', label='Method2')
-#plt.plot(Xmm[:,1], Xmm[:,0],'bo', markersize=5)
+plt.plot(indices, crack,'bo', markersize=5)
 plt.xlabel('Images')
 plt.ylabel('Crack length, a(t), mm')
 plt.tick_params(axis='both', labelsize=14)

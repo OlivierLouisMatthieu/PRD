@@ -3,7 +3,7 @@
 
 \section{Introduction}
 
-This chapter focuses on the preparation of the tests and the tools used to obtain results. Another section is devoted to the application of the DIC method and the proper use of MatchID. It explains some important parameters such as subset size, step size in order to make the DIC analysis as accurate as possible.
+This chapter focuses on the preparation of the tests and the tools used to obtain results. A section is devoted to the application of the DIC method and the proper use of MatchID. It explains some important parameters such as subset size, step size in order to make the DIC analysis as accurate as possible.
 Finally, two fracture analysis methods are presented. A Python code was developed for both methods, and this section also allows a comparison of these two methods and a judgment on which is the most effective.
 
 \section{Tools used during the test}
@@ -348,7 +348,17 @@ For mixed mode, the formula becomes:
 	\end{cases}
 \end{equation}
 
-In mixed mode the camera will have the same inclination as the specimen. The crack opening values will therefore be projected directly along the x and y axes. The force is projected along the x and y axes, so we have:
+In mixed mode the camera will have the same inclination as the specimen figure \ref{fig:fig37bis}.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=9cm]{fig37bis}
+	\caption{Force projection along the axes in mixed mode, \cite{Odounga2018phd}}
+	\label{fig:fig37bis}
+\end{figure}
+
+The crack opening values will therefore be projected directly along the x and y axes. The force is projected along the x and y axes, so we have:
+
 
 \begin{equation}
 	\begin{cases}
