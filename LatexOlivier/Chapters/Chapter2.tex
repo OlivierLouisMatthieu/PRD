@@ -47,7 +47,7 @@ This part has a hole of the same size as the holes of the Arcan system in order 
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=5cm]{fig26}
+	\includegraphics[width=7cm]{fig26}
 	\caption{Assembled device in Solidworks}
 	\label{fig:fig26}
 \end{figure}
@@ -153,7 +153,7 @@ Python is a computer programming language often used to create websites and soft
 
 A second data processing is necessary to obtain the position of the crack front and the displacements. This will allow later to plot the force as a function of the crack opening or as a function of the crack length. This will also allow to plot the energy release rate G as a function of the crack length a. Below are described two methods:
 
-\subsection{Method 1}
+\subsection{Method 1: Crack propagation based on full-field displacement fields provided by DIC}
 
 \textbf{Database}
 
@@ -207,7 +207,7 @@ A part of the code allows to check the length of the crack graphically by select
 
 Another part of the code allows us to obtain a(t) as a function of alpha. This is done by focusing on the ZOI and the number of subsets that compose it. Through the matrix composed by each subset, the displacement field can be observed. It is obtained by calculating the distance between the center of a subset and its displacement from one image to another. To simplify the code, this calculation is not performed on each subset but only on the four corners. By calculating the distance between the opposite corners, the maximum displacement in x and the displacement in y are introduced in a last matrix. Finally, the value of a(t) is equal to $a_0$ set by the user in the database and to $\Delta a$ which is the value of the crack length, evolving in time under the effect of the applied force.
 
-\subsection{Method 2}
+\subsection{Method 2: Crack propagation based on crack opening displacement provided by DIC}
 
 Method 2 uses the crack opening along the entire length of the wooden specimen to determine the length of the crack (\cite{FilhoJ2022}). 
 
@@ -223,7 +223,7 @@ where the indices t and b refer to the DIC data points located at the top and bo
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=8cm]{fig30}
+	\includegraphics[width=10cm]{fig30}
 	\caption{DIC-based virtual displacement gauge (VDG), \cite{FilhoJ2022}}
 	\label{fig:fig30}
 \end{figure}
@@ -289,7 +289,7 @@ For the MMCG test data, by applying $VD_{th1}$ and $VD_{thf}$ as in Joao's data,
 \end{figure}
 
 
-Method 1 was then used to find out from which image the fracture process starts. Method 2 directly increased the length of the crack for the first images, which is not normally the case for wood.  Indeed, it is considered that for all the images before the FPZ there is a(t)=a0. We therefore read $a_1$ and $a_f$ with $a_1$ the index of the beginning of the fracture process and $a_f$ the last image before the material breaks. The graph \ref{fig:fig33} is then obtained:
+Method 1 was then used to find out from which image the fracture process starts. Method 2 directly increased the length of the crack for the first images, which is not normally the case for wood.  Indeed, it is considered that for all the images before the FPZ there is a(t)=a0. We therefore read $a_1$ and $a_f$ with $a_1$ the index of the beginning of the fracture process and $a_f$ the last image before the material breaks. The graph \ref{fig:fig33} is then obtained.
 
 
 \begin{figure}[htp]
@@ -327,7 +327,8 @@ Thanks to this interpolation, we apply alpha and beta (figure \ref{fig:fig35}) a
 	\end{minipage}
 \end{figure}
 
-To conclude, the crack propagation does not start at the same stage between the two methods and the crack length is different over time. Moreover we had to modify a lot Joao's initial method to apply it to wood material. Moreover, it adds uncertainties since we have to read graphically $a_1$ and $a_f$ to obtain the crack length thresholds at the beginning and at the end of the propagation. Reading the points $a_1$ and $a_f$ is really difficult to evaluate manually for this material because the fracture is not clearly visible on the images. In addition, the index for $a_1$ and $a_f$ is given by method 1 which adds further uncertainties. Method 2 gives a "smoother" curve than method 1, but this is not necessarily a good thing since the fracture of wood material usually works in fits and starts. Method 2 probably does not work with wood, because the $\overline{VD}$ is not as linear as with soft fibrous material  as we can see in figure \ref{fig:fig31} and \ref{fig:fig32}.
+To conclude, the crack propagation does not start at the same stage between the two methods and the crack length is different over the time. Moreover we had to modify a lot Joao's initial method to apply it to wood material. Moreover, it adds uncertainties since we have to read graphically $a_1$ and $a_f$ to obtain the crack length thresholds at the beginning and at the end of the propagation. Reading the points $a_1$ and $a_f$ is really difficult to evaluate manually for this material because the fracture is not clearly visible on the images. In addition, the index for $a_1$ and $a_f$ is given by method 1 which adds further uncertainties. Method 2 gives a "smoother" curve than method 1, but this is not necessarily a good thing since the fracture of wood material usually works in fits and starts.
+As observed in method 1, the fracture process typically involves multiple stages, which can be attributed to the gradual propagation of cracks. In some instances, the presence of bridges in the material can impede the linear advancement of the crack. However, once these bridges break, the crack can propagate further, resulting in the development of a new stage in the fracture process. This underscores the complex nature of crack propagation in wood. Method 2 probably does not work properly with wood, because the $\overline{VD}$ is not as linear as with soft fibrous material  as we can see in figure \ref{fig:fig31} and \ref{fig:fig32}.
 
 \subsection{Energy restitution rate}
 

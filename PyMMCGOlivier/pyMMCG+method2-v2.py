@@ -34,7 +34,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e4e1'
+Job = 'e2e2'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -857,6 +857,7 @@ for k in range(1, nombre,4):
     plt.grid(False)
 plt.show()
 
+'''
 x = []
 y = []
 for k in range(0, nombre, 4):
@@ -882,7 +883,8 @@ for k in range(0, nombre, 4):
     plt.grid(False)
     plt.box(True)
     # display the plot
-    plt.show()  
+    plt.show() 
+'''
   
 for k in range (MatchID.stages-nombre):
     ad=np.insert(ad, -1, ad[-1])
@@ -981,6 +983,7 @@ a_t = crackL_J_mm[:,chos_alp]
 C = MatchID.displ/MatchID.load
 ALP = (MatchID.load**2)/(2*Test.thickness)
 
+'''
 first_value = a_t[0]
 first_indice = 0
 for i in range(1, MatchID.stages):
@@ -994,12 +997,41 @@ for i in range(MatchID.stages-1, -1, -1):
     if a_t[i] != last_value:
         last_indice = i
         break
-    
+   
     
 #Polynomal fit for G
 x=a_t[first_indice-1:last_indice+2]
 y=C[first_indice-1:last_indice+2]
 ALPinterp=ALP[first_indice-1:last_indice+2]
+'''
+
+x=a_t
+y=C
+ALPinterp=ALP
+
+# Obtenir les indices des éléments uniques de x
+indices_uniques = np.unique(x, return_index=True)[1]
+
+# Extraire les éléments correspondants dans x, y, et ALPinterp
+x = x[indices_uniques]
+y = y[indices_uniques]
+ALPinterp = ALPinterp[indices_uniques]
+
+#indices_uniques=indices_uniques+first_indice
+indices_uniques=indices_uniques
+
+fig = plt.figure(figsize=(7,5))
+plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
+plt.plot(indices_uniques, x, 'b', label='Method1 without duplicates')
+plt.plot(indices, crack,'bo', markersize=5)
+plt.xlabel('Images')
+plt.ylabel('Crack length, a(t), mm')
+plt.tick_params(axis='both', labelsize=14)
+plt.legend(fontsize=12)
+plt.title(Job)
+fig.tight_layout()
+plt.grid()
+plt.show()  
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(x,y, 'k-', linewidth=3)
@@ -1027,7 +1059,7 @@ def polyfit(x, y, degree):
     return results
 
 # Interpoler la fonction avec un polynôme de degré 3
-results = polyfit(x, y, 2)
+results = polyfit(x, y, 3)
 coeffs = results['polynomial']
 r_squared = results['determination']
 p = np.poly1d(coeffs)
@@ -1075,7 +1107,7 @@ plt.grid()
 plt.title(Job)
 plt.show()
 
-'''
+
 # write array results on a csv file:
 RES = np.array([MatchID.displ[:], MatchID.load[:], C[:], COD.wI[:], a_t[:], G1[:]])
 RES = np.transpose(RES)
@@ -1093,7 +1125,7 @@ out_file.write(str(COD_max) + '\n')
 out_file.write(str(Lc) + '\n')
 out_file.write(str(Gc) + '\n')
 out_file.close()
-'''
+
 
 '''
 print('computing GI and GII (R-curve)..')
