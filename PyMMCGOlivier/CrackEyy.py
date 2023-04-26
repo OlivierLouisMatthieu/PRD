@@ -240,3 +240,22 @@ for i in range(len(crack_tip)):
 crackE=np.abs(crackE[0]-crackE)+Test.a0
 #crackE.sort()
 plt.plot(t,crackE)
+
+# définir les seuils de gradient
+threshold1 = 50
+threshold2 = 150
+
+for i in range(MatchID.stages):
+    # appliquer un filtre gaussien pour réduire le bruit
+    Eyy_blur = cv.GaussianBlur(Eyy[:, :, i], (5,5), 0)
+    
+    # normaliser les valeurs de Eyy pour qu'elles soient entre 0 et 255
+    Eyy_norm = cv.normalize(Eyy_blur, None, 0, 255, cv.NORM_MINMAX, cv.CV_8U)
+    
+    # détecter les contours avec la méthode de Canny
+    edges = cv.Canny(Eyy_norm, threshold1, threshold2)
+    
+    # afficher les contours détectés
+    plt.imshow(edges, cmap='gray')
+    plt.title('Contours de fissure détectés'+ str(i))
+    plt.show()

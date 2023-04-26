@@ -27,7 +27,7 @@ if Job == 'e1o1':
     COD.cod_pair = 3
     # Selecting alpha
     chos_alp = 1
-    a1=27.649632
+    a1=27.149632
     af=7.3875245
     nombre=118
     indices = [0, 10, 20, 30, 40,50,60,70,80,90,100]
