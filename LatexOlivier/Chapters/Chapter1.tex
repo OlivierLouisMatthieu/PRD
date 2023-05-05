@@ -197,10 +197,11 @@ By weighing: we determine by weighing the decrease in mass of a sample between c
 
 Electrical measurement: moisture meters are designed on the same calculation basis. These devices calibrated in percentage of wood moisture give the value of wood moisture instantly. You just have to enter the density of the species and to put the device on the sample wood, then we read directly the value of the rate of moisture content.
 
-The moisture content HI of each specimen can be expressed as a percentage by the following formula:
+The moisture content HI of each specimen can be expressed as a percentage by the formula \ref{eq:HI}:
 
 \begin{equation}
 	HI(\%) = \frac{M_{H}-M_{0}}{M_{0}}
+	\label{eq:HI}
 \end{equation}
 
 where MH is the mass, in grams, of the specimen before drying. M0 is the mass, in grams, of the anhydrous specimen. Moisture exists in 3 forms in wood:
@@ -239,18 +240,20 @@ When all the free water is gone and all the bound water remains, the cell walls 
 
 Density is the ratio of the density of wood to that of water. Wood can change in weight and volume as a result of moisture gain and loss. Generally the reference density is calculated with 12\% moisture. In fact, some researchers have shown that Young's modulus, Poisson's ratio and shear modulus depend on wood density. The density of wood varies from one species to another and also within the same species. The more fibers the wood has, the denser it is. If we take the example of balsa, it has a low proportion of fibers and therefore a low density. Conversely, panacoco has a high proportion of fibers and therefore has a high density \cite{Thibaut2015phd}.
 
-\cite{BodigandJayne1982}  developed a formula that relates the mechanical properties of the generalized Hooke's law to the density of wood by the relation :
+\cite{BodigandJayne1982}  developed a formula \ref{eq:eq12} that relates the mechanical properties of the generalized Hooke's law to the density of wood by the relation :
 
 \begin{equation}
 	Y = a*D^b
+	\label{eq:eq12}
 \end{equation}
 
 where Y represents the elastic properties, D is the density of the wood, a and b are two constants given in the charts for each wood species.
 
-The density is expressed by the following formula:
+The density is expressed by the formula \ref{eq:eq13}:
 
 \begin{equation}
 	\rho = \frac{\rho_{woodspecimen}}{\rho_{4degreewater}}
+	\label{eq:eq13}
 \end{equation}
 
 \subsection{Mechanical properties}
@@ -269,10 +272,11 @@ Wood is considered as an elastic material. It means that wood will return to its
 
 The curves in Figure \ref{fig:fig7} show the compressive and tensile behaviour of flawless wood loaded parallel to the fibres (solid line) and perpendicularly (dashed line) at a constant strain rate. Cellulose provides high mechanical properties in the longitudinal direction, as this is the direction in which it is oriented. In the transverse direction, the little cohesion provided by the lignin is not sufficient to hold the fibres together, only the radial tracheids provide a little strength. It can be said that wood without defects has a strong anisotropy. It is rigid and strong parallel to the fibres, sensitive to splitting and has low shear strength \cite{Taazount2021}.
 
-Considering a one-dimensional behavior model in the direction of the fibers, we can write :
+Considering a one-dimensional behavior model in the direction of the fibers, we can write \ref{eq:eq14} :
 
 \begin{equation}
 	\sigma = E_{L}*\epsilon
+	\label{eq:eq14}
 \end{equation}
 
 With the proportionality between the stress $\sigma$ and the deformation $\epsilon$ along the fiber axis with respect to the wood grain, $ E_L $ represents the "longitudinal modulus of elasticity" which must in all rigor be characterized for each load case in tension, compression, bending etc.
@@ -319,10 +323,11 @@ The strength of the wood can then be assessed if it is loaded obliquely, i.e. th
 	\label{fig:fig10}
 \end{figure}
 
-Figure \ref{fig:fig10} shows the variation of the compressive strength of wood as a function of the load angle. It can be seen that the strength is maximum for a load parallel to the fibres (fc,0) and minimum for a load perpendicular to the fibres (fc,90). Theoretically, the compressive strength can be evaluated as a function of this angle using the Hankinson formula. A similar formula exists for the modulus.
+Figure \ref{fig:fig10} shows the variation of the compressive strength of wood as a function of the load angle. It can be seen that the strength is maximum for a load parallel to the fibres (fc,0) and minimum for a load perpendicular to the fibres (fc,90). Theoretically, the compressive strength can be evaluated as a function of this angle using the Hankinson formula. A similar formula \ref{eq:eq15} exists for the modulus.
 
 \begin{equation}
 	\sigma_{\alpha} = \frac{\sigma_{0}*\sigma_{90}}{\sigma_{\alpha}*sin(\alpha)^2+\sigma_{90}*cos(\alpha)^2}
+	\label{eq:eq15}
 \end{equation}
 
 \textbf{Tensile behaviour}
@@ -372,7 +377,7 @@ Shear strenght & 2.5 -- 3.5 \unit{\mega\pascal}
 %	\centering
 %	\includegraphics[width=10cm]{fig13}
 %	\caption{Shear strenght values}
-%	\label{fig:fig13}
+%	\{fig:fig13}
 %\end{table}
 
 
@@ -469,14 +474,14 @@ It is important to notice that different zones are studied. In fracture mechanic
 	\label{fig:fig19}
 \end{figure}
 
-For a linear elastic material, the stress field at a point M in the vicinity of the crack can be expressed simply as a function of the stress intensity factor $K_{I,II,III}$ and the polar coordinates ( r, $\theta$). The dimensionless functions $f_{ij}$  and  $g_{ij}$ depend on the mode of loading. The intensity factor is independent of the point M. Moreover, in the vicinity of the crack tip the value of r is very small, and tends to 0. Thus the stress field is expressed :
+For a linear elastic material, the stress field at a point M in the vicinity of the crack can be expressed simply as a function of the stress intensity factor $K_{I,II,III}$ and the polar coordinates ( r, $\theta$). The dimensionless functions $f_{ij}$  and  $g_{ij}$ depend on the mode of loading. The intensity factor is independent of the point M. Moreover, in the vicinity of the crack tip the value of r is very small, and tends to 0. Thus the stress field is expressed by \ref{eq:eq16}:
 
 \begin{equation}
 	\sigma_{i,j} = \frac{K_{\beta}}{\sqrt{2*\pi*r}}*f_{i,j}(\theta)
-	\label{eq:eq1}
+	\label{eq:eq16}
 \end{equation}
 
-The coefficient $K_\beta$ in the equation \ref{eq:eq1} is the stress intensity factor (mode I and mode II) and is independent of the point M, Figure \ref{fig:fig20}.
+The coefficient $K_\beta$ in the equation \ref{eq:eq16} is the stress intensity factor (mode I and mode II) and is independent of the point M, Figure \ref{fig:fig20}.
 
 
 \begin{figure}[htp]
@@ -492,24 +497,29 @@ We have seen that there are three ways of applying a force, to a specimen, to al
 
 \begin{equation}
 	\sigma_{1,1} = \frac{K_{1}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}  \left( 1-\sin{\frac{\theta}{2}} \sin{\frac{3 \theta}{2}} \right)
+	\label{eq:eq17}
 \end{equation}
 
 \begin{equation}
 	\sigma_{2,2} = \frac{K_{1}}{\sqrt{2 \pi*r}} \cos{\frac{\theta}{2}}  \left( 1+\sin{\frac{\theta}{2}} \sin{\frac{3 \theta}{2}} \right)
+	\label{eq:eq18}
 \end{equation}
 
 \begin{equation}
 	\sigma_{1,2} = \frac{K_{1}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}  \sin{\frac{\theta}{2}} \cos{\frac{3 \theta}{2}}
+	\label{eq:eq19}
 \end{equation}
 
 The displacement field for the mode 1 loading is written as follows:
 
 \begin{equation}
 	u_{1} = \frac{K_{1}}{4 \pi}*\sqrt{\frac{r}{2 \pi}} \left((2 \chi-1) \sin{\frac{\theta}{2}}-\sin{\frac{3 \theta}{2}}\right)
+	\label{eq:eq110}
 \end{equation}
 
 \begin{equation}
 	u_{2} = \frac{K_{1}}{4 \pi} \sqrt{\frac{r}{2*\pi}} \left((2 \chi+1) \sin{\frac{\theta}{2}}-\sin{\frac{3 \theta}{2}}\right)
+	\label{eq:eq111}
 \end{equation}
 
 With : 
@@ -534,24 +544,29 @@ r and $\theta$ polar coordinates of point M centred on the crack tip, Figure 11
 
 \begin{equation}
 	\sigma_{1,1} = \frac{-K_{2}}{\sqrt{2 \pi r}} \sin{\frac{\theta}{2}}  \left( 2+\cos{\frac{\theta}{2}} \cos{\frac{3 \theta}{2}} \right)
+	\label{eq:eq112}
 \end{equation}
 
 \begin{equation}
 	\sigma_{2,2} = \frac{K_{2}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}  \sin{\frac{\theta}{2}} \cos{\frac{3 \theta}{2}}
+	\label{eq:eq113}
 \end{equation}
 
 \begin{equation}
 	\sigma_{1,2} = \frac{K_{2}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}  \left( 1-\sin{\frac{\theta}{2}} \sin{\frac{3 \theta}{2}} \right)
+	\label{eq:eq14}
 \end{equation}
 
 The displacement field for the mode 2 loading is written as follows:
 
 \begin{equation}
 	u_{1} = \frac{-K_{2}}{4 \pi} \sqrt{\frac{r}{2 \pi}} \left((2 \chi+3) \sin{\frac{\theta}{2}}+\sin{\frac{3 \theta}{2}}\right)
+	\label{eq:eq115}
 \end{equation}
 
 \begin{equation}
 	u_{2} = \frac{K_{2}}{4 \pi} \sqrt{\frac{r}{2 \pi}} \left((2 \chi+3) \cos{\frac{\theta}{2}}+\cos{\frac{3 \theta}{2}}\right)
+	\label{eq:eq117}
 \end{equation}
 
 With : $K_2$  the mode 2 stress intensity factor
@@ -562,26 +577,30 @@ With : $K_2$  the mode 2 stress intensity factor
 
 \begin{equation}
 	\sigma_{1,3} = \frac{-K_{3}}{\sqrt{2 \pi r}} \sin{\frac{\theta}{2}}
+	\label{eq:eq118}
 \end{equation}
 
 \begin{equation}
 	\sigma_{2,3} = \frac{K_{3}}{\sqrt{2 \pi r}} \cos{\frac{\theta}{2}}
+	\label{eq:eq119}
 \end{equation}
 
 The displacement field for the mode 3 loading is written as follows:
 
 \begin{equation}
 	u_{3} = \frac{-2 K_{3}}{\mu} \sqrt{\frac{r}{2 \pi}} \sin{\frac{\theta}{2}}
+	\label{eq:eq120}
 \end{equation}
 
 With : $K_3$  the mode 3 stress intensity factor
 
 \subsection{Method of the complacency}
 
-In this part we give and define the different terms of the imposed displacement complacency formula. This formula will be used in the next chapters to calculate the energy restitution rate. It is defined by the ratio of two parameters: the variation of energy per unit area cracked and the crack propagation in a linear elastic material. The crack propagation will occur when the energy G reaches a critical value noted Gc. This value Gc is a measure of the toughness of the material. Let us now define the mathematical expression of G. First, let us consider a material with a crack of length a and thickness b. A crack propagation $\Delta$a will be accompanied by the following energy variations:
+In this part we give and define the different terms of the imposed displacement complacency formula. This formula will be used in the next chapters to calculate the energy restitution rate. It is defined by the ratio of two parameters: the variation of energy per unit area cracked and the crack propagation in a linear elastic material. The crack propagation will occur when the energy G reaches a critical value noted Gc. This value Gc is a measure of the toughness of the material. Let us now define the mathematical expression of G. First, let us consider a material with a crack of length a and thickness b. A crack propagation $\Delta$a will be accompanied by the following energy variations \ref{eq:eq121}:
 
 \begin{equation}
 	\Delta W_{ext}=\Delta W_{elast}+\Delta U
+	\label{eq:eq121}
 \end{equation}
 
 With:
@@ -592,16 +611,18 @@ $\Delta W_{elast}$ the change in dissipated energy
 
 $\Delta$U the energy expended during crack propagation over the length $\Delta$a.
 
-The energy G reported to the unit area will be :
+The energy G reported to the unit area will be \ref{eq:eq122} :
 
 \begin{equation}
 	G = \lim_{\Delta \to 0}= \frac{\Delta U}{\Delta A}= \frac{\partial U}{\partial A}
+	\label{eq:eq122}
 \end{equation}
 
-Where $\Delta A=b\Delta a$  is the cracked area during crack propagation. b is usually equal to 1 because a unit thickness is often considered. Therefore, the energy per unit thickness will be of the form :
+Where $\Delta A=b\Delta a$  is the cracked area during crack propagation. b is usually equal to 1 because a unit thickness is often considered. Therefore, the energy per unit thickness will be of the form \ref{eq:eq123} :
 
 \begin{equation}
 	G = \lim_{\Delta \to 0}= \frac{\Delta U}{\Delta a}= \frac{\partial U}{\partial a}
+	\label{eq:eq123}
 \end{equation}
 
 In order to understand the meaning of the energy restitution rate, we will consider, from an initial configuration, the propagation (in a specimen of unit thickness) in the following two classical cases (Figure 18):
@@ -640,19 +661,19 @@ Then we have:
 
 $\Delta U=\frac{x^2}{2C^2}\ \frac{\partial C}{\partial a}\Delta a$
 
-Which enables to obtain:
+Which enables to obtain \ref{eq:eq124}:
 
 \begin{equation}
 	G=\frac{x^2}{2C^2}\ \frac{\partial C}{\partial a}=\frac{F^2}{2}\ \frac{\partial C}{\partial a}
-	\label{2}
+	\label{eq:eq124}
 \end{equation}
 
-The relationship in equation \ref{2} is related to the unit thickness. In the case where $b\neq1$
-we obtain:
+The relationship in equation \ref{eq:eq124} is related to the unit thickness. In the case where $b\neq1$
+we obtain \ref{eq:eq125}:
 
 \begin{equation}
 	G_c=\frac{{F_{ci}}^2}{2b}\ \frac{\partial C}{\partial a}
-	\label{3}
+	\label{eq:eq125}
 \end{equation}
 
 With:
@@ -683,11 +704,11 @@ Digital image correlation (DIC) was developed in 1983. It is a 2D or 3D optical 
 	\label{fig:fig22}
 \end{figure}
 
-The system consists of a digital camera and specialised computer software like MatchID. The camera is used to capture consecutive images of the surface of the sample under test before and during the deformation test. The digital images thus determined, which correspond to a series of photographs, are analysed by the DIC software. Displacement maps of the sample on the surface are created. The stress fields can be evaluated from the strain fields. The formula used to obtain the displacement field is shown below equation \ref{3}:
+The system consists of a digital camera and specialised computer software like MatchID. The camera is used to capture consecutive images of the surface of the sample under test before and during the deformation test. The digital images thus determined, which correspond to a series of photographs, are analysed by the DIC software. Displacement maps of the sample on the surface are created. The stress fields can be evaluated from the strain fields. The formula used to obtain the displacement field is shown below equation \ref{eq:eq126}:
 
 \begin{equation}
 	u^k=\left[{u_z^k\atop u_y^k}\right]=\sum_{i=1}^{N}\left\{\left[{{\ \ f}_i\left(k,\Phi_k\right)\ \ {\ \ g}_i\left(k,\Phi_k\right)\atop{\ \ l}_i\left(k,\Phi_k\right)\ \ {\ \ m}_i\left(k,\Phi_k\right)}\right]\times\left[{A_1^i\atop A_2^i}\right] \times r_k^{i/2}\right\}+\left[{T_x\atop T_y}\right]+R\times\left[{y_k\atop x_k}\right] 
-	\label{3}
+	\label{eq:eq126}
 \end{equation}
 
 With the polar functions $f_i$, $g_i$, $l_i$, $m_i$, k depends on the material because of the Poisson's ratio term which determines k. The T terms are correction factors for rigid body movements.

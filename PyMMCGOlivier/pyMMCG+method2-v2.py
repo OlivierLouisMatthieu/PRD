@@ -1116,7 +1116,7 @@ out_file.write(str(Gc) + '\n')
 out_file.close()
 
 
-'''
+
 print('computing GI and GII (R-curve)..')
 beta=15
 a_t = crackL_J_mm[:,chos_alp]
@@ -1143,6 +1143,6 @@ plt.show()
 # ax.set_ylim(bottom=0)
 # plt.grid()
 # plt.show()
-'''
+
     
 #exec(open('Videomaker.py').read())

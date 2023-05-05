@@ -74,6 +74,7 @@ Latex/main.pdf
 
 ## Generated if empty string is given at "Please type another file name for output:"
 *.pdf
+!ODO2018.pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl

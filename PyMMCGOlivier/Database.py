@@ -227,7 +227,7 @@ elif Job == 'e3o1':
     a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
     ##########################################################################
     # Selecting pair
-    COD.cod_pair = 2
+    COD.cod_pair = 3
     # Selecting alpha
     chos_alp = 2
     a1=23.52

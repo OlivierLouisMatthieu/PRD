@@ -1,5 +1,5 @@
 #Video Displ-Load
-run=1
+run=0
 #run = int(input("Please enter 1 if you want the video: "))
 if run == 1:
     for i in range(len(MatchID.displ)):
@@ -157,8 +157,8 @@ if run == 1:
         plt.plot(MatchID.time[:i], dad[:i], 'b', label='Method2')
         plt.xlabel('Images')
         plt.ylabel('Crack length, a(t), mm')
-        plt.xlim(0, 255)
-        plt.ylim(23.5, 30)
+        plt.xlim(0, 175)
+        plt.ylim(21, 55)
         plt.title(Job)
         fig.tight_layout()
         plt.grid()
@@ -183,13 +183,14 @@ run=1
 if run == 1:
     for i in range(len(MatchID.displ)):
         fig, ax = plt.subplots(figsize=(7,5))
-        plt.plot(a_t[:i], G1[:i], 'r:', linewidth=2, label='R-Curve alpha '+ str(chos_alp))
-        plt.plot(dad[:i], G2[:i], 'b:', linewidth=2, label='Method2')
+        #plt.plot(a_t[:i], G1[:i], 'r:', linewidth=2, label='R-Curve alpha '+ str(chos_alp))
+        #plt.plot(dad[:i], G2[:i], 'b:', linewidth=2, label='Method2')
+        plt.plot(a_interp[:i], G_interp1[:i], 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
         plt.xlabel('Crack length, a(t), mm')
         plt.ylabel('$G_{Ic}, J$')
         plt.legend(loc=2, prop={'size': 8})
-        plt.xlim(23.5, 30)
-        plt.ylim(0, 2500)
+        plt.xlim(23, 30)
+        plt.ylim(0, 900)
         plt.title(Job)
         fig.tight_layout()
         plt.grid()

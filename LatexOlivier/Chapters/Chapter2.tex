@@ -20,6 +20,22 @@ The MMCG test piece was developed by \cite{MoutouPitti2008}. However, the specim
 	\label{fig:fig23}
 \end{figure}
 
+\subsection{Characteristic of the Wood used}
+
+For the tests conducted in this thesis, the European species chosen is the silver fir. This coniferous tree is a derivative of needle trees.  Present on north hemisphere, it is a softwood as Pines or others old trees. Its name originates from its white color and its circumference ranges from 50 to 80 cm. CIRAD data shows a density of 0.45 to 0.60, a SPF of about 30$\%$, and a compressive strength of 41MPa. The tangential shrinkage is significant at 8.7$\%$, whereas the radial shrinkage is at 4$\%$. The wood of the white fir is commonly used for framing, columns, and light framing due to its strength, although it must be treated to prevent fungal and insect attacks. The main concern with this wood is the presence of a water pocket in the tree, as well as its tendency to split, which may limit the use of certain connectors in construction.
+
+In order to compare the future results of tensile tests with the literature review, we need to know some characteristics of our sample.
+We therefore decided to measure its weight, density and moisture content.
+The samples were first weighed just before the test. This measurement is called MH. 
+This allows us to know the mass of the wood samples during the test.
+The density of the wood can also be deduced from the volume of the sample and its mass.
+The sample was previously drawn on autocad. The theoretical surface of the sample can therefore be known directly and multiplied by the thickness.
+Autocad gave us the surface area A=555.703 $cm^2$ and we have V=69.6293$cm^3$
+We can therefore deduce the density of each sample by applying the formula $\rho=M/V$.
+After testing, the specimens are placed in an oven at 103 degrees until the MC mass is stabilised.
+The moisture content can then be determined by applying the equation \ref{eq:HI}.
+Finally, we have the mass, the density and the moisture content to compare our results with the literature review.
+
 \subsection{Arcan model and final grips}
 
 To perform the tests, a steel Arcan system must be designed. Indeed, this part allows to connect the 2MCG wood specimen to the press. In order to create this grip we must first take into account the dimensions of the 2MCG specimen available in Nova school described in figure \ref{fig:fig23}. The shape of the Arcan system must also allow a good visibility on the propagation of the crack. Figure \ref{fig:fig24} shows the Arcan device that we will use, which was inspired from the thesis of \cite{Odounga2018phd}.
@@ -73,42 +89,6 @@ To avoid displacement of the specimens, a preload is applied to the wood specime
 To remedy this problem, it is necessary to examine the load of the hydraulic press before it is used. This value, even if it is negative, will be subtracted from all the others, which will give the preload. Another solution is to continue testing, even after the propagation in the ZOI has ended. Indeed, the value of the load at the end of the test, on a collapsed specimen, will be equal to zero, even if the zero value is negative.
 
 \section{Research and understanding of the parameters of the DIC method}
-
-\subsection{Characteristic of the Wood used}
-
-In this section, the values of the mechanical characteristics (moduli of elasticity, compliances and shear coefficients) are given. As no characterization tests were carried out in this study, the data from the literature are used here, following the document created by \cite{GuitardandElAmri1987}. These values which are the shearing $G_{ij}$ and longitudinal modulus $E_i$ , the Poisson’s coefficient $\nu_{ij}$ and $\rho$ change for each species. Moreover, these values can evolve due to temperature and relative humidity. By knowing the temperature, the relative humidity and the volume weight of a specimen, it is possible to obtain the characteristics wanted. Table \ref{fig:fig29} give us the characteristics for the Pinus Sp Pine at 9.7$\%$ humidity:
-
-
-\begin{table} [h]
-	\begin{tabular}{ccccccc}
-		\toprule % horizontal line at the top of the table
-		  $E_R(N/mm^2)$ & $E_T(N/mm^2)$ & $E_L(N/mm^2)$ & $G_{RT}(N/mm^2)$ & $G_{TL}(N/mm^2)$ & $G_{RL}(N/mm^2)$\\\midrule
-		  1120 & 580 & 16600 & 70 & 680 & 1780 \\
-		\bottomrule % horizontal line at the bottom of the table
-		\toprule
-		$\nu_{RT}(N/mm^2)$ & $\nu_{TR}(N/mm^2)$ & $\nu_{TL}(N/mm^2)$ & $\nu_{LT}(N/mm^2)$ & $\nu_{RL}(N/mm^2)$ & $\nu_{LR}(N/mm^2)$ \\\midrule
-		0.61 & 0.31 & 0.02 & 0.45 & 0.03 & 0.46 \\
-		\bottomrule
-	\end{tabular}
-	\caption{Characteristic of the pinus Sp Pine}
-	\label{fig:fig29}
-\end{table}
-
-\begin{comment}
-\begin{table}[htp]
-	\centering
-	\includegraphics[width=10cm]{fig28}
-	\label{fig:fig28}
-\end{table}
-
-
-\begin{table}[htp]
-	\centering
-	\includegraphics[width=10cm]{fig29}
-	\caption{Characteristic of the Pinus Sp Pine}
-	\label{fig:fig29}
-\end{table}
-\end{comment}
 
 \subsection{Preparation of the DIC method}
 
@@ -177,13 +157,14 @@ To obtain CTOD, it is important to pay attention to the choice a0. Indeed, the c
 
 \textbf{Mapping function and mapping mask}
 
-The method used is based on the variation of the relative position between adjacent subsets which gives an estimate of the damage occurrence \cite{Xavieretal2014}. To begin with, a matching function A(x,y) is determined based on the norm of the relative position vectors as follows:
+The method used is based on the variation of the relative position between adjacent subsets which gives an estimate of the damage occurrence \cite{Xavieretal2014}. To begin with, a matching function A(x,y) \ref{eq:eq21} is determined based on the norm of the relative position vectors as follows:
 
 \begin{equation}
 	A(x,y)=max(\lVert u_i-u_k\rVert;\lVert u_j-u_l\rVert)
+	\label{eq:eq21}
 \end{equation}
 
-where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. A mapping mask is then defined assuming threshold segmentation according to the following inequalities.
+where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. A mapping mask \ref{eq:eq22} is then defined assuming threshold segmentation according to the following inequalities.
 
 \begin{equation}
 	M(x,y)=
@@ -192,6 +173,7 @@ where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. 
 		0 \text{ if } A(x,y)< \alpha \overline{A}\\
 		-1 \text{ if } A(x,y)= no data 
 	\end{cases}
+	\label{eq:eq22}
 \end{equation}
 
 The matrix M represents, for a given step, the length of the crack by having a larger value in the crack area. If the user looks too close, the noise of the values will prevent a good analysis, but looking too high on the matrix, the crack length value will not be accurate. To move around and get an accurate idea of how the user can look at the M matrix, it is important to use $\alpha$. The alpha parameter is like a cutting tool that allows one to get as close to the noise as possible without problems. Thus, when a subset is outside this region, it will be considered as zero. Then, subsets that are placed in the crack, or somewhere where there is a defect or missing information as in the crack, the subset will be defined with a value equal to -1. Then, for all the subsets around the crack, which have a real interest in the study, they will take the value equal to 1. Using this sub-step matrix, now composed of -1, 0, 1, it is possible to plot the whole matrix in shades of gray, and to have an overview of the crack development. So, by following the farthest 1 value in the matrix, it is possible to know the last subset where the crack tip is localized.
@@ -213,10 +195,11 @@ Method 2 uses the crack opening along the entire length of the wooden specimen t
 
 \textbf{Crack opening displacement (COD) or Virtual displacement}
 
-From the reference and current positions of the DIC calculation points, the Euclidean distance between each pair of points can be measured and the COD can be determined as follow:
+From the reference and current positions of the DIC calculation points, the Euclidean distance between each pair of points can be measured and the COD can be determined as \ref{eq:eq23}:
 
 \begin{equation}
 	VD(k,i_n)=\sqrt{(x_{11bk}-x_{11tk})^2 + (x_{22bk}-x_{22tk})^2}_{i_n} - VD(k,i_0)
+	\label{eq:eq23}
 \end{equation}
 
 where the indices t and b refer to the DIC data points located at the top and bottom of the crack path, k is the index of the DIC point, $i_n$ is the image captured at time n, VD(k, i0) is the initial Euclidean distance between the computational points of the top and bottom reference DIC subset obtained from image i0, and $x_{11}$ and $x_{22}$ are their coordinates in the image plane. VD can be defined as a displacement gauge along the crack path \ref{fig:fig30}.
@@ -230,35 +213,38 @@ where the indices t and b refer to the DIC data points located at the top and bo
 
 \textbf{$\alpha$ and $\beta$ parameters}
 
-The first step towards detecting the crack tip is to take the average value of VD:
+The first step towards detecting the crack tip is to take the average value of VD \ref{eq:eq24}:
 
 \begin{equation}
 	\overline{VD}(i_n)=\frac{1}{k} \sum_{k=1}^{k}VD(k,i_n)
+	\label{eq:eq24}
 \end{equation}
 
-The threshold value must be adjusted using the two parameters $\alpha$ and $\beta$ which are obtained by solving the equation below:
+The threshold value must be adjusted using the two parameters $\alpha$ and $\beta$ which are obtained by solving the equation \ref{eq:eq25}:
 
 \begin{equation}
 	\begin{cases}
 		VD_{th}(i_1)=\overline{VD}(i_1)(\alpha i_1 +\beta)\\
 		VD_{th}(i_f)=\overline{VD}(i_f)(\alpha i_f +\beta)\\ 
 	\end{cases}
+\label{eq:eq25}
 \end{equation}
 
 In order to obtain $VD_{th}(i_1)$ and $VD_{th}(i_f)$, it was first necessary to read graphically the position of the crack tip of the first and last image and then to find the intersection between the position of the crack tip and the crack opening VD for those two stages.
 
-Therefore, the adjusted threshold line-cut $VD_{th}(i_n)$ is given by:
+Therefore, the adjusted threshold line-cut $VD_{th}(i_n)$ is given by \ref{eq:eq26}:
 
 \begin{equation}
 	VD_{th}(i_n)=\overline{VD}(i_n)(\alpha i_n +\beta)
-	\label{eq:eqVDth}
+	\label{eq:eq26}
 \end{equation}
 
 The intersection between each $VD_{th}(i_n)$ and the corresponding $VD(k, i_n)$ curve at time n represents the $x_{11}$ position of the crack tip, denoted by ($p_n$).
-It is therefore possible to calculate the growth of the crack at instant n:
+It is therefore possible to calculate the growth of the crack at instant n \ref{eq:eq27}:
 
 \begin{equation}
 	da_n=p_n-p_0
+	\label{eq:eq27}
 \end{equation}
 
 \subsection{Difficulties in applying method 2}
@@ -270,7 +256,7 @@ However, method 2 still did not work well and we will try to explain why it does
 
 The figure \ref{fig:fig31} corresponds to the plot of $\overline{VD}$ and $VD_{th}$ with Joao's data, the author of the method. We read graphically $a_1$ and $a_f$, which allowed us to know the $VD_{th}$ for index 1 and the last index which are the bounds on the y-axis for the $VD_{th}$ curve. We notice that the $VD_{th}$ curve has the same shape as the $\overline{VD}$ curve, is still increasing but has only been reduced at the ordinate level. This is what we want to achieve for the MMCG specimens.
 
-For the MMCG test data, by applying $VD_{th1}$ and $VD_{thf}$ as in Joao's data, we notice that the $VD_{th}$ curve increases and then decreases, which is not normal since the COD should normally increase with time (figure \ref{fig:fig32}). This is due to the alpha and beta factors which increase $\overline{VD}$ for the first indices and then decrease $\overline{VD}$ for the last indices. According to the equation \ref{eq:eqVDth} alpha is multiplied by $i_n$ which will decrease the multiplier coefficient of $\overline{VD}$ over time if alpha is negative and beta positive. This is the reason why $VD_{th}$ is under $\overline{VD}$  for the latest indices.
+For the MMCG test data, by applying $VD_{th1}$ and $VD_{thf}$ as in Joao's data, we notice that the $VD_{th}$ curve increases and then decreases, which is not normal since the COD should normally increase with time (figure \ref{fig:fig32}). This is due to the alpha and beta factors which increase $\overline{VD}$ for the first indices and then decrease $\overline{VD}$ for the last indices. According to the equation \ref{eq:eq26} alpha is multiplied by $i_n$ which will decrease the multiplier coefficient of $\overline{VD}$ over time if alpha is negative and beta positive. This is the reason why $VD_{th}$ is under $\overline{VD}$  for the latest indices.
 
 \begin{figure}[htp]
 	\begin{minipage}[c]{.46\linewidth}
@@ -334,20 +320,19 @@ As observed in method 1, the fracture process typically involves multiple stages
 
 After using one of the two previous methods, we can calculate the energy restitution rate in mode 1 and in mixed mode.
 
-For mode 1, the formula is the one explained in chapter 1:
+For mode 1, the formula is the one explained in chapter 1 \ref{eq:eq125}.
 
-\begin{equation}
-	G_c=\frac{{F_{ci}}^2}{2b}\ \frac{\partial C}{\partial a}
-\end{equation}
-
-For mixed mode, the formula becomes:
+For mixed mode, the formula becomes \ref{eq:eq28}:
 
 \begin{equation}
 	\begin{cases}
-		G_I=\frac{{F_{cx}}^2}{2b}\ \frac{\partial C}{\partial a} \\
-		G_{II}=\frac{{F_{cy}}^2}{2b}\ \frac{\partial C}{\partial a}\\ 
+		G_I=\frac{{F_{cy}}^2}{2b}\ \frac{\partial C}{\partial a} \quad \text{with } C_I=\frac{v}{F_{cy}} \\
+		G_{II}=\frac{{F_{cx}}^2}{2b}\ \frac{\partial C}{\partial a} \quad \text{with } C_{II}=\frac{u}{F_{cx}}\\ 
 	\end{cases}
+\label{eq:eq28}
 \end{equation}
+
+where u and v are the crack opening displacement according to x and y.
 
 In mixed mode the camera will have the same inclination as the specimen figure \ref{fig:fig37bis}.
 
@@ -358,14 +343,15 @@ In mixed mode the camera will have the same inclination as the specimen figure \
 	\label{fig:fig37bis}
 \end{figure}
 
-The crack opening values will therefore be projected directly along the x and y axes. The force is projected along the x and y axes, so we have:
+The crack opening values will therefore be projected directly along the x and y axes. The force is projected along the x and y axes, so we have \ref{eq:eq29}:
 
 
 \begin{equation}
 	\begin{cases}
-		F_{cy}=F \sin(\alpha) \\
-		F_{cx}=F \cos(\alpha) \\ 
+		F_{cx}=F \sin(\alpha) \\
+		F_{cy}=F \cos(\alpha) \\ 
 	\end{cases}
+	\label{eq:eq29}
 \end{equation}
 
 In concrete terms, G defines an overall energy parameter that accounts for the change in potential energy that accompanies the propagation of a crack in a structure.
@@ -378,15 +364,18 @@ Notches were created in each specimen. A precrack is made by a cutter into the n
 
 \subsection{Specimen names}
 
+We have 20 specimens of pinus pinaster of 12.5mm thickness.
+We will therefore use 5 specimens per degree of inclination. This means 5 specimens in pure mode I (0 degrees) and 15 specimens in mixed mode (15,30,45 degrees).
 Naming the specimens allows to know which test was performed on which specimen. The first part of the name corresponds to the inclination of the specimen during the test using the Arcan system:
 \newline
 E0 : Test in pure mode I
 \newline
-E15 : Test with specimen tilt of 15 degrees.
+E15 : Test with specimen tilt of 15 degrees
 \newline
-E30 : Test with specimen tilt of 30 degrees.
+E30 : Test with specimen tilt of 30 degrees
 \newline
-E45 : Test with specimen tilt of 45 degrees.
+E45 : Test with specimen tilt of 45 degrees
+
 
 E15, E30 and E45 are therefore the specimens tested in mixed mode.
 Then the name as a second component is the number of the specimen dedicated to this test.
@@ -395,6 +384,7 @@ Finally, all samples are named as E0E1 which is the first sample used in pure mo
 
 \section{Conclusion}
 
-To complete
+This chapter has given us a better understanding of all the tools used to carry out the tests. It also explains some parameters which are essential to the success of the DIC method. Finally, it presents two methods for evaluating crack length; one using full-field displacement and the other using COD.
+According on the results from the two methods, method 1 appears to be more accurate than method 2. In the next chapter, we will be able to better evaluate the efficiency of the 2 methods.
 
 
