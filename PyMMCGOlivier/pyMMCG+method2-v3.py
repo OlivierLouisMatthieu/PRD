@@ -34,7 +34,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e3o1'
+Job = 'e2e2'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -233,7 +233,7 @@ plt.imshow(img0, cmap='gray', vmin=0, vmax=255)
 plt.plot(a0.imgHuse,a0.imgVuse, color='red', marker='+', markersize=50)
 plt.show()
 
-
+'''
 aux = MatchID.load - np.max(MatchID.load)
 idx = np.argwhere(np.abs(aux) == np.min(np.abs(aux)))
 fig = plt.figure()
@@ -247,7 +247,7 @@ plt.imshow(UY[:, :, 40])
 plt.plot(a0.X,a0.Y,'sr')
 plt.colorbar()
 plt.show()
-
+'''
 #%% Computing CTOD
 
 # Uup, Udown, ||Uup-Udown||
@@ -637,25 +637,6 @@ plt.colorbar()
 plt.title(Job)
 plt.show()
 
-
-fig = plt.figure(figsize=(7,5))
-plt.plot(MatchID.displ,crackL_J_mm[:,chos_alp], '*r--', linewidth=3)
-plt.xlabel('Displacement, mm')
-plt.ylabel('Crack length, a(t), mm')
-plt.title(Job)
-fig.tight_layout()
-plt.grid()
-plt.show()
-
-fig = plt.figure(figsize=(7,5))
-plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3)
-plt.xlabel('Images')
-plt.ylabel('Crack length, a(t), mm')
-plt.title(Job)
-fig.tight_layout()
-plt.grid()
-plt.show()
-
 print('The crack length with alpha is:' ,np.max(crackL_J_mm[:,chos_alp]))
 
 fig = plt.figure()
@@ -939,12 +920,12 @@ if run == 1:
     cv.destroyAllWindows()
 
 #exec(open('ReadcrackfractureMMCG.py').read())
-#crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
+crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
 plt.plot(MatchID.time, dad, 'b', label='Method2')
-#plt.plot(indices, crack,'bo', markersize=5)
+plt.plot(indices, crack,'bo', markersize=5)
 plt.xlabel('Images')
 plt.ylabel('Crack length, a(t), mm')
 plt.tick_params(axis='both', labelsize=14)
@@ -965,13 +946,15 @@ print("The Euclidean distance between the two curves is :", distance)
 
 #%% computing GI (R-curve)
 
+#COD.wI[90]=COD.wI[91]
+#COD.wI[89]=COD.wI[88]
+
 print('computing GI (R-curve)..')
 a_t = crackL_J_mm[:,chos_alp]
-
-# LOAD, DISP , B, CTOD, aDIC
 C = COD.wI/MatchID.load
 ALP = (MatchID.load**2)/(2*Test.thickness)
 
+#Method 1:ma^3+na^2+oa+p
 x1=a_t
 x2=dad
 y=C
@@ -981,6 +964,15 @@ ALPinterp=ALP
 indices_uniques1 = np.unique(x1, return_index=True)[1]
 indices_uniques2 = np.unique(x2, return_index=True)[1]
 
+'''
+indices_uniques1=indices_uniques1-1
+indices_uniques1[0]=242-1
+indices_uniques1 = np.insert(indices_uniques1[1:], len(indices_uniques1) - 1, indices_uniques1[0])
+indices_uniques2=indices_uniques2-1
+indices_uniques2[0]=242-1
+indices_uniques2 = np.insert(indices_uniques2[1:], len(indices_uniques2) - 1, indices_uniques2[0])
+'''
+'''
 indices_non_nulles = np.logical_not(np.isnan(y))
 for i in range(len(indices_uniques1)):
     if False == indices_non_nulles[indices_uniques1[i]]:
@@ -988,12 +980,11 @@ for i in range(len(indices_uniques1)):
 for i in range(len(indices_uniques2)):
     if False == indices_non_nulles[indices_uniques2[i]]:
         indices_uniques2 = np.delete(indices_uniques2, i)
-
+'''
 # Extraire les éléments correspondants dans x, y, et ALPinterp
 x1 = x1[indices_uniques1]
 y1 = y[indices_uniques1]
 ALPinterp1 = ALPinterp[indices_uniques1]
-
 x2 = x2[indices_uniques2]
 y2 = y[indices_uniques2]
 ALPinterp2 = ALPinterp[indices_uniques2]
@@ -1001,8 +992,7 @@ ALPinterp2 = ALPinterp[indices_uniques2]
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
 plt.plot(indices_uniques1, x1, 'b', label='Method1 without duplicates')
-plt.plot(indices_uniques2, x2, 'b', label='Method1 without duplicates')
-#plt.plot(indices, crack,'bo', markersize=5)
+#plt.plot(indices_uniques2, x2, 'b', label='Method1 without duplicates')
 plt.xlabel('Images')
 plt.ylabel('Crack length, a(t), mm')
 plt.tick_params(axis='both', labelsize=14)
@@ -1026,7 +1016,6 @@ def polyfit(x, y, degree):
     results = {}
     coeffs = np.polyfit(x, y, degree)
     results['polynomial'] = coeffs.tolist()
-
     # Calculer le R-squared
     p = np.poly1d(coeffs)
     yhat = p(x)
@@ -1034,7 +1023,6 @@ def polyfit(x, y, degree):
     ssreg = np.sum((yhat-ybar)**2)
     sstot = np.sum((y-ybar)**2)
     results['determination'] = ssreg / sstot
-
     return results
 
 # Interpoler la fonction avec un polynôme de degré 3
@@ -1046,17 +1034,6 @@ dp = p.deriv()
 print("Les coefficients du polynôme sont:", coeffs)
 print("Le coefficient de détermination (R-squared) est:", r_squared)
 
-# Tracer la fonction interpolée
-fig = plt.figure(figsize=(7,5))
-plt.plot(x1, y1, '.', x1, p(x1), '-')
-plt.xlabel('Crack length, a(t), mm')
-plt.ylabel('$C, {Pa}^{-1}$')
-plt.grid()
-plt.title(Job)
-plt.show()
-
-#plt.plot(x, dp(x), '-')
-
 Ginterp1 = ALPinterp1*dp(x1)*10**3
 
 results = polyfit(x2, y2, 3)
@@ -1067,34 +1044,91 @@ dp = p.deriv()
 
 Ginterp2 = ALPinterp2*dp(x2)*10**3
 
+
+#Method2:ma^3+n
+# Define the polynomial function
+def polynomial_func(x, c1, c2):
+    return c1 * x**3 + c2
+
+# Fit the polynomial function
+coefficients, _ = curve_fit(polynomial_func, x1, y1)
+
+# Extract the coefficients
+c11 = coefficients[0]
+c21 = coefficients[1]
+
+# Print the coefficients
+print("Coefficient c1:", c11)
+print("Coefficient c2:", c21)
+Ginterp1j = ALPinterp1*3*c11*x1**2*10**3
+
+coefficients, _ = curve_fit(polynomial_func, x2, y2)
+# Extract the coefficients
+c12 = coefficients[0]
+c22 = coefficients[1]
+# Print the coefficients
+print("Coefficient c1:", c12)
+print("Coefficient c2:", c22)
+
+Ginterp2j = ALPinterp2*3*c12*x2**2*10**3
+
+# Tracer la fonction interpolée
+fig = plt.figure(figsize=(7,5))
+plt.plot(x1, y1, '.', x1, p(x1), '-',x1, polynomial_func(x1, c11, c21), '-')
+plt.xlabel('Crack length, a(t), mm')
+plt.ylabel('$C, {Pa}^{-1}$')
+plt.grid()
+plt.title(Job)
+plt.show()
+
+# Tracer la fonction interpolée
+fig = plt.figure(figsize=(7,5))
+plt.plot(x2, y2, '.', x2, p(x2), '-',x2, polynomial_func(x2, c12, c22), '-')
+plt.xlabel('Crack length, a(t), mm')
+plt.ylabel('$C, {Pa}^{-1}$')
+plt.grid()
+plt.title(Job)
+plt.show()
+
+#Method3=C/a
 BET1 = C/a_t #changing the value of alpha from the crack length will change G values
 BET2 = C/dad
-#
-# G = ALP*C_modif
-# G = ALP*fit_a1
+
 G1 = ALP*BET1*10**3
 G2 = ALP*BET2*10**3
-# G = np.dot(ALP,BET)
 
-Gc = np.max(G1)
-Lc = np.max(Load)
-COD_max = np.max(COD.wI)
-# with open(maincwd + 'Results.csv','a+',newline='', encoding= 'utf-8') as csvfile :
-#     writer = csv.writer(csvfile)
-#     writer.writerow = (Job, COD.wI, Lc, Gc)
-#
+#Method4:DeltaC/Deltaa
 
-a_interp = np.linspace(x1[0], x1[-1], len(MatchID.displ))
+dC_da=np.zeros(len(x1)-1)
+dC_da_mean=np.zeros(len(x1)-2)
+G11=np.zeros(len(x1)-2)
+for i in range(len(x1)-1):
+    dC_da[i]=(y1[i+1]-y1[i])/(x1[i+1]-x1[i])
+for i in range(len(x1)-2):  
+    dC_da_mean[i]=(dC_da[i+1]+dC_da[i])/2
+    G11[i]=ALP[i+1]*dC_da_mean[i]*10**3
+print(np.mean(G11))   
+
+
+
+a_interp1 = np.linspace(x1[0], x1[-1], len(MatchID.displ))
 G_interp1=np.zeros(len(MatchID.displ))
-G_interp1[:] = np.interp(a_interp[:], x1[:], Ginterp1[:])
+G_interp1[:] = np.interp(a_interp1[:], x1[:], Ginterp1[:])
+
+a_interp2 = np.linspace(x2[0], x2[-1], len(MatchID.displ))
+G_interp2=np.zeros(len(MatchID.displ))
+G_interp2[:] = np.interp(a_interp2[:], x2[:], Ginterp2[:])
 
 
 fig = plt.figure(figsize=(7,5))
-#plt.plot(a_t, G1, 'r:', linewidth=2, label='R-Curve alpha '+ str(chos_alp))
-#plt.plot(x1, Ginterp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-plt.plot(a_interp, G_interp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-#plt.plot(x2, Ginterp2, 'b:', linewidth=2, label='Method 2 interpolated ')
-#plt.plot(dad, G2, 'b:', linewidth=2, label='Method2')
+plt.plot(a_t, G1, 'r:', linewidth=2, label='Method 1 alpha '+ str(chos_alp))
+plt.plot(x1, Ginterp1, 'r:', linewidth=2, label='Method I interpolated ma^3+na^2+oa+p alpha  '+ str(chos_alp))
+plt.plot(x1, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
+#plt.plot(a_interp1, G_interp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+#plt.plot(a_interp2, G_interp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+plt.plot(x2, Ginterp2, 'b:', linewidth=2, label='Method 2 interpolated ')
+plt.plot(x2, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
+plt.plot(dad, G2, 'k:', linewidth=2, label='Method2')
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G_{Ic}, J/m^2$')
 plt.legend(loc=2, prop={'size': 8})
@@ -1102,16 +1136,18 @@ plt.grid()
 plt.title(Job)
 plt.show()
 
-
+Gc = np.max(G1)
+Lc = np.max(Load)
+COD_max = np.max(COD.wI)
 # write array results on a csv file:
-RES = np.array([MatchID.displ[:], MatchID.load[:], C[:], COD.wI[:], a_t[:], G1[:]])
+RES = np.array([MatchID.displ[:], MatchID.load[:], C[:], COD.wI[:], a_t[:],dad[:], G1[:], G2[:]])
 RES = np.transpose(RES)
 # pd.DataFrame(RES).to_csv("path/to/file.csv")
 # converting it to a pandas dataframe
 res_df = pd.DataFrame(RES)
 #save as csv
 savepath = os.path.join(cwd, Job + '_RES.csv')
-tete = ["d, [mm]", "P [N]", "C [mm/N]", "wI [mm]", "a(t) [mm]", "GI [N/mm]"]
+tete = ["d, [mm]", "P [N]", "C [mm/N]", "wI [mm]", "a(t) [mm]","dad(t) [mm]", "GI [N/mm]", "GII [N/mm]"]
 res_df.to_csv(savepath, header=tete, index=False)
 
 out_file = open(maincwd+'\\Results.csv', "a",)
@@ -1122,6 +1158,10 @@ out_file.write(str(Gc) + '\n')
 out_file.close()
 
 
+
+
+
+
 '''
 print('computing GI and GII (R-curve)..')
 beta=45*np.pi/180
@@ -1129,16 +1169,21 @@ a_t = crackL_J_mm[:,chos_alp]
 CI = COD.wI/(MatchID.load*np.cos(beta))
 CII = COD.wII/(MatchID.load*np.sin(beta))
 C=np.sqrt(COD.wI**2+COD.wII**2)/MatchID.load
-a_t = a_t[indices_uniques]
-CI = CI[indices_uniques]
-CII = CII[indices_uniques]
-C = C[indices_uniques]
+a_t = a_t[indices_uniques1]
+CI = CI[indices_uniques1]
+CII = CII[indices_uniques1]
+C = C[indices_uniques1]
 ALPI = ((MatchID.load*np.cos(beta))**2)/(2*Test.thickness)
 ALPII = ((MatchID.load*np.sin(beta))**2)/(2*Test.thickness)
-ALPI = ALPI[indices_uniques]
-ALPII = ALPII[indices_uniques]
+ALPI = ALPI[indices_uniques1]
+ALPII = ALPII[indices_uniques1]
 ALP = (MatchID.load**2)/(2*Test.thickness)
-ALP = ALP[indices_uniques]
+ALP = ALP[indices_uniques1]
+
+G01 = ALPI*CI/a_t*10**3
+G02 = ALPII*CII/a_t*10**3
+Gtest0=G01+G02
+G0=ALP*C/a_t*10**3
 
 results = polyfit(a_t, CI, 3)
 coeffs = results['polynomial']
@@ -1169,6 +1214,18 @@ plt.plot(a_t, GI, 'b:', linewidth=2, label='R-Curve-modeI alpha '+ str(chos_alp)
 plt.plot(a_t, GII, 'r:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
 plt.plot(a_t, G, 'g:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
 plt.plot(a_t, Gtest, 'o:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
+plt.xlabel('Crack length, a(t), mm')
+plt.ylabel('$G, J$')
+plt.legend(loc=2, prop={'size': 8})
+plt.grid()
+plt.title(Job)
+plt.show()
+
+fig = plt.figure(figsize=(7,5))
+plt.plot(a_t, G01, 'b:', linewidth=2, label='R-Curve-modeI alpha '+ str(chos_alp))
+plt.plot(a_t, G02, 'r:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
+plt.plot(a_t, G0, 'g:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
+plt.plot(a_t, Gtest0, 'o:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G, J$')
 plt.legend(loc=2, prop={'size': 8})

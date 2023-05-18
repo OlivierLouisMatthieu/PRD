@@ -3,7 +3,7 @@
 
 \section{Introduction}
 
-This chapter focuses on the preparation of the tests and the tools used to obtain results. A section is devoted to the application of the DIC method and the proper use of MatchID. It explains some important parameters such as subset size, step size in order to make the DIC analysis as accurate as possible.
+This chapter focuses on the preparation of the tests and the tools used to obtain results. It explains in detail the equipment used to carry out the tests and the preparation made on it. A section is devoted to the application of the DIC method and the proper use of MatchID. It explains some important parameters such as subset size, step size in order to make the DIC analysis as accurate as possible.
 Finally, two fracture analysis methods are presented. A Python code was developed for both methods, and this section also allows a comparison of these two methods and a judgment on which is the most effective.
 
 \section{Tools used during the test}
@@ -30,7 +30,7 @@ The samples were first weighed just before the test. This measurement is called 
 This allows us to know the mass of the wood samples during the test.
 The density of the wood can also be deduced from the volume of the sample and its mass.
 The sample was previously drawn on autocad. The theoretical surface of the sample can therefore be known directly and multiplied by the thickness.
-Autocad gave us the surface area A=555.703 $cm^2$ and we have V=69.6293$cm^3$
+Autocad gave us the surface area A=555.703 $cm^2$ and we have V=69.6293$cm^3$.
 We can therefore deduce the density of each sample by applying the formula $\rho=M/V$.
 After testing, the specimens are placed in an oven at 103 degrees until the MC mass is stabilised.
 The moisture content can then be determined by applying the equation \ref{eq:HI}.
@@ -262,14 +262,14 @@ For the MMCG test data, by applying $VD_{th1}$ and $VD_{thf}$ as in Joao's data,
 	\begin{minipage}[c]{.46\linewidth}
 		\centering
 		\includegraphics[width=7cm]{fig31}
-		\caption{$\overline{VD}$ and $VD_{th}$ with Joao's data}
+		\caption{Crack length of e2e2}
 		\label{fig:fig31}
 	\end{minipage}
 	\hfill%
 	\begin{minipage}[c]{.46\linewidth}
 		\centering
 		\includegraphics[width=7cm]{fig32}
-		\caption{$\overline{VD}$ and $VD_{th}$ with MMCG data}
+		\caption{Crack length of e4e1}
 		\label{fig:fig32}
 	\end{minipage}
 \end{figure}
@@ -358,22 +358,9 @@ In concrete terms, G defines an overall energy parameter that accounts for the c
 
 \section{Specimen preparation}
 
-\subsection{Notch and precrack}
-
-Notches were created in each specimen. A precrack is made by a cutter into the notch. The interest is to initiate a straight crack, thanks to this first one. The notch width is around 1.5mm, done by a straight electrical saw. The cutter allow to go deeper and create a precrack with a shape allowing the propagation of the crack. The precrack must be done at the center of the sample heel. Indeed, even a little eccentricity could cause a deviation of the crack and prevent a good study of the propagation. The specimen was designed with an initial crack noted $a_i$ of length  $a_i=22mm$. The total crack length is equal to: $a=a_i+\Delta a$.
-
-Initial crack lengths are obtained by the average of the surfacic precrack and the real interior precrack. The equation used is :
-
-\begin{equation}
-	a_0=l_{notch}+\frac{l_{surfacic}+l_{interior}}{2}
-	\label{eq:precrack}
-\end{equation}
-
-with $a_0$ the initial crack length, $l_{notch}$ the notch length, $l_{surfacic}$ the surfacif precrack, $l_{interior}$ the real interior precrack.
-
 \subsection{Specimen names}
 
-We have 20 specimens of pinus pinaster of 12.5mm thickness.
+We have 20 specimens of silver fir of 12.5mm thickness.
 We will therefore use 5 specimens per degree of inclination. This means 5 specimens in pure mode I (0 degrees) and 15 specimens in mixed mode (15,30,45 degrees).
 Naming the specimens allows to know which test was performed on which specimen. The first part of the name corresponds to the inclination of the specimen during the test using the Arcan system:
 \newline
@@ -389,6 +376,42 @@ E45 : Test with specimen tilt of 45 degrees
 E15, E30 and E45 are therefore the specimens tested in mixed mode.
 Then the name as a second component is the number of the specimen dedicated to this test.
 Finally, all samples are named as E0E1 which is the first sample used in pure mode.
+
+\subsection{Notch and precrack}
+
+Notches were created in each specimen. A precrack is made by a cutter into the notch. The interest is to initiate a straight crack, thanks to this first one. The notch width is around 1.5mm, done by a straight electrical saw. The cutter allow to go deeper and create a precrack with a shape allowing the propagation of the crack. The precrack must be done at the center of the sample heel. Indeed, even a little eccentricity could cause a deviation of the crack and prevent a good study of the propagation. The specimen was designed with an initial crack noted $a_i$ and the total crack length is equal to: $a=a_i+\Delta a$.
+
+The initial crack lengths are obtained by averaging the notch on each side of the specimen plus the precrack also measured with the average of the two sides of the specimen.
+The following initial crack length values are then obtained:
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{c c }
+		\multicolumn{1}{l}{} & \multicolumn{1}{l}{Initial Crack length} \\
+		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E1} & 25,85   mm \\
+		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E2} & 25,6 mm \\
+		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E3} & 24,85 mm \\
+		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E4} & 24,7 mm \\ 
+		\cellcolor[HTML]{F8CBAD}E0E5 & 25,6 mm \\ 
+		\cellcolor[HTML]{C65911}E15E1 & 25,3 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E2} & 25,6 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E3} & 25,55 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E4} & 25,3 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E5} & 24,4 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E1} & 25,55 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E2} & 24,4 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E3} & 24,2 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E4} & 25,65 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E5} & 25,95 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E1} & 25,3 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E2} & 24,85 mm \\
+		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E3} & 25,8 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E4} & 24,35 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E5} & x mm \\ 
+	\end{tabular}
+	\caption{Precrack dimensions}
+	\label{tab:Tab11}
+\end{table}
 
 
 \section{Conclusion}

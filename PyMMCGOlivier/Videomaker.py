@@ -148,7 +148,7 @@ if run == 1:
     cv.destroyAllWindows()
 
 #Video Crack length    
-run=1
+run=0
 #run = int(input("Please enter 1 if you want the video: "))
 if run == 1:
     for i in range(len(MatchID.displ)):
@@ -185,12 +185,13 @@ if run == 1:
         fig, ax = plt.subplots(figsize=(7,5))
         #plt.plot(a_t[:i], G1[:i], 'r:', linewidth=2, label='R-Curve alpha '+ str(chos_alp))
         #plt.plot(dad[:i], G2[:i], 'b:', linewidth=2, label='Method2')
-        plt.plot(a_interp[:i], G_interp1[:i], 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+        plt.plot(a_interp1[:i], G_interp1[:i], 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+        plt.plot(a_interp2[:i], G_interp2[:i], 'b:', linewidth=2, label='Method II interpolated')
         plt.xlabel('Crack length, a(t), mm')
         plt.ylabel('$G_{Ic}, J$')
         plt.legend(loc=2, prop={'size': 8})
-        plt.xlim(23, 30)
-        plt.ylim(0, 900)
+        plt.xlim(24, 52)
+        plt.ylim(0, 500)
         plt.title(Job)
         fig.tight_layout()
         plt.grid()

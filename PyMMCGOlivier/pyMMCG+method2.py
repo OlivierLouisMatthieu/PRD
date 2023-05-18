@@ -34,7 +34,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 # Job = 'DCB_002'
-Job = 'e2e2'
+Job = 'e4e1'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -1034,7 +1034,7 @@ for k in range(0, nombre, 8):
   
 ad.sort()
 dad = ad - ad[0]+Test.a0 
-
+'''
 # READING THE IMAGES:
 endS = os.path.join(os.getcwd(), cwd)
 os.chdir(endS)
@@ -1072,6 +1072,7 @@ for k in range(0, nombre-1, 1):
     #plt.gca().set_xlim([0, 2200])
     plt.gca().set_ylim([0, int(hauteur/8)])
     plt.show()
+'''
 
 for k in range (MatchID.stages-nombre):
     dad = np.append(dad, dad[-1])
