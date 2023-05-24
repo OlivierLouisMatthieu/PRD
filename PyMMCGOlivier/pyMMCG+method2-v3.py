@@ -1140,14 +1140,14 @@ Gc = np.max(G1)
 Lc = np.max(Load)
 COD_max = np.max(COD.wI)
 # write array results on a csv file:
-RES = np.array([MatchID.displ[:], MatchID.load[:], C[:], COD.wI[:], a_t[:],dad[:], G1[:], G2[:]])
+RES = np.array([MatchID.displ[:], MatchID.load[:], C[:], COD.wI[:], a_t[:],dad[:], G1[:], G2[:],COD.wII[:],a_interp1[:],a_interp2[:],G_interp1[:],G_interp2[:]])
 RES = np.transpose(RES)
 # pd.DataFrame(RES).to_csv("path/to/file.csv")
 # converting it to a pandas dataframe
 res_df = pd.DataFrame(RES)
 #save as csv
 savepath = os.path.join(cwd, Job + '_RES.csv')
-tete = ["d, [mm]", "P [N]", "C [mm/N]", "wI [mm]", "a(t) [mm]","dad(t) [mm]", "GI [N/mm]", "GII [N/mm]"]
+tete = ["d, [mm]", "P [N]", "C [mm/N]", "wI [mm]", "a(t) [mm]","dad(t) [mm]", "GI [N/mm]", "GII [N/mm]","wII [mm]","a_interp1 [mm]","a_interp2 [mm]","G_interp1 [mm]","G_interp2 [mm]",]
 res_df.to_csv(savepath, header=tete, index=False)
 
 out_file = open(maincwd+'\\Results.csv', "a",)

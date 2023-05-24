@@ -5,6 +5,49 @@
 
 In this chapter, the opening mode failure behaviour is investigated using the DIC method. We present and analyse the force vs the crack opening curve obtained with the DIC method and python code.  Then the evolution of the crack length curves along the x-axis is obtained as a function of displacement. Finally, the energy restitution rates for the MMCG specimens are calculated and analysed.
 
+\section{Experimental set-up and method}
+
+see p105 odo
+figure \ref{fig:Setup0°}
+
+
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=12cm]{Setup0°}
+	\caption{Experimental set-up}
+	\label{fig:Setup0°}
+\end{figure}
+
+The kinematic fields acquired by image correlation (e.g., subset size, subset step, ldots) and numerical differentiation (e.g., strain windows size) algorithms can be significantly impacted by the DIC configuration settings. Since they will determine the spatial resolution and accuracy linked to the DIC measurements, both in displacement and strain fields, these settings constitute fundamental parameters.  In order to balance resolution and spatial resolution, a parametric research was done to support the DIC setting for the current application. The MatchID 2D Parametric Module was used to conduct this investigation.
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{c c}
+		\hline
+		Correlation   Coefficient: & ZNSSD \\ 
+		Interpolation order: & Bicubic Splines \\ 
+		Transformation order: & Affine \\
+		Subset size: & 21 \\
+		Step size: & 5 \\
+		Maximum rigid body estimation: & 100 \\ 
+		Strain Estimation(\%): & 5 \\ 
+		Precision: & 0.001 \\ 
+		Maximum iterations: & 20 \\ 
+		Noise handling: & Gaussian \\ 
+		Kernel Size: & 5 \\ 
+		History: & Spatial \\ 
+		Strainwindow size: & 7 \\ 
+		Tolerance on number of points: & 0 \\ 
+		Strain interpolation: & Q4 \\ 
+		Strain Convention: & Green-Lagrange \\ \hline
+	\end{tabular}
+	\caption{MatchID parameters used}
+	\label{tab:MatchID_param}
+\end{table}
+
+The range of values defined in this performance study, including the subset size ($f_s$), subset step, affine and quadratic displacement shape functions, the size of the strain windows, and the order of the polynomial fitting function, is defined by the \ref{tab:MatchID_param}. It is believed that the pre-selected range of values is reflective of the permissible DIC setup parameter range.
+
 \section{Force-displacement curve}
 
 Four distinct parts are observed on a force-displacement curve:

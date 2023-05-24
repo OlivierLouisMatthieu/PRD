@@ -22,7 +22,7 @@ The MMCG test piece was developed by \cite{MoutouPitti2008}. However, the specim
 
 \subsection{Characteristic of the Wood used}
 
-For the tests conducted in this thesis, the European species chosen is the silver fir. This coniferous tree is a derivative of needle trees.  Present on north hemisphere, it is a softwood as Pines or others old trees. Its name originates from its white color and its circumference ranges from 50 to 80 cm. CIRAD data shows a density of 0.45 to 0.60, a SPF of about 30$\%$, and a compressive strength of 41MPa. The tangential shrinkage is significant at 8.7$\%$, whereas the radial shrinkage is at 4$\%$. The wood of the white fir is commonly used for framing, columns, and light framing due to its strength, although it must be treated to prevent fungal and insect attacks. The main concern with this wood is the presence of a water pocket in the tree, as well as its tendency to split, which may limit the use of certain connectors in construction.
+For the tests conducted in this thesis, the European species chosen is the silver fir. This coniferous tree is a derivative of needle trees.  Present on north hemisphere, it is a softwood as Pines or others old trees. Its name originates from its white color and its circumference ranges from 50 to 80 cm. CIRAD data shows a density of 0.45 to 0.60, a SFP of about 30$\%$, and a compressive strength of 41MPa. The tangential shrinkage is significant at 8.7$\%$, whereas the radial shrinkage is at 4$\%$. The wood of the white fir is commonly used for framing, columns, and light framing due to its strength, although it must be treated to prevent fungal and insect attacks. The main concern with this wood is the presence of a water pocket in the tree, as well as its tendency to split, which may limit the use of certain connectors in construction.
 
 In order to compare the future results of tensile tests with the literature review, we need to know some characteristics of our sample.
 We therefore decided to measure its weight, density and moisture content.
@@ -93,7 +93,16 @@ To remedy this problem, it is necessary to examine the load of the hydraulic pre
 \subsection{Preparation of the DIC method}
 
 It is possible to process the images with different software. This image processing will allow to obtain the maps of deformations and displacements. For this work will be used MatchID a correlation image software and python.
-In our case, the quantity of interest is the crack length a as a function of the applied force F. The field of view ( FOV), the position envelope for hardware and if the test is a 2D-DIC or a stereo DIC are parameters to take into account. In our case, a 2D-DIC is suitable because the test piece is assumed to be planar and perpendicular to the camera optical axis. The DIC pattern is one important parameter. All the specimens are painted to obtain a speckle pattern suitable for image correlation. A thin layer of white paint is firstly added using a mate spray, followed by a diffuse distribution of black paint to create a unique local pattern across the ZOI at the crack tip.
+In our case, the quantity of interest is the crack length a as a function of the applied force F. The field of view ( FOV), the position envelope for hardware and if the test is a 2D-DIC or a stereo DIC are parameters to take into account. In our case, a 2D-DIC is suitable because the test piece is assumed to be planar and perpendicular to the camera optical axis. The DIC pattern is one important parameter. All the specimens are painted to obtain a speckle pattern suitable for image correlation. A thin layer of white paint is firstly added using a mate spray, followed by a diffuse distribution of black paint to create a unique local pattern across the ZOI at the crack tip as you can see figure \ref{fig:Speckle_pattern}.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=4cm]{Speckle_pattern}
+	\caption{Speckle pattern obtained for each sample}
+	\label{fig:Speckle_pattern}
+\end{figure}
+
+
 
 Before starting the test, some parameters must be set on MatchID.grab. It is possible to vary parameters such as the exposure time. The speckle pattern is an image composed of black and white dots. By varying the exposure time, the speckle pattern will have a greater or lesser range of gray (from 0 to 255). On the other hand, a longer exposure time will result in color saturation. Then, it is important to adjust the quality of the speckle using two parameters, the focus and the aperture. With some cameras, it is sometimes impossible to adjust the focus. It is therefore necessary to play with the distance camera-specimen. After adjusting these 3 parameters, the calibration can begin. Its goal is to establish the image scale. It is necessary to take at least 50 images of a calibration sheet given by MatchID while making translations and rotations of this sheet.
 After saving the calibration data, it is no longer possible to change these parameters. This calibration will be used for the tests.
@@ -407,7 +416,7 @@ The following initial crack length values are then obtained:
 		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E2} & 24,85 mm \\
 		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E3} & 25,8 mm \\ 
 		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E4} & 24,35 mm \\ 
-		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E5} & x mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E5} & 26.3 mm \\ 
 	\end{tabular}
 	\caption{Precrack dimensions}
 	\label{tab:Tab11}
