@@ -3,14 +3,12 @@
 
 \section{Introduction}
 
-In this chapter, the opening mode failure behaviour is investigated using the DIC method. We present and analyse the force vs the crack opening curve obtained with the DIC method and python code.  Then the evolution of the crack length curves along the x-axis is obtained as a function of displacement. Finally, the energy restitution rates for the MMCG specimens are calculated and analysed.
+In this chapter, the opening mode failure behaviour is investigated using the DIC method. We present and analyse the force vs the crack opening curve obtained with the DIC method and python code.  Then the evolution of the crack length curves along the x-axis is obtained as a function of displacement. Finally, the energy restitution rates for the MMCG specimens are calculated and analysed with some other articles.
 
 \section{Experimental set-up and method}
 
-see p105 odo
-figure \ref{fig:Setup0°}
-
-
+The Landmark Servohydraulic compression tensile machine, with a capacity of 100 kN, can be seen in Figure \ref{fig:Setup0°}. The camera and Arcan device are also clearly visible. The part of the specimen with the speckle pattern was illuminated so that the black dots could be correctly distinguished for image correlation. The camera was mounted on a tripod in order to capture stable images during the tests. The movable jaw of the test machine is controlled in fixtures. It is equipped with a force sensor.
+The information combined with the COD obtained by the DIC method gives the force-crack opening curves for each test.
 
 \begin{figure}[htp]
 	\centering
@@ -28,8 +26,8 @@ The kinematic fields acquired by image correlation (e.g., subset size, subset st
 		Correlation   Coefficient: & ZNSSD \\ 
 		Interpolation order: & Bicubic Splines \\ 
 		Transformation order: & Affine \\
-		Subset size: & 21 \\
-		Step size: & 5 \\
+		Subset size: & 31 \\
+		Step size: & 10 \\
 		Maximum rigid body estimation: & 100 \\ 
 		Strain Estimation(\%): & 5 \\ 
 		Precision: & 0.001 \\ 
@@ -50,7 +48,7 @@ The range of values defined in this performance study, including the subset size
 
 \section{Force-displacement curve}
 
-Four distinct parts are observed on a force-displacement curve:
+Normally four distinct parts are observed on a force-displacement curve:
 
 \begin{itemize}
 	\item A small area visible at the beginning of the curve which corresponds to the setting up of the loaded specimen. 
@@ -58,6 +56,15 @@ Four distinct parts are observed on a force-displacement curve:
 	\item A third part characterised by the observation of a set of critical force peaks FC responsible for a fairly clear initiation of the crack. The increasing peaks validate the zone of stability of the crack.
 	\item Finally, a last part where the rupture of the material occurs following the application of a breaking force translating the final instability of the crack.
 \end{itemize}
+
+ In the figure \ref{fig:e0e1_Pdelta}, we don't see the setting up of the loaded specimen because a slight preload has been applied to the specimen so that it does not move during the beginning of the test. In addition, it is also quite difficult to see the critical FC force peaks because of the noise caused by the displacement sensor.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=9cm]{e0e1_Pdelta}
+	\caption{Characteristic P-Delta curve}
+	\label{fig:e0e1_Pdelta}
+\end{figure}
 
 
 \section{Deformation maps}

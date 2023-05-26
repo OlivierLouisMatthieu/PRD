@@ -34,14 +34,14 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e0e1'
+Job = 'e15e1'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
     maincwd = "/home/slimbook/Documents/GitHub/OlivierLouisMatthieu/PRD/MMCGTests"
 elif runuser == 'Olivier':
     #maincwd = "D:\Recherche PRD\EXP\MMCGTests"
-    maincwd = "D:\Recherche PRD\EXP\MMCG_Olivier"
+    maincwd = "D:\Recherche PRD\EXP\MMCG_Olivier\Arcan15"
 
 cwd = os.path.join(maincwd, Job)
 
@@ -62,7 +62,7 @@ COD = Struct()
 Test = Struct()
 
 # run database with data from the project/specimen
-exec(open('Database.py').read())
+exec(open('Database_new.py').read())
 
 #%% Read P-d curve data
 
@@ -71,19 +71,19 @@ print('reading : load and displacement from the test machine')
 # read load file:
 
 pathdados = os.path.join(cwd, Job + '_load.csv')
-test = pd.read_csv(pathdados, delimiter=";", decimal=".", names=['Time', 'Load', 'Displ'])
+test = pd.read_csv(pathdados, delimiter=";", decimal=",", names=['Time', 'Load', 'Displ'])
 
 Time = test.Time.values.astype(float)
 Time = Time - Time[0]
 incTime = int(1/Time[1])
 
 Displ = test.Displ.values.astype(float)*Test.DisplConvFactor # unit: mm
-#Displ = Displ - Displ[0] + ddeplac
 Displ = Displ - Displ[0]
 Load = test.Load.values.astype(float)*Test.LoadConvFactor # unit: N
-if Load[0] < 0:  # unit: N
-    #Load = Load - Load[0] + Test.meanPreLoad
-    Load = Load - Load[0]
+Load = Load - Load[0]
+if Load[0]>Load[-1]:
+    Load=Load+(Load[0]-np.min(Load))
+    
 
 # TODO: shifting of the P-d curve ########
 
@@ -124,21 +124,23 @@ plt.show()
 
 fig, ax = plt.subplots(figsize=(7,5))
 plt.plot(Displ, Load, 'k-', linewidth=3)
+#plt.plot(Displ, p(Displ), 'r-', linewidth=3)
 plt.ylabel('Load [N]')
 plt.xlabel('Displacement [mm]')
 plt.grid()
 plt.show()
+
 #plot the shift data
 
 #%% Read matchid DIC data
 
-pathdados = os.path.join(cwd,'X[Pixels]',Job+'_0001_0.tiff_X[Pixels].csv')
-MatchID.x_pic = np.genfromtxt(pathdados, skip_header=0, delimiter=';')
+pathdados = os.path.join(cwd,'x_pic',Job+'_1.tiff_x_pic.csv')
+MatchID.x_pic = np.genfromtxt(pathdados, skip_header=0, delimiter=',')
 MatchID.x_pic = MatchID.x_pic[:,0:-1]
 MatchID.xCoord = MatchID.x_pic[0,:]
 #take just the first line
-pathdados = os.path.join(cwd,'Y[Pixels]',Job+'_0001_0.tiff_Y[Pixels].csv')
-MatchID.y_pic = np.genfromtxt(pathdados, skip_header=0, delimiter=';')
+pathdados = os.path.join(cwd,'y_pic',Job+'_1.tiff_y_pic.csv')
+MatchID.y_pic = np.genfromtxt(pathdados, skip_header=0, delimiter=',')
 MatchID.y_pic = MatchID.y_pic[:,0:-1]
 MatchID.yCoord = MatchID.y_pic[:,0]
 
@@ -163,8 +165,7 @@ MatchID.load = np.array(auxL)
 print('Number of stages: ', str(MatchID.stages))
 
 fig, ax = plt.subplots(figsize=(7,5))
-plt.plot(Displ, Load, 'k-', linewidth=3)
-plt.plot(MatchID.displ, MatchID.load, '+r',markersize=1)
+plt.plot(MatchID.displ, MatchID.load, 'k-', linewidth=2)
 plt.ylabel('Load [N]')
 plt.xlabel('Displacement [mm]')
 plt.grid()
@@ -180,10 +181,10 @@ MatchID.SubsetsY = MatchID.x_pic.shape[0]
 UX = np.zeros((MatchID.SubsetsY, MatchID.SubsetsX, MatchID.stages))
 # tic()
 for i in np.arange(0, MatchID.stages, 1):
-    readstr = Job+'_%04d_0.tiff_U.csv' % int(i+1)
+    readstr = Job+'_%01d.tiff_u.csv' % int(i+1)
     #print('reading : ',readstr)
-    pathdados = os.path.join(cwd,'U',readstr)
-    aux = np.genfromtxt(pathdados, skip_header=0, delimiter=';')
+    pathdados = os.path.join(cwd,'u',readstr)
+    aux = np.genfromtxt(pathdados, skip_header=0, delimiter=',')
     xend, yend = aux.shape[1], aux.shape[0]
     UX[0:yend, 0:xend-1, i] = aux[:, :-1]*Test.mm2pixel # unit: mm
 # print(f'{toc():.1f} seg')
@@ -192,10 +193,10 @@ for i in np.arange(0, MatchID.stages, 1):
 UY = np.zeros((MatchID.SubsetsY, MatchID.SubsetsX, MatchID.stages))
 # tic()
 for i in np.arange(0, MatchID.stages, 1):
-    readstr = Job+'_%04d_0.tiff_V.csv' % int(i+1)
+    readstr = Job+'_%01d.tiff_v.csv' % int(i+1)
     #print('reading : ',readstr)
-    pathdados = os.path.join(cwd,'V',readstr)
-    aux = np.genfromtxt(pathdados, skip_header=0, delimiter=';')
+    pathdados = os.path.join(cwd,'v',readstr)
+    aux = np.genfromtxt(pathdados, skip_header=0, delimiter=',')
     xend, yend = aux.shape[1], aux.shape[0]
     UY[0:yend, 0:xend-1, i] = aux[:, :-1]*Test.mm2pixel # unit: mm
 # print(f'{toc():.1f} seg')
@@ -216,7 +217,7 @@ a0.Y = int(np.argwhere(np.abs(MatchID.yCoord - a0.imgVuse) == 0))
 #cracklength=np.abs(a0.imgHuse-af.imgHuse)*Test.mm2pixel+Test.a0
 #print(cracklength)
 
-pathdados = os.path.join(cwd,Job+'_0000_0.tiff')
+pathdados = os.path.join(cwd,Job+'_0.tiff')
 img0 = cv.imread(pathdados, cv.IMREAD_GRAYSCALE) # cv.imread(pathdados, 0)
 dpi = plt.rcParams['figure.dpi']
 Height, Width = img0.shape
@@ -536,7 +537,7 @@ for J in stagEval:
     fract_K[:,:,J] = K
     #where there is the greatest displacement there is the fracture?
     
-
+'''
 xplot = np.arange(X_i, X_f+1, 1)
 yplot = np.arange(Y_i, Y_f, 1)
 Xplt, Yplt = np.meshgrid(xplot, yplot)
@@ -546,6 +547,7 @@ Zplt = fract_K[:, :, j]
 ax.plot_surface(Xplt, Yplt, Zplt)
 ax.set_title('surface')
 plt.show()
+'''
 
 # treshold range
 # if int(alpha_alphasel/10) == 0:
@@ -559,7 +561,8 @@ plt.show()
 #     else:
 #         inc = 10
 # creating vector of alpha values
-alpha_alphaV = np.round(alpha_alphasel*np.arange(.7,1.3,.1),1)
+alpha_alphaV = np.round(alpha_alphasel*np.arange(.1,0.8,.1),1) #for 15° except e15e1
+#alpha_alphaV = np.round(alpha_alphasel*np.arange(.7,1.3,.1),1)
 #print(alpha_alphasel)
 #print(alpha_alphaV)
 # differen values for alpha(treshold criterion)
@@ -687,248 +690,12 @@ while i < MatchID.stages :
     
 
 ###############################################
-#%%Method 2
-###############################################
 
-CTODimage = MatchID.xCoord[a0.X]
-print(CTODimage*Test.mm2pixel)
-
-COD.cod_pair= COD.cod_pair+20  #we are moving away from the fracture if we put 10 for ex the cod is full of nan in the line
-Xm = np.zeros((2, a0.X+1, nombre))
-Ym = np.zeros((2, a0.X+1, nombre))  
-Xm[0,:,0]=MatchID.xCoord[0:a0.X+1]*Test.mm2pixel
-Xm[1,:,0]=MatchID.xCoord[0:a0.X+1]*Test.mm2pixel  
-Ym[0,:,0]=MatchID.yCoord[a0.Y-COD.cod_pair]*Test.mm2pixel        
-Ym[1,:,0]=MatchID.yCoord[a0.Y+COD.cod_pair]*Test.mm2pixel  #Xm and Ym for stage 0  
-
-for i in np.arange(0, nombre-1, 1):
-    Xm[0,:,i+1]=UX[a0.Y-COD.cod_pair,0:a0.X+1,i]+MatchID.xCoord[0:a0.X+1]*Test.mm2pixel
-    Xm[1,:,i+1]=UX[a0.Y+COD.cod_pair,0:a0.X+1,i]+MatchID.xCoord[0:a0.X+1]*Test.mm2pixel
-    Ym[0,:,i+1]=-np.abs(UY[a0.Y-COD.cod_pair,0:a0.X+1,i]-UY[a0.Y+COD.cod_pair,0:a0.X+1,i])/2+MatchID.yCoord[a0.Y-COD.cod_pair]*Test.mm2pixel
-    Ym[1,:,i+1]=np.abs(UY[a0.Y-COD.cod_pair,0:a0.X+1,i]-UY[a0.Y+COD.cod_pair,0:a0.X+1,i])/2+MatchID.yCoord[a0.Y+COD.cod_pair]*Test.mm2pixel
-
-COD.cod_pair= COD.cod_pair-20
-
-CODy = np.zeros((a0.X+1, nombre))
-CODx = np.zeros((a0.X+1, nombre))
-
-for k in range(nombre):
-    CODy[:, k] = np.abs(Ym[1,:,k]-Ym[0,:,k]) #COD
-    CODx[:, k] = (Xm[0,:,k]+Xm[1,:,k])/2
-    #Coordinates of each subset in function of time
-   
-dx = Xm[0, 1, 0] - Xm[0, 0, 0]
-dy = CODy[:, 0]
-
-
-CODy = np.abs(CODy - CODy[:, [0]])
-
-CODxx = np.zeros((1000, nombre))
-CODyy = np.zeros((1000, nombre))
-X = np.zeros((2, 1000, nombre))
-Y = np.zeros((2, 1000, nombre))
-
-MEANd=np.zeros(nombre)
-mean=np.zeros(nombre)
-MEANs=np.zeros(nombre)
-aid=np.zeros(nombre, dtype=int)
-ad=np.zeros(nombre)
-
-for k in range(nombre):
-    CODxx[:, k] = np.linspace(CODx[0, k], CODx[-1, k], 1000)
-    #same than CODx but 1000 values whereas 201
-    CODyy[:, k] = np.interp(CODxx[:, k], CODx[:, k], CODy[:, k])
-
-    X[0, :, k] = np.linspace(Xm[0, 0, k], Xm[0, -1, k], 1000)
-    X[1, :, k] = np.linspace(Xm[1, 0, k], Xm[1, -1, k], 1000)
-    Y[0, :, k] = np.interp(X[0, :, k], Xm[0, :, k], Ym[0, :, k])
-    Y[1, :, k] = np.interp(X[1, :, k], Xm[1, :, k], Ym[1, :, k])
-    #put all the variables with 1000 values
-
-# trouver l'indice de la valeur la plus proche
-indice_plus_prochea1 = int(np.abs(CODxx[0:1000, alpha_stages] - a1).argmin())
-indice_plus_procheaf = int(np.abs(CODxx[0:1000, -1] - af).argmin())
-
-ab=[]
-for k in range(alpha_stages,nombre,1):
-    mean[k]=np.nanmean(CODyy[:, k])
-    if mean[k]>CODyy[indice_plus_prochea1, alpha_stages]:
-        ab.append(mean[k]) 
-MEANd = np.interp(np.linspace(0,len(ab),nombre-alpha_stages), range(0,len(ab)), ab)
-#takes only CODs above the COD at index a1 and interpolate in order to have the same number of values
-for k in range(alpha_stages):
-    MEANd = np.insert(MEANd, 0, 0)
-#in order to resize MEANd 
-   
-#plt.plot(range(0,nombre),MEANd,label='VDmean upgraded')
-#plt.plot(range(0,nombre),mean, label='VDmean')
-#plt.xlabel('Images')
-#plt.ylabel('COD [mm]')
-#plt.legend(fontsize=12)
-#plt.grid()
-
-# Entrée des coefficients du système
-a11 = MEANd[nombre-1]*(nombre-1)#VDmeanf*if
-a12 = MEANd[nombre-1]#VDmeanf
-b1 = CODyy[indice_plus_procheaf, nombre-1]#VDthf
-a21 = MEANd[alpha_stages]*(alpha_stages-1)#VDmean1*i1
-a22 = MEANd[alpha_stages]#VDmean1
-b2 = CODyy[indice_plus_prochea1, alpha_stages]#VDth1
-
-# Application de la méthode d'élimination de Gauss
-coeff = a21/a11
-a22 = a22 - coeff*a12
-b2 = b2 - coeff*b1
-x2 = b2/a22
-x1 = (b1 - a12*x2)/a11
-
-# Affichage des résultats
-print("The system solution is :")
-print("x1 = ", x1)
-print("x2 = ", x2)
-
-aa=x1
-bb=x2
-
-#I have a problem to compute because my mean are too small for the fists images
-
-for k in range(alpha_stages,nombre,1):
-
-    MEANd[k] = MEANd[k] * (aa * k + bb)
-    #MEANd = np.linspace(CODyy[indice_plus_prochea1, 1], CODyy[indice_plus_procheaf, nombre-1], nombre)
-    
-    a=int(np.abs(CODyy[0:1000, k] - MEANd[k]).argmin())
-    aid[k] = a
-    if CODxx[a, k] > CTODimage * Test.mm2pixel:
-        ad[k] = CTODimage * Test.mm2pixel
-    else:
-        ad[k] = CODxx[a, k]
-
-for k in range(alpha_stages):           
-    aid[k]=999 
-    ad[k]=CODxx[999, 0]  
-#a(t)=a0 before the FPZ
-
-for k in range(nombre-1): 
-    if ad[k]<ad[k+1]:
-        ad[k+1]=ad[k]
-
-for k in range(1, nombre,4):
-    plt.plot(CODxx[0:1000, k], CODyy[:, k], 'b-')
-    plt.plot([0, 35], [MEANd[k], MEANd[k]], 'r-')
-    plt.plot(ad[k], CODyy[int(aid[k]), k], 'gx')
-    plt.xlabel('x11 [mm]', fontname='Times New Roman')
-    plt.ylabel('COD [mm]', fontname='Times New Roman')
-    plt.xticks(fontsize=16)
-    plt.yticks(fontsize=16)
-    plt.gca().spines['top'].set_visible(False)
-    plt.gca().spines['right'].set_visible(False)
-    plt.gca().spines['bottom'].set_linewidth(0.5)
-    plt.gca().spines['left'].set_linewidth(0.5)
-    plt.gca().xaxis.set_tick_params(width=0.5)
-    plt.gca().yaxis.set_tick_params(width=0.5)
-    plt.gca().set_xlim([0, 32])
-    plt.gca().set_ylim([0, 0.6])
-    plt.grid(False)
-plt.show()
-
-
-#x = []
-#y = []
-#for k in range(0, nombre, 4):
-    #plt.plot(CODxx[0:1000, 0], CODyy[:, 0], 'b-', label='VD')
-    #plt.plot([0, 35], [MEANd[0], MEANd[0]], 'r-',label='VDth')
-    #plt.plot(ad[0], CODyy[aid[0], 0], 'gx', label='Crack tip')
-    #plt.plot(CODxx[0:1000, 0:k], CODyy[:, 0:k], 'b-')
-    #plt.plot([0, 35], [MEANd[0:k], MEANd[0:k]], 'r-')
-    #plt.xlabel('x11 [mm]', fontname='Times New Roman')
-    #plt.ylabel('COD [mm]', fontname='Times New Roman')
-    
-    #x.append(ad[k])
-    #y.append(CODyy[aid[k], k])
-    
-    #plt.plot(x, y, 'gx')
-    # set the font and size for the axes and legend
-    #plt.tick_params(axis='both', labelsize=14)
-    #plt.legend(fontsize=12)
-    # set the axis limits and turn on the box
-    #plt.gca().set_xlim([0, 34])
-    #plt.gca().set_ylim([0, 0.6])
-    # turn off the grid and set the background color of the plot
-    #plt.grid(False)
-    #plt.box(True)
-    # display the plot
-    #plt.show() 
-
-  
-for k in range (MatchID.stages-nombre):
-    ad=np.insert(ad, -1, ad[-1])
-dad = np.abs(ad - ad[0])+Test.a0 
-
-run=0
-#run = int(input("Please enter 1 if you want the video: "))
-if run == 1:
-    
-    # READING THE IMAGES:
-    endS = os.path.join(os.getcwd(), cwd)
-    os.chdir(endS)
-    
-    fileNames = sorted([file for file in os.listdir() if file.endswith('.tiff')])
-    pattern = re.compile(r'\d+')
-    # Utiliser sorted() pour trier la liste en utilisant les nombres extraits des noms de fichier
-    fileNames = sorted(fileNames, key=lambda x: int(pattern.findall(x)[0]))
-    # Afficher la liste triée
-    nImagens = len(fileNames)
-    
-    # Charger l'image
-    cwd = os.path.join(cwd,Job+'_0001_0.tiff')
-    img = Image.open(cwd)
-    # Obtenir la taille de l'image
-    largeur, hauteur = img.size
-    # Afficher la taille de l'image
-    print("La taille de l'image est de {} x {} pixels.".format(largeur, hauteur))
-    
-    I = np.zeros((int(hauteur/8), int(largeur/8), nImagens))
-    
-    for k, fileName in enumerate(fileNames):
-        I[:, :, k] = cv.resize(cv.imread(os.path.join(endS, fileName), cv.IMREAD_GRAYSCALE), (int(largeur/8), int(hauteur/8)))
-    
-    os.chdir('..')
-
-    Cal=    Test.mm2pixel*8
-    for k in range(0, MatchID.stages, 1):
-        plt.imshow(I[:, :, k])
-        
-        plt.plot([ad[0]/Cal, ad[0]/Cal], [0, 1000], color=[0, 1, 0, 0.5], linewidth=2)
-        plt.plot([ad[k]/Cal, ad[k]/Cal], [0, 1000], color='green', linewidth=2,label='Method2')
-        plt.plot([CTODimage/8-(crackL_J_mm[k,chos_alp]-Test.a0)/Cal, CTODimage/8-(crackL_J_mm[k,chos_alp]-Test.a0)/Cal], [0, 1000], color='red', linewidth=2, label='Method1')
-        plt.legend(fontsize=12)
-        #plt.plot(X[0, range(0, 1000, 50), k]/Cal, Y[0, range(0, 1000, 50), k]/Cal, 'x', color='red', markersize=8, linewidth=2)
-        #plt.plot(X[1, range(0, 1000, 50), k]/Cal, Y[1, range(0, 1000, 50), k]/Cal, 'x', color='red', markersize=8, linewidth=2)
-        #plt.gca().set_xlim([0, 2200])
-        plt.gca().set_ylim([0, int(hauteur/8)])
-        plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(k)+".png")
-        plt.show()
-    path =  "D:\Recherche PRD\EXP\MMCGTests\Video" 
-    files = os.listdir(path)
-    files.sort()
-    fourcc = cv.VideoWriter_fourcc(*'XVID')
-    output = cv.VideoWriter(path+'\Crackspecimen.avi', fourcc, 10.0, (640, 480))
-    for j in range(MatchID.stages): 
-        img = cv.imread(os.path.join(path, "Img"+str(j)+".png"))
-        img = cv.resize(img, (640, 480))
-        output.write(img)
-        os.remove(os.path.join(path, "Img"+str(j)+".png"))
-    output.release()
-    cv.destroyAllWindows()
-
-#exec(open('ReadcrackfractureMMCG.py').read())
-crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
+#crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
-plt.plot(MatchID.time, dad, 'b', label='Method2')
-plt.plot(indices, crack,'bo', markersize=5)
+#plt.plot(indices, crack,'bo', markersize=5)
 plt.xlabel('Images')
 plt.ylabel('Crack length, a(t), mm')
 plt.tick_params(axis='both', labelsize=14)
@@ -938,19 +705,7 @@ fig.tight_layout()
 plt.grid()
 plt.show()   
 
-# Calculer la distance euclidienne entre les deux courbes
-distance = euclidean(crackL_J_mm[:,chos_alp], dad)
-
-# Afficher la distance euclidienne
-print("The Euclidean distance between the two curves is :", distance)
-
-#In the case of two curves plotted in a plot, the Euclidean distance between these curves measures the difference between the values of the corresponding points on the two curves. If the Euclidean distance is small, it means that the curves are similar.
-#distance(C1, C2) = sqrt((P1[1]-P2[1])^2 + (P1[2]-P2[2])^2 + ... + (P1[n]-P2[n])^2)
-
 #%% computing GI (R-curve)
-
-#COD.wI[90]=COD.wI[91]
-#COD.wI[89]=COD.wI[88]
 
 print('computing GI (R-curve)..')
 a_t = crackL_J_mm[:,chos_alp]
@@ -959,43 +714,20 @@ ALP = (MatchID.load**2)/(2*Test.thickness)
 
 #Method 1:ma^3+na^2+oa+p
 x1=a_t
-x2=dad
 y=C
 ALPinterp=ALP
 
 # Obtenir les indices des éléments uniques de x
 indices_uniques1 = np.unique(x1, return_index=True)[1]
-indices_uniques2 = np.unique(x2, return_index=True)[1]
 
-'''
-indices_uniques1=indices_uniques1-1
-indices_uniques1[0]=242-1
-indices_uniques1 = np.insert(indices_uniques1[1:], len(indices_uniques1) - 1, indices_uniques1[0])
-indices_uniques2=indices_uniques2-1
-indices_uniques2[0]=242-1
-indices_uniques2 = np.insert(indices_uniques2[1:], len(indices_uniques2) - 1, indices_uniques2[0])
-'''
-'''
-indices_non_nulles = np.logical_not(np.isnan(y))
-for i in range(len(indices_uniques1)):
-    if False == indices_non_nulles[indices_uniques1[i]]:
-        indices_uniques1 = np.delete(indices_uniques1, i)
-for i in range(len(indices_uniques2)):
-    if False == indices_non_nulles[indices_uniques2[i]]:
-        indices_uniques2 = np.delete(indices_uniques2, i)
-'''
 # Extraire les éléments correspondants dans x, y, et ALPinterp
 x1 = x1[indices_uniques1]
 y1 = y[indices_uniques1]
 ALPinterp1 = ALPinterp[indices_uniques1]
-x2 = x2[indices_uniques2]
-y2 = y[indices_uniques2]
-ALPinterp2 = ALPinterp[indices_uniques2]
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
 plt.plot(indices_uniques1, x1, 'b', label='Method1 without duplicates')
-#plt.plot(indices_uniques2, x2, 'b', label='Method1 without duplicates')
 plt.xlabel('Images')
 plt.ylabel('Crack length, a(t), mm')
 plt.tick_params(axis='both', labelsize=14)
@@ -1039,14 +771,6 @@ print("Le coefficient de détermination (R-squared) est:", r_squared)
 
 Ginterp1 = ALPinterp1*dp(x1)*10**3
 
-results = polyfit(x2, y2, 3)
-coeffs = results['polynomial']
-r_squared = results['determination']
-p = np.poly1d(coeffs)
-dp = p.deriv()
-
-Ginterp2 = ALPinterp2*dp(x2)*10**3
-
 
 #Method2:ma^3+n
 # Define the polynomial function
@@ -1065,16 +789,6 @@ print("Coefficient c1:", c11)
 print("Coefficient c2:", c21)
 Ginterp1j = ALPinterp1*3*c11*x1**2*10**3
 
-coefficients, _ = curve_fit(polynomial_func, x2, y2)
-# Extract the coefficients
-c12 = coefficients[0]
-c22 = coefficients[1]
-# Print the coefficients
-print("Coefficient c1:", c12)
-print("Coefficient c2:", c22)
-
-Ginterp2j = ALPinterp2*3*c12*x2**2*10**3
-
 # Tracer la fonction interpolée
 fig = plt.figure(figsize=(7,5))
 plt.plot(x1, y1, '.', x1, p(x1), '-',x1, polynomial_func(x1, c11, c21), '-')
@@ -1084,21 +798,10 @@ plt.grid()
 plt.title(Job)
 plt.show()
 
-# Tracer la fonction interpolée
-fig = plt.figure(figsize=(7,5))
-plt.plot(x2, y2, '.', x2, p(x2), '-',x2, polynomial_func(x2, c12, c22), '-')
-plt.xlabel('Crack length, a(t), mm')
-plt.ylabel('$C, {Pa}^{-1}$')
-plt.grid()
-plt.title(Job)
-plt.show()
-
 #Method3=C/a
 BET1 = C/a_t #changing the value of alpha from the crack length will change G values
-BET2 = C/dad
 
 G1 = ALP*BET1*10**3
-G2 = ALP*BET2*10**3
 
 #Method4:DeltaC/Deltaa
 
@@ -1118,20 +821,16 @@ a_interp1 = np.linspace(x1[0], x1[-1], len(MatchID.displ))
 G_interp1=np.zeros(len(MatchID.displ))
 G_interp1[:] = np.interp(a_interp1[:], x1[:], Ginterp1[:])
 
-a_interp2 = np.linspace(x2[0], x2[-1], len(MatchID.displ))
-G_interp2=np.zeros(len(MatchID.displ))
-G_interp2[:] = np.interp(a_interp2[:], x2[:], Ginterp2[:])
 
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(a_t, G1, 'r:', linewidth=2, label='Method 1 alpha '+ str(chos_alp))
-plt.plot(x1, Ginterp1, 'r:', linewidth=2, label='Method I interpolated ma^3+na^2+oa+p alpha  '+ str(chos_alp))
-plt.plot(x1, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
+#plt.plot(x1, Ginterp1, 'r:', linewidth=2, label='Method I interpolated ma^3+na^2+oa+p alpha  '+ str(chos_alp))
+#plt.plot(x1, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
 #plt.plot(a_interp1, G_interp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
 #plt.plot(a_interp2, G_interp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-plt.plot(x2, Ginterp2, 'b:', linewidth=2, label='Method 2 interpolated ')
-plt.plot(x2, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
-plt.plot(dad, G2, 'k:', linewidth=2, label='Method2')
+#plt.plot(x2, Ginterp2, 'b:', linewidth=2, label='Method 2 interpolated ')
+#plt.plot(x2, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G_{Ic}, J/m^2$')
 plt.legend(loc=2, prop={'size': 8})
@@ -1243,6 +942,7 @@ plt.show()
 # ax.set_ylim(bottom=0)
 # plt.grid()
 # plt.show()
-
+print(a0.Y)
+print(a0.X)
     
 #exec(open('Videomaker.py').read())

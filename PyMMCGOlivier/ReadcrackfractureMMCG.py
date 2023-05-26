@@ -8,7 +8,7 @@ from PIL import Image
 # Récupérer la liste des fichiers TIF dans le dossier Image_Selection
 #path='D:\Recherche PRD\SPR_00_02\SPR_00_02'
 #endS = os.path.join(os.getcwd(), path + '\Image_Selection')
-maincwd='D:\Recherche PRD\EXP\MMCGTests'
+maincwd='D:\Recherche PRD\EXP\MMCG_Olivier\Arcan30'
 path = os.path.join(maincwd, Job)
 endS = os.path.join(os.getcwd(), path)
 os.chdir(endS)
@@ -17,13 +17,14 @@ os.chdir(endS)
 fileNames = sorted([file for file in os.listdir() if file.endswith('.tiff')])
 pattern = re.compile(r'\d+')
 # Utiliser sorted() pour trier la liste en utilisant les nombres extraits des noms de fichier
-fileNames = sorted(fileNames, key=lambda x: int(pattern.findall(x)[0]))
+#fileNames = sorted(fileNames, key=lambda x: int(pattern.findall(x)[0]))
+fileNames = sorted(fileNames, key=lambda x: int(x.split('_')[1].split('.')[0]))
 
 # Définir le nombre d'images
 n_images = len(fileNames)
 
 # Charger l'image
-img = Image.open('D:\Recherche PRD\EXP\MMCGTests\e1o1\e1O1_0000_0.tiff')
+img = Image.open('D:\Recherche PRD\EXP\MMCG_Olivier\Arcan00\e0e1\e0e1_0.tiff')
 #img = Image.open('D:\Recherche PRD\SPR_00_02\SPR_00_02\Image_Selection\Image1.tif')
 # Obtenir la taille de l'image
 largeur, hauteur = img.size
