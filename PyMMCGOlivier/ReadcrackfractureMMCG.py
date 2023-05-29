@@ -8,7 +8,7 @@ from PIL import Image
 # Récupérer la liste des fichiers TIF dans le dossier Image_Selection
 #path='D:\Recherche PRD\SPR_00_02\SPR_00_02'
 #endS = os.path.join(os.getcwd(), path + '\Image_Selection')
-maincwd='D:\Recherche PRD\EXP\MMCG_Olivier\Arcan30'
+maincwd='D:\Recherche PRD\EXP\MMCG_Olivier\Arcan00'
 path = os.path.join(maincwd, Job)
 endS = os.path.join(os.getcwd(), path)
 os.chdir(endS)
@@ -79,14 +79,14 @@ def select_points(image_path, n_points):
     return points
 
 # Initialiser la matrice X
-nbimages=2
+nbimages=6
 #nbimages=10
 X = np.zeros((nbimages, 2))#in pixel
 Xmm=np.zeros((nbimages, 2))
 
 nombre = input("La dernière image avant la rupture est : ")
 nombre=int(nombre)
-d=np.linspace(alpha_stages, nombre,nbimages)
+d=np.linspace(0, nombre,nbimages)
 #d=np.linspace(0, MatchID.stages,nbimages)
 a=0
 points_list = []

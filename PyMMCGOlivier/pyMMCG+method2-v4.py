@@ -34,14 +34,14 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e15e1'
+Job = 'e0e1'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
     maincwd = "/home/slimbook/Documents/GitHub/OlivierLouisMatthieu/PRD/MMCGTests"
 elif runuser == 'Olivier':
     #maincwd = "D:\Recherche PRD\EXP\MMCGTests"
-    maincwd = "D:\Recherche PRD\EXP\MMCG_Olivier\Arcan15"
+    maincwd = "D:\Recherche PRD\EXP\MMCG_Olivier\Arcan00"
 
 cwd = os.path.join(maincwd, Job)
 
@@ -560,7 +560,7 @@ plt.show()
 #     else:
 #         inc = 10
 # creating vector of alpha values
-alpha_alphaV = np.round(alpha_alphasel*np.arange(.7,1.3,.1),1)
+alpha_alphaV = np.round(alpha_alphasel*np.arange(.4,1.3,.1),1)
 #print(alpha_alphasel)
 #print(alpha_alphaV)
 # differen values for alpha(treshold criterion)
@@ -633,7 +633,7 @@ if a1==0 or af==0 or nombre==0:
 #look at the crackJ in order to see which alpha is best in function of what you found for the crack length
 
 
-j = 20
+j = 49
 fig = plt.figure()
 plt.imshow(UY[:, :, j])
 plt.plot(UY.shape[1]-crackL_J_pixel_X[j, chos_alp],crackL_J_pixel_Y[j, chos_alp],'sr')
@@ -651,6 +651,8 @@ plt.plot(crackL_J_mm[:,3], 'b--', linewidth=1)
 plt.plot(crackL_J_mm[:,4], 'r--', linewidth=1)
 plt.plot(crackL_J_mm[:,5], 'y--', linewidth=1)
 plt.plot(crackL_J_mm[:,6], 'm--', linewidth=1)
+plt.plot(crackL_J_mm[:,7], 'm--', linewidth=1)
+plt.plot(crackL_J_mm[:,8], 'm--', linewidth=1)
 #plt.plot(MatchID.load,Abs, linewidth=4)
 plt.ylabel('a(t)')
 plt.xlabel('stages')
@@ -931,6 +933,7 @@ if run == 1:
 
 #exec(open('ReadcrackfractureMMCG.py').read())
 #crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
+#crack=(CTODimage*Test.mm2pixel-crack)+Test.a0
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
@@ -955,9 +958,6 @@ print("The Euclidean distance between the two curves is :", distance)
 #distance(C1, C2) = sqrt((P1[1]-P2[1])^2 + (P1[2]-P2[2])^2 + ... + (P1[n]-P2[n])^2)
 
 #%% computing GI (R-curve)
-
-#COD.wI[90]=COD.wI[91]
-#COD.wI[89]=COD.wI[88]
 
 print('computing GI (R-curve)..')
 a_t = crackL_J_mm[:,chos_alp]
@@ -1132,12 +1132,10 @@ G_interp2[:] = np.interp(a_interp2[:], x2[:], Ginterp2[:])
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(a_t, G1, 'r:', linewidth=2, label='Method 1 alpha '+ str(chos_alp))
-#plt.plot(x1, Ginterp1, 'r:', linewidth=2, label='Method I interpolated ma^3+na^2+oa+p alpha  '+ str(chos_alp))
-#plt.plot(x1, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
-#plt.plot(a_interp1, G_interp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-#plt.plot(a_interp2, G_interp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-#plt.plot(x2, Ginterp2, 'b:', linewidth=2, label='Method 2 interpolated ')
-#plt.plot(x2, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
+plt.plot(x1, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
+plt.plot(x2, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
+plt.plot(a_interp1, G_interp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+plt.plot(a_interp2, G_interp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
 plt.plot(dad, G2, 'k:', linewidth=2, label='Method2')
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G_{Ic}, J/m^2$')
@@ -1150,14 +1148,14 @@ Gc = np.max(G1)
 Lc = np.max(Load)
 COD_max = np.max(COD.wI)
 # write array results on a csv file:
-RES = np.array([MatchID.displ[:], MatchID.load[:], C[:], COD.wI[:], a_t[:],dad[:], G1[:], G2[:],COD.wII[:],a_interp1[:],a_interp2[:],G_interp1[:],G_interp2[:]])
+RES = np.array([MatchID.displ[:], MatchID.load[:], C[:], COD.wI[:], a_t[:],dad[:], G1[:], G2[:]])
 RES = np.transpose(RES)
 # pd.DataFrame(RES).to_csv("path/to/file.csv")
 # converting it to a pandas dataframe
 res_df = pd.DataFrame(RES)
 #save as csv
 savepath = os.path.join(cwd, Job + '_RES.csv')
-tete = ["d, [mm]", "P [N]", "C [mm/N]", "wI [mm]", "a(t) [mm]","dad(t) [mm]", "GI [N/mm]", "GII [N/mm]","wII [mm]","a_interp1 [mm]","a_interp2 [mm]","G_interp1 [mm]","G_interp2 [mm]",]
+tete = ["d, [mm]", "P [N]", "C [mm/N]", "wI [mm]", "a(t) [mm]","dad(t) [mm]", "GI [N/mm]", "GII [N/mm]"]
 res_df.to_csv(savepath, header=tete, index=False)
 
 out_file = open(maincwd+'\\Results.csv', "a",)
@@ -1167,82 +1165,6 @@ out_file.write(str(Lc) + '\n')
 out_file.write(str(Gc) + '\n')
 out_file.close()
 
-
-
-
-
-
-'''
-print('computing GI and GII (R-curve)..')
-beta=45*np.pi/180
-a_t = crackL_J_mm[:,chos_alp]
-CI = COD.wI/(MatchID.load*np.cos(beta))
-CII = COD.wII/(MatchID.load*np.sin(beta))
-C=np.sqrt(COD.wI**2+COD.wII**2)/MatchID.load
-a_t = a_t[indices_uniques1]
-CI = CI[indices_uniques1]
-CII = CII[indices_uniques1]
-C = C[indices_uniques1]
-ALPI = ((MatchID.load*np.cos(beta))**2)/(2*Test.thickness)
-ALPII = ((MatchID.load*np.sin(beta))**2)/(2*Test.thickness)
-ALPI = ALPI[indices_uniques1]
-ALPII = ALPII[indices_uniques1]
-ALP = (MatchID.load**2)/(2*Test.thickness)
-ALP = ALP[indices_uniques1]
-
-G01 = ALPI*CI/a_t*10**3
-G02 = ALPII*CII/a_t*10**3
-Gtest0=G01+G02
-G0=ALP*C/a_t*10**3
-
-results = polyfit(a_t, CI, 3)
-coeffs = results['polynomial']
-r_squared = results['determination']
-p = np.poly1d(coeffs)
-dp = p.deriv()
-GI = ALPI*dp(a_t)*10**3
-
-results = polyfit(a_t, CII, 3)
-coeffs = results['polynomial']
-r_squared = results['determination']
-p = np.poly1d(coeffs)
-dp = p.deriv()
-GII = ALPII*dp(a_t)*10**3
-
-
-results = polyfit(a_t, C, 3)
-coeffs = results['polynomial']
-r_squared = results['determination']
-p = np.poly1d(coeffs)
-dp = p.deriv()
-G = ALP*dp(a_t)*10**3
-
-Gtest=GI+GII
-
-fig = plt.figure(figsize=(7,5))
-plt.plot(a_t, GI, 'b:', linewidth=2, label='R-Curve-modeI alpha '+ str(chos_alp))
-plt.plot(a_t, GII, 'r:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
-plt.plot(a_t, G, 'g:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
-plt.plot(a_t, Gtest, 'o:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
-plt.xlabel('Crack length, a(t), mm')
-plt.ylabel('$G, J$')
-plt.legend(loc=2, prop={'size': 8})
-plt.grid()
-plt.title(Job)
-plt.show()
-
-fig = plt.figure(figsize=(7,5))
-plt.plot(a_t, G01, 'b:', linewidth=2, label='R-Curve-modeI alpha '+ str(chos_alp))
-plt.plot(a_t, G02, 'r:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
-plt.plot(a_t, G0, 'g:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
-plt.plot(a_t, Gtest0, 'o:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
-plt.xlabel('Crack length, a(t), mm')
-plt.ylabel('$G, J$')
-plt.legend(loc=2, prop={'size': 8})
-plt.grid()
-plt.title(Job)
-plt.show()
-'''
 #
 # plt.legend(loc=2, prop={'size': 8})
 # fig.tight_layout()

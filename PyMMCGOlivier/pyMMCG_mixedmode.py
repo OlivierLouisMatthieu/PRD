@@ -11,11 +11,9 @@ import statsmodels.formula.api as smf
 from scipy.optimize import curve_fit
 from PIL import Image
 from scipy.spatial.distance import euclidean
-# import tkinter as tk
-# from PIL import Image, ImageTk
 import glob
 import time
-# from ttictoc import tic,toc
+
 
 plt.rcParams['axes.facecolor'] = (1, 1, 1)
 plt.rcParams['figure.facecolor'] = (1, 1, 1)
@@ -34,14 +32,14 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e15e1'
+Job = 'e30e3'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
     maincwd = "/home/slimbook/Documents/GitHub/OlivierLouisMatthieu/PRD/MMCGTests"
 elif runuser == 'Olivier':
     #maincwd = "D:\Recherche PRD\EXP\MMCGTests"
-    maincwd = "D:\Recherche PRD\EXP\MMCG_Olivier\Arcan15"
+    maincwd = "D:\Recherche PRD\EXP\MMCG_Olivier\Arcan30"
 
 cwd = os.path.join(maincwd, Job)
 
@@ -561,8 +559,14 @@ plt.show()
 #     else:
 #         inc = 10
 # creating vector of alpha values
-alpha_alphaV = np.round(alpha_alphasel*np.arange(.1,0.8,.1),1) #for 15° except e15e1
-#alpha_alphaV = np.round(alpha_alphasel*np.arange(.7,1.3,.1),1)
+if re.match(r'^e15', Job):
+    print("La racine de job commence par 'e15'")
+    beta=15*np.pi/180
+    alpha_alphaV = np.round(alpha_alphasel*np.arange(.1,0.8,.1),1) #for 15° except e15e1
+if re.match(r'^e30', Job):
+    print("La racine de job commence par 'e30'")
+    beta=15*np.pi/180
+    alpha_alphaV = np.round(alpha_alphasel*np.arange(.7,1.3,.1),1)
 #print(alpha_alphasel)
 #print(alpha_alphaV)
 # differen values for alpha(treshold criterion)
@@ -705,46 +709,7 @@ fig.tight_layout()
 plt.grid()
 plt.show()   
 
-#%% computing GI (R-curve)
-
-print('computing GI (R-curve)..')
-a_t = crackL_J_mm[:,chos_alp]
-C = COD.wI/MatchID.load
-ALP = (MatchID.load**2)/(2*Test.thickness)
-
-#Method 1:ma^3+na^2+oa+p
-x1=a_t
-y=C
-ALPinterp=ALP
-
-# Obtenir les indices des éléments uniques de x
-indices_uniques1 = np.unique(x1, return_index=True)[1]
-
-# Extraire les éléments correspondants dans x, y, et ALPinterp
-x1 = x1[indices_uniques1]
-y1 = y[indices_uniques1]
-ALPinterp1 = ALPinterp[indices_uniques1]
-
-fig = plt.figure(figsize=(7,5))
-plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
-plt.plot(indices_uniques1, x1, 'b', label='Method1 without duplicates')
-plt.xlabel('Images')
-plt.ylabel('Crack length, a(t), mm')
-plt.tick_params(axis='both', labelsize=14)
-plt.legend(fontsize=12)
-plt.title(Job)
-fig.tight_layout()
-plt.grid()
-plt.show()  
-
-fig = plt.figure(figsize=(7,5))
-plt.plot(x1,y1, 'k-', linewidth=3)
-plt.plot(a_t,C)
-plt.xlabel('Crack length, a(t), mm')
-plt.ylabel('$C, {Pa}^{-1}$')
-plt.grid()
-plt.title(Job)
-plt.show()
+#%% computing GI and GII (R-curve)
 
 # Définir la fonction pour l'interpolation
 def polyfit(x, y, degree):
@@ -760,162 +725,56 @@ def polyfit(x, y, degree):
     results['determination'] = ssreg / sstot
     return results
 
-# Interpoler la fonction avec un polynôme de degré 3
-results = polyfit(x1, y1, 3)
-coeffs = results['polynomial']
-r_squared = results['determination']
-p = np.poly1d(coeffs)
-dp = p.deriv()
-print("Les coefficients du polynôme sont:", coeffs)
-print("Le coefficient de détermination (R-squared) est:", r_squared)
 
-Ginterp1 = ALPinterp1*dp(x1)*10**3
-
-
-#Method2:ma^3+n
-# Define the polynomial function
-def polynomial_func(x, c1, c2):
-    return c1 * x**3 + c2
-
-# Fit the polynomial function
-coefficients, _ = curve_fit(polynomial_func, x1, y1)
-
-# Extract the coefficients
-c11 = coefficients[0]
-c21 = coefficients[1]
-
-# Print the coefficients
-print("Coefficient c1:", c11)
-print("Coefficient c2:", c21)
-Ginterp1j = ALPinterp1*3*c11*x1**2*10**3
-
-# Tracer la fonction interpolée
-fig = plt.figure(figsize=(7,5))
-plt.plot(x1, y1, '.', x1, p(x1), '-',x1, polynomial_func(x1, c11, c21), '-')
-plt.xlabel('Crack length, a(t), mm')
-plt.ylabel('$C, {Pa}^{-1}$')
-plt.grid()
-plt.title(Job)
-plt.show()
-
-#Method3=C/a
-BET1 = C/a_t #changing the value of alpha from the crack length will change G values
-
-G1 = ALP*BET1*10**3
-
-#Method4:DeltaC/Deltaa
-
-dC_da=np.zeros(len(x1)-1)
-dC_da_mean=np.zeros(len(x1)-2)
-G11=np.zeros(len(x1)-2)
-for i in range(len(x1)-1):
-    dC_da[i]=(y1[i+1]-y1[i])/(x1[i+1]-x1[i])
-for i in range(len(x1)-2):  
-    dC_da_mean[i]=(dC_da[i+1]+dC_da[i])/2
-    G11[i]=ALP[i+1]*dC_da_mean[i]*10**3
-print(np.mean(G11))   
-
-
-
-a_interp1 = np.linspace(x1[0], x1[-1], len(MatchID.displ))
-G_interp1=np.zeros(len(MatchID.displ))
-G_interp1[:] = np.interp(a_interp1[:], x1[:], Ginterp1[:])
-
-
-
-fig = plt.figure(figsize=(7,5))
-plt.plot(a_t, G1, 'r:', linewidth=2, label='Method 1 alpha '+ str(chos_alp))
-#plt.plot(x1, Ginterp1, 'r:', linewidth=2, label='Method I interpolated ma^3+na^2+oa+p alpha  '+ str(chos_alp))
-#plt.plot(x1, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
-#plt.plot(a_interp1, G_interp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-#plt.plot(a_interp2, G_interp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-#plt.plot(x2, Ginterp2, 'b:', linewidth=2, label='Method 2 interpolated ')
-#plt.plot(x2, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
-plt.xlabel('Crack length, a(t), mm')
-plt.ylabel('$G_{Ic}, J/m^2$')
-plt.legend(loc=2, prop={'size': 8})
-plt.grid()
-plt.title(Job)
-plt.show()
-
-Gc = np.max(G1)
-Lc = np.max(Load)
-COD_max = np.max(COD.wI)
-# write array results on a csv file:
-RES = np.array([MatchID.displ[:], MatchID.load[:], C[:], COD.wI[:], a_t[:],dad[:], G1[:], G2[:],COD.wII[:],a_interp1[:],a_interp2[:],G_interp1[:],G_interp2[:]])
-RES = np.transpose(RES)
-# pd.DataFrame(RES).to_csv("path/to/file.csv")
-# converting it to a pandas dataframe
-res_df = pd.DataFrame(RES)
-#save as csv
-savepath = os.path.join(cwd, Job + '_RES.csv')
-tete = ["d, [mm]", "P [N]", "C [mm/N]", "wI [mm]", "a(t) [mm]","dad(t) [mm]", "GI [N/mm]", "GII [N/mm]","wII [mm]","a_interp1 [mm]","a_interp2 [mm]","G_interp1 [mm]","G_interp2 [mm]",]
-res_df.to_csv(savepath, header=tete, index=False)
-
-out_file = open(maincwd+'\\Results.csv', "a",)
-out_file.write(Job + '\n')
-out_file.write(str(COD_max) + '\n')
-out_file.write(str(Lc) + '\n')
-out_file.write(str(Gc) + '\n')
-out_file.close()
-
-
-
-
-
-
-'''
 print('computing GI and GII (R-curve)..')
-beta=45*np.pi/180
 a_t = crackL_J_mm[:,chos_alp]
+# Obtenir les indices des éléments uniques de x
+indices_uniques1 = np.unique(a_t, return_index=True)[1]
 CI = COD.wI/(MatchID.load*np.cos(beta))
 CII = COD.wII/(MatchID.load*np.sin(beta))
-C=np.sqrt(COD.wI**2+COD.wII**2)/MatchID.load
-a_t = a_t[indices_uniques1]
-CI = CI[indices_uniques1]
-CII = CII[indices_uniques1]
-C = C[indices_uniques1]
+a_t_uniques = a_t[indices_uniques1]
+CI_uniques = CI[indices_uniques1]
+CII_uniques = CII[indices_uniques1]
 ALPI = ((MatchID.load*np.cos(beta))**2)/(2*Test.thickness)
 ALPII = ((MatchID.load*np.sin(beta))**2)/(2*Test.thickness)
-ALPI = ALPI[indices_uniques1]
-ALPII = ALPII[indices_uniques1]
-ALP = (MatchID.load**2)/(2*Test.thickness)
-ALP = ALP[indices_uniques1]
+ALPI_uniques = ALPI[indices_uniques1]
+ALPII_uniques = ALPII[indices_uniques1]
+
+fig = plt.figure(figsize=(7,5))
+plt.plot(MatchID.time,a_t, '*r--', linewidth=3, label='Method1')
+plt.plot(indices_uniques1, a_t_uniques, 'b', label='Method1 without duplicates')
+plt.xlabel('Images')
+plt.ylabel('Crack length, a(t), mm')
+plt.tick_params(axis='both', labelsize=14)
+plt.legend(fontsize=12)
+plt.title(Job)
+fig.tight_layout()
+plt.grid()
+plt.show()  
 
 G01 = ALPI*CI/a_t*10**3
 G02 = ALPII*CII/a_t*10**3
-Gtest0=G01+G02
-G0=ALP*C/a_t*10**3
+Gtot=G01+G02
 
-results = polyfit(a_t, CI, 3)
+results = polyfit(a_t_uniques, CI_uniques, 3)
 coeffs = results['polynomial']
 r_squared = results['determination']
 p = np.poly1d(coeffs)
 dp = p.deriv()
-GI = ALPI*dp(a_t)*10**3
+GI = ALPI_uniques*dp(a_t_uniques)*10**3
 
-results = polyfit(a_t, CII, 3)
+results = polyfit(a_t_uniques, CII_uniques, 3)
 coeffs = results['polynomial']
 r_squared = results['determination']
 p = np.poly1d(coeffs)
 dp = p.deriv()
-GII = ALPII*dp(a_t)*10**3
+GII = ALPII_uniques*dp(a_t_uniques)*10**3
 
-
-results = polyfit(a_t, C, 3)
-coeffs = results['polynomial']
-r_squared = results['determination']
-p = np.poly1d(coeffs)
-dp = p.deriv()
-G = ALP*dp(a_t)*10**3
-
-Gtest=GI+GII
+Gtot_interp=GI+GII
 
 fig = plt.figure(figsize=(7,5))
-plt.plot(a_t, GI, 'b:', linewidth=2, label='R-Curve-modeI alpha '+ str(chos_alp))
-plt.plot(a_t, GII, 'r:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
-plt.plot(a_t, G, 'g:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
-plt.plot(a_t, Gtest, 'o:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
+plt.plot(a_t_uniques, GI, 'b:', linewidth=2, label='R-Curve-modeI alpha '+ str(chos_alp))
+plt.plot(a_t_uniques, GII, 'r:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G, J$')
 plt.legend(loc=2, prop={'size': 8})
@@ -926,15 +785,37 @@ plt.show()
 fig = plt.figure(figsize=(7,5))
 plt.plot(a_t, G01, 'b:', linewidth=2, label='R-Curve-modeI alpha '+ str(chos_alp))
 plt.plot(a_t, G02, 'r:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
-plt.plot(a_t, G0, 'g:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
-plt.plot(a_t, Gtest0, 'o:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
-plt.xlabel('Crack length, a(t), mm')
+plt.plot(a_t, Gtot, 'g:', linewidth=2, label='R-Curve-mixed mode alpha '+ str(chos_alp))
 plt.ylabel('$G, J$')
 plt.legend(loc=2, prop={'size': 8})
 plt.grid()
 plt.title(Job)
 plt.show()
+
+
 '''
+Gc = np.max(G1)
+Lc = np.max(Load)
+COD_max = np.max(COD.wI)
+'''
+# write array results on a csv file:
+RES = np.array([MatchID.displ[:], MatchID.load[:], CI[:],CII[:], COD.wI[:],COD.wII[:], a_t[:], G01[:], G02[:]])
+RES = np.transpose(RES)
+# pd.DataFrame(RES).to_csv("path/to/file.csv")
+# converting it to a pandas dataframe
+res_df = pd.DataFrame(RES)
+#save as csv
+savepath = os.path.join(cwd, Job + '_RES.csv')
+tete = ["d, [mm]", "P [N]", "CI [mm/N]", "CII [mm/N]", "wI [mm]","wII [mm]", "a(t) [mm]", "GI [N/mm]", "GII [N/mm]"]
+res_df.to_csv(savepath, header=tete, index=False)
+
+out_file = open(maincwd+'\\Results.csv', "a",)
+out_file.write(Job + '\n')
+#out_file.write(str(COD_max) + '\n')
+#out_file.write(str(Lc) + '\n')
+#out_file.write(str(Gc) + '\n')
+out_file.close()
+
 #
 # plt.legend(loc=2, prop={'size': 8})
 # fig.tight_layout()
@@ -942,7 +823,5 @@ plt.show()
 # ax.set_ylim(bottom=0)
 # plt.grid()
 # plt.show()
-print(a0.Y)
-print(a0.X)
     
 #exec(open('Videomaker.py').read())
