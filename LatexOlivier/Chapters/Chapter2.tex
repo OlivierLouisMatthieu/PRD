@@ -106,16 +106,7 @@ To remedy this problem, it is necessary to examine the load of the hydraulic pre
 \subsection{Preparation of the DIC method}
 
 It is possible to process the images with different software. This image processing will allow to obtain the maps of deformations and displacements. For this work will be used MatchID a correlation image software and python.
-In our case, the quantity of interest is the crack length a as a function of the applied force F. The field of view ( FOV), the position envelope for hardware and if the test is a 2D-DIC or a stereo DIC are parameters to take into account. In our case, a 2D-DIC is suitable because the test piece is assumed to be planar and perpendicular to the camera optical axis. The DIC pattern is one important parameter. All the specimens are painted to obtain a speckle pattern suitable for image correlation. A thin layer of white paint is firstly added using a mate spray, followed by a diffuse distribution of black paint to create a unique local pattern across the ZOI at the crack tip as you can see figure \ref{fig:Speckle_pattern}.
-
-\begin{figure}[htp]
-	\centering
-	\includegraphics[width=4cm]{Speckle_pattern}
-	\caption{Speckle pattern obtained for each sample}
-	\label{fig:Speckle_pattern}
-\end{figure}
-
-Before starting the test, some parameters must be set on MatchID.grab or other software if the camera is not registered in MatchID. It is possible to vary parameters such as the exposure time. The speckle pattern is an image composed of black and white dots. By varying the exposure time, the speckle pattern will have a greater or lesser range of gray (from 0 to 255). On the other hand, a longer exposure time will result in color saturation. Then, it is important to adjust the quality of the speckle using two parameters, the focus and the aperture. With some cameras, it is sometimes impossible to adjust the focus. It is therefore necessary to play with the distance camera-specimen.
+In our case, the quantity of interest is the crack length a as a function of the applied force F. The field of view ( FOV), the position envelope for hardware and if the test is a 2D-DIC or a stereo DIC are parameters to take into account. In our case, a 2D-DIC is suitable because the test piece is assumed to be planar and perpendicular to the camera optical axis. The DIC pattern is one important parameter. All the specimens are painted to obtain a speckle pattern suitable for image correlation. A thin layer of white paint is firstly added using a mate spray, followed by a diffuse distribution of black paint to create a unique local pattern across the ZOI at the crack tip. Before starting the test, some parameters must be set on MatchID.grab or other software if the camera is not registered in MatchID. It is possible to vary parameters such as the exposure time. The speckle pattern is an image composed of black and white dots. By varying the exposure time, the speckle pattern will have a greater or lesser range of gray (from 0 to 255). On the other hand, a longer exposure time will result in color saturation. Then, it is important to adjust the quality of the speckle using two parameters, the focus and the aperture. With some cameras, it is sometimes impossible to adjust the focus. It is therefore necessary to play with the distance camera-specimen.
 
 \subsection{MatchID}
 
@@ -407,26 +398,26 @@ The following initial crack length values are then obtained:
 	\centering
 	\begin{tabular}{c c }
 		\multicolumn{1}{l}{} & \multicolumn{1}{l}{Initial Crack length} \\
-		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E1} & 25,85   mm \\
-		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E2} & 25,6 mm \\
-		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E3} & 24,85 mm \\
+		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E1} & 25,3   mm \\
+		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E2} & 24.85 mm \\
+		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E3} & 25.65 mm \\
 		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E4} & 24,7 mm \\ 
 		\cellcolor[HTML]{F8CBAD}E0E5 & 25,6 mm \\ 
-		\cellcolor[HTML]{C65911}E15E1 & 25,3 mm \\ 
+		\cellcolor[HTML]{F8CBAD}E0E6 & 26,3 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E1} & 25,85 mm \\ 
 		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E2} & 25,6 mm \\ 
 		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E3} & 25,55 mm \\ 
-		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E4} & 25,3 mm \\ 
-		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E5} & 24,4 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E4} & 25.3 mm \\
+		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E5} & 24,85 mm \\ 
 		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E1} & 25,55 mm \\ 
 		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E2} & 24,4 mm \\ 
 		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E3} & 24,2 mm \\ 
-		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E4} & 25,65 mm \\ 
-		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E5} & 25,95 mm \\ 
-		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E1} & 25,3 mm \\ 
-		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E2} & 24,85 mm \\
-		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E3} & 25,8 mm \\ 
-		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E4} & 24,35 mm \\ 
-		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E5} & 26.3 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E4} & 25,3 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E5} & 24.4 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E6} & 24.35 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E7} & 25.6 mm \\
+		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E1} & 25,8 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{00FF00}broken} & 25.95 mm \\  
 	\end{tabular}
 	\caption{Precrack dimensions}
 	\label{tab:Tab11}

@@ -34,7 +34,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e0e1'
+Job = 'e0e2'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -78,7 +78,7 @@ Time = Time - Time[0]
 incTime = int(1/Time[1])
 
 Displ = test.Displ.values.astype(float)*Test.DisplConvFactor # unit: mm
-Displ = Displ - Displ[0]
+#Displ = Displ - Displ[0]
 Load = test.Load.values.astype(float)*Test.LoadConvFactor # unit: N
 Load = Load - Load[0]
 if Load[0]>Load[-1]:
@@ -87,36 +87,21 @@ if Load[0]>Load[-1]:
 
 # TODO: shifting of the P-d curve ########
 
-# X1 = Displ[0]
-# X1bis = Displ[200] #200 to have the shape of the linear part of the curve
-# X2 = Displ[300]
-# Y1 = Load[0]
-# Y1bis = Load[200]
-# Y2 = Load[300]
-# slope = (Y2-Y1)/(X2-X1)
-# pas = (Y1bis-Y1)/200
-# pas_bis = (X1bis-X1)/200
-# i = Y1
-# j = X1
-# k = 0
-#
-# while i > 0:
-#     i = i-pas
-#     j = j+pas_bis
-#     k=k+1
-#     print('k vaut : %d' %k)
-#
-# shift_right = j
-#
-# Displ = Displ+shift_right
-
-#print('displacement of the curve : %d' %shift_right, 'en mm')
-
+X1 = Displ[0]
+X2 = Displ[100]
+Y1 = Load[0]
+Y2 = Load[100]
+a = (Y2 - Y1) / (X2 - X1)
+b = Y1 - a * X1
+x0=-b/a
+print(a)
+print(b)
+Displ = Displ -x0
 ##########################################
 
 fig, ax = plt.subplots(figsize=(7,5))
 plt.plot(test.Displ.values.astype(float), test.Load.values.astype(float), 'k-', linewidth=3)
-plt.ylabel('Load [N]')
+plt.ylabel('Load [kN]')
 plt.xlabel('Displacement [mm]')
 plt.grid()
 plt.show()
@@ -164,7 +149,11 @@ MatchID.load = np.array(auxL)
 
 print('Number of stages: ', str(MatchID.stages))
 
+curvesupx=[0,MatchID.displ[0]]
+curvesupy=[0,MatchID.load[0]]
+
 fig, ax = plt.subplots(figsize=(7,5))
+plt.plot(curvesupx, curvesupy, linestyle='dashed', color='red', linewidth=2)
 plt.plot(MatchID.displ, MatchID.load, 'k-', linewidth=2)
 plt.ylabel('Load [N]')
 plt.xlabel('Displacement [mm]')
@@ -932,13 +921,13 @@ if run == 1:
     cv.destroyAllWindows()
 
 #exec(open('ReadcrackfractureMMCG.py').read())
-#crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
+crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
 #crack=(CTODimage*Test.mm2pixel-crack)+Test.a0
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
 plt.plot(MatchID.time, dad, 'b', label='Method2')
-#plt.plot(indices, crack,'bo', markersize=5)
+plt.plot(indices, crack,'bo', markersize=5)
 plt.xlabel('Images')
 plt.ylabel('Crack length, a(t), mm')
 plt.tick_params(axis='both', labelsize=14)
@@ -1132,10 +1121,10 @@ G_interp2[:] = np.interp(a_interp2[:], x2[:], Ginterp2[:])
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(a_t, G1, 'r:', linewidth=2, label='Method 1 alpha '+ str(chos_alp))
-plt.plot(x1, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
-plt.plot(x2, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
-plt.plot(a_interp1, G_interp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-plt.plot(a_interp2, G_interp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+#plt.plot(x1, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
+#plt.plot(x2, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
+#plt.plot(a_interp1, G_interp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+#plt.plot(a_interp2, G_interp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
 plt.plot(dad, G2, 'k:', linewidth=2, label='Method2')
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G_{Ic}, J/m^2$')

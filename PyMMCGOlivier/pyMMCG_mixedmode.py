@@ -32,14 +32,14 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e30e3'
+Job = 'e15e4'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
     maincwd = "/home/slimbook/Documents/GitHub/OlivierLouisMatthieu/PRD/MMCGTests"
 elif runuser == 'Olivier':
     #maincwd = "D:\Recherche PRD\EXP\MMCGTests"
-    maincwd = "D:\Recherche PRD\EXP\MMCG_Olivier\Arcan30"
+    maincwd = "D:\Recherche PRD\EXP\MMCG_Olivier\Arcan15"
 
 cwd = os.path.join(maincwd, Job)
 
@@ -565,7 +565,7 @@ if re.match(r'^e15', Job):
     alpha_alphaV = np.round(alpha_alphasel*np.arange(.1,0.8,.1),1) #for 15° except e15e1
 if re.match(r'^e30', Job):
     print("La racine de job commence par 'e30'")
-    beta=15*np.pi/180
+    beta=30*np.pi/180
     alpha_alphaV = np.round(alpha_alphasel*np.arange(.7,1.3,.1),1)
 #print(alpha_alphasel)
 #print(alpha_alphaV)
@@ -694,7 +694,7 @@ while i < MatchID.stages :
     
 
 ###############################################
-
+CTODimage = MatchID.xCoord[a0.X]
 #crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
 
 fig = plt.figure(figsize=(7,5))
