@@ -28,6 +28,7 @@ if Job == 'e0e1':
     nombre=49
     indices = [0, 10, 20, 30, 40,45,50]
     crack = [4124, 4113, 4104, 3477, 2618,643.8,86.72]
+    Fc_indices=[0,25,27,32,35,40,45]
 elif Job == 'e0e2':
     Test.a0 = 24.85 # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -43,6 +44,7 @@ elif Job == 'e0e2':
     nombre=60
     indices = [0, 10, 20, 30, 40,45,50,60]
     crack = [4124, 4083, 4028, 4028, 3944,3319,1768,106.9]
+    Fc_indices=[0,16,24,29,33,43,46]
 elif Job == 'e0e3':
     Test.a0 = 25.65  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -58,6 +60,7 @@ elif Job == 'e0e3':
     nombre=47
     indices = [0, 10, 20, 30,35, 40,50]
     crack = [4410, 4308, 4215, 3377,1119, 569.3,177.2]
+    Fc_indices=[0,12,17,24,26,28,31,33]
 elif Job == 'e0e5':
     Test.a0 = 25.6  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -71,6 +74,7 @@ elif Job == 'e0e5':
     a1=59.44
     af=2.86
     nombre=59
+    Fc_indices=[0,13,17,21,26,29,35,44,52]
 elif Job == 'e0e6':
     Test.a0 = 26.3 # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -84,6 +88,7 @@ elif Job == 'e0e6':
     a1=59.34
     af=5.73
     nombre=59
+    Fc_indices=[0,35,37,39,41,43,47,50]
 elif Job == 'e15e1':
     Test.a0 = 25.85  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -98,6 +103,7 @@ elif Job == 'e15e1':
     nombre=71
     indices = [0, 10, 20, 30, 40,45,50,55,60,70]
     crack = [4146, 4043, 4030, 4030,3829, 3179,2111,1462.3,866.7,387]
+    Fc_indices=[0,19,23,36,39,42,45,51]
 elif Job == 'e15e2':
     Test.a0 = 25.6 # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -112,6 +118,7 @@ elif Job == 'e15e2':
     nombre=39
     indices = [0, 10, 20, 30,35, 40]
     crack = [4166, 4107, 4104, 3401,2639, 182.9]
+    Fc_indices=[0,8,19,24,27,33,36,38]
 elif Job == 'e15e3':
     Test.a0 = 25.55  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -124,6 +131,7 @@ elif Job == 'e15e3':
     a1=56.53
     af=8.04
     nombre=41
+    Fc_indices=[0,17,23,26,30,33,35,38]
 elif Job == 'e15e4': #e2p1
     Test.a0 = 25.3  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -139,6 +147,7 @@ elif Job == 'e15e4': #e2p1
     nombre=30#ou31
     indices = [0, 10, 20, 30, 40,50,60,70]
     crack = [2161, 2173, 1985, 1820, 1511,1503,1301,1203]
+    Fc_indices=[0,4,22,28,30]
 elif Job == 'e15e5':
     Test.a0 = 24.85  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -151,6 +160,7 @@ elif Job == 'e15e5':
     a1=57.29
     af=3.31
     nombre=51
+    Fc_indices=[0,5,19,47,49]
 elif Job == 'e30e1':
     Test.a0 = 25.55  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -177,6 +187,7 @@ elif Job == 'e30e2':
     nombre=32
     indices = [0, 10, 20, 30, 40,45,49,50]
     crack = [4132, 4099, 4095, 4095, 3853,3025,1245,204.1]
+    Fc_indices=[0,11,18,33,39,42,47]
 elif Job == 'e30e3':
     Test.a0 = 24.2 # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -191,6 +202,7 @@ elif Job == 'e30e3':
     nombre=33
     indices = [0, 10, 20,25, 30, 35,40]
     crack = [4173, 4120, 3713,2754, 453, 102.4,0]
+    Fc_indices=[0,11,14,16,20,24]
 elif Job == 'e30e4':
     Test.a0 = 25.3  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -200,6 +212,7 @@ elif Job == 'e30e4':
     COD.cod_pair = 2
     # Selecting alpha
     chos_alp = 1
+    Fc_indices=[0,5,11,15,27,31,34]
 elif Job == 'e30e5':
     Test.a0 = 24.4  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -215,6 +228,7 @@ elif Job == 'e30e5':
     indices = [0, 10, 20, 30, 33]
     crack = [4109, 3960, 3812,3057, 185.2]
     #COD damage
+    Fc_indices=[0,5,11,15,27,31,34]
 elif Job == 'e30e7':
     Test.a0 = 25.6  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
@@ -227,6 +241,7 @@ elif Job == 'e30e7':
     a1=53.93
     af=2.86
     nombre=40
+    Fc_indices=[0,23,26,31,34,36]
 elif Job == 'e45e1':
     Test.a0 = 25.8  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID

@@ -1,16 +1,14 @@
-\chapter{Experimental work and result in mode I}
+\chapter{Experimental work and results in mode I}
 \label{Chapter3}
 
 \section{Introduction}
 
-In this chapter, the opening mode failure behaviour is investigated using the DIC method. We present and analyse the force vs the crack opening curve obtained with the DIC method and python code.  Then the evolution of the crack length curves along the x-axis is obtained as a function of displacement. Finally, the energy restitution rates for the MMCG specimens are calculated and analysed with some other articles.
+In this chapter, the mode I fracture is studied using the DIC method. First, the experimental set-up used on the day of the test is explained. This will enable anyone wishing to carry out the same tests to know how to proceed. The mode I results are then presented and the energy restitution rates for mode I MMCG samples are calculated and analysed with other articles.
 
 \section{Experimental set-up}
 
 \subsection{Camera and MatchiD setup}
 An x-camera coupled with a 60mm Nikkor lens was used for image acquisition. The camera has a resolution of x (H) × x (V) and a sensor size of x. The front of the lens was positioned at a working distance of 285 mm with an aperture of f/11 and an exposure time of 60 milliseconds. The displacement of the machine was 0.02mm/s and the camera had a frequency of 1 Hz, i.e. 1 frame per second.
-
-add speckle pattern DIC+ histogram
 
 The kinematic fields acquired by image correlation (e.g., subset size, subset step, ldots) and numerical differentiation (e.g., strain windows size) algorithms can be significantly impacted by the DIC configuration settings. Since they will determine the spatial resolution and accuracy linked to the DIC measurements, both in displacement and strain fields, these settings constitute fundamental parameters.  In order to balance resolution and spatial resolution, a parametric research was done to support the DIC setting for the current application. The MatchID 2D Parametric Module was used to conduct this investigation.
 
@@ -18,12 +16,15 @@ The kinematic fields acquired by image correlation (e.g., subset size, subset st
 	\centering
 	\begin{tabular}{c c}
 		\hline
-		Correlation   Coefficient: & ZNSSD \\ 
+		Correlation   Coefficient: & ZNCC \\ 
 		Interpolation order: & Bicubic Splines \\ 
 		Transformation order: & Quadratic \\
+		Prefiltering: & Gaussian \\
+		Progress history: & Spatial \\
 		Subset size: & 31 \\
 		Step size: & 10 \\
 		Strainwindow size: & 5 \\ 
+		Virtual Strain Gauge: & 71 \\
 		Strain interpolation: & Q4 \\ 
 		Strain Convention: & Green-Lagrange \\ \hline
 	\end{tabular}
@@ -40,7 +41,7 @@ The hydraulic press was set up by Mr Martins. The first step was to adjust the d
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=12cm]{Setup0°}
+	\includegraphics[width=16cm]{Setup0°}
 	\caption{Experimental set-up}
 	\label{fig:Setup0°}
 \end{figure}
@@ -51,12 +52,21 @@ All the specimens have been painted to obtain a pattern that allows image proces
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=4cm, angle=90]{Speckle_pattern}
-	\caption{Speckle pattern obtained for each sample}
-	\label{fig:Speckle_pattern}
+	\begin{tabular}{c}
+		\includegraphics[width=5cm]{Speckle_DIC} \\
+		(a) \\
+		\\
+		\includegraphics[width=16cm]{histogram} \\
+		(b) \\
+		\\
+	\end{tabular}
+	\caption{(a) Speckle pattern typically obtained with DIC; (b) Histogram of the speckle image}
+	\label{fig:Speckle_DIC}
 \end{figure}
 
-\section{Force-displacement curve}
+\section{Results and comparison in mode I}
+
+\subsection{Force-displacement curve}
 
 Normally four distinct parts are observed on a force-displacement curve:
 
@@ -68,16 +78,27 @@ Normally four distinct parts are observed on a force-displacement curve:
 \end{itemize}
 
  In the figure \ref{fig:e0e1_Pdelta}, we don't see the setting up of the loaded specimen because a slight preload has been applied to the specimen so that it does not move during the beginning of the test. In addition, it is also quite difficult to see the critical FC force peaks because of the noise caused by the load sensor.
+ Some force-displacement curves do not have the expected shape (figure \ref{fig:e0e5_Pdelta}). Because of the preload applied to fix the samples, not all the curves start at 0N. A shift was therefore necessary to consider the lowest value as 0. In doing so, it appears that the displacement no longer starts at 0. A second offset was therefore performed to extrapolate the shape of the curve and create a virtual point starting at [0,0].This extrapolation is possible because the curve has a linear phase.
+
 
 \begin{figure}[htp]
-	\centering
-	\includegraphics[width=9cm]{e0e1_Pdelta}
-	\caption{Characteristic P-Delta curve}
-	\label{fig:e0e1_Pdelta}
+	\begin{minipage}[c]{.46\linewidth}
+		\centering
+		\includegraphics[width=8cm]{e0e1_Pdelta}
+		\caption{Characteristic P-Delta curve}
+		\label{fig:e0e1_Pdelta}
+	\end{minipage}
+	\hfill%
+	\begin{minipage}[c]{.46\linewidth}
+		\centering
+		\includegraphics[width=8cm]{e0e5_Pdelta}
+		\caption{P-Delta curve shifted}
+		\label{fig:e0e5_Pdelta}
+	\end{minipage}
 \end{figure}
 
 
-\section{Deformation maps}
+\subsection{Deformation maps}
 
 Typical deformation map ($\epsilon$yy) obtained with the DIC method is shown in Figure \ref{fig:Strain_def}.
 During the tests we noticed that the cracks tend to propagate according to the orientation and inclination of the fibres.
@@ -101,26 +122,27 @@ In figure \ref{fig:Strain_def} for specimen e0e1, we assume a small fibre inclin
 
 Strain maps are used to best locate the position of the crack tip by graphic reading.
 Thus, thanks to the deformation maps we are able to obtain the crack length on different stages. It is then possible to check whether method 1 and method 2 are working correctly.
-The blue points figure \ref{fig:fig39} and \ref{fig:fig40} for tests e0e1 and e0e2 are the points read graphically with the deformation maps. We can see that the blue points follow the curves of method 1 and method 2 correctly, so we can consider that both methods are working correctly. However, it seems that method 1 is slightly more accurate.
+The blue points figure \ref{fig:fig39} and \ref{fig:fig40} for tests e0e2 and e0e3 are the points read graphically with the deformation maps. We can see that the blue points follow the curves of method 1 correctly, so we can consider that the method is working correctly. 
+It seems that method 2 is less accurate than method 1, but we'll still use it to obtain G and see what difference a small variation in a(t) will do.
 
 \begin{figure}[htp]
 	\begin{minipage}[c]{.46\linewidth}
 		\centering
-		\includegraphics[width=7cm]{e0e1_graphicread}
-		\caption{Crack tip by graphic reading e0e1}
+		\includegraphics[width=8cm]{e0e2_graphicread}
+		\caption{Crack tip by graphic reading e0e2}
 		\label{fig:fig39}
 	\end{minipage}
 	\hfill%
 	\begin{minipage}[c]{.46\linewidth}
 		\centering
-		\includegraphics[width=7cm]{e0e2_graphicread}
-		\caption{Crack tip by graphic reading e0e2 }
+		\includegraphics[width=8cm]{e0e3_graphicread}
+		\caption{Crack tip by graphic reading e0e3 }
 		\label{fig:fig40}
 	\end{minipage}
 \end{figure}
 
 
-\section{Force - Crack tip opening curve}
+\subsection{Crack tip opening curves}
 
 The user must select the "CODpair". In order to provide accurate displacement, the chosen pair of subsets must be as close as possible to the crack tip while yet being sufficiently removed to prevent information loss (if they are positioned inside the crack). Databases are updated using the selected CODpair following this study. Due to the selected COD pair being in blue, a plot was produced that displays the wI shapes that were used, as seen on figure \ref{fig:CTOD_example}. In order to demonstrate for each specimen that the COD pair picked could not have been more exact, the plot also compared this curve to the one created using the lower and upper COD pairs.
 
@@ -132,22 +154,23 @@ The user must select the "CODpair". In order to provide accurate displacement, t
 \end{figure}
 
 All the crack opening curves in mode I (displacement of the two lips of the crack) are shown in figure \ref{fig:COD_modeI}. 
-We can see two distinct phases in these curves. A first phase in which the force increases with a slight increase of the CTOD and a second phase in which the load decreases with a sharp increase of CTOD. In the first phase, the MMCG specimen resists the force applied by the tensile machine, whereas in the second phase, the crack is already well initiated. There is therefore little resistance for the wood sample, which explains why the force decreases and the COD increases.
+We can see two distinct phases in these curves. A first phase in which the force increases with a slight increase of the CTOD and a second phase in which the load decreases with a sharp increase of CTOD. In the first phase, the MMCG specimen resists the force applied by the tensile machine, whereas in the second phase, the crack is already well initiated. There is therefore little resistance for the wood sample, which explains why the force decreases and the CTOD increases significantly.
+Only the portion of the curve before the abrupt force P decrease will be used to calculate G. If we use curve e0e6 as an example, we can see that the specimen breaks at a CTOD of around 1.2mm due to an abrupt decline in force.
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=16cm]{COD_modeI}
-	\caption{Crack Opening Displacement}
+	\includegraphics[width=13cm]{COD_modeI}
+	\caption{Crack Tip Opening Displacement}
 	\label{fig:COD_modeI}
 \end{figure}
 
-\section{Crack length-Displacement curve}
+\subsection{Crack length curves}
 
-For method 1 by compiling the evolution of a(t) as a function of the images recorded for several alpha values (\ref{fig:CTOD_example}), it is possible to get an idea of the alpha value required to obtain the best a(t). Indeed, the alpha parameter must be as small as possible for the evolution of the crack length to be complete. So, for each crack length in the sample, it is possible to eliminate several candidates. In this example \ref{fig:CTOD_example}, it is possible to eliminate the use of curves with a(t)<70mm. These alpha values do not allow the entire crack length to be studied. To distinguish between the black and turquoise curves, you can use the displacement map by placing the position of the crack tip with a red dot on a figure. For different stages, we can then see which curve corresponds best to the position of the crack tip. Here, the black curve was chosen.
+For method 1 by compiling the evolution of a(t) as a function of the images recorded for several alpha values (\ref{fig:Cracklength_modeI_example}), it is possible to get an idea of the alpha value required to obtain the best a(t). Indeed, the alpha parameter must be as small as possible for the evolution of the crack length to be complete. So, for each crack length in the sample, it is possible to eliminate several candidates. In this example \ref{fig:Cracklength_modeI_example}, it is possible to eliminate the use of curves with a(t)<70mm. These alpha values do not allow the entire crack length to be studied. To distinguish between the black and turquoise curves, you can place the position of the crack tip with a red dot on the displacement map. Then for different stages, we can then see which curve corresponds best to the position of the crack tip. Here, the black curve was chosen.
 
 To obtain a(t) using method 2, we need to read $a_1$ and $a_f$ graphically and choose a pair of COD lines that are not damaged by nans values.
 
-\begin{figure}[htp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=9cm]{Cracklength_modeI_example}
 	\caption{Crack length evolution depending on alpha}
@@ -155,67 +178,75 @@ To obtain a(t) using method 2, we need to read $a_1$ and $a_f$ graphically and c
 \end{figure}
 
 All the crack length curve in function of displacement in mode I are shown in figure \ref{fig:crack_method1} and \ref{fig:crack_method2}. 
-With method 1, there are, as expected, different plateaus for the crack length.The crack length increases gradually and continuously before rupture. It is the design of the MMCG specimen that allows the stable propagation of the crack. Indeed, with this specimen, cracks progress slowly until failure occurs at maximum load. In some images, bridges prevent the fracture from propagating linearly. When these bridges break, the crack propagates, involving a new stage. It is interesting to examine all the crack length propagation plots.  The curves are all more or less the same shape, and the crack ends at roughly the same length. What differs is the stage at which the crack begins to propagate. For example, we can see that e0e1 begins its crack propagation at stage 23, whereas e0e2 begins at stage 9.
-As for method 2, it gives broadly the same curves as the method 1 but the curve is smoother, which is not necessarily a good thing since crack propagation in wood normally works more step by step.
+With method 1, there are, as expected, different plateaus for the crack length.The crack length increases gradually and continuously before rupture. It is the design of the MMCG specimen that allows the stable propagation of the crack. Indeed, with this specimen, cracks progress slowly until failure occurs at maximum load. In some images, bridges prevent the fracture from propagating linearly. When these bridges break, the crack propagates, involving a new stage. It is interesting to examine all the crack length propagation plots.  The curves are all more or less the same shape, and the crack ends at roughly the same length. What differs is the stage at which the crack begins to propagate. For example, we can see that e0e1 begins its crack propagation at stage 23, whereas e0e2 begins at stage 9 for method 1.
+As for method 2, it gives broadly the same curves as the method 1 but the curves are smoother, which is not necessarily a good thing since crack propagation in wood normally works more step by step. Moreover, if we check the figure \ref{fig:a_e0e1} or figure \ref{fig:a_e0e2} in the appendix  we can see that the crack length of method 2 is generally lower than that of method 1 for the same stage.
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=16cm]{crack_method1}
-	\caption{Crack length evolution depending on alpha}
+	\includegraphics[width=13cm]{crack_method1}
+	\caption{Crack length evolution method 1}
 	\label{fig:crack_method1}
 \end{figure}
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=16cm]{crack_method2}
-	\caption{Crack length evolution depending on alpha}
+	\includegraphics[width=13cm]{crack_method2}
+	\caption{Crack length evolution method 2}
 	\label{fig:crack_method2}
 \end{figure}
 
-\section{Critical energy restitution rate}
+\subsection{Critical energy restitution rate}
 
-Various methods can be used to calculate the energy restitution rate. The general formula is explained in \ref{eq:eq125}. However, it is possible to calculate complacency in different ways. One possibility, used by \cite{Odounga2018phd} and \cite{MoutouPitti2008}, is to calculate the $\Delta c$ between the starting point and the point under consideration. A second method is to determine $C(a)=m*a(t)^3+n*a(t)^2+o*a(t)+p)$ with a(t) the length of the crack.  It is then possible to use the compliance derivate by the crack length. Both methods were tested to see which would be better and finally G is calculated with $\Delta c$. In fact, the cubic function used did not pass through all the points on the graph of C as a function of a(t) and was therefore very inaccurate. The values of G obtained with this method were of the order of $10^3 J/m2$, which is too high.
-The figures below show G with the 2 methods used to calculate the crack length.
+Various methods can be used to calculate the energy restitution rate. The general formula is explained in \ref{eq:eq125}. However, it is possible to calculate complacency in different ways. One possibility, used by \cite{Odounga2018phd} and \cite{MoutouPitti2008}, is to calculate the $\Delta c$ between the starting point and the point considered for all the critical forces. The critical forces are the forces for which the force decreases at the next stage, meaning crack propagation according to \cite{MoutouPitti2008}. A second possibility is to determine C as an interpolated function as $C(a)=m*a(t)^3+n*a(t)^2+o*a(t)+p$ with a(t) the length of the crack.  It is then possible to use the compliance derivate by the crack length. Both were tested to see which would be better and finally G is calculated with $\Delta c$. In fact, the cubic function used did not pass through all the points on the graph of C as a function of a(t) and was therefore very inaccurate. The values of G obtained with this method were of the order of $10^3 J/m2$, which is too high.
+The figures \ref{fig:G_method1} and \ref{fig:G_method2} below show G with the 2 methods used to calculate the crack length.
+As can be observed, depending on the specimen, different values of a(t) are reached with the maximal energy restitution rate. For values of a(t) between 33 and 80 mm, method 1 and 2 achieve G max, with an apparent tendency for Gmax to be acquired at a(t) about 60 mm with method 1. For method 2, Gmax is obtained for shorter crack lengths. This can be explained by the fact that a(t) is generally smaller for the same stage.
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=16cm]{G_method1}
+	\includegraphics[width=12.5cm]{G_method1}
 	\caption{Gmethod1}
 	\label{fig:G_method1}
 \end{figure}
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=16cm]{G_method2}
+	\includegraphics[width=12.5cm]{G_method2}
 	\caption{Gmethod2}
 	\label{fig:G_method2}
 \end{figure}
 
-\begin{table} \centering
+We notice that G increases progressively with method 1 and Figure \ref{fig:G_method1} looks like the plots of G obtained by \cite{Odounga2018phd}. For method 2, it seems that G grows faster for a smaller increase in a(t). Indeed, for the same training period a(t) is generally higher with method 1 than with method 2. This proves that a slight variation in the crack length measurement produces completely different results for G. We can also see that the plots generally reach a plateau, which is the expected shape for the curve.
+The figures of G can be seen one by one in appendix \ref{Appendix1}. This makes it easier to see the shape of the curve for each specimen.
+
+Table \ref{fig:tableG1} gives the maximum values of G in mode I for silver Fir. It can be seen that G tends to be higher using method 2, which can be explained by a lower estimate of a(t) for the same image/stage.
+
+\begin{table} [H]
+	\centering
 	\begin{tabular}{ccccccc}
 		\toprule % horizontal line at the top of the table
 		&  & e0e1 & e0e2 & e0e3 & e0e5 & e0e6\\\midrule
-		& Gmax method1 & 284.44 & 104.05 & 109.90 & 95.67 & 157.87 \\\midrule
-		& Gmax method2 & 319.31 & 142.36 & 206.73 & 93.83 & 200.56 \\\midrule
+		& Gmax method1 & 273.87 & 90.24 & 107.49 & 95.67 & 183.58 \\\midrule
+		& Gmax method2 & 319.31 & 131.16 & 206.73 & 93.83 & 199.59 \\\midrule
 	\end{tabular}
-	\caption{Comparison of mean max G values for specimens in the literature, 2MCG: Mixed Mode Crack Growth, DCB: Double Cantilever Beam, WS: Wedge Splitting test, RL: Radial Longitudinal}
-	\label{fig:fig37}
+	\caption{G max values for Silver Fir specimens in mode I}
+	\label{fig:tableG1}
 \end{table}
 
-\section{Discussion}
+\subsection{Discussion}
 
 Table \ref{fig:fig37} compares the different values of the maximum energy release rate obtained in this study with the literature review. These are numerous, especially in mode I. In order to provide an objective comparison, the discussion focuses on temperate species with a similar density and an initial crack oriented in the RL direction. The average maximum energy restitution rate for silver fir is shown in bold and compared to different species and different tests. There are 2MCG, DCB and wedge splitting tests.
-First of all, we can see that the value of G is of the same order of magnitude as for the other species. Silver fir differs from alder by $26 \%$, Douglas fir by $34 \%$ and Padouk by $30 \%$. Moreover, in \cite{Odounga2018phd}'s work it's not uncommon to obtain values similar. In fact, his standard deviation is 2 to 3 times greater, which means that his results are more widely dispersed.
-\cite{Xavieretal2014} also obtained experimental values of G=190 J/m2, which corresponds to the results obtained in this study.
+First of all, we can see that the value of G is of the same order of magnitude as for the other species. Silver fir differs from alder by $29 \%$, pinus pinaster by $36 \%$ and Padouk by $33 \%$. Moreover, in \cite{Odounga2018phd}'s work it's not uncommon to obtain similar values. In fact, his standard deviation is 2 to 3 times greater, which means that his results are more widely dispersed.
+\cite{Xavieretal2014} also obtained experimental values of G=190 J/m2, which corresponds to the results obtained in this study. In addition, alder and pinus pinaster are not very far from silver fir in density (around 0.1).
+The scattering of results observed here can be attributed to the material. This dispersal is justified by the high natural variability of wood and its anatomical composition.
 
-\begin{table}[ht]
+\begin{table}[]
 	\centering
 	\resizebox{\textwidth}{!}{
 		\begin{tabular}{cccccccc}
 			\toprule % ligne horizontale en haut du tableau
 			& References & Wood species & Test type & Orientation & Density & $G_{\max}(J/m^2)$ & Standard deviation \\
 			\midrule
-			& & \textbf{Silver fir} & \textbf{2MCG} & \textbf{RL} & \textbf{0.43} & \textbf{179} & \textbf{75} \\
+			& & \textbf{Silver fir} & \textbf{2MCG} & \textbf{RL} & \textbf{0.43} & \textbf{172} & \textbf{82} \\
 			\midrule
 			& \cite{Odounga2018phd} & Okoumé & 2MCG & RL & 0.39-0.5 & 317 & 160 \\
 			\midrule
@@ -243,4 +274,7 @@ First of all, we can see that the value of G is of the same order of magnitude a
 	\label{fig:fig37}
 \end{table}
 
+
 \section{Conclusion}
+
+write a conclusion

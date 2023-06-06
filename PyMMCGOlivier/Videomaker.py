@@ -1,5 +1,5 @@
 #Video Displ-Load
-run=0
+run=1
 #run = int(input("Please enter 1 if you want the video: "))
 if run == 1:
     for i in range(len(MatchID.displ)):
@@ -63,15 +63,15 @@ if run == 1:
     cv.destroyAllWindows()
 
 #Video CTOD    
-run=0
+run=1
 #run = int(input("Please enter 1 if you want the video: "))
 if run == 1:
     for i in range(len(COD.wI)):
         fig, ax = plt.subplots(figsize=(7,5))
-        plt.plot(MatchID.displ[:i+1], COD.wI[:i+1], 'b-', linewidth=4, label='Mode I with COD pair : %d' %COD.cod_pair)
-        plt.plot(MatchID.displ[:i+1], COD.wII[:i+1], 'k--', label='Mode II with COD pair : %d' %COD.cod_pair)
-        plt.xlim(0, 1.4)
-        plt.ylim(0, 0.35)
+        plt.plot(COD.wI[:i+1], MatchID.load[:i+1], 'b-', linewidth=4, label='Mode I with COD pair : %d' %COD.cod_pair)
+        #plt.plot(MatchID.displ[:i+1], COD.wII[:i+1], 'k--', label='Mode II with COD pair : %d' %COD.cod_pair)
+        plt.ylim(0, 450)
+        plt.xlim(0, 1.6)
         plt.xlabel('CTOD, mm')
         plt.ylabel('Load, N')
         ax.set_xlim(xmin=0)
@@ -148,7 +148,7 @@ if run == 1:
     cv.destroyAllWindows()
 
 #Video Crack length    
-run=0
+run=1
 #run = int(input("Please enter 1 if you want the video: "))
 if run == 1:
     for i in range(len(MatchID.displ)):
@@ -157,8 +157,8 @@ if run == 1:
         plt.plot(MatchID.time[:i], dad[:i], 'b', label='Method2')
         plt.xlabel('Images')
         plt.ylabel('Crack length, a(t), mm')
-        plt.xlim(0, 175)
-        plt.ylim(21, 55)
+        plt.xlim(0, 60)
+        plt.ylim(24, 80)
         plt.title(Job)
         fig.tight_layout()
         plt.grid()
@@ -183,15 +183,15 @@ run=1
 if run == 1:
     for i in range(len(MatchID.displ)):
         fig, ax = plt.subplots(figsize=(7,5))
-        #plt.plot(a_t[:i], G1[:i], 'r:', linewidth=2, label='R-Curve alpha '+ str(chos_alp))
-        #plt.plot(dad[:i], G2[:i], 'b:', linewidth=2, label='Method2')
-        plt.plot(a_interp1[:i], G_interp1[:i], 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-        plt.plot(a_interp2[:i], G_interp2[:i], 'b:', linewidth=2, label='Method II interpolated')
+        plt.plot(a_t[:i], G1[:i], 'r:', linewidth=2, label='R-Curve alpha '+ str(chos_alp))
+        plt.plot(dad[:i], G2[:i], 'b:', linewidth=2, label='Method2')
+        #plt.plot(a_interp1[:i], G_interp1[:i], 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+        #plt.plot(a_interp2[:i], G_interp2[:i], 'b:', linewidth=2, label='Method II interpolated')
         plt.xlabel('Crack length, a(t), mm')
         plt.ylabel('$G_{Ic}, J$')
         plt.legend(loc=2, prop={'size': 8})
-        plt.xlim(24, 52)
-        plt.ylim(0, 500)
+        plt.xlim(24, 80)
+        plt.ylim(0, 320)
         plt.title(Job)
         fig.tight_layout()
         plt.grid()
@@ -215,7 +215,7 @@ run=1
 if run==1:
     path =  "D:\Recherche PRD\EXP\MMCGTests\Video"
     cap1 = cv.VideoCapture(path+'\Disp-Load.avi')
-    cap2 = cv.VideoCapture(path+'\Crackspecimen.avi')
+    cap2 = cv.VideoCapture(path+'\CTOD.avi')
     cap3 = cv.VideoCapture(path+'\Crack-Time.avi')
     cap4 = cv.VideoCapture(path+'\Energy-Crack.avi')
     

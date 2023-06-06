@@ -3,7 +3,7 @@
 
 \section{Introduction}
 
-This chapter focuses on the preparation of the tests and the tools used to obtain results. It explains in detail the equipment used to carry out the tests and the preparation made on it. A section is devoted to the application of the DIC method and the proper use of MatchID. It explains some important parameters such as subset size, step size in order to make the DIC analysis as accurate as possible.
+This chapter focuses on the preparation of the tests and the tools used to obtain results. It explains in detail the equipment used to carry out the tests and the preparation made for them. A section is devoted to the application of the DIC method and the proper use of MatchID. It explains some important parameters such as subset size, step size in order to make the DIC analysis as accurate as possible.
 Finally, two fracture analysis methods are presented. A Python code was developed for both methods, and this section also allows a comparison of these two methods and a judgment on which is the most effective.
 
 \section{Tools used during the test}
@@ -25,11 +25,11 @@ The MMCG test piece was developed by \cite{MoutouPitti2008}. However, the specim
 For the tests conducted in this thesis, the European species chosen is the silver fir. This coniferous tree is a derivative of needle trees.  Present on north hemisphere, it is a softwood as Pines or others old trees. Its name originates from its white color and its circumference ranges from 50 to 80 cm. CIRAD data shows a density of 0.45 to 0.60, a SFP of about 30$\%$, and a compressive strength of 41MPa. The tangential shrinkage is significant at 8.7$\%$, whereas the radial shrinkage is at 4$\%$. The wood of the white fir is commonly used for framing, columns, and light framing due to its strength, although it must be treated to prevent fungal and insect attacks. The main concern with this wood is the presence of a water pocket in the tree, as well as its tendency to split, which may limit the use of certain connectors in construction.
 
 In order to compare the future results of tensile tests with the literature review, we need to know some characteristics of our sample.
-We therefore decided to measure its weight, density and moisture content.
+We therefore decided to measure its weight, density, and moisture content.
 The samples were first weighed just before the test. This measurement is called MH. 
 This allows us to know the mass of the wood samples during the test.
 The density of the wood can also be deduced from the volume of the sample and its mass.
-The sample was previously drawn on autocad. The theoretical surface of the sample can therefore be known directly and multiplied by the thickness.
+The sample was previously drawn in AutoCAD. The theoretical surface of the sample can therefore be known directly and multiplied by the thickness.
 We can therefore deduce the density of each sample by applying the formula $\rho=M/V$.
 After testing, the specimens are placed in an oven at 103 degrees until the MC mass is stabilised.
 The moisture content can then be determined by applying the equation \ref{eq:HI}.
@@ -51,7 +51,7 @@ Finally, we have the mass, the density and the moisture content to compare our r
 
 \subsection{Arcan model and final grips}
 
-To perform the tests, a steel Arcan system must be designed. Indeed, this part allows to connect the 2MCG wood specimen to the press. In order to create this grip we must first take into account the dimensions of the 2MCG specimen available in Nova school described in figure \ref{fig:fig23}. The shape of the Arcan system must also allow a good visibility on the propagation of the crack. Figure \ref{fig:fig24} shows the Arcan device that we will use, which was inspired from the thesis of \cite{Odounga2018phd}.
+To perform the tests, a steel Arcan system must be designed. Indeed, this part allows to connect the 2MCG wood specimen to the press. In order to create this grip we must first take into account the dimensions of the 2MCG specimen available at Nova School described in figure \ref{fig:fig23}. The shape of the Arcan system must also allow good visibility for the propagation of the crack. Figure \ref{fig:fig24} shows the Arcan device that we will use, which was inspired from the thesis of \cite{Odounga2018phd}.
 
 
 \begin{figure}[htp]
@@ -71,7 +71,7 @@ The fixing holes for the wooden specimens have a diameter $\Phi= 4 mm$, and the 
 	\label{fig:fig25}
 \end{figure}
 
-This part has a hole of the same size as the holes of the Arcan system in order to connect them. Moreover the head of the connector is 27mm in diameter and the thread has a 2mm pitch to connect to the press. Before sending the technical drawings to a company, a 3D printer was used to verify that the system worked properly. It was then necessary to draw the assembly on solidworks in order to print the assembly and send the technical drawings. Figure \ref{fig:fig26} shows the assembled device in Solidworks. Solidworks is a 3D modeler owned by Dassault using parametric design which generates 3 types of files related to three basic concepts: the part, the assembly and the drawing.
+This part has a hole of the same size as the holes of the Arcan system in order to connect them. Moreover the head of the connector is 27mm in diameter, and the thread has a 2mm pitch to connect to the press. Before sending the technical drawings to a company, a 3D printer was used to verify that the system worked properly. It was then necessary to draw the assembly on Solidworks in order to print the assembly and send the technical drawings. Figure \ref{fig:fig26} shows the assembled device in Solidworks. Solidworks is a 3D modeler owned by Dassault using parametric design, which generates 3 types of files related to three basic concepts: the part, the assembly, and the drawing.
 
 
 \begin{figure}[htp]
@@ -81,14 +81,14 @@ This part has a hole of the same size as the holes of the Arcan system in order 
 	\label{fig:fig26}
 \end{figure}
 
-It has been shown in previous work such as \cite{Odounga2018phd} that one of the main problems with the MMCG specimen is the small distance between the holes and specimen extremities. This implies several cracks in the heel between the hole and the extremity of the sample which prevents observation and analysis of the fracture. One solution proposed by Odounga is the use of washers which could be glued or to strength screw the nut. Indeed, by applying compressive stress on each side of the sample, it reduces the stress applied on the holes and distributes the load in a wider area.
+It has been shown in previous work such as \cite{Odounga2018phd} that one of the main problems with the MMCG specimen is the small distance between the holes and specimen extremities. This implies several cracks in the heel between the hole and the extremity of the sample which prevent observation and analysis of the fracture. One solution proposed by Odounga is the use of washers which could be glued or to strength screw the nut. Indeed, by applying compressive stress on each side of the sample, it reduces the stress applied to the holes and distributes the load over a wider area.
 
 \subsection{Hydraulic press used}
 
 To determine experimental parameters like the load speed or the frequency of the camera recording, it was important to read previous works on the subject and determine which engines will be used to proceed the experiments. The press used for the tests is a Landmark Servohydraulic Test Systems model 661.21B-03  from MTS. It is capable of exerting a maximal applied load of 100 kN (figure \ref{fig:fig27}).
 In the work of \cite{Ostapska2021} the load speed recommended was about $0.1\ mm\ {min}^{-1}$ and the record was made at a frequency of 5 Hz, so 5 images per seconds. In the work of \cite{Mambili2018} the record was made at a frequency of 10 Hz and the load speed was about 0.3 mm/min with a pre-load of 100N. It should be remembered that this press is also chosen because of its ability to load the specimens with a constant time displacement. Indeed, it was explained that this work will use the complacency method to compare the results.
 
-As explained \cite{MALFAIT2021}  this MTS Hydraulic Press works with a cooler fluid. Indeed, a tank full of fluid mixed to water and a cooler system send this fluid mix to the press as visible on \ref{fig:fig27}. Then, a hydraulic supply from MTS sends this liquid to the press itself. It is the model 506.02 serie 22 coupled with the Vickers DG4V-3-2A. Then the pressure is created thanks to the Hydraulic Service Manifold part from MTS company, model 234.11. Finally, a servo valve MOOG A076-263c increase the pressure to allow the hydraulic press operation. It is a high performance valve which drives a dry torque motor. Then a MTS load cell (661-21B-03) allows to follow the displacement of the hydraulic press.
+As explained \cite{MALFAIT2021}  this MTS Hydraulic Press works with a cooler fluid. Indeed, a tank full of fluid mixed to water and a cooler system send this fluid mix to the press as visible on \ref{fig:fig27}. Then, a hydraulic supply from MTS sends this liquid to the press itself. It is the model 506.02 serie 22 coupled with the Vickers DG4V-3-2A. Then the pressure is created thanks to the Hydraulic Service Manifold part from MTS company, model 234.11. Finally, a servo valve MOOG A076-263c increase the pressure to allow the hydraulic press operation. It is a high performance valve that drives a dry torque motor. Then a MTS load cell (661-21B-03) allows to follow the displacement of the hydraulic press.
 
 
 \begin{figure}[htp]
@@ -105,8 +105,8 @@ To remedy this problem, it is necessary to examine the load of the hydraulic pre
 
 \subsection{Preparation of the DIC method}
 
-It is possible to process the images with different software. This image processing will allow to obtain the maps of deformations and displacements. For this work will be used MatchID a correlation image software and python.
-In our case, the quantity of interest is the crack length a as a function of the applied force F. The field of view ( FOV), the position envelope for hardware and if the test is a 2D-DIC or a stereo DIC are parameters to take into account. In our case, a 2D-DIC is suitable because the test piece is assumed to be planar and perpendicular to the camera optical axis. The DIC pattern is one important parameter. All the specimens are painted to obtain a speckle pattern suitable for image correlation. A thin layer of white paint is firstly added using a mate spray, followed by a diffuse distribution of black paint to create a unique local pattern across the ZOI at the crack tip. Before starting the test, some parameters must be set on MatchID.grab or other software if the camera is not registered in MatchID. It is possible to vary parameters such as the exposure time. The speckle pattern is an image composed of black and white dots. By varying the exposure time, the speckle pattern will have a greater or lesser range of gray (from 0 to 255). On the other hand, a longer exposure time will result in color saturation. Then, it is important to adjust the quality of the speckle using two parameters, the focus and the aperture. With some cameras, it is sometimes impossible to adjust the focus. It is therefore necessary to play with the distance camera-specimen.
+It is possible to process the images with different software. This image processing will allow to obtain maps of deformations and displacements. For this work will be used MatchID a correlation image software and Python.
+In our case, the quantity of interest is the crack length a as a function of the applied force F. The field of view ( FOV), the position envelope for hardware and if the test is a 2D-DIC or a stereo DIC are parameters to take into account. In our case, a 2D-DIC is suitable because the test piece is assumed to be planar and perpendicular to the camera optical axis. The DIC pattern is one important parameter. All the specimens are painted to obtain a speckle pattern suitable for image correlation. A thin layer of white paint is first added using a mate spray, followed by a diffuse distribution of black paint to create a unique local pattern across the ZOI at the crack tip. Before starting the test, some parameters must be set on MatchID.grab or other software if the camera is not registered in MatchID. It is possible to vary parameters such as the exposure time. The speckle pattern is an image composed of black and white dots. By varying the exposure time, the speckle pattern will have a greater or lesser range of gray (from 0 to 255). On the other hand, a longer exposure time will result in color saturation. Then, it is important to adjust the quality of the speckle using two parameters, the focus and the aperture. With some cameras, it is sometimes impossible to adjust the focus. It is therefore necessary to play with the distance camera-specimen.
 
 \subsection{MatchID}
 
@@ -124,8 +124,8 @@ After calibration and recording of the tests, the datas must be processed. Sever
 Despite the progress and increasing use of DIC, the technique is still not standardized. It is emphasized that extrinsic and intrinsic DIC setup parameters, such as subset size, subset step, strain gauge window, shape functions, or correlation criterion, can have a considerable influence on the calculated strain fields, producing spatial resolution and resolution values that can differ by at least an order of magnitude \cite{DICguide2018}. The next paragraph will try to explain some of them. 
 
 \begin{itemize}
-	\item The \textbf{correlation criterion} defines the matching criterion that will be adopted in order to determine the optimum corresponding point. \cite{MALFAIT2021}  used the criterion ZNSSD. It is a least-square-based correlation criterion which is less sensitive to both image contrast reduction and light intensity shifting between images. It's a robust correlation criterion which can be used with confidence. 
-	\item There are 5 \textbf{subset shape function} which allow or not the subset certain constraints as the fact of translating, deforming, to shear etc.. Depending on the local deformation or strain gradients of the problem under analysis, affine, irregular and quadratic shape functions can be selected by the user in the DIC method \cite{PereiraandXavier2018}. 
+	\item The \textbf{correlation criterion} defines the matching criterion that will be adopted in order to determine the optimum corresponding point. \cite{MALFAIT2021}  used the criterion ZNSSD. It is a least-square-based correlation criterion that is less sensitive to both image contrast reduction and light intensity shifting between images. It's a robust correlation criterion that can be used with confidence. 
+	\item There are 5 \textbf{subset shape function} that allow or do not allow the subset certain constraints such as the fact of translating, deforming, to shear etc.. Depending on the local deformation or strain gradients of the problem under analysis, affine, irregular and quadratic shape functions can be selected by the user in the DIC method \cite{PereiraandXavier2018}. 
 	\item The \textbf{subset size} is the length of the subset in the reference image and it must contain at least 3 speckles. As an indication, larger subsets improve resolution but decrease spatial resolution. This means that in a conventional mechanical tensile test with a uniform, uniaxial stress state in the central region of the specimen, large subsets can be selected to improve the accuracy of the measurements.
 	\item The \textbf{step size} is the spacing of pixel grid points at which the subset displacements are calculated. It controls the density of points at which DIC data is computed and, to some extent, influences the spatial resolution of the measurements. Typically, a step size of one-third to one-half of the subset size is recommended, so that neighboring subsets partially overlap, though this value can vary widely depending on specific applications. Additionally, a small step size may be required to capture the peak position of a Quantity Of Interest (QOI) (without interpolation) if it varies quickly across the ZOI and if the QOI varies slowly across the ZOI, then a large step size can be used. 
 	\item The \textbf{strain window} is the local region of the ZOI of the image, containing a finite number of data points, that is used to calculate strain. Parameters such as the subset step and the strain window will define a strain spatial resolution and virtual strain gauge (VSG). 
@@ -133,7 +133,7 @@ Despite the progress and increasing use of DIC, the technique is still not stand
 \end{itemize}
 
 In order to determine the correct settings MatchID has a tool called Performance Analysis. With this tool, it’s possible to define a range of options to be applied in a design of experiments study. It is thus possible to vary parameters such as subset size, step size, strain window and so on. After running the performance analysis, select the parameters which work best. 
-For the case of a uniaxial tensile test on a pre-cracked specimen by default the indicated zone of interest contains one initial subset but the ZOI is not well defined. In order to define well the ZOI it must be added an extra seed point in the ZOI but above the initial crack. After this, start the DIC analysis and exploit the results. To exploit the results, it is possible to export the datas as matrices and then use the python code in order to plot the load with the COD for example.
+In the case of a uniaxial tensile test on a pre-cracked specimen by default the indicated zone of interest contains one initial subset but the ZOI is not well defined. In order to define well the ZOI it must be added an extra seed point in the ZOI but above the initial crack. After this, start the DIC analysis and exploit the results. To exploit the results, it is possible to export the datas as matrices and then use the Python code in order to plot the load with the CTOD for example.
 
 
 
@@ -147,11 +147,11 @@ A second data processing is necessary to obtain the position of the crack front 
 
 \textbf{Database}
 
-The first step in Method 1 is to retrieve all important information of the test in order to perform the analysis of the specimen. Thus, a python database file is created which allows to obtain adjustment factors for the displacements and the force exerted by the machine. This file also gives information for each specimen such as the initial crack tip, the thickness of the specimen etc.. Finally this file gives the DIC parameters used.
+The first step in Method 1 is to retrieve all important information of the test in order to perform the analysis of the specimen. Thus, a python database file is created which allows to obtain information for each specimen such as the initial crack tip, the thickness of the specimen and the chosen subste for a0 for example. Finally, this file also gives the parameters used to obtain the CTOD or crack length. These parameters are explained in the following paragraphs.
 
 \textbf{Inserting DIC values in python}
 
-With the main program, the first lines of code consist in recovering the force and the displacements of the press, the coordinates of the first image and the displacement UX and UY for each stages.
+With the main program, the first lines of code consist in recovering the force and the displacements of the press, the coordinates of the first image and the displacements UX and UY for each stage.
 Another part of the code allows to put at the same frequency the force and the displacement to be able to use them with the other parameters such as UX and UY.
 
 \textbf{Crack tip opening displacement}
@@ -190,10 +190,10 @@ The matrix M represents, for a given step, the length of the crack by having a l
 
 \textbf{$\alpha$ parameter}
 
-It is important to determine the $\alpha$ parameter. This one is used on the matrix as the matrix M. It is a tricky part of the code.To approximate the $\alpha$ value, a first correlation factor is sought using the least squares regression method. Indeed, we know that during the test, there are 3 main zones on the Displacement-Force curve: a first linear one which corresponds to a stationary zone, a second one where the fracture propagates and finally a third one which corresponds to the specimen rupture. With this correlation factor we find the stage between the stationary zone and the Fracture process zone FPZ. Then, a second stage verification criterion from the displacement field processing is used to verify the correct stage of the FPZ.
-Thanks to these two steps, we know the stage where there is the begining of the FPZ and values which are possible for $\alpha$.
+It is important to determine the $\alpha$ parameter. This one is used on the matrix as the matrix M. It is a tricky part of the code.To approximate the $\alpha$ value, a first correlation factor is sought using the least squares regression method. Indeed, we know that during the test, there are 3 main zones on the Displacement-Force curve: a first linear one which corresponds to a stationary zone, a second one where the fracture propagates and finally a third one which corresponds to the specimen rupture. With this correlation factor we find the stage between the stationary zone and the Fracture Process Zone FPZ. Then, a second stage verification criterion from the displacement field processing is used to verify the correct stage of the FPZ.
+Thanks to these two steps, we know the stage where there is the begining of the FPZ and the values which are possible for $\alpha$.
 It is then possible to plot for different $\alpha$ all the stages of the crack propagation and have an idea on the $\alpha$ value needed to have the greatest a(t). Normally, the alpha chosen is the smallest. However, a curve with a simpler geometry is preferred if the length a(t) does not change.
-A part of the code allows to check the length of the crack graphically by selecting a0 and af directly in python. This allows some alphas that do not have the correct crack length to be eliminated directly.
+A part of the code allows to check the length of the crack graphically by selecting a0 and af directly in Python. This allows some alphas that do not have the correct crack length to be eliminated directly.
 
 \textbf{Crack length}
 
@@ -342,7 +342,7 @@ For mixed mode, the formula becomes \ref{eq:eq28}:
 \label{eq:eq28}
 \end{equation}
 
-where u and v are the crack opening displacement according to x and y. The displacement measured by the machine is not used to measure the COD, as it is more accurate with the DIC method due to the clearances in the jaws.
+where u and v are the crack opening displacement according to x and y. The displacement measured by the machine is not used to calculate the energy restitution rate, as it is less accurate due to the clearances in the jaws.
 
 In mixed mode the camera will have the same inclination as the specimen figure \ref{fig:fig37bis}.
 
@@ -364,7 +364,6 @@ The crack opening values will therefore be projected directly along the x and y 
 	\label{eq:eq29}
 \end{equation}
 
-In concrete terms, G defines an overall energy parameter that accounts for the change in potential energy that accompanies the propagation of a crack in a structure.
 
 \section{Specimen preparation}
 
@@ -389,7 +388,7 @@ Finally, all samples are named as E0E1 which is the first sample used in pure mo
 
 \subsection{Notch and precrack}
 
-Notches were created in each specimen. A precrack is made by a cutter into the notch. The interest is to initiate a straight crack, thanks to this first one. The notch width is around 1.5mm, done by a straight electrical saw. The cutter allow to go deeper and create a precrack with a shape allowing the propagation of the crack. The precrack must be done at the center of the sample heel. Indeed, even a little eccentricity could cause a deviation of the crack and prevent a good study of the propagation. The specimen was designed with an initial crack noted $a_i$ and the total crack length is equal to: $a=a_i+\Delta a$.
+Notches were created in each specimen. A precrack is made by a cutter into the notch. The interest is to initiate a straight crack, thanks to this first one. The notch width is around 1.5mm, done by a straight electrical saw. The cutter allow to go deeper and create a precrack with a shape that allows the propagation of the crack. The precrack must be done at the center of the sample heel. Indeed, even a little eccentricity could cause a deviation of the crack and prevent a good study of the propagation. The specimen was designed with an initial crack noted $a_i$ and the total crack length is equal to: $a=a_i+\Delta a$.
 
 The initial crack lengths are obtained by averaging the notch on each side of the specimen plus the precrack also measured with the average of the two sides of the specimen.
 The following initial crack length values are then obtained:
@@ -423,10 +422,11 @@ The following initial crack length values are then obtained:
 	\label{tab:Tab11}
 \end{table}
 
+We can see that only one test was carried out at 45 degrees. Some tests were not successful. The tests for angles 0, 15 and 30 degrees were therefore preferred.
 
 \section{Conclusion}
 
-This chapter has given us a better understanding of all the tools used to carry out the tests. It also explains some parameters which are essential to the success of the DIC method. Finally, it presents two methods for evaluating crack length; one using full-field displacement and the other using COD.
-According on the results from the two methods, method 1 appears to be more accurate than method 2. In the next chapter, we will be able to better evaluate the efficiency of the 2 methods.
+This chapter has given us a better understanding of all the tools used to carry out the tests. It also explains some parameters that are essential to the success of the DIC method. Finally, it presents two methods for evaluating crack length; one using full-field displacement and the other using COD.
+According to the results from the two methods, method 1 appears to be more accurate than method 2. In the next chapter, we will be able to better evaluate the efficiency of the two methods.
 
 

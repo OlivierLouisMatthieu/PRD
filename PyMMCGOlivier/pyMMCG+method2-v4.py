@@ -34,7 +34,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e0e2'
+Job = 'e0e1'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -874,12 +874,12 @@ if run == 1:
     fileNames = sorted([file for file in os.listdir() if file.endswith('.tiff')])
     pattern = re.compile(r'\d+')
     # Utiliser sorted() pour trier la liste en utilisant les nombres extraits des noms de fichier
-    fileNames = sorted(fileNames, key=lambda x: int(pattern.findall(x)[0]))
+    fileNames = sorted(fileNames, key=lambda x: int(x.split('_')[1].split('.')[0]))
     # Afficher la liste triée
     nImagens = len(fileNames)
     
     # Charger l'image
-    cwd = os.path.join(cwd,Job+'_0001_0.tiff')
+    cwd = os.path.join(cwd,Job+'_0.tiff')
     img = Image.open(cwd)
     # Obtenir la taille de l'image
     largeur, hauteur = img.size
@@ -921,13 +921,13 @@ if run == 1:
     cv.destroyAllWindows()
 
 #exec(open('ReadcrackfractureMMCG.py').read())
-crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
+#crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
 #crack=(CTODimage*Test.mm2pixel-crack)+Test.a0
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
 plt.plot(MatchID.time, dad, 'b', label='Method2')
-plt.plot(indices, crack,'bo', markersize=5)
+#plt.plot(indices, crack,'bo', markersize=5)
 plt.xlabel('Images')
 plt.ylabel('Crack length, a(t), mm')
 plt.tick_params(axis='both', labelsize=14)
