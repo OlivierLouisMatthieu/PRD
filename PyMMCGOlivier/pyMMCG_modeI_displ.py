@@ -34,7 +34,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e0e6'
+Job = 'e0e1'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -1086,7 +1086,7 @@ plt.title(Job)
 plt.show()
 
 #Method3=C/a
-'''
+
 BET1 = C/a_t #changing the value of alpha from the crack length will change G values
 BET2 = C/dad
 
@@ -1098,6 +1098,7 @@ BET2 = y2/x2
 
 G1 = ALPinterp1*BET1*10**3
 G2 = ALPinterp2*BET2*10**3
+'''
 #Method4:DeltaC/Deltaa
 
 dC_da=np.zeros(len(x1)-1)
@@ -1146,12 +1147,12 @@ G_interp2[:] = np.interp(a_interp2[:], x2[:], Ginterp2[:])
 
 
 fig = plt.figure(figsize=(7,5))
-plt.plot(x1, G1, 'r:', linewidth=2, label='Method 1 alpha '+ str(chos_alp))
-plt.plot(x1, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
-plt.plot(x2, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
+plt.plot(a_t, G1, 'r:', linewidth=2, label='Method 1 alpha '+ str(chos_alp))
+#plt.plot(x1, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
+#plt.plot(x2, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
 #plt.plot(a_interp1, G_interp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
 #plt.plot(a_interp2, G_interp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-plt.plot(x2, G2, 'k:', linewidth=2, label='Method2')
+plt.plot(dad, G2, 'k:', linewidth=2, label='Method2')
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G_{Ic}, J/m^2$')
 plt.legend(loc=2, prop={'size': 8})

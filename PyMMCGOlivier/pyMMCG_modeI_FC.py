@@ -34,7 +34,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e0e6'
+Job = 'e0e3'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -153,7 +153,8 @@ curvesupx=[0,MatchID.displ[0]]
 curvesupy=[0,MatchID.load[0]]
 
 fig, ax = plt.subplots(figsize=(7,5))
-plt.plot(curvesupx, curvesupy, linestyle='dashed', color='red', linewidth=2)
+if Displ[0]!=0:
+    plt.plot(curvesupx, curvesupy, linestyle='dashed', color='red', linewidth=2)
 plt.plot(MatchID.displ, MatchID.load, 'k-', linewidth=2)
 plt.ylabel('Load [N]')
 plt.xlabel('Displacement [mm]')
@@ -998,23 +999,25 @@ def polyfit(x, y, degree):
     return results
 
 # Interpoler la fonction avec un polynôme de degré 3
-results = polyfit(a_t, C, 3)
+results = polyfit(a_t, C, 1)
 coeffs = results['polynomial']
 r_squared = results['determination']
-p = np.poly1d(coeffs)
-dp = p.deriv()
+p1 = np.poly1d(coeffs)
+dp1 = p1.deriv()
 print("Les coefficients du polynôme sont:", coeffs)
 print("Le coefficient de détermination (R-squared) est:", r_squared)
 
-Ginterp1 = ALP*dp(a_t)*10**3
+Ginterp1 = ALP*dp1(a_t)*10**3
 
-results = polyfit(dad, C, 3)
+results = polyfit(dad, C, 1)
 coeffs = results['polynomial']
 r_squared = results['determination']
-p = np.poly1d(coeffs)
-dp = p.deriv()
+p2 = np.poly1d(coeffs)
+dp2 = p2.deriv()
+print("Les coefficients du polynôme sont:", coeffs)
+print("Le coefficient de détermination (R-squared) est:", r_squared)
 
-Ginterp2 = ALP*dp(dad)*10**3
+Ginterp2 = ALP*dp2(dad)*10**3
 
 
 #Method2:ma^3+n
@@ -1046,7 +1049,7 @@ Ginterp2j = ALP*3*c12*dad**2*10**3
 
 # Tracer la fonction interpolée
 fig = plt.figure(figsize=(7,5))
-plt.plot(a_t, C, '.', a_t, p(a_t), '-',a_t, polynomial_func(a_t, c11, c21), '-')
+plt.plot(a_t, C, '.', a_t, p1(a_t), '-',a_t, polynomial_func(a_t, c11, c21), '-')
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$C, {Pa}^{-1}$')
 plt.grid()
@@ -1055,7 +1058,7 @@ plt.show()
 
 # Tracer la fonction interpolée
 fig = plt.figure(figsize=(7,5))
-plt.plot(dad, C, '.', dad, p(dad), '-',dad, polynomial_func(dad, c12, c22), '-')
+plt.plot(dad, C, '.', dad, p2(dad), '-',dad, polynomial_func(dad, c12, c22), '-')
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$C, {Pa}^{-1}$')
 plt.grid()
@@ -1111,9 +1114,9 @@ fig = plt.figure(figsize=(7,5))
 plt.plot(a_t, G1, 'r:', linewidth=2, label='Method 1 alpha '+ str(chos_alp))
 #plt.plot(a_t, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
 #plt.plot(dad, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
-#plt.plot(a_interp1, G_interp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-#plt.plot(a_interp2, G_interp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-#↨plt.plot(dad, G2, 'k:', linewidth=2, label='Method2')
+#plt.plot(a_t, Ginterp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+#plt.plot(dad, Ginterp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+#plt.plot(dad, G2, 'k:', linewidth=2, label='Method2')
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G_{Ic}, J/m^2$')
 plt.legend(loc=2, prop={'size': 8})
@@ -1129,6 +1132,20 @@ plt.legend(loc=2, prop={'size': 8})
 plt.grid()
 plt.title(Job)
 plt.show()
+
+Gpente=np.zeros(len(a_t)-4)
+pentes = np.zeros(len(a_t)-4)  # Tableau pour stocker les pentes
+# Calcul des pentes pour chaque point
+for i in range(len(a_t)-4):
+    x = a_t[i:i+5]
+    y = C[i:i+5]
+    # Calcul des différences entre les coordonnées y et x
+    diff_y = [y[j+1] - y[j] for j in range(len(y)-1)]
+    diff_x = [x[j+1] - x[j] for j in range(len(x)-1)]
+    # Calcul de la pente entre les points adjacents
+    pente = diff_y[0] / diff_x[0]
+    pentes[i] = pente
+Gpente=  ALP[1:-3]*pentes*10**3
 
 Gc = np.max(G1)
 Lc = np.max(Load)
