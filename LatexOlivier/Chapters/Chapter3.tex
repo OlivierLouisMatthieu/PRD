@@ -78,7 +78,7 @@ Normally four distinct parts are observed on a force-displacement curve:
 \end{itemize}
 
  In the figure \ref{fig:e0e1_Pdelta}, we don't see the setting up of the loaded specimen because a slight preload has been applied to the specimen so that it does not move during the beginning of the test. In addition, it is also quite difficult to see the critical FC force peaks because of the noise caused by the load sensor.
- Some Force-displacement curves do not have the expected shape (figure \ref{fig:e0e5_Pdelta}). Because of the preload applied to fix the samples, not all the curves start at 0N. A shift was therefore necessary to consider the lowest value as 0. In doing so, it appears that the displacement no longer starts at 0. A second offset was therefore performed to extrapolate the shape of the curve and create a virtual point starting at [0,0].This extrapolation is possible because the curve has a linear phase.
+ Some Force-displacement curves do not have the expected shape (figure \ref{fig:e0e5_Pdelta}). Because of the preload applied to fix the samples, not all the curves start at 0N. A shift was therefore necessary to consider the lowest value as 0. In doing so, it appears that the displacement no longer starts at 0. A second offset was therefore performed to extrapolate the shape of the curve and create a virtual point starting at [0,0].This extrapolation is possible because the curve has a linear phase. All the P-delta curve are visible in appendix \ref{Appendix1}.
 
 
 \begin{figure}[htp]
@@ -144,12 +144,12 @@ It seems that method 2 is less accurate than method 1, but we'll still use it to
 
 \subsection{Crack tip opening curves}
 
-The user must select the "CODpair". In order to provide accurate displacement, the chosen pair of subsets must be as close as possible to the crack tip while yet being sufficiently removed to prevent information loss (if they are positioned inside the crack). Databases are updated using the selected CODpair following this study. Due to the selected CTOD pair being in blue, a plot was produced that displays the CTOD that were used, as seen on figure \ref{fig:CTOD_example}. In order to demonstrate for each specimen that the COD pair picked could not have been more exact, the plot also compared this curve to the one created using the lower and upper COD pairs.
+The user must select the "CTODpair". In order to provide accurate displacement, the chosen pair of subsets must be as close as possible to the crack tip while yet being sufficiently removed to prevent information loss (if they are positioned inside the crack). Databases are updated using the selected CODpair following this study. Due to the selected CTOD pair being in blue, a plot was produced that displays the CTOD that were used, as seen on figure \ref{fig:CTOD_example}. In order to demonstrate for each specimen that the COD pair picked could not have been more exact, the plot also compared this curve to the one created using the lower and upper COD pairs.
 
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=9cm]{CTOD_example}
-	\caption{Crack Tip Opening Displacement}
+	\caption{Crack Tip Opening Displacement choice}
 	\label{fig:CTOD_example}
 \end{figure}
 
@@ -197,7 +197,7 @@ As for method 2, it gives broadly the same curves as the method 1 but the curves
 
 \subsection{Critical energy restitution rate}
 
-Various methods can be used to calculate the energy restitution rate. The general formula is explained in \ref{eq:eq125}. However, it is possible to calculate complacency in different ways. One possibility, used by \cite{Odounga2018phd} and \cite{MoutouPitti2008}, is to calculate the $\Delta c$ between the starting point and the point considered for all the critical forces. The critical forces are the forces for which the force decreases at the next stage, meaning crack propagation according to \cite{MoutouPitti2008}. A second possibility is to determine C as an interpolated function as $C(a)=m*a(t)^3+n$ with a(t) the length of the crack.  It is then possible to use the compliance derivate by the crack length. Both were tested to see which would be better and finally G is calculated with $\Delta c$. In fact, the cubic function used did not pass through all the points on the graph of C as a function of a(t) and was therefore very inaccurate. The values of G obtained with this method were of the order of $10^3 J/m2$, which is too high.
+Various methods can be used to calculate the energy restitution rate. The general formula is explained in \ref{eq:eq125}. However, it is possible to calculate complacency in different ways. One possibility, used by \cite{MALFAIT2021} and \cite{MoutouPitti2008}, is to calculate the $\Delta c$ between the starting point and the point considered for all the critical forces. The critical forces are the forces for which the force decreases at the next stage, meaning crack propagation according to \cite{MoutouPitti2008}. A second possibility is to determine C as an interpolated function as $C(a)=m*a(t)^3+n$ with a(t) the length of the crack.  It is then possible to use the compliance derivate by the crack length. Both were tested to see which would be better and finally G is calculated with $\Delta c$. In fact, the cubic function used did not pass through all the points on the graph of C as a function of a(t) and was therefore very inaccurate. The values of G obtained with this method were of the order of $10^3 J/m2$, which is too high.
 The figures \ref{fig:G_method1} and \ref{fig:G_method2} below show G with the 2 methods used to calculate the crack length.
 As can be observed, depending on the specimen, different values of a(t) are reached with the maximal energy restitution rate. For values of a(t) between 33 and 80 mm, method 1 and 2 achieve Gmax, with an apparent tendency for Gmax to be acquired at a(t) about 60 mm with method 1. For method 2, Gmax is obtained for shorter crack lengths. This can be explained by the fact that a(t) is generally smaller for the same stage.
 
@@ -225,8 +225,8 @@ Table \ref{fig:tableG1} gives the maximum values of G in mode I for silver Fir. 
 	\begin{tabular}{ccccccc}
 		\toprule % horizontal line at the top of the table
 		&  & e0e1 & e0e2 & e0e3 & e0e5 & e0e6\\\midrule
-		& Gmax method1 & 284.44 & 90.24 & 107.49 & 95.67 & 183.58 \\\midrule
-		& Gmax method2 & 286.65 & 131.16 & 206.73 & 93.83 & 199.59 \\\midrule
+		& Gmax method1, ($J/m^2$) & 284.44 & 90.24 & 107.49 & 95.67 & 183.58 \\\midrule
+		& Gmax method2, ($J/m^2$) & 286.65 & 131.16 & 206.73 & 93.83 & 199.59 \\\midrule
 	\end{tabular}
 	\caption{G max values for Silver Fir specimens in mode I}
 	\label{fig:tableG1}
@@ -234,10 +234,12 @@ Table \ref{fig:tableG1} gives the maximum values of G in mode I for silver Fir. 
 
 \subsection{Discussion}
 
-Table \ref{fig:fig37} compares the different values of the maximum energy release rate obtained in this study with the literature review. These are numerous, especially in mode I. In order to provide an objective comparison, the discussion focuses on temperate species with a similar density and an initial crack oriented in the RL direction. The average maximum energy restitution rate for silver fir is shown in bold and compared to different species and different tests. There are 2MCG, DCB and Wedge Splitting tests.
+Table \ref{fig:fig37} compares the different values of the maximum energy release rate obtained in this study with the literature review. These are numerous, especially in mode I. In order to provide an objective comparison, the discussion focuses on temperate species with a similar density, a moisture content between 9\% and 12\% and an initial crack oriented in the RL direction. The average maximum energy restitution rate for silver fir is shown in bold and compared to different species and different tests. There are 2MCG, DCB and Wedge Splitting tests.
 First of all, we can see that the value of G is of the same order of magnitude as for the other species. Silver fir differs from alder by $29 \%$, pinus pinaster by $36 \%$ and Padouk by $33 \%$. Moreover, in \cite{Odounga2018phd}'s work it's not uncommon to obtain similar values. In fact, his standard deviation is 2 to 3 times greater, which means that his results are more widely dispersed.
 \cite{Xavieretal2014} also obtained experimental values of G=190 J/m2, which corresponds to the results obtained in this study. In addition, alder and pinus pinaster are not very far from silver fir in density (around 0.1).
 The scattering of results observed here can be attributed to the material. This dispersal is justified by the high natural variability of wood and its anatomical composition.
+In addition, different methods have been used to measure the energy restitution rate and the use of various experimental parameters inevitably impacts the final results.
+On the other hand, it seems that the specimens were created more with the extremity of the tree trunk than with its centre. We can see that there is a certain inclination of the tree rings when we look at our specimens. This could explain the slightly lower value obtained by our tests since $G_{RL}> G_{TL}$ as shown in the article by \cite{Reiterer2002}.
 
 \begin{table}[H]
 	\centering
@@ -247,12 +249,6 @@ The scattering of results observed here can be attributed to the material. This 
 			& References & Wood species & Test type & Orientation & Density & $G_{\max}(J/m^2)$ & Standard deviation \\
 			\midrule
 			& & \textbf{Silver fir} & \textbf{2MCG} & \textbf{RL} & \textbf{0.43} & \textbf{170} & \textbf{77} \\
-			\midrule
-			& \cite{Odounga2018phd} & Okoumé & 2MCG & RL & 0.39-0.5 & 317 & 160 \\
-			\midrule
-			& \cite{Odounga2018phd} & Iroko & 2MCG & RL & 0.56-0.7 & 323 & 200 \\
-			\midrule
-			& \cite{Odounga2018phd} & Padouk & 2MCG & RL & 0.7-0.88 & 255 & 200 \\
 			\midrule
 			& \cite{Angellier2017} & Douglas fir & DCB & RL & 0.54 & 784 &  \\
 			\midrule
@@ -267,6 +263,12 @@ The scattering of results observed here can be attributed to the material. This 
 			& \cite{Reiterer2002} & Oak & WS & RL & 0.553 & 348 & 38 \\
 			\midrule
 			& \cite{Reiterer2002} & Ash & WS & RL & 0.701 & 551 & 38 \\
+			\midrule
+			& \cite{Odounga2018phd} & Okoumé & 2MCG & RL & 0.39-0.5 & 317 & 160 \\
+			\midrule
+			& \cite{Odounga2018phd} & Iroko & 2MCG & RL & 0.56-0.7 & 323 & 200 \\
+			\midrule
+			& \cite{Odounga2018phd} & Padouk & 2MCG & RL & 0.7-0.88 & 255 & 200 \\
 			\bottomrule % ligne horizontale en bas du tableau
 		\end{tabular}
 	}

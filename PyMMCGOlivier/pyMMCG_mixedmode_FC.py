@@ -32,14 +32,14 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e30e7'
+Job = 'e15e3'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
     maincwd = "/home/slimbook/Documents/GitHub/OlivierLouisMatthieu/PRD/MMCGTests"
 elif runuser == 'Olivier':
     #maincwd = "D:\Recherche PRD\EXP\MMCGTests"
-    maincwd = "D:\Recherche PRD\EXP\MMCG_Olivier\Arcan30"
+    maincwd = "D:\Recherche PRD\EXP\MMCG_Olivier\Arcan15"
 
 cwd = os.path.join(maincwd, Job)
 
@@ -628,7 +628,7 @@ if a1==0 or af==0 or nombre==0:
 #look at the crackJ in order to see which alpha is best in function of what you found for the crack length
 
 
-j = 30
+j = 34
 fig = plt.figure()
 plt.imshow(UY[:, :, j])
 plt.plot(UY.shape[1]-crackL_J_pixel_X[j, chos_alp],crackL_J_pixel_Y[j, chos_alp],'sr')
@@ -754,14 +754,25 @@ G02 = ALPII_uniques*CII_uniques/a_t_uniques*10**3
 Gtot=G01+G02
 
 
-results = polyfit(a_t_uniques, CI_uniques, 3)
+results = polyfit(a_t_uniques, CI_uniques, 1)
 coeffs = results['polynomial']
 r_squared = results['determination']
 p = np.poly1d(coeffs)
 dp = p.deriv()
 GI = ALPI_uniques*dp(a_t_uniques)*10**3
+print("Le coefficient de détermination (R-squared) est:", r_squared)
+print("Les coefficients du polynôme sont:", coeffs)
 
-results = polyfit(a_t_uniques, CII_uniques, 3)
+fig = plt.figure(figsize=(7,5))
+plt.plot(a_t_uniques, CI_uniques, '.', a_t_uniques, p(a_t_uniques))
+plt.xlabel('Crack length, a(t), mm')
+plt.ylabel('$C, {Pa}^{-1}$')
+plt.grid()
+plt.title(Job)
+plt.show()
+
+
+results = polyfit(a_t_uniques, CII_uniques, 1)
 coeffs = results['polynomial']
 r_squared = results['determination']
 p = np.poly1d(coeffs)
@@ -793,7 +804,8 @@ fig = plt.figure(figsize=(7,5))
 plt.plot(a_t_uniques, G01, 'b:', linewidth=2, label='R-Curve-GI alpha '+ str(chos_alp))
 plt.plot(a_t_uniques, G02, 'r:', linewidth=2, label='R-Curve-GII alpha '+ str(chos_alp))
 plt.plot(a_t_uniques, Gtot, 'g:', linewidth=2, label='R-Curve-GI+GII alpha '+ str(chos_alp))
-plt.ylabel('$G, J$')
+plt.xlabel('Crack length, a(t), mm')
+plt.ylabel('$G, J/m^2$')
 plt.legend(loc=2, prop={'size': 8})
 plt.grid()
 plt.title(Job)

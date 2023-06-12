@@ -34,7 +34,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e0e3'
+Job = 'e0e1'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -1114,8 +1114,8 @@ fig = plt.figure(figsize=(7,5))
 plt.plot(a_t, G1, 'r:', linewidth=2, label='Method 1 alpha '+ str(chos_alp))
 #plt.plot(a_t, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
 #plt.plot(dad, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
-#plt.plot(a_t, Ginterp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-#plt.plot(dad, Ginterp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+plt.plot(a_t, Ginterp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+plt.plot(dad, Ginterp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
 #plt.plot(dad, G2, 'k:', linewidth=2, label='Method2')
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G_{Ic}, J/m^2$')

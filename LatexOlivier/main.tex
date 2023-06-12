@@ -332,7 +332,7 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
 Wood is an increasingly popular engineering material due to its potential for reducing pollution and combating global warming. Its use in construction has been recognized as a promising solution for sustainable and efficient building design. However, ensuring the safety and reliability of wooden structures requires a comprehensive understanding of the fracture mechanics of wood.
 In this study, we investigate the cracking behavior of softwood species using MMCG specimens. We aim to accurately determine crack length during fracture propagation and related fracture parameters, which are often challenging to obtain in wood. To achieve this, we employ the Arcan system to load the specimen, which has the advantage of inspecting from pure to mixed-mode fracture loading to activate different failure modes. Digital Image Correlation (DIC) measures displacement and strain fields near the crack.
-We analyze mixed mode and open I mode crack growth, and from the measurements, we produce force versus crack opening curves. In addition, we use the imposed displacement compliance method to determine the strain energy release rate for opening mode.
+We analyze mixed mode and open I mode crack growth, and from the measurements, we produce force versus crack opening curves. In addition, we use the imposed displacement compliance method to determine the strain energy release rate for opening mode and mixed mode.
 This study highlights the importance of fracture mechanics in ensuring the safety and reliability of wooden structures. Knowledge of the fracture parameters of wood can aid in the design and development of more efficient and sustainable wooden products. An accurate determination of crack length is critical in this regard. Therefore, using digital image correlation techniques and imposed displacement compliance methods can improve our understanding of the fracture behavior of wood and aid in the design of more reliable and efficient wooden structures.
 
 
@@ -352,7 +352,7 @@ This study highlights the importance of fracture mechanics in ensuring the safet
 %\addsectionbib{\}
 Le bois est un matériau d'ingénierie de plus en plus populaire en raison de son potentiel pour réduire la pollution et lutter contre le réchauffement climatique. Son utilisation dans la construction a été reconnue comme une solution prometteuse pour la conception de bâtiments durables et efficaces. Toutefois, pour garantir la sécurité et la fiabilité des structures en bois, il est nécessaire de bien comprendre la mécanique de la rupture du bois.
 Dans cette étude, nous étudions le comportement de fissuration des essences de bois résineux en utilisant des échantillons MMCG. Notre objectif est de déterminer avec précision la longueur de la fissure pendant la propagation de la rupture et les autres paramètres de rupture, ce qui est souvent difficile à obtenir dans le bois. Pour ce faire, nous utilisons le système Arcan pour charger l'échantillon, ce qui présente l'avantage de pouvoir passer d'une charge de rupture en mode pur à une charge de rupture en mode mixte afin d'activer différents modes de rupture. La corrélation d'images numériques (DIC) mesure les champs de déplacement et de déformation à proximité de la fissure.
-Nous nous concentrons sur la croissance des fissures ouvertes en mode I et mode mixte, puis nous générons des courbes de force en fonction de l'ouverture de la fissure à partir des mesures. En outre, nous utilisons la méthode de la complaisance à déplacement imposé pour déterminer le taux de libération de l'énergie de déformation pour le mode d'ouverture.
+Nous nous concentrons sur la croissance des fissures en mode I et mode mixte, puis nous générons des courbes de force en fonction de l'ouverture de la fissure à partir des mesures. En outre, nous utilisons la méthode de la complaisance à déplacement imposé pour déterminer le taux de libération de l'énergie de déformation pour le mode d'ouverture et le mode mixte.
 Cette étude souligne l'importance de la mécanique de la rupture pour assurer la sécurité et la fiabilité des structures en bois. La connaissance des paramètres de rupture du bois peut contribuer à la conception et au développement de produits en bois plus efficaces et durables. La détermination précise de la longueur des fissures est essentielle à cet égard. Par conséquent, l'utilisation de techniques de corrélation d'images numériques et de méthodes de conformité des déplacements imposés peut améliorer notre compréhension du comportement de rupture du bois et contribuer à la conception de structures en bois plus fiables et plus efficaces.
 
 \smallskip
@@ -391,10 +391,8 @@ Finally, I would like to thank my parents for their financial, material and, abo
 %----------------------------------------------------------------------------------------
 %	ABBREVIATIONS
 %----------------------------------------------------------------------------------------
-\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
-\textbf{BC} & \textbf{B}oundary \textbf{C}ondition \\
-
-\textbf{CCD} & Charge-Coupled Device \\
+\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)	
+\textbf{CIRAD} & \textbf{C}entre (de coopération) \textbf{I}nternnationale (en) \textbf{R}echerche\\
 
 \textbf{CTOD} & \textbf{C}rack \textbf{T}ip \textbf{O}pening \textbf{D}isplacement \\
 
@@ -405,6 +403,8 @@ Finally, I would like to thank my parents for their financial, material and, abo
 \textbf{DIC} & \textbf{D}igital \textbf{I}mage \textbf{C}orrelation \\
 
 \textbf{FPZ} & \textbf{F}racture \textbf{P}rocess \textbf{Z}one\\
+
+\textbf{MC} & \textbf{M}oisture \textbf{C}ontent \\
 
 \textbf{MMCG} & \textbf{M}ixed \textbf{M}ode \textbf{C}rack \textbf{G}rowth\\
 
@@ -447,14 +447,12 @@ $F_{c}$ & Critical force & \si{\newton} \\
 $G$ & Energy release rate & \si{\joule} \\
 $G_{Ic}$ & G critical value in mode I & \si{\joule} \\
 $G_{IIc}$ & G critical value in mode II & \si{\joule} \\
-$H$ & Moisture Content rate & \% \\
-$J$ & Rice Integral & \si{\joule} \\
+$HI$ & Moisture Content rate & \% \\
 $K$ & Stress Intensity Factor \\
 $K_{Ic}$ & K critical value in mode I \\
 $K_{IIc}$ & K critical value in mode II \\
 $M_{0}$ & anhydrious weight & \si{\gram} \\
-$M_{s}$ & current weight & \si{\gram} \\
-$W$ & specimen width & \si{\milli\meter} \\
+$M_{H}$ & Mass of the specimen before drying & \si{\gram} \\
 %$P$ & power & \si{\watt} (\si{\joule\per\second}) \\\\
 %$a$ & distance & \si{\meter} \\
 %$P$ & power & \si{\watt} (\si{\joule\per\second}) \\
@@ -466,8 +464,8 @@ $W$ & specimen width & \si{\milli\meter} \\
 \addlinespace % Gap  separate the Roman symbols from the Greek
 
 $\nu$ & Poisson coefficient \\
-$\Gamma$ & curvilinear contour \\
-$u$ & displacement & \si{\mm} \\
+$u$ & horizontal displacement & \si{\mm} \\
+$v$ & vertical displacement & \si{\mm} \\
 $\varepsilon$ & strain &  \\
 $\sigma$ & stress & \si{\mega\pascal} \\
 %$\omega$ & angular frequency & \si{\radian} \\
