@@ -32,14 +32,14 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e15e3'
+Job = 'e30e5'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
     maincwd = "/home/slimbook/Documents/GitHub/OlivierLouisMatthieu/PRD/MMCGTests"
 elif runuser == 'Olivier':
     #maincwd = "D:\Recherche PRD\EXP\MMCGTests"
-    maincwd = "D:\Recherche PRD\EXP\MMCG_Olivier\Arcan15"
+    maincwd = "D:\Recherche PRD\EXP\MMCG_Olivier\Arcan30"
 
 cwd = os.path.join(maincwd, Job)
 
@@ -628,7 +628,7 @@ if a1==0 or af==0 or nombre==0:
 #look at the crackJ in order to see which alpha is best in function of what you found for the crack length
 
 
-j = 34
+j = 30
 fig = plt.figure()
 plt.imshow(UY[:, :, j])
 plt.plot(UY.shape[1]-crackL_J_pixel_X[j, chos_alp],crackL_J_pixel_Y[j, chos_alp],'sr')
@@ -666,6 +666,7 @@ slope_at = (XY_mean - (X_mean*Y_mean))/((X_car)-(X_mean**2))
 Int_at = Y_mean-slope_at*X_mean
 at_modif = slope_at*MatchID.displ+Int_at
 
+'''
 fig = plt.figure()
 plt.plot(at_modif, 'y--', linewidth=1)
 plt.ylabel('a(t), mm')
@@ -673,6 +674,7 @@ plt.xlabel('displacement, mm')
 plt.title(Job)
 plt.grid()
 plt.show()
+'''
 
 C_modif = np.zeros(MatchID.stages)
 i = 2
@@ -790,6 +792,7 @@ plt.grid()
 plt.title(Job)
 plt.show()
 
+'''
 fig = plt.figure(figsize=(7,5))
 plt.plot(a_t_uniques, GI, 'b:', linewidth=2, label='R-Curve-modeI alpha '+ str(chos_alp))
 plt.plot(a_t_uniques, GII, 'r:', linewidth=2, label='R-Curve-modeII alpha '+ str(chos_alp))
@@ -799,6 +802,7 @@ plt.legend(loc=2, prop={'size': 8})
 plt.grid()
 plt.title(Job)
 plt.show()
+'''
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(a_t_uniques, G01, 'b:', linewidth=2, label='R-Curve-GI alpha '+ str(chos_alp))

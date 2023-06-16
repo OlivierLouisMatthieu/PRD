@@ -34,7 +34,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e0e1'
+Job = 'e0e2'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -664,6 +664,7 @@ slope_at = (XY_mean - (X_mean*Y_mean))/((X_car)-(X_mean**2))
 Int_at = Y_mean-slope_at*X_mean
 at_modif = slope_at*MatchID.displ+Int_at
 
+'''
 fig = plt.figure()
 plt.plot(at_modif, 'y--', linewidth=1)
 plt.ylabel('a(t), mm')
@@ -671,6 +672,7 @@ plt.xlabel('displacement, mm')
 plt.title(Job)
 plt.grid()
 plt.show()
+'''
 
 C_modif = np.zeros(MatchID.stages)
 i = 2
@@ -813,7 +815,7 @@ for k in range(nombre-1):
     if ad[k]<ad[k+1]:
         ad[k+1]=ad[k]
 
-for k in range(1, nombre,2):
+for k in range(1, nombre,1):
     plt.plot(CODxx[0:1000, k], CODyy[:, k], 'b-')
     plt.plot([0, 60], [MEANd[k], MEANd[k]], 'r-')
     plt.plot(ad[k], CODyy[int(aid[k]), k], 'gx')
@@ -923,13 +925,13 @@ if run == 1:
     cv.destroyAllWindows()
 
 #exec(open('ReadcrackfractureMMCG.py').read())
-#crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
+crack=(CTODimage-crack)*Test.mm2pixel+Test.a0
 #crack=(CTODimage*Test.mm2pixel-crack)+Test.a0
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
 plt.plot(MatchID.time, dad, 'b', label='Method2')
-#plt.plot(indices, crack,'bo', markersize=5)
+plt.plot(indices, crack,'bo', markersize=5)
 plt.xlabel('Images')
 plt.ylabel('Crack length, a(t), mm')
 plt.tick_params(axis='both', labelsize=14)
@@ -962,6 +964,7 @@ C=Cglobal[Fc_indices]
 ALP=ALPglobal[Fc_indices]
 P=MatchID.load[Fc_indices]
 
+'''
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,crackL_J_mm[:,chos_alp], '*r--', linewidth=3, label='Method1')
 plt.plot(Fc_indices, a_t, 'b', label='Method1 without duplicates')
@@ -974,6 +977,7 @@ plt.title(Job)
 fig.tight_layout()
 plt.grid()
 plt.show()  
+'''
 
 fig = plt.figure(figsize=(7,5))
 plt.plot(a_t,C, 'k-', linewidth=3)
@@ -1114,8 +1118,8 @@ fig = plt.figure(figsize=(7,5))
 plt.plot(a_t, G1, 'r:', linewidth=2, label='Method 1 alpha '+ str(chos_alp))
 #plt.plot(a_t, Ginterp1j, 'g:', linewidth=2, label='Method I interpolated alpha ma^3+p '+ str(chos_alp))
 #plt.plot(dad, Ginterp2j, 'k:', linewidth=2, label='Method 2 interpolated alpha ma^3+p ')
-plt.plot(a_t, Ginterp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
-plt.plot(dad, Ginterp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+#plt.plot(a_t, Ginterp1, 'g:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
+#plt.plot(dad, Ginterp2, 'b:', linewidth=2, label='Method I interpolated alpha  '+ str(chos_alp))
 #plt.plot(dad, G2, 'k:', linewidth=2, label='Method2')
 plt.xlabel('Crack length, a(t), mm')
 plt.ylabel('$G_{Ic}, J/m^2$')
@@ -1133,6 +1137,7 @@ plt.grid()
 plt.title(Job)
 plt.show()
 
+'''
 Gpente=np.zeros(len(a_t)-4)
 pentes = np.zeros(len(a_t)-4)  # Tableau pour stocker les pentes
 # Calcul des pentes pour chaque point
@@ -1146,6 +1151,7 @@ for i in range(len(a_t)-4):
     pente = diff_y[0] / diff_x[0]
     pentes[i] = pente
 Gpente=  ALP[1:-3]*pentes*10**3
+'''
 
 Gc = np.max(G1)
 Lc = np.max(Load)
