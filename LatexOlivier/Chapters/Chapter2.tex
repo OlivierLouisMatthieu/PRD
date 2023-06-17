@@ -130,17 +130,15 @@ An additional data processing step is required to determine the precise position
 
 \textbf{Database}
 
-The first step in Method 1 is to retrieve all important information of the test in order to perform the analysis of the specimen. Thus, a python database file is created which allows to obtain information for each specimen such as the initial crack tip, the thickness of the specimen and the chosen subset for a0 for example. Finally, this file also gives the parameters used to obtain the CTOD or crack length. These parameters are explained in the following paragraphs.
+A Python database file is created to obtain information for each specimen, such as the initial crack tip, the thickness of the specimen and the chosen subset for $a_0$.
 
-\textbf{Inserting DIC values in python}
+\textbf{Reading data}
 
-With the main program, the first lines of code consist in recovering the force and the displacements of the press, the coordinates of the first image and the displacements UX and UY for each stage.
-Another part of the code allows to put at the same frequency the force and the displacement to be able to use them with the other parameters such as UX and UY.
+The first lines of the main program consist of reading and synchronising with image acquisition, the force and the displacements of the testing machine. Moreover, DIC data in the form of a subset $X$ and $Y$ coordinates together with $U_X$ and $U_Y$ components of the displacements for each stage are also read to workspace variables.
 
 \textbf{Crack tip opening displacement}
 
-To obtain CTOD, it is important to pay attention to the choice a0. Indeed, the chosen subset will be determinant. By considering the image as a matrix composed of subsets, the chosen subset is a position given by its m rows and n columns. Looking at the subset from top to bottom allows one to follow the displacement of the crack tip and measure it. The point is to determine which pair of subsets is the best which means being closer or less close to the crack. If one is too close to the crack there will be no information and if one is too far away the measurement will be less accurate. By looking at these displacements, it is possible to obtain the value of the crack opening at each step.
-
+The Crack Tip Opening Displacement (CTOD) will be calculated by analysing subsets positioned just above and below the subset that initially defines the crack tip position ($a_0$) in the pre-crack propagation images (see Figure~\ref{fig:fig29bis}). The $a_0$ subset corresponds to a specific entry in row $m$ and column $n$ in matrix representation. Observing the subsets from top to bottom makes it possible to track the displacement of the crack tip and measure it accurately. The objective is to identify the most suitable pair of subsets sufficiently close to the crack for meaningful measurements without being too close or too far. Proximity to the crack ensures relevant information, while excessive proximity or distance may compromise the accuracy of measurements. Through the analysis of these displacements, the crack opening values at each step can be obtained.
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=8cm]{fig29bis}
@@ -150,37 +148,35 @@ To obtain CTOD, it is important to pay attention to the choice a0. Indeed, the c
 
 \textbf{Mapping function and mapping mask}
 
-The method used is based on the variation of the relative position between adjacent subsets which gives an estimate of the damage occurrence \citep{Xavieretal2014}. To begin with, a matching function A(x,y) \ref{eq:eq21} is determined based on the norm of the relative position vectors as follows:
+The method used is based on the variation of the relative position between adjacent subsets, which gives an estimate of the damage occurrence \citep{Xavieretal2014}. To begin with, a matching function A(x,y) \ref{eq:eq21} is determined based on the norm of the relative position vectors as follows:
 
 \begin{equation}
 	A(x,y)=max(\lVert u_i-u_k\rVert;\lVert u_j-u_l\rVert)
 	\label{eq:eq21}
 \end{equation}
 
-where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. A mapping mask \ref{eq:eq22} is then defined assuming threshold segmentation according to the following inequalities.
+where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. A mapping mask \ref{eq:eq22} is then defined, assuming threshold segmentation according to the following inequalities.
 
 \begin{equation}
 	M(x,y)=
 	\begin{cases}
-		1 \text{ if } A(x,y) \geq \alpha \overline{A} \\
-		0 \text{ if } A(x,y)< \alpha \overline{A}\\
-		-1 \text{ if } A(x,y)= no data 
+		1, & \text{if } A(x, y) \geq \alpha \overline{A} \\
+		0, & \text{if } A(x, y) < \alpha \overline{A} \\
+		-1, & \text{if } A(x, y) = \textrm{NaN}
 	\end{cases}
 	\label{eq:eq22}
 \end{equation}
 
-The matrix M represents, for a given step, the length of the crack by having a larger value in the crack area. If the user looks too close, the noise of the values will prevent a good analysis, but looking too high on the matrix, the crack length value will not be accurate. To move around and get an accurate idea of how the user can look at the M matrix, it is important to use $\alpha$. The alpha parameter is like a cutting tool that allows one to get as close to the noise as possible without problems. Thus, when a subset is outside this region, it will be considered as zero. Then, subsets that are placed in the crack, or somewhere where there is a defect or missing information as in the crack, the subset will be defined with a value equal to -1. Then, for all the subsets around the crack, which have a real interest in the study, they will take the value equal to 1. Using this sub-step matrix, now composed of -1, 0, 1, it is possible to plot the whole matrix in shades of gray, and to have an overview of the crack development. So, by following the farthest 1 value in the matrix, it is possible to know the last subset where the crack tip is localized.
+The matrix $M$ serves as the basis for estimating the current horizontal location or crack length at a given stage. Zero values in the matrix indicate areas without a crack, while subsets within the crack or regions with missing information are assigned values of 1 and -1, respectively. Subsets surrounding the crack, which are of particular interest for the study, are assigned a value of 1. Constructing a sub-matrix consisting of -1, 0, and 1, one can visualise the damage evaluation as a map, providing an overview of the crack's development. Tracking the farthest subset with a value of 1 allows the determination of the last subset where the crack tip is located. To facilitate this, the parameter $\alpha$ acts as a cutoff tool, enabling the localisation of the crack position in the matrix coordinate space.
 
 \textbf{$\alpha$ parameter}
 
-It is important to determine the $\alpha$ parameter. This one is used on the matrix as the matrix M. It is a tricky part of the code.To approximate the $\alpha$ value, a first correlation factor is sought using the least squares regression method. Indeed, we know that during the test, there are 3 main zones on the Displacement-Force curve: a first linear one which corresponds to a stationary zone, a second one where the fracture propagates and finally a third one which corresponds to the specimen rupture. With this correlation factor we find the stage between the stationary zone and the Fracture Process Zone FPZ. Then, a second stage verification criterion from the displacement field processing is used to verify the correct stage of the FPZ.
-Thanks to these two steps, we know the stage where there is the begining of the FPZ and the values which are possible for $\alpha$.
-It is then possible to plot for different $\alpha$ all the stages of the crack propagation and have an idea on the $\alpha$ value needed to have the greatest a(t). Normally, the alpha chosen is the smallest. However, a curve with a simpler geometry is preferred if the length a(t) does not change.
-A part of the code allows to check the length of the crack graphically by selecting a0 and af directly in Python. This allows some alphas that do not have the correct crack length to be eliminated directly.
+The selection of the $\alpha$ parameter is not straightforward in the initial approach. To approximate its value, we first seek a correlation factor using the least squares regression method. During the test, the load-displacement curve consists of three main regions: a linear region representing a stationary zone, a second region corresponding to fracture propagation, and a third region indicating specimen rupture. By determining the correlation factor, we can identify the stage between the stationary zone and the Fracture Process Zone (FPZ). A second verification criterion based on displacement field processing is then applied to confirm the correct stage of the FPZ. By following these two steps, we can determine the stage at which the FPZ begins and the possible range of values for $\alpha$. Subsequently, we can plot the stages of crack propagation for different $\alpha$ values and assess the value of $\alpha$ that yields the largest $a(t)$ (crack length). Typically, the smallest $\alpha$ is chosen, unless a curve with simpler geometry is desired and the length of $a(t)$ remains relatively unchanged. A portion of the code enables graphical verification of the crack length by directly selecting $a_0$ and $a_f$ in Python. This allows the elimination of certain $\alpha$ values that do not yield the correct crack length..
 
 \textbf{Crack length}
 
-Another part of the code allows us to obtain a(t) as a function of alpha. This is done by focusing on the ZOI and the number of subsets that compose it. Through the matrix composed by each subset, the displacement field can be observed. It is obtained by calculating the distance between the center of a subset and its displacement from one image to another. To simplify the code, this calculation is not performed on each subset but only on the four corners. By calculating the distance between the opposite corners, the maximum displacement in x and the displacement in y are introduced in a last matrix. Finally, the value of a(t) is equal to $a_0$ set by the user in the database and to $\Delta a$ which is the value of the crack length, evolving in time under the effect of the applied force.
+Another section of the code focuses on obtaining $a(t)$ as a function of $\alpha$. This is achieved by examining the ZOI and the subsets within it. By analysing the displacement field derived from each subset, the code calculates the distance between the centre of a subset and its displacement from one image to another. To simplify the code, this calculation is performed only on the four corner subsets. By measuring the distance between opposite corners, we obtain the maximum displacement in the $x$-direction and the displacement in the $y$-direction, which are then incorporated into a final matrix. Subsequently, the value of $a(t)$ is determined. It is equal to the initial crack length, $a_0$, specified by the user in the database, plus $\Delta a$, which represents the crack length variation over time in response to the applied force.
+
 
 \subsection{Method 2: Crack propagation based on crack opening displacement provided by DIC}
 
