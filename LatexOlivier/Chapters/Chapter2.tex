@@ -3,104 +3,85 @@
 
 \section{Introduction}
 
-This chapter focuses on the preparation of the tests and the tools used to obtain results. It explains in detail the equipment used to carry out the tests and the preparation made for them. A section is devoted to the application of the DIC method and the proper use of MatchID. It explains some important parameters such as subset size, step size in order to make the DIC analysis as accurate as possible.
-Finally, two fracture analysis methods are presented. A Python code was developed for both methods, and this section also allows a comparison of these two methods and a judgment on which is the most effective.
+This chapter focuses on the proposed methodology for analysing the mechanical fracture tests. It comprehensively explains the equipment for conducting the tests and the necessary preparations. A dedicated section is devoted to elucidating the application of the DIC method and the appropriate utilisation of MatchID software. Moreover, it outlines crucial DIC setting parameters, including subset size, step size, correlation criteria, and shape functions, to ensure optimal accuracy in the DIC analysis while balancing out the spatial resolution and precision.
+Furthermore, this chapter introduces two fracture analysis methods, each accompanied by a custom-developed Python code. A comparative assessment of these methods is presented, allowing for a judgment regarding their relative effectiveness and merits.
 
-\section{Tools used during the test}
+\section{Material and testing}
 
-\subsection{MMCG test piece}
+\subsection{MMCG fracture test}
 
-The MMCG test piece was developed by \cite{MoutouPitti2008}. However, the specimens tested at the University of Lisbon are not of the same dimensions. After carefully measuring the specimens, it turns out that they have the same dimensions as the specimens studied by \cite{Odounga2018phd}. Below are the dimensions of the specimens that will be tested figure \ref{fig:fig23}:
-
+The MMCG specimen was initially developed by \citet{MoutouPitti2008}. However, it should be noted that the specimens tested in this work have different dimensions compared to the original design. Upon meticulous measurements, it was discovered that the tested specimens in this study share the exact dimensions as those examined by \citep{Odounga2018phd}. The dimensions of the specimens to be tested are provided in Figure \ref{fig:fig23}.
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=8cm]{fig23}
-	\caption{Dimensions of the tested MMCG specimen}
+	\includegraphics[width=.6\textwidth]{fig23}
+	\caption{Dimensions of the tested MMCG specimen \citep{MoutouPitti2008, Odounga2018phd}.}
 	\label{fig:fig23}
 \end{figure}
 
-\subsection{Characteristic of the Wood used}
+\subsection{Wood characteristics}
 
-For the tests conducted in this thesis, the European species chosen is the silver fir. This coniferous tree is a derivative of needle trees.  Present on north hemisphere, it is a softwood as Pines or others old trees. Its name originates from its white color and its circumference ranges from 50 to 80 cm. CIRAD data shows a density of 0.45 to 0.60, a SFP of about 30$\%$, and a compressive strength of 41MPa. The tangential shrinkage is significant at 8.7$\%$, whereas the radial shrinkage is at 4$\%$. The wood of the Silver Fir is commonly used for framing, columns, and light framing due to its strength, although it must be treated to prevent fungal and insect attacks. The main concern with this wood is the presence of a water pocket in the tree, as well as its tendency to split, which may limit the use of certain connectors in construction.
-
-In order to compare the future results of tensile tests with the literature review, we need to know some characteristics of our sample.
-We therefore decided to measure its weight, density, and moisture content.
-The samples were first weighed just before the test. This measurement is called $M_H$. 
-This allows us to know the mass of the wood samples during the test.
-The density of the wood can also be deduced from the volume of the sample and its mass.
-The sample was previously drawn in AutoCAD. The theoretical surface of the sample can therefore be known directly and multiplied by the thickness.
-We can therefore deduce the density of each sample by applying the formula $\rho=M/V$.
-After testing, the specimens are placed in an oven at 100 degrees until the $M_C$ mass is stabilised. Two specimens were placed in an oven during 73 hours. Different measurements were taken until a constant mass of the specimen was obtained.
-The moisture content can then be determined by applying the equation \ref{eq:HI}.
-Finally, we have the mass, the density and the moisture content to compare our results with the literature review in table \ref{tab:Tabmean}.
+For the tests conducted in this thesis, the chosen European species is the silver fir, which belongs to the category of coniferous trees. This softwood species is predominantly found in the northern hemisphere, similar to pines and other aged trees. Its name originates from the white colour of its wood, and its circumference typically ranges from 50 to 80 cm. According to CIRAD data, the silver fir exhibits a density of 0.45 to 0.60, a specific gravity factor (SFP) of approximately 30\%, and a compressive strength of 41 MPa. Notably, it experiences significant tangential shrinkage at 8.7\%, while the radial shrinkage measures 4\%. Silver fir wood is commonly utilised for framing, columns, and light structures due to its strength, although it requires treatment to prevent fungal and insect attacks. However, water pockets within the tree and its susceptibility to splitting pose concerns that may limit the use of specific connectors in construction.
+Wooden specimens were carefully characterised before testing by measuring weight, density, and moisture content. Before the tests, the samples were weighed, denoted as $M_H$, to determine their mass during testing. The wood density can also be derived from the sample's volume and mass. AutoCAD was employed to create a digital representation of the sample, enabling us to determine its theoretical surface, which can then be multiplied by the thickness to calculate the volume. The density of each sample can be determined by applying the formula $\rho = M/V$.
+After testing, the specimens were placed in an oven set at 100 degrees until their mass, labelled as $M_C$, stabilised. Two specimens were subjected to this process for 73 hours, and various measurements were taken until a constant mass was achieved. The moisture content of the specimens can be determined using Equation \ref{eq:HI}. Consequently, we possess the mass, density, and moisture content values necessary to compare our results with the literature review, as presented in Table \ref{tab:Tabmean}.
 
 \begin{table}[h]
 	\centering
-	\begin{tabular}{c c }
-		\multicolumn{1}{l}{} & \multicolumn{1}{l}{Average value} \\
-		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}MH} & 29.83   g \\
-		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}V} & 6916 cm3 \\
-		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}$\rho$} & 431.3 kg/m3 \\
-		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}HI} & 10.3 \% \\
+	\begin{tabular}{lcl}\toprule
+		Mass of the specimens, MH [g] && 29.83  \\
+		Volume, V [cm$^3$] && 6916  \\
+		Density, $\rho$ [kg/m$^3$] && 431.3  \\
+		Moisture Content, HI [\%] && 10.3 \\\bottomrule
 	\end{tabular}
-	\caption{Characteristics of MMCG Silver Fir}
+	\caption{Characteristics of MMCG Silver Fir specimens.}
 	\label{tab:Tabmean}
 \end{table}
 
-\subsection{Arcan model and final grips}
+\subsection{Arcan solid model and grips}
 
-To perform the tests, a steel Arcan system must be designed. Indeed, this part allows to connect the 2MCG wood specimen to the press. In order to create this grip we must first take into account the dimensions of the 2MCG specimen available at Nova School described in figure \ref{fig:fig23}. The shape of the Arcan system must also allow good visibility for the propagation of the crack. Figure \ref{fig:fig24} shows the Arcan device that we will use, which was inspired from the thesis of \cite{Odounga2018phd}.
+An  Arcan fixture system is required to perform the  2MCG fracture tests. Indeed, this part allows the connection of the 2MCG wood specimen (Figure \ref{fig:fig23}) to the cross-head displacement of the test frame. Figure \ref{fig:fig24} shows the Arcan device we will use, inspired by the thesis of \citep{Odounga2018phd}.
 
 
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=15cm]{fig24}
-	\caption{Size of the Arcan fastening system, \cite{Odounga2018phd}}
+	\caption{Size of the Arcan fastening system \citep{Odounga2018phd}.}
 	\label{fig:fig24}
 \end{figure}
 
-The fixing holes for the wooden specimens have a diameter $\Phi= 4 mm$, and the loading holes have a diameter $\Phi = 7 mm$. These fixing holes were drilled in order to be able to load the specimen with different angular values of the angle in relation to the vertical direction in order to activate different failure modes depending on the load angle. To connect the Arcan system to the press, a piece had to be created, as shown in figure \ref{fig:fig25}.
+The fixing holes for the wooden specimens have a diameter $\Phi= 4 mm$, and the loading holes have a diameter $\Phi = 7 mm$. These fixing holes were drilled in order to be able to load the specimen with different angular values of the angle in relation to the vertical direction in order to activate different failure modes depending on the load angle. To connect the Arcan system to the press, a piece had to be created, as shown in Figure \ref{fig:fig25}.
 
 
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=6cm]{fig25}
-	\caption{Bolt for connecting the press and the Arcan System}
+	\caption{Bolt for connecting the press and the Arcan System.}
 	\label{fig:fig25}
 \end{figure}
 
-This part has a hole of the same size as the holes of the Arcan system in order to connect them. Moreover the head of the connector is 27mm in diameter, and the thread has a 2mm pitch to connect to the press. Before sending the technical drawings to a company, a 3D printer was used to verify that the system worked properly. It was then necessary to draw the assembly on Solidworks in order to print the assembly and send the technical drawings. Figure \ref{fig:fig26} shows the assembled device in Solidworks. Solidworks is a 3D modeler owned by Dassault using parametric design, which generates 3 types of files related to three basic concepts: the part, the assembly, and the drawing.
-
+This component incorporates a hole with dimensions identical to the Arcan specimen, facilitating seamless integration. Furthermore, the connector head has a diameter of 27 mm, and the thread has a pitch of 2 mm to ensure compatibility with the testing machine. The fixture was designed and assembled using SolidWorks software, and detailed technical drawings were produced for manufacturing (Figure \ref{fig:fig26}). However, before final production, a 3D printer was employed to create a prototype of the object, allowing for thorough verification and validation.
 
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=7cm]{fig26}
-	\caption{Assembled device in Solidworks}
+	\caption{Assembled device in Solidworks.}
 	\label{fig:fig26}
 \end{figure}
 
-It has been shown in previous work such as \cite{Odounga2018phd} that one of the main problems with the MMCG specimen is the small distance between the holes and specimen extremities. This implies several cracks in the heel between the hole and the extremity of the sample which prevent observation and analysis of the fracture. One solution proposed is the use of washers which could be glued or to strength screw the nut. Indeed, by applying compressive stress on each side of the sample, it reduces the stress applied to the holes and distributes the load over a wider area.
+Previous studies, including the work by \citep{Odounga2018phd}, have demonstrated a prominent issue associated with the MMCG specimen: the limited distance between the holes and the specimen extremities. This proximity leads to the formation of multiple cracks in the heel region between the hole and the sample's extremity, hindering practical observation and fracture analysis. To address this challenge, one proposed solution involves using washers that can be affixed through adhesive bonding or secured with robust screws and nuts. By applying compressive stress on each side of the sample, the stress applied to the holes is diminished, and the load is distributed across a broader area, thereby alleviating the issue.
 
-\subsection{Hydraulic press used}
+\subsection{Universal testing machine}
 
-To determine experimental parameters like the load speed or the frequency of the camera recording, it was important to read previous works on the subject and determine which engines will be used to proceed the experiments. The press used for the tests is a Landmark Servohydraulic Test Systems model 661.21B-03  from MTS. It is capable of exerting a maximal applied load of 100 kN (figure \ref{fig:fig27}).
-In the work of \cite{Ostapska2021} the load speed recommended was about $0.1\ mm\ {min}^{-1}$ and the record was made at a frequency of 5 Hz, so 5 images per seconds. In the work of \cite{Mambili2018} the record was made at a frequency of 10 Hz and the load speed was about 0.3 mm/min with a pre-load of 100N. It should be remembered that this press is also chosen because of its ability to load the specimens with a constant time displacement. Indeed, it was explained that this work will use the compliance method to compare the results.
-
-This MTS Hydraulic Press works with a cooler fluid. Indeed, a tank full of fluid mixed to water and a cooler system send this fluid mix to the press as visible on \ref{fig:fig27}. Then, a hydraulic supply from MTS sends this liquid to the press itself. It is the model 506.02 serie 22 coupled with the Vickers DG4V-3-2A. Then the pressure is created thanks to the Hydraulic Service Manifold part from MTS company, model 234.11. Finally, a servo valve MOOG A076-263c increase the pressure to allow the hydraulic press operation. It is a high performance valve that drives a dry torque motor. Then a MTS load cell (661-21B-03) allows to follow the force of the hydraulic press.
-
+The tests were conducted using a Landmark Servohydraulic Test Systems model 661.21B-03 from MTS, which served as the universal testing machine. This equipment can apply a maximum load of 100 kN (refer to Figure \ref{fig:fig27}). Displacement control was employed during the tests, with a cross-head displacement rate set to 0.1 mm/min. Data acquisition occurred at a frequency of 5 Hz. It is worth noting that in the study conducted by \citep{Mambili2018}, tests were performed at a frequency of 10 Hz, with a velocity of 0.3 mm/min and a pre-load of 100N. A pre-load was required to mount the specimen and fixture to the testing machine. However, the value of the pre-loading was considered in evaluating the energy release rate.
 
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=10cm]{fig27}
-	\caption{Hydraulic Press components allowing it use, \cite{MALFAIT2021}}
+	\caption{Hydraulic Press components allowing it use \citep{MALFAIT2021}.}
 	\label{fig:fig27}
 \end{figure}
 
-To avoid displacement of the specimens, a preload is applied to the wood specimen. In the tests performed by \cite{MALFAIT2021} this preload was ignored to avoid negative loading values. An offset was applied to the P-$\delta$ to avoid these negative values which do not make sense. By ignoring this first loading, all results are truncated and the impacts on other parameters such as the energy release rate is disastrous. 
-To remedy this problem, it is necessary to examine the load of the hydraulic press before it is used. This value, even if it is negative, will be subtracted from all the others, which will give the preload. Another solution is to continue testing, even after the propagation in the ZOI has ended. Indeed, the value of the load at the end of the test, on a collapsed specimen, will be equal to zero, even if the zero value is negative.
-
-\section{Research and understanding of the parameters of the DIC method}
+\section{DIC method and setting parameters}
 
 \subsection{Preparation of the DIC method}
 
@@ -120,11 +101,11 @@ After calibration and recording of the tests, the datas must be processed. Sever
 	\item Exploit the results
 \end{itemize}
 
-Despite the progress and increasing use of DIC, the technique is still not standardized. It is emphasized that extrinsic and intrinsic DIC setup parameters, such as subset size, subset step, strain gauge window, shape functions, or correlation criterion, can have a considerable influence on the calculated strain fields, producing spatial resolution and resolution values that can differ by at least an order of magnitude \cite{DICguide2018}. The next paragraph will try to explain some of them. 
+Despite the progress and increasing use of DIC, the technique is still not standardized. It is emphasized that extrinsic and intrinsic DIC setup parameters, such as subset size, subset step, strain gauge window, shape functions, or correlation criterion, can have a considerable influence on the calculated strain fields, producing spatial resolution and resolution values that can differ by at least an order of magnitude \citep{DICguide2018}. The next paragraph will try to explain some of them. 
 
 \begin{itemize}
-	\item The \textbf{correlation criterion} defines the matching criterion that will be adopted in order to determine the optimum corresponding point. \cite{MALFAIT2021}  used the criterion ZNSSD. It is a least-square-based correlation criterion that is less sensitive to both image contrast reduction and light intensity shifting between images. It's a robust correlation criterion that can be used with confidence. 
-	\item There are 5 \textbf{subset shape function} that allow or do not allow the subset certain constraints such as the fact of translating, deforming, to shear etc.. Depending on the local deformation or strain gradients of the problem under analysis, affine, irregular and quadratic shape functions can be selected by the user in the DIC method \cite{PereiraandXavier2018}. 
+	\item The \textbf{correlation criterion} defines the matching criterion that will be adopted in order to determine the optimum corresponding point. \citep{MALFAIT2021}  used the criterion ZNSSD. It is a least-square-based correlation criterion that is less sensitive to both image contrast reduction and light intensity shifting between images. It's a robust correlation criterion that can be used with confidence. 
+	\item There are 5 \textbf{subset shape function} that allow or do not allow the subset certain constraints such as the fact of translating, deforming, to shear etc.. Depending on the local deformation or strain gradients of the problem under analysis, affine, irregular and quadratic shape functions can be selected by the user in the DIC method \citep{PereiraandXavier2018}. 
 	\item The \textbf{subset size} is the length of the subset in the reference image and it must contain at least 3 speckles. As an indication, larger subsets improve resolution but decrease spatial resolution. This means that in a conventional mechanical tensile test with a uniform, uniaxial stress state in the central region of the specimen, large subsets can be selected to improve the accuracy of the measurements.
 	\item The \textbf{step size} is the spacing of pixel grid points at which the subset displacements are calculated. It controls the density of points at which DIC data is computed and, to some extent, influences the spatial resolution of the measurements. Typically, a step size of one-third to one-half of the subset size is recommended, so that neighboring subsets partially overlap, though this value can vary widely depending on specific applications. Additionally, a small step size may be required to capture the peak position of a Quantity Of Interest (QOI) (without interpolation) if it varies quickly across the ZOI and if the QOI varies slowly across the ZOI, then a large step size can be used. 
 	\item The \textbf{strain window} is the local region of the ZOI of the image, containing a finite number of data points, that is used to calculate strain. Parameters such as the subset step and the strain window will define a strain spatial resolution and virtual strain gauge (VSG). 
@@ -160,13 +141,13 @@ To obtain CTOD, it is important to pay attention to the choice a0. Indeed, the c
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=8cm]{fig29bis}
-	\caption{Pair of subsets around the chosen subset a0}
+	\caption{Pair of subsets around the chosen subset $a_0$.}
 	\label{fig:fig29bis}
 \end{figure}
 
 \textbf{Mapping function and mapping mask}
 
-The method used is based on the variation of the relative position between adjacent subsets which gives an estimate of the damage occurrence \cite{Xavieretal2014}. To begin with, a matching function A(x,y) \ref{eq:eq21} is determined based on the norm of the relative position vectors as follows:
+The method used is based on the variation of the relative position between adjacent subsets which gives an estimate of the damage occurrence \citep{Xavieretal2014}. To begin with, a matching function A(x,y) \ref{eq:eq21} is determined based on the norm of the relative position vectors as follows:
 
 \begin{equation}
 	A(x,y)=max(\lVert u_i-u_k\rVert;\lVert u_j-u_l\rVert)
@@ -200,7 +181,7 @@ Another part of the code allows us to obtain a(t) as a function of alpha. This i
 
 \subsection{Method 2: Crack propagation based on crack opening displacement provided by DIC}
 
-Method 2 uses the crack opening along the entire length of the wooden specimen to determine the length of the crack (\cite{FilhoJ2022}). 
+Method 2 uses the crack opening along the entire length of the wooden specimen to determine the length of the crack (\citep{FilhoJ2022}). 
 
 \textbf{Crack opening displacement (COD) or Virtual displacement}
 
@@ -216,7 +197,7 @@ where the indices t and b refer to the DIC data points located at the top and bo
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=10cm]{fig30}
-	\caption{DIC-based virtual displacement gauge (VDG), \cite{FilhoJ2022}}
+	\caption{DIC-based virtual displacement gauge (VDG) \citep{FilhoJ2022}.}
 	\label{fig:fig30}
 \end{figure}
 
@@ -258,12 +239,12 @@ It is therefore possible to calculate the growth of the crack at instant n \ref{
 
 \subsection{Difficulties in applying method 2}
 
-This method was originally used for a fibrous soft material. The first step was to translate the Matlab code given by \cite{FilhoJ2022} into a python code to be able to use both methods simultaneously and compare them.
+This method was originally used for a fibrous soft material. The first step was to translate the Matlab code given by \citep{FilhoJ2022} into a python code to be able to use both methods simultaneously and compare them.
 After translating the code, we realised that this method did not work properly for the wood material and the DIC data we had with Stanislas' tests.
 From the data of method 1, we already know the position of a0 and all the displacements over time that have occurred on the entire wooden specimen. However, for method 2, we only need 2 horizontal lines placed above and below the fracture. It is therefore sufficient to take only one part of the data from the specimen. Moreover, it was chosen to take these two lines far enough away from the fracture in order not to have subsets without any data.
 However, method 2 still didn't work properly and a slight modification to the code was required.
 
-The figure \ref{fig:fig31} corresponds to the plot of $\overline{VD}$ and $VD_{th}$ with Joao's data, the author of the method. We read graphically $a_1$ and $a_f$, which allowed us to know the $VD_{th}$ for index 1 and the last index which are the bounds on the y-axis for the $VD_{th}$ curve. We notice that the $VD_{th}$ curve has the same shape as the $\overline{VD}$ curve, is still increasing but has only been reduced at the ordinate level. This is what we want to achieve for the MMCG specimens.
+The Figure \ref{fig:fig31} corresponds to the plot of $\overline{VD}$ and $VD_{th}$ with Joao's data, the author of the method. We read graphically $a_1$ and $a_f$, which allowed us to know the $VD_{th}$ for index 1 and the last index which are the bounds on the y-axis for the $VD_{th}$ curve. We notice that the $VD_{th}$ curve has the same shape as the $\overline{VD}$ curve, is still increasing but has only been reduced at the ordinate level. This is what we want to achieve for the MMCG specimens.
 
 For the MMCG test data, by applying $VD_{th1}$ and $VD_{thf}$ as in Joao's data, we notice that the $VD_{th}$ curve increases and then decreases, which is not normal since the COD should normally increase with time (figure \ref{fig:fig32}). This is due to the alpha and beta factors which increase $\overline{VD}$ for the first indices and then decrease $\overline{VD}$ for the last indices. According to the equation \ref{eq:eq26} alpha is multiplied by $i_n$ which will decrease the multiplier coefficient of $\overline{VD}$ over time if alpha is negative and beta positive. This is the reason why $VD_{th}$ is under $\overline{VD}$  for the latest indices.
 
@@ -271,14 +252,14 @@ For the MMCG test data, by applying $VD_{th1}$ and $VD_{thf}$ as in Joao's data,
 	\begin{minipage}[c]{.46\linewidth}
 		\centering
 		\includegraphics[width=7cm]{fig31}
-		\caption{$\overline{VD}$ and $VD_{th}$ with Joao's data}
+		\caption{$\overline{VD}$ and $VD_{th}$ with Joao's data.}
 		\label{fig:fig31}
 	\end{minipage}
 	\hfill%
 	\begin{minipage}[c]{.46\linewidth}
 		\centering
 		\includegraphics[width=7cm]{fig32}
-		\caption{$\overline{VD}$ and $VD_{th}$ with stanislas' data}
+		\caption{$\overline{VD}$ and $VD_{th}$ with stanislas' data.}
 		\label{fig:fig32}
 	\end{minipage}
 \end{figure}
@@ -290,7 +271,7 @@ Method 1 was then used to find out from which image the fracture process starts.
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=7cm]{fig33}
-	\caption{Crack length with FPZ taken into account}
+	\caption{Crack length with FPZ taken into account.}
 	\label{fig:fig33}
 \end{figure}
 
@@ -300,7 +281,7 @@ Because the $\overline{VD}$ is too small compared to the graphically obtained $V
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=7cm]{fig34}
-	\caption{Interpolation of $\overline{VD}$}
+	\caption{Interpolation of $\overline{VD}$.}
 	\label{fig:fig34}
 \end{figure}
 
@@ -310,20 +291,20 @@ Thanks to this interpolation, we apply alpha and beta (figure \ref{fig:fig35}) a
 	\begin{minipage}[c]{.46\linewidth}
 		\centering
 		\includegraphics[width=7cm]{fig35}
-		\caption{$VD_{th}$ with interpolation}
+		\caption{$VD_{th}$ with interpolation.}
 		\label{fig:fig35}
 	\end{minipage}
 	\hfill%
 	\begin{minipage}[c]{.46\linewidth}
 		\centering
 		\includegraphics[width=7cm]{fig36}
-		\caption{Final crack length e1o1}
+		\caption{Final crack length e1o1.}
 		\label{fig:fig36}
 	\end{minipage}
 \end{figure}
 
 To conclude, the crack propagation does not start at the same stage between the two methods and the crack length is different over the time. Moreover we had to modify a lot Joao's initial method to apply it to wood material. It also adds uncertainties since we have to read graphically $a_1$ and $a_f$ to obtain the crack length thresholds at the beginning and at the end of the propagation. Reading the points $a_1$ and $a_f$ is really difficult to evaluate manually for this material because the fracture is not clearly visible on the images. In addition, the index for $a_1$ and $a_f$ is given by method 1 which adds further uncertainties. Method 2 gives a "smoother" curve than method 1, but this is not necessarily a good thing since the fracture of wood material usually works in fits and starts.
-As observed in method 1, the fracture process typically involves multiple stages, which can be attributed to the gradual propagation of cracks. In some instances, the presence of bridges in the material can impede the linear advancement of the crack. However, once these bridges break, the crack can propagate further, resulting in the development of a new stage in the fracture process. This underscores the complex nature of crack propagation in wood. In the next chapter, the tests carried out in mode I will be presented and we will be able to check whether method 2 works correctly with wood. However, some doubts are raised, as the $\overline{VD}$ is not as linear as with a soft fibrous material, as shown in figures \ref{fig:fig31} and \ref{fig:fig32}.
+As observed in method 1, the fracture process typically involves multiple stages, which can be attributed to the gradual propagation of cracks. In some instances, the presence of bridges in the material can impede the linear advancement of the crack. However, once these bridges break, the crack can propagate further, resulting in the development of a new stage in the fracture process. This underscores the complex nature of crack propagation in wood. In the next chapter, the tests carried out in mode I will be presented and we will be able to check whether method 2 works correctly with wood. However, some doubts are raised, as the $\overline{VD}$ is not as linear as with a soft fibrous material, as shown in Figures \ref{fig:fig31} and \ref{fig:fig32}.
 
 \subsection{Energy release rate}
 
@@ -343,12 +324,12 @@ For mixed mode, the formula becomes \ref{eq:eq28}:
 
 where u and v are the crack opening displacement according to x and y. The displacement measured by the machine is not used to calculate the energy release rate, as it is less accurate due to the clearances in the jaws.
 
-In mixed mode the camera will have the same inclination as the specimen figure \ref{fig:fig37bis}.
+In mixed mode the camera will have the same inclination as the specimen Figure \ref{fig:fig37bis}.
 
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=9cm]{fig37bis}
-	\caption{Force projection along the axes in mixed mode, \cite{Odounga2018phd}}
+	\caption{Force projection along the axes in mixed mode, \citep{Odounga2018phd}.}
 	\label{fig:fig37bis}
 \end{figure}
 
@@ -417,7 +398,7 @@ The following initial crack length values are then obtained:
 		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E1} & 25,8 mm \\ 
 		\multicolumn{1}{c}{\cellcolor[HTML]{00FF00}broken} & 25.95 mm \\  
 	\end{tabular}
-	\caption{Precrack dimensions}
+	\caption{Precrack dimensions.}
 	\label{tab:Tab11}
 \end{table}
 
