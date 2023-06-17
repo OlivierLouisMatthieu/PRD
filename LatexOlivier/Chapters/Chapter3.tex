@@ -3,52 +3,24 @@
 
 \section{Introduction}
 
-In this chapter, the mode I fracture is studied using the DIC method. First, the experimental set-up used on the day of the test is explained. This will enable anyone wishing to carry out the same tests to know how to proceed. The mode I results are then presented and the energy release rates for mode I MMCG samples are calculated and analysed with other articles.
+This chapter outlines the experimental work to investigate mode I fracture using MMCG specimens using the DIC method. Firstly, the experimental set-up is described in detail. Subsequently, the mode I results are presented, and the energy release rates for mode I MMCG samples are calculated and discussed in relation to existing literature.
 
 \section{Experimental set-up}
 
-\subsection{Camera and MatchiD setup}
-An x-camera coupled with a 60mm Nikkor lens was used for image acquisition. The camera has a resolution of x (H) × x (V) and a sensor size of x. The front of the lens was positioned at a working distance of 285 mm with an aperture of f/11 and an exposure time of 60 milliseconds. The displacement of the machine was 0.02mm/s and the camera had a frequency of 1 Hz, i.e. 1 frame per second.
+The fracture tests were performed using a Landmark Servohydraulic testing machine with a maximum capacity of 100 kN. Figure~\ref{fig:Setup0°} shows the experimental set-up, which includes the Arcan fixture and the optical camera-lens-illumination devices. The Arcan fixture was mounted to the testing machine using standard bolts, with washers inserted between the specimen and the Arcan system to reinforce the attachment points. To facilitate specimen changes between tests, manual controls were employed to elevate the moving part of the testing machine, minimising residual tension between the bolt holes and the Arcan system. Furthermore, before testing, an arbitrary pre-load was applied to the specimen to prevent any clearance or unintended movement of the specimen (which could cause image defocusing). Load and cross-head displacement data were recorded at a frequency of 5 Hz . Additionally, a real-time plot was generated during the test for visualisation.
 
-The kinematic fields acquired by image correlation (e.g., subset size, subset step, ldots) and numerical differentiation (e.g., strain windows size) algorithms can be significantly impacted by the DIC configuration settings. Since they will determine the spatial resolution and accuracy linked to the DIC measurements, both in displacement and strain fields, these settings constitute fundamental parameters.  In order to balance resolution and spatial resolution, a parametric research was done to support the DIC setting for the current application. The MatchID 2D Parametric Module was used to conduct this investigation.
 
-\begin{table}[]
-	\centering
-	\begin{tabular}{c c}
-		\hline
-		Correlation   Coefficient: & ZNCC \\ 
-		Interpolation order: & Bicubic Splines \\ 
-		Transformation order: & Quadratic \\
-		Prefiltering: & Gaussian \\
-		Progress history: & Spatial \\
-		Subset size: & 31 \\
-		Step size: & 10 \\
-		Strainwindow size: & 5 \\ 
-		Virtual Strain Gauge: & 71 \\
-		Strain interpolation: & Q4 \\ 
-		Strain Convention: & Green-Lagrange \\ \hline
-	\end{tabular}
-	\caption{MatchID parameters used}
-	\label{tab:MatchID_param}
-\end{table}
+An Alvium 1800 U-2040m Allied Vision camera and a 60 mm Nikkor lens were used for image grabbing and acquisition. The camera has a resolution of 4512 (H) $\times$ 4512 (V) and a sensor size of type 1.1. The front of the lens was positioned at a working distance of 285 mm with an aperture of f/11 and an exposure time of 60 milliseconds. The cross-head displacement of the testing machine was 0.02mm/s, and the camera had a frequency of 1 Hz (1 fps).
+ A green illumination set-up was used to enhance the sensitivity of the sensor. The camera was securely mounted on a tripod to ensure a stable position relative to the specimen's target surface, enabling the capture of consistent images throughout the tests. The frontal face of the specimens was coated with a suitable speckle pattern. A first layer of white paint was added and a cloud of black dots formed a second layer of paint. Figure~\ref{fig:Speckle_DIC} shows an image of the speckle pattern, along with its corresponding image histogram. Additionally, a scale positioned in the surface plane was employed to establish the conversion factor for translating pixels into millimetres.
 
-The range of values defined in this performance study, including the subset size ($f_s$), subset step, affine and quadratic displacement shape functions, the size of the strain windows, and the order of the polynomial fitting function, is defined by the table \ref{tab:MatchID_param}. It is believed that the pre-selected range of values is reflective of the permissible DIC setup parameter range.
-
-\subsection{Hydraulic press and arcan system setup}
-
-The Landmark Servohydraulic compression tensile machine, with a capacity of 100 kN, can be seen in Figure \ref{fig:Setup0°}. The camera and Arcan device are also clearly visible. The part of the specimen with the speckle pattern was illuminated so that the black dots could be correctly distinguished for image correlation. The camera was mounted on a tripod in order to capture stable images during the tests. The movable jaw of the test machine is controlled in fixtures and is equipped with a load sensor.
-The hydraulic press was set up by Mr Martins. The first step was to adjust the distance between the two parts of the press in order to be able to place our specimen with the arcan system. The bolts figure \ref{fig:fig25}  were then placed on the press. Between each test, the arcan system with the specimen was attached to the bolts. Washers were placed between the specimen and the Arcan system to reinforce the hole attachments. To change specimen between two tests, manual controls were used to raise the moving part of the press and avoid residual tension between the bolt hole and the arcan system. An arbitrary preload was also applied to the specimen before the start of the test, to prevent any specimen movement. The position and load are given each time by the MTS software controller. In addition, a plot is created in real time. It was important to stop the press if too many tests were carried out, to avoid overheating the oil/water supplying the hydraulic press. Overheating can cause problems such as the moving part of the press rising or falling rapidly, destroying a specimen without capturing any images. This is what happened to one of the specimens.
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=16cm]{Setup0°}
+	\includegraphics[width=.6\textwidth]{Setup0_crop}
 	\caption{Experimental set-up}
 	\label{fig:Setup0°}
 \end{figure}
 
-\subsection{MMCG specimen last preparation}
-
-All the specimens have been painted to obtain a pattern that allows image processing as explained above. MatchID requires dots to be made up of a given number of pixels. A first layer of white paint was added and a cloud of black dots formed a second layer of paint. All the paints used are matt paints, not gloss paints. The dimensions of the painted areas are not precisely defined. It is not necessary to paint the heels, as they have not been studied. The pattern is also different for each specimen, but a black dot is about 10 pixels long. A scale has been added to specimen e0e6, for example, in order to convert the pixels into mm and then measure the crack length with the Python software. 
 
 \begin{figure}[htp]
 	\centering
@@ -63,6 +35,31 @@ All the specimens have been painted to obtain a pattern that allows image proces
 	\caption{(a) Speckle pattern typically obtained with DIC; (b) Histogram of the speckle image}
 	\label{fig:Speckle_DIC}
 \end{figure}
+
+
+The selected parameters for the DIC analysis play a crucial role in determining the accuracy and spatial resolution of the measured displacements and reconstructed strain fields \citep{Xavier2012207,PereiraandXavier2018}. Consequently, they are considered fundamental factors. To achieve a trade-off between spatial resolution and accuracy, a parametric analysis was conducted utilizing the Parametric Module of MatchID. The resulting DIC settings are summarized in Table~\ref{tab:MatchID_param}.
+
+The range of values defined in this performance study, including the subset size ($f_s$), subset step, affine and quadratic displacement shape functions, the size of the strain windows, and the order of the polynomial fitting function, is defined by the table \ref{tab:MatchID_param}. It is believed that the pre-selected range of values is reflective of the permissible DIC setup parameter range.
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{m{.3\textwidth}m{.4\textwidth}}\toprule
+		Correlation   Coefficient: & ZNCC \\
+		Interpolation order: & Bicubic Splines \\ 
+		Transformation order: & Quadratic \\
+		Prefiltering: & Gaussian \\
+		Progress history: & Spatial \\
+		Subset size: & 31 \\
+		Step size: & 10 \\
+		Strainwindow size: & 5 \\ 
+		Virtual Strain Gauge: & 71 pixel \\
+		Strain interpolation: & bilinear (Q4) Lagrange polynomials\\
+		Strain Convention: & Green-Lagrange \\\bottomrule
+	\end{tabular}
+	\caption{DIC setting parameters used in the MatchID software for the analyses.}
+	\label{tab:MatchID_param}
+\end{table}
+
 
 \section{Results and comparison in mode I}
 
