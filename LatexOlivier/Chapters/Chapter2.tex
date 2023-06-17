@@ -120,7 +120,7 @@ In order to determine the most appropriate DIC settings, the Performance Analysi
 Subsequently, data from each analysis were extracted in a matrix format for each acquisition step. These data were then subjected to further analysis using Python scripting, with the aim of evaluating fracture parameters within the scope of this study.
 
 
-\section{Python}
+\section{Python code}
 
 Python is a widely used computer programming language renowned for its versatility and extensive range of applications. It is frequently employed in developing websites, software systems, task automation, and data analysis. Unlike some specialized programming languages, Python offers a broad scope, allowing for the creation of diverse programs to tackle various problems. Furthermore, Python's user-friendly syntax and approachable learning curve have contributed to its widespread adoption, making it one of the most popular programming languages today.
 
@@ -155,7 +155,7 @@ The method used is based on the variation of the relative position between adjac
 	\label{eq:eq21}
 \end{equation}
 
-where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. A mapping mask \ref{eq:eq22} is then defined, assuming threshold segmentation according to the following inequalities.
+where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. A mapping mask is then defined, assuming threshold segmentation according to the following inequalities.
 
 \begin{equation}
 	M(x,y)=
@@ -180,18 +180,18 @@ Another section of the code focuses on obtaining $a(t)$ as a function of $\alpha
 
 \subsection{Method 2: Crack propagation based on crack opening displacement provided by DIC}
 
-Method 2 uses the crack opening along the entire length of the wooden specimen to determine the length of the crack (\citep{FilhoJ2022}). 
+Method 2 uses the crack opening along the entire length of the wooden specimen to determine the length of the crack \citep{FilhoJ2022}.
 
 \textbf{Crack opening displacement (COD) or Virtual displacement}
 
-From the reference and current positions of the DIC calculation points, the Euclidean distance between each pair of points can be measured and the COD can be determined as \ref{eq:eq23}:
+From the reference and current positions of the DIC calculation points, the Euclidean distance between each pair of points can be measured and the COD can be determined as:
 
 \begin{equation}
 	VD(k,i_n)=\sqrt{(x_{11bk}-x_{11tk})^2 + (x_{22bk}-x_{22tk})^2}_{i_n} - VD(k,i_0)
 	\label{eq:eq23}
 \end{equation}
 
-where the indices t and b refer to the DIC data points located at the top and bottom of the crack path, k is the index of the DIC point, $i_n$ is the image captured at time n, VD(k, i0) is the initial Euclidean distance between the computational points of the top and bottom reference DIC subset obtained from image i0, and $x_{11}$ and $x_{22}$ are their coordinates in the image plane. VD can be defined as a displacement gauge along the crack path \ref{fig:fig30}.
+where the indices $t$ and $b$ refer to the DIC data points located at the top and bottom of the crack path, $k$ is the index of the DIC point, $i_n$ is the image captured at time $n$, $VD(k, i_0)$ is the initial Euclidean distance between the computational points of the top and bottom reference DIC subset obtained from image $i_0$, and $x_{11}$ and $x_{22}$ are their coordinates in the image plane. VD can be defined as a displacement gauge along the crack path \ref{fig:fig30}.
 
 \begin{figure}[htp]
 	\centering
@@ -202,14 +202,14 @@ where the indices t and b refer to the DIC data points located at the top and bo
 
 \textbf{$\alpha$ and $\beta$ parameters}
 
-The first step towards detecting the crack tip is to take the average value of VD for each stage, \ref{eq:eq24}:
+The first step towards detecting the crack tip is to take the average value of $VD$ for each stage:
 
 \begin{equation}
 	\overline{VD}(i_n)=\frac{1}{k} \sum_{k=1}^{k}VD(k,i_n)
 	\label{eq:eq24}
 \end{equation}
 
-The threshold value must be adjusted using the two parameters $\alpha$ and $\beta$ which are obtained by solving the equation \ref{eq:eq25}:
+The threshold value must be adjusted using the two parameters $\alpha$ and $\beta$ which are obtained by solving the equation:
 
 \begin{equation}
 	\begin{cases}
@@ -221,7 +221,7 @@ The threshold value must be adjusted using the two parameters $\alpha$ and $\bet
 
 In order to obtain $VD_{th}(i_1)$ and $VD_{th}(i_f)$, it was first necessary to read graphically the position of the crack tip of the first and last image and then to find the intersection between the position of the crack tip and the crack opening VD for those two stages.
 
-Therefore, the adjusted threshold line-cut $VD_{th}(i_n)$ is given by \ref{eq:eq26}:
+Therefore, the adjusted threshold line-cut $VD_{th}(i_n)$ is given by:
 
 \begin{equation}
 	VD_{th}(i_n)=\overline{VD}(i_n)(\alpha i_n +\beta)
@@ -229,7 +229,7 @@ Therefore, the adjusted threshold line-cut $VD_{th}(i_n)$ is given by \ref{eq:eq
 \end{equation}
 
 The intersection between each $VD_{th}(i_n)$ and the corresponding $VD(k, i_n)$ curve at time n represents the $x_{11}$ position of the crack tip, denoted by ($p_n$).
-It is therefore possible to calculate the growth of the crack at instant n \ref{eq:eq27}:
+It is therefore possible to calculate the growth of the crack at instant $n$:
 
 \begin{equation}
 	da_n=p_n-p_0
@@ -239,11 +239,10 @@ It is therefore possible to calculate the growth of the crack at instant n \ref{
 \subsection{Difficulties in applying method 2}
 
 This method was originally used for a fibrous soft material. The first step was to translate the Matlab code given by \citep{FilhoJ2022} into a python code to be able to use both methods simultaneously and compare them.
-After translating the code, we realised that this method did not work properly for the wood material and the DIC data we had with Stanislas' tests.
-From the data of method 1, we already know the position of a0 and all the displacements over time that have occurred on the entire wooden specimen. However, for method 2, we only need 2 horizontal lines placed above and below the fracture. It is therefore sufficient to take only one part of the data from the specimen. Moreover, it was chosen to take these two lines far enough away from the fracture in order not to have subsets without any data.
-However, method 2 still didn't work properly and a slight modification to the code was required.
+After translating the code, we realised that this method did not work properly for the wood material and the DIC data from prelinary MMCG tests~\citep{MALFAIT2021}.
+From the data of method 1, we already know the position of $a_0$ and all the displacements over time that have occurred on the entire wooden specimen. However, for method 2, we only need 2 horizontal lines placed above and below the fracture. It is therefore sufficient to take only one part of the data from the specimen. Moreover, it was chosen to take these two lines far enough away from the fracture in order not to have subsets without any data. However, method 2 still didn't work properly and a slight modification to the code was required.
 
-The Figure \ref{fig:fig31} corresponds to the plot of $\overline{VD}$ and $VD_{th}$ with Joao's data, the author of the method. We read graphically $a_1$ and $a_f$, which allowed us to know the $VD_{th}$ for index 1 and the last index which are the bounds on the y-axis for the $VD_{th}$ curve. We notice that the $VD_{th}$ curve has the same shape as the $\overline{VD}$ curve, is still increasing but has only been reduced at the ordinate level. This is what we want to achieve for the MMCG specimens.
+The Figure \ref{fig:fig31} corresponds to the plot of $\overline{VD}$ and $VD_{th}$ with Joao's data. We read graphically $a_1$ and $a_f$, which allowed us to know the $VD_{th}$ for index 1 and the last index which are the bounds on the y-axis for the $VD_{th}$ curve. We notice that the $VD_{th}$ curve has the same shape as the $\overline{VD}$ curve, is still increasing but has only been reduced at the ordinate level. This is what we want to achieve for the MMCG specimens.
 
 For the MMCG test data, by applying $VD_{th1}$ and $VD_{thf}$ as in Joao's data, we notice that the $VD_{th}$ curve increases and then decreases, which is not normal since the COD should normally increase with time (figure \ref{fig:fig32}). This is due to the alpha and beta factors which increase $\overline{VD}$ for the first indices and then decrease $\overline{VD}$ for the last indices. According to the equation \ref{eq:eq26} alpha is multiplied by $i_n$ which will decrease the multiplier coefficient of $\overline{VD}$ over time if alpha is negative and beta positive. This is the reason why $VD_{th}$ is under $\overline{VD}$  for the latest indices.
 
@@ -264,7 +263,7 @@ For the MMCG test data, by applying $VD_{th1}$ and $VD_{thf}$ as in Joao's data,
 \end{figure}
 
 
-Method 1 was then used to find out from which image the fracture process starts. Method 2 directly increased the length of the crack for the first images, which is not normally the case for wood.  Indeed, it is considered that for all the images before the FPZ there is a(t)=a0. We therefore read $a_1$ and $a_f$ with $a_1$ the index of the beginning of the fracture process and $a_f$ the last image before the material breaks. The graph \ref{fig:fig33} is then obtained.
+Method 1 was then used to find out from which image the fracture process starts. Method 2 directly increased the length of the crack for the first images, which is not normally the case for wood.  Indeed, it is considered that for all the images before the FPZ there is a(t)=a0. We therefore read $a_1$ and $a_f$ with $a_1$ the index of the beginning of the fracture process and $a_f$ the last image before the material breaks. The Figure~\ref{fig:fig33} is then obtained.
 
 
 \begin{figure}[htp]
@@ -275,7 +274,7 @@ Method 1 was then used to find out from which image the fracture process starts.
 \end{figure}
 
 The fracture for method 2 starts much later than method 1 and are different over the time. Furthermore, the crack length does not end at the same place, because for method 2 the fracture at the last index is read graphically which is less accurate.
-Because the $\overline{VD}$ is too small compared to the graphically obtained $VD_{th1}$, an interpolation is made to increase the $\overline{VD}$. The graph \ref{fig:fig34} is obtained:
+Because the $\overline{VD}$ is too small compared to the graphically obtained $VD_{th1}$, an interpolation is made to increase the $\overline{VD}$. The Figure \ref{fig:fig34} is obtained:
 
 \begin{figure}[htp]
 	\centering
@@ -284,7 +283,7 @@ Because the $\overline{VD}$ is too small compared to the graphically obtained $V
 	\label{fig:fig34}
 \end{figure}
 
-Thanks to this interpolation, we apply alpha and beta (figure \ref{fig:fig35}) and obtain $VD_{th}$. Finally, we obtain the crack length graph \ref{fig:fig36}:
+Thanks to this interpolation, we apply alpha and beta (figure \ref{fig:fig35}) and obtain $VD_{th}$. Finally, we obtain the crack length Figure \ref{fig:fig36}:
 
 \begin{figure}[h]
 	\begin{minipage}[c]{.46\linewidth}
@@ -307,32 +306,29 @@ As observed in method 1, the fracture process typically involves multiple stages
 
 \subsection{Energy release rate}
 
-After using one of the two previous methods, we can calculate the energy release rate in mode I and in mixed mode.
-
-For mode I, the formula is the one explained in \ref{eq:eq125}.
-
-For mixed mode, the formula becomes \ref{eq:eq28}:
+After using one of the two previous methods, we can calculate the energy release rate in mode I and in mixed mode I+II. For mode I, the formula is the one explained in \ref{eq:eq125}. For mixed mode I+II, the formula is given as:
 
 \begin{equation}
 	\begin{cases}
-		G_I=\frac{{F_{cy}}^2}{2b}\ \frac{\partial C_I}{\partial a} \quad \text{with } C_I=\frac{v}{F_{cy}} \\
-		G_{II}=\frac{{F_{cx}}^2}{2b}\ \frac{\partial C_{II}}{\partial a} \quad \text{with } C_{II}=\frac{u}{F_{cx}}\\ 
+		G_\text{I}=\displaystyle\frac{{F_{cy}}^2}{2b}\ \frac{\partial C_\text{I}}{\partial a} \quad \text{with } C_\text{I}=\frac{v}{F_{cy}} \\
+		G_\text{II}=\displaystyle\frac{{F_{cx}}^2}{2b}\ \frac{\partial C_\text{II}}{\partial a} \quad \text{with } C_\text{II}=\frac{u}{F_{cx}}\\
 	\end{cases}
 \label{eq:eq28}
 \end{equation}
 
-where u and v are the crack opening displacement according to x and y. The displacement measured by the machine is not used to calculate the energy release rate, as it is less accurate due to the clearances in the jaws.
+where $u$ and $v$ are the crack opening displacement according to $x$ and $y$. The displacement measured by the machine is not used to calculate the energy release rate, as it is less accurate due to the clearances in the jaws.
 
-In mixed mode the camera will have the same inclination as the specimen Figure \ref{fig:fig37bis}.
+Using the Arcan fixture, the mixed mode I+II fractuer loading is achieved by rotatin the fixture with regard to the testig machine. Accordingly, the camera-lens optical system will be also rorated with regard to the specimen as shown in Figure \ref{fig:fig37bis}.
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=9cm]{fig37bis}
+	\includegraphics[width=.7\textwidth]{fig37bis}
 	\caption{Force projection along the axes in mixed mode, \citep{Odounga2018phd}.}
 	\label{fig:fig37bis}
 \end{figure}
 
-The crack opening values will therefore be projected directly along the x and y axes. The force is projected along the x and y axes, so we have \ref{eq:eq29}:
+The crack opening values will therefore be projected directly along the $x$ and $y$ axes.
+Accordingly, the force is also projected along the $x$ and $y$ axes as:
 
 
 \begin{equation}
@@ -343,45 +339,39 @@ The crack opening values will therefore be projected directly along the x and y 
 	\label{eq:eq29}
 \end{equation}
 
+\noindent where $\alpha$ represents the angle between the vertical axis and local vertical orientation of Arcan specimen (Figure \ref{fig:fig37bis}).
 
 \section{Specimen preparation}
 
 \subsection{Specimen names}
 
-We have 20 specimens of silver fir of 12.5mm thickness.
-We will therefore use 5 specimens per degree of inclination. This means 5 specimens in pure mode I (0°) and 15 specimens in mixed mode (15°, 30°, and 45°).
-Naming the specimens allows to know which test was performed on which specimen. The first part of the name corresponds to the inclination of the specimen during the test using the Arcan system:
-\newline
-E0 : Test in pure mode I
-\newline
-E15 : Test with specimen tilt of 15°
-\newline
-E30 : Test with specimen tilt of 30°
-\newline
-E45 : Test with specimen tilt of 45°
+We have 20 specimens of silver fir with a thickness of 12.5mm. We will use five specimens per degree of inclination to investigate different fracture modes. This means five specimens in pure mode I (0°) and 15 specimens in mixed mode (15°, 30°, and 45°).
+Naming the specimens allows us to identify which test was performed on each specimen. The first part of the name corresponds to the inclination of the specimen during the test using the Arcan system:
 
+\begin{itemize}
+	\item E0: Test in pure mode I;
+	\item E15: Test with a specimen tilt of 15°;
+	\item E30: Test with a specimen tilt of 30°;
+	\item E45: Test with a specimen tilt of 45°.
+\end{itemize}
 
-E15, E30 and E45 are therefore the specimens tested in mixed mode.
-Then the name as a second component is the number of the specimen dedicated to this test.
-Finally, all samples are named as E0E1 which is the first sample used in pure mode.
+Therefore, E15, E30, and E45 are the specimens tested in mixed mode. The second component of the name represents the number of the specimen dedicated to that specific test. Finally, all samples are named as E0E1, which is the first sample used in pure mode.
 
 \subsection{Notch and precrack}
 
-Notches were created in each specimen. A precrack is made by a cutter into the notch. The interest is to initiate a straight crack, thanks to this first one. The notch width is around 1.5mm, done by a straight electrical saw. The cutter allow to go deeper and create a precrack with a shape that allows the propagation of the crack. The precrack must be done at the center of the sample heel. Indeed, even a little eccentricity could cause a deviation of the crack and prevent a good study of the propagation. The specimen was designed with an initial crack noted $a_i$ and the total crack length is equal to: $a=a_i+\Delta a$.
-
-The initial crack lengths are obtained by averaging the notch on each side of the specimen plus the precrack also measured with the average of the two sides of the specimen.
-The following initial crack length values are then obtained:
+Notches were created in each specimen to initiate a sharp, straight crack. A pre-crack was made using a cutter at the notch, ensuring that it was centred at the heel of the sample. The notch width was 1.5 mm, created using a straight electrical saw. Using a cutter allowed precise control over the pre-crack shape, enabling proper crack propagation. The notch on each side of the specimen and the pre-crack were measured and averaged to determine the initial crack length. The initial crack length is denoted as $a_i$, and the total crack length is given by $a = a_i + \Delta a$, where $\Delta a$ represents the crack growth.
+The initial crack lengths for each specimen are summarized in Table~\ref{tab:Tab11}. It is important to note that only one test was conducted at a 45-degree angle, while multiple tests were performed for angles 0°, 15°, and 30°. Some tests were unsuccessful, so the focus was placed on the tests carried out at 0°, 15°, and 30° angles.
 
 \begin{table}[h]
 	\centering
-	\begin{tabular}{c c }
-		\multicolumn{1}{l}{} & \multicolumn{1}{l}{Initial Crack length} \\
+	\begin{tabular}{m{.1\textwidth} m{.2\textwidth}}\toprule
+		\multicolumn{1}{l}{} & \multicolumn{1}{l}{Initial Crack length} \\\midrule
 		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E1} & 25,3   mm \\
 		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E2} & 24.85 mm \\
 		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E3} & 25.65 mm \\
-		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E4} & 24,7 mm \\ 
-		\cellcolor[HTML]{F8CBAD}E0E5 & 25,6 mm \\ 
-		\cellcolor[HTML]{F8CBAD}E0E6 & 26,3 mm \\ 
+		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E4} & 24,7 mm \\
+		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E5} & 25,6 mm \\
+		\multicolumn{1}{c}{\cellcolor[HTML]{F8CBAD}E0E6} & 26,3 mm \\
 		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E1} & 25,85 mm \\ 
 		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E2} & 25,6 mm \\ 
 		\multicolumn{1}{c}{\cellcolor[HTML]{C65911}E15E3} & 25,55 mm \\ 
@@ -395,17 +385,14 @@ The following initial crack length values are then obtained:
 		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E6} & 24.35 mm \\ 
 		\multicolumn{1}{c}{\cellcolor[HTML]{BF8F00}E30E7} & 25.6 mm \\
 		\multicolumn{1}{c}{\cellcolor[HTML]{FFA500}E45E1} & 25,8 mm \\ 
-		\multicolumn{1}{c}{\cellcolor[HTML]{00FF00}broken} & 25.95 mm \\  
+		\multicolumn{1}{c}{\cellcolor[HTML]{00FF00}broken} & 25.95 mm \\\bottomrule
 	\end{tabular}
 	\caption{Precrack dimensions.}
 	\label{tab:Tab11}
 \end{table}
 
-We can see that only one test was carried out at 45 degrees. Some tests were not successful. The tests for angles 0°, 15° and 30° were therefore preferred.
-
 \section{Conclusion}
 
-This chapter has given us a better understanding of all the tools used to carry out the tests. It also explains some parameters that are essential to the success of the DIC method. Finally, it presents two methods for evaluating crack length; one using full-field displacement and the other using COD.
-According to the results from the two methods, method 1 appears to be more accurate than method 2. In the next chapter, we will be able to better evaluate the efficiency of the two methods.
-
+This chapter comprehensively explains the materials and methods developed for fracture tests. It has also elucidated key parameters crucial for successfully implementing the DIC method. Furthermore, two distinct approaches for assessing crack length were presented: one based on full-field displacement analysis and the other on COD measurements.
+Based on the results obtained from both methods, method 1 exhibits higher accuracy than method 2. In the subsequent chapter, a more comprehensive evaluation of the effectiveness of these two methods will be conducted, allowing for a more conclusive assessment of their efficiency.
 
