@@ -32,7 +32,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e30e5'
+Job = 'e30e7'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -734,6 +734,7 @@ P_uniques=MatchID.load[Fc_indices]
 Px_uniques=P_uniques*np.cos(beta)
 Py_uniques=P_uniques*np.sin(beta)
 
+'''
 fig = plt.figure(figsize=(7,5))
 plt.plot(MatchID.time,a_t, '*r--', linewidth=3, label='Method1')
 plt.plot(Fc_indices, a_t_uniques, 'b', label='Method1 without duplicates')
@@ -745,6 +746,7 @@ plt.title(Job)
 fig.tight_layout()
 plt.grid()
 plt.show()  
+'''
 
 '''
 G01 = ALPI*CI/a_t*10**3

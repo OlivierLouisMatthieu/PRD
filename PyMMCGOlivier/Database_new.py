@@ -185,6 +185,7 @@ elif Job == 'e30e2':
     a1=31.122
     af=18.077
     nombre=32
+    inc_COD_line=31
     indices = [0, 10, 20, 30, 40,45,49,50]
     crack = [4132, 4099, 4095, 4095, 3853,3025,1245,204.1]
     Fc_indices=[0,11,18,33,39,42,47]
@@ -200,6 +201,7 @@ elif Job == 'e30e3':
     a1=55.98
     af=2.37
     nombre=33
+    inc_COD_line=31
     indices = [0, 10, 20,25, 30, 35,40]
     crack = [4173, 4120, 3713,2754, 453, 102.4,0]
     Fc_indices=[0,11,14,16,20,24]
@@ -225,6 +227,7 @@ elif Job == 'e30e5':
     a1=31.122
     af=18.077
     nombre=32
+    inc_COD_line=31
     indices = [0, 10, 20, 30, 33]
     crack = [4109, 3960, 3812,3057, 185.2]
     #COD damage
@@ -241,6 +244,7 @@ elif Job == 'e30e7':
     a1=53.93
     af=2.86
     nombre=40
+    inc_COD_line=31
     Fc_indices=[0,23,26,31,34,36]
 elif Job == 'e45e1':
     Test.a0 = 25.8  # unit  mm

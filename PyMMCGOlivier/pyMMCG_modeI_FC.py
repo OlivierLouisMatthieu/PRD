@@ -34,7 +34,7 @@ plt.rcParams.update(params)
 ###  USER #####################################################################
 # cwd = os.getcwd()
 #Job = 'DCB_002'
-Job = 'e0e2'
+Job = 'e0e1'
 
 runuser = 'Olivier'
 if runuser == 'Xavier':
@@ -624,7 +624,7 @@ if a1==0 or af==0 or nombre==0:
 #look at the crackJ in order to see which alpha is best in function of what you found for the crack length
 
 
-j = 49
+j = 30
 fig = plt.figure()
 plt.imshow(UY[:, :, j])
 plt.plot(UY.shape[1]-crackL_J_pixel_X[j, chos_alp],crackL_J_pixel_Y[j, chos_alp],'sr')

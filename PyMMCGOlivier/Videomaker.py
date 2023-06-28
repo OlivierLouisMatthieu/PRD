@@ -68,10 +68,10 @@ run=1
 if run == 1:
     for i in range(len(COD.wI)):
         fig, ax = plt.subplots(figsize=(7,5))
-        plt.plot(COD.wI[:i+1], MatchID.load[:i+1], 'b-', linewidth=4, label='Mode I with COD pair : %d' %COD.cod_pair)
-        #plt.plot(MatchID.displ[:i+1], COD.wII[:i+1], 'k--', label='Mode II with COD pair : %d' %COD.cod_pair)
-        plt.ylim(0, 450)
-        plt.xlim(0, 1.6)
+        plt.plot(MatchID.time[:i+1], COD.wI[:i+1], 'b-', linewidth=4, label='Mode I with COD pair : %d' %COD.cod_pair)
+        plt.plot(MatchID.time[:i+1], COD.wII[:i+1], 'k--', label='Mode II with COD pair : %d' %COD.cod_pair)
+        plt.ylim(0, 1.6)
+        plt.xlim(0, 55)
         plt.xlabel('CTOD, mm')
         plt.ylabel('Load, N')
         ax.set_xlim(xmin=0)
@@ -154,12 +154,14 @@ if run == 1:
     for i in range(len(MatchID.displ)):
         fig, ax = plt.subplots(figsize=(7,5))
         plt.plot(MatchID.time[:i],crackL_J_mm[:i,chos_alp], '*r--', linewidth=3, label='Method1')
-        plt.plot(MatchID.time[:i], dad[:i], 'b', label='Method2')
+        plt.plot(MatchID.time[:i], dadglobal[:i], 'b', label='Method2')
         plt.xlabel('Images')
         plt.ylabel('Crack length, a(t), mm')
-        plt.xlim(0, 60)
+        plt.xlim(0, 55)
         plt.ylim(24, 80)
         plt.title(Job)
+        plt.tick_params(axis='both', labelsize=14)
+        plt.legend(fontsize=12)
         fig.tight_layout()
         plt.grid()
         plt.savefig("D:\Recherche PRD\EXP\MMCGTests\Video\Img"+str(i)+".png")
@@ -217,7 +219,7 @@ if run==1:
     cap1 = cv.VideoCapture(path+'\Disp-Load.avi')
     cap2 = cv.VideoCapture(path+'\CTOD.avi')
     cap3 = cv.VideoCapture(path+'\Crack-Time.avi')
-    cap4 = cv.VideoCapture(path+'\Energy-Crack.avi')
+    cap4 = cv.VideoCapture(path+'\Crackspecimen.avi')
     
     # Récupérer les dimensions de la vidéo
     width = int(cap1.get(cv.CAP_PROP_FRAME_WIDTH))
