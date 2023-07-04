@@ -118,6 +118,8 @@
 
 % if you have landscape tables
 \usepackage[figuresright]{rotating}
+\usepackage{graphicx}
+\usepackage{subcaption}
 %\usepackage{harvard}
 % put your own definitions here:x
 %   \newcommand{\cZ}{\cal{Z}}
@@ -222,9 +224,9 @@ The MMCG specimen was initially developed by \citet{MoutouPitti2008}. This sampl
 	\label{fig:Fig5}
 \end{figure}.
 
-For the tests, the chosen European species is the silver fir, which belongs to the category of coniferous trees. This softwood species is predominantly found in the northern hemisphere, similar to pines and other aged trees. Its name originates from the white colour of its wood, and its circumference typically ranges from 50 to 80 cm. According to CIRAD data, the silver fir exhibits a density of 0.45 to 0.60, a saturation fiber point (SFP) of approximately 30\%, and a compressive strength of 41 MPa. Notably, it experiences significant tangential shrinkage at 8.7\%, while the radial shrinkage measures 4\%. Silver fir wood is commonly utilised for framing, columns, and light structures due to its strength, although it requires treatment to prevent fungal and insect attacks. However, water pockets within the tree and its susceptibility to splitting pose concerns that may limit the use of specific connectors in construction.
+For the tests, the chosen European species is the silver fir, which belongs to the category of coniferous trees. This softwood species is predominantly found in the northern hemisphere, similar to pines and other aged trees. Its name originates from the white colour of its wood, and its circumference typically ranges from 50 to 80 cm. According to CIRAD data, the silver fir exhibits a density of 0.45 to 0.60, a saturation fiber point (SFP) of approximately 30\%, and a compressive strength of 41 MPa. Notably, it experiences significant tangential shrinkage at 8.7\%, while the radial shrinkage measures 4\%. 
 Wooden specimens were carefully characterised before testing by measuring weight, density, and moisture content. Before the tests, the samples were weighed, denoted as $M_H$, to determine their mass during testing. The wood density can also be derived from the sample's volume and mass. AutoCAD was employed to create a digital representation of the sample, enabling us to determine its theoretical surface, which can then be multiplied by the thickness to calculate the volume. The density of each sample can be determined by applying the formula $\rho = M/V$.
-After testing, the specimens were placed in an oven set at 100 degrees until their mass, labelled as $M_C$, stabilised. Two specimens were subjected to this process for 73 hours, and various measurements were taken until a constant mass was achieved. The moisture content of the specimens can be determined using equation \ref{eq:HI}. Consequently, we possess the average mass of 29.83g, the density 431.3kg/m$^3$, and the moisture content of 10.3\%.
+After testing, the specimens were placed in an oven set at 100 degrees until their mass, labelled as $M_C$, stabilised. Two specimens were subjected to this process for 73 hours, and various measurements were taken until a constant mass was achieved. The moisture content of the specimens can be determined using equation \ref{eq:HI}. Consequently, we possess the average mass of 29.83g, the density of 431.3kg/m$^3$, and the moisture content of 10.3\%.
 
 \begin{equation}
 	HI(\%) = \frac{M_{H}-M_{0}}{M_{0}}
@@ -233,31 +235,24 @@ After testing, the specimens were placed in an oven set at 100 degrees until the
 
 An Arcan fixture system is required to perform the  2MCG fracture tests. Indeed, this part allows the connection of the 2MCG wood specimen (Figure \ref{fig:Fig5}) to the cross-head displacement of the test frame. Figure \ref{fig:Fig6} shows the Arcan device we will use, inspired by the thesis of \citep{Odounga2018phd}.
 
-\begin{figure}[th]
-	\centering
-	\includegraphics[scale=0.5]{Figures/fig24}
-	\caption[MMCG specimen]{Size of the Arcan fastening system \citep{Odounga2018phd}.}
-	\label{fig:Fig6}
-\end{figure}.
+\begin{figure}[htp]
+	\begin{minipage}[c]{.46\linewidth}
+		\centering
+		\includegraphics[scale=0.4]{Figures/fig24}
+		\caption{Size of the Arcan fastening system \citep{Odounga2018phd}.}
+		\label{fig:Fig6}
+	\end{minipage}
+	\hfill%
+	\begin{minipage}[c]{.46\linewidth}
+		\centering
+		\includegraphics[scale=0.4]{Figures/fig26}
+		\caption{Assembled device in Solidworks.}
+		\label{fig:Fig8}
+	\end{minipage}
+\end{figure}
 
-
-The fixing holes for the wooden specimens have a diameter $\Phi= 4 mm$, and the loading holes have a diameter $\Phi = 7 mm$. These fixing holes were drilled in order to be able to load the specimen with different angular values of the angle in relation to the vertical direction in order to activate different failure modes depending on the load angle. To connect the Arcan system to the press, a piece had to be created, as shown in Figure \ref{fig:Fig7}.
-
-\begin{figure}[th]
-	\centering
-	\includegraphics[scale=0.3]{Figures/fig25}
-	\caption[MMCG specimen]{Bolt for connecting the press and the Arcan System.}
-	\label{fig:Fig7}
-\end{figure}.
-
-This component incorporates a hole with dimensions identical to the Arcan specimen, facilitating seamless integration. Furthermore, the connector head has a diameter of 27 mm, and the thread has a pitch of 2 mm to ensure compatibility with the testing machine. The fixture was designed and assembled using SolidWorks software, and detailed technical drawings were produced for manufacturing (Figure \ref{fig:fig8}). However, before final production, a 3D printer was employed to create a prototype of the object, allowing for thorough verification and validation.
-
-\begin{figure}[th]
-	\centering
-	\includegraphics[scale=0.3]{Figures/fig26}
-	\caption{Assembled device in Solidworks.}
-	\label{fig:Fig8}
-\end{figure}.
+The fixing holes enables to load the specimen with different angular values of the angle in relation to the vertical direction in order to activate different failure modes depending on the load angle. 
+The fixture was designed and assembled using SolidWorks software, and detailed technical drawings were produced for manufacturing (Figure \ref{fig:Fig8}).
 
 %\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -265,45 +260,37 @@ This component incorporates a hole with dimensions identical to the Arcan specim
 
 %\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-\subsection{Opening mode fracture loading}\label{Ss:modeIfrac}
+\subsection{Optical set-up and settings}\label{Ss:optical}
+
+The fracture tests were performed using a Landmark Servohydraulic testing machine with a maximum capacity of 100 kN. Figure~\ref{fig:Setup0°} shows the experimental set-up, which includes the Arcan fixture and the optical camera-lens-illumination devices. The Arcan fixture was mounted to the testing machine using standard bolts, with washers inserted between the specimen and the Arcan system to reinforce the attachment points. To facilitate specimen changes between tests, manual controls were employed to elevate the moving part of the testing machine, minimising residual tension between the bolt holes and the Arcan system. Furthermore, before testing, an arbitrary pre-load was applied to the specimen to prevent any clearance or unintended movement of the specimen (which could cause image defocusing). Load and cross-head displacement data were recorded at a frequency of 5 Hz . Additionally, a real-time plot was generated during the test for visualisation.
 
 
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+An Alvium 1800 U-2040m Allied Vision camera and a 60 mm Nikkor lens were used for image grabbing and acquisition. The camera has a resolution of 4512 (H) $\times$ 4512 (V) and a sensor size of type 1.1. The front of the lens was positioned at a working distance of 285 mm with an aperture of f/11 and an exposure time of 60 milliseconds. The cross-head displacement of the testing machine was 0.02mm/s, and the camera had a frequency of 1 Hz (1 fps).
+A green illumination set-up was used to enhance the sensitivity of the sensor. Notably, care was taken during lens and camera adjustments to optimise focusing and exposure time, ensuring an appropriate spread of light intensity to prevent pixel saturation in the sensor. The camera was securely mounted on a tripod to ensure a stable position relative to the specimen's target surface, enabling the capture of consistent images throughout the tests. The frontal face of the specimens was coated with a suitable speckle pattern. A first layer of white paint was added and a cloud of black dots formed a second layer of paint to create a distinctive local pattern across the region of interest (ZOI) ahead of the crack tip.. Figure~\ref{fig:Speckle_DIC} shows an image of the speckle pattern, along with its corresponding image histogram. Additionally, a scale positioned in the surface plane was employed to establish the conversion factor for translating pixels into millimetres.
 
-%New chapter
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-\subsubsection{Compliance method}\label{Ss:complmet}
-
-To determine the Energy release rate, compliance method was chosen. 
-The formula used to calculate this energy release rate is written on \ref{eq:Energy release rate equation}:
-\begin{equation}
-	G_{c}= \frac{F_{c}^2}{2b} (\frac{\Delta C}{\Delta a})_{d} 	
-	\label{eq:Energy release rate equation}
-\end{equation}  
-With : 
-
-$G_c$ the value of energy release rate (in \si{\joule\per\square\meter})
-
-$F_c$ the critical force which involves the crack (in \si{\newton})
-
-b the thickness of the specimen (in \si{\milli\meter})
-
-$\Delta C$ the compliance evolution (in $Pa^-1$)
-
-$\Delta a$ the crack length evolution (in \si{\milli\meter})
-
-In this work, C is determined in forced displacement, by the division of U, the imposed displacement, by F, the applied force. 
-
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-%New chapter
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-\subsubsection{Fracture tests}\label{Ss:fractests}
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{cc}
+		\begin{minipage}{0.3\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{Figures/Setup0_crop}
+			\caption{Experimental set-up.}
+			\label{fig:Setup0°}
+		\end{minipage} &
+		\begin{minipage}{0.3\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{Figures/Speckle_DIC}
+			\caption{Speckle pattern typically obtained with DIC Histogram of the speckle image.}
+			\label{fig:Speckle_DIC}
+		\end{minipage} \\
+		& \begin{minipage}{0.6\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{Figures/histogram}
+			\caption{Histogram of the speckle image.}
+			\label{fig:Histogram}
+		\end{minipage} \\
+	\end{tabular}
+\end{table}
 
 %\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -314,7 +301,7 @@ In this work, C is determined in forced displacement, by the division of U, the 
 \subsection{Digital image correlation}\label{Ss:dic}
 
 Digital image correlation (DIC) was developed in 1983. It is a 2D or 3D optical method that measures displacements between two images. It enables the generation of displacement and strain maps, providing valuable kinematic information. The MatchID DIC 2D software was used in this study, and Python-based scripting was coded for post-processing purposes.
-The focus of this study was the evaluation of crack opening displacement and crack length variation during the fracture tests with regard to the applied load. A monotonic optical system, employing a single camera, was employed. A speckle pattern was manually applied to all specimens using white-and-black spray paint to facilitate DIC analysis. The procedure involved initially applying a thin layer of white paint using a matte spray, followed by applying black paint to create a distinctive local pattern across the region of interest (ZOI) ahead of the crack tip. Notably, care was taken during lens and camera adjustments to optimise focusing and exposure time, ensuring an appropriate spread of light intensity to prevent pixel saturation in the sensor.
+The focus of this study was the evaluation of crack opening displacement and crack length variation during the fracture tests with regard to the applied load.
 In DIC processing, several steps are required:
 
 \begin{itemize}
@@ -328,113 +315,164 @@ In DIC processing, several steps are required:
 
 It is important to highlight the significant impact of both extrinsic and intrinsic setup parameters in digital image correlation (DIC), including subset size, subset step, strain gauge window, shape functions, and correlation criterion. These parameters play a crucial role in determining the calculated strain fields, resulting in variations in spatial resolution and resolution values that can differ by an order of magnitude or more \citep{DICguide2018}. 
 
-In order to determine the most appropriate DIC settings, the Performance Analysis module within MatchID was employed. This tool allows for the definition of a range of options to be utilized in a design of experiments study. Parameters such as subset size, step size, and strain window can be varied systematically to enable a comprehensive comparison of the reconstruction of displacement and strain fields.
+The selected parameters for the DIC analysis play a crucial role in determining the accuracy and spatial resolution of the measured displacements and reconstructed strain fields \citep{Xavier2012207,PereiraandXavier2018}. Consequently, they are considered fundamental factors. To achieve a trade-off between spatial resolution and accuracy, a parametric analysis was conducted utilizing the Parametric Module of MatchID. The resulting DIC settings are summarized in Table~\ref{tab:MatchID_param}. It is believed that the pre-selected range of values is reflective of the permissible DIC setup parameter range.
 
 Subsequently, data from each analysis were extracted in a matrix format for each acquisition step. These data were then subjected to further analysis using Python scripting, with the aim of evaluating fracture parameters within the scope of this study.
 
-The selected parameters for the DIC analysis play a crucial role in determining the accuracy and spatial resolution of the measured displacements and reconstructed strain fields \citep{Xavier2012207,PereiraandXavier2018}. Consequently, they are considered fundamental factors. To achieve a trade-off between spatial resolution and accuracy, a parametric analysis was conducted utilizing the Parametric Module of MatchID. The resulting DIC settings are summarized in Table~\ref{tab:MatchID_param}.
-
-The range of values defined in this performance study, including the subset size ($f_s$), subset step, affine and quadratic displacement shape functions, the size of the strain windows, and the order of the polynomial fitting function, is defined by the table \ref{tab:MatchID_param}. It is believed that the pre-selected range of values is reflective of the permissible DIC setup parameter range.
-
-\begin{table}[]
+\begin{table}[h]
 	\centering
-	\begin{tabular}{m{.3\textwidth}m{.4\textwidth}}\toprule
-		Correlation   Coefficient: & ZNCC \\
-		Interpolation order: & Bicubic Splines \\ 
-		Transformation order: & Quadratic \\
-		Prefiltering: & Gaussian \\
-		Progress history: & Spatial \\
-		Subset size: & 31 \\
-		Step size: & 10 \\
-		Strainwindow size: & 5 \\ 
-		Virtual Strain Gauge: & 71 pixel \\
-		Strain interpolation: & bilinear (Q4) Lagrange polynomials\\
-		Strain Convention: & Green-Lagrange \\\bottomrule
+	\begin{tabular}{|m{0.3\textwidth}|m{0.4\textwidth}|}
+		\hline
+		\textbf{Parameter} & \textbf{Setting} \\
+		\hline
+		Correlation Coefficient & ZNCC \\
+		\hline
+		Interpolation order & Bicubic Splines \\ 
+		\hline
+		Transformation order & Quadratic \\
+		\hline
+		Prefiltering & Gaussian \\
+		\hline
+		Progress history & Spatial \\
+		\hline
+		Subset size & 31 \\
+		\hline
+		Step size & 10 \\
+		\hline
+		Strain window size & 5 \\ 
+		\hline
+		Virtual Strain Gauge & 71 pixels \\
+		\hline
+		Strain interpolation & Bilinear (Q4) Lagrange polynomials \\
+		\hline
+		Strain Convention & Green-Lagrange \\
+		\hline
 	\end{tabular}
 	\caption{DIC setting parameters used in the MatchID software for the analyses.}
 	\label{tab:MatchID_param}
 \end{table}
 
-
 %\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 %New chapter
 
 %\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-\subsubsection{Optical set-up and settings}\label{Ss:optical}
+\subsection{Python code}
 
-An Allied Vision Manta 505B 2/3'' camera coupled to an Opto Engineering TC 23 36 telecentric lens were used for image formation and acquisition. The camera is equipped with Charge-Coupled Device (CCD) sensor with pixel resolution of 2452 (H) $\times$ 2056 (V) (5MP) and sensor size of 2/3''. The monovision camera-lense optical system was fixed on a tripod and its spatial position oriented with regard to the target surface of interest. The telecentric lens has a magnification factor of \num{0.243}$\times$, allowed to image a field of view, in the object space, of 36.2$\times$27.1 \si{\milli\meter\squared}. The front of the lens was positioned at a working distance of 103.5 \si{\milli\meter} with an aperture of $f$/8, yielding a field of depth of 11 \si{\milli\meter}.
+\subsubsection{Method 1: Crack propagation based on full-field displacement fields provided by DIC}
 
-A high power adjustable ring light was used to illuminate the region of interest. A monochromatic version corresponding to a green wavelength of \num{525} \si{\nano\meter} was used from which the highest spectral response of the camera sensor will be expected.
+The Crack Tip Opening Displacement (CTOD) is calculated by analysing subsets positioned just above and below the subset that initially defines the crack tip position ($a_0$) in the pre-crack propagation images (see Figure~\ref{fig:fig29bis}). The $a_0$ subset corresponds to a specific entry in row $m$ and column $n$ in matrix representation. Observing the subsets from top to bottom makes it possible to track the displacement of the crack tip and measure it accurately. The objective is to identify the most suitable pair of subsets sufficiently close to the crack for meaningful measurements without being too close or too far. Proximity to the crack ensures relevant information, while excessive proximity or distance may compromise the accuracy of measurements. Through the analysis of these displacements, the crack opening values at each step can be obtained.
 
-All the specimens were painted to obtain a speckle pattern suitable for image correlation. A thin layer of white paint was firstly added using a mate spray, followed by a diffuse distribution of black paint to create a unique local pattern across the region of interest at the crack tip (Figure~\ref{fig:Fig17}).
-
-\begin{figure}[t]
+\begin{figure}[htp]
 	\centering
-	\includegraphics[width=.9\textwidth]{Figures/example}
-	\caption{(a) Speckle pattern typically obtained for DIC measurements (2452 $\times$ 2056
-		pixels\textsuperscript{2}); (b) Histogram
-		of the
-		speckle image
-		(256
-		gray levels, 8 bits camera).}
-	\label{fig:Fig17}
+	\includegraphics[scale=0.5]{Figures/fig29bis}
+	\caption{Pair of subsets around the chosen subset $a_0$.}
+	\label{fig:fig29bis}
 \end{figure}
 
-The DIC setting parameters can have a significant influence on the kinematic fields obtained by image correlation (\textit{e.g.} subset size, subset step, \ldots) and numerical differentiation (\textit{e.g.} strain windows size) algorithms \cite{Pereira2018566}. These settings represent fundamental parameters since they will define the spatial resolution and accuracy associated to the DIC measurements, both in displacement and strain fields.  Therefore, a parametric study was carried out to justify the DIC setting for the current
-application, in a balance between resolution and spatial resolution. This study was carried ot in the Parametric Module of MatchID 2D software.
-\begin{table}[]
+The crack length evaluation is based on the variation of the relative position between adjacent subsets, which gives an estimate of the damage occurrence \citep{Xavieretal2014}. To begin with, a matching function A(x,y) \ref{eq:eq21} is determined based on the norm of the relative position vectors as follows:
+
+\begin{equation}
+	A(x,y)=max(\lVert u_i-u_k\rVert;\lVert u_j-u_l\rVert)
+	\label{eq:eq21}
+\end{equation}
+
+where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. A mapping mask is then defined, assuming threshold segmentation according to the following inequalities.
+
+\begin{equation}
+	M(x,y)=
+	\begin{cases}
+		1, & \text{if } A(x, y) \geq \alpha \overline{A} \\
+		0, & \text{if } A(x, y) < \alpha \overline{A} \\
+		-1, & \text{if } A(x, y) = \textrm{NaN}
+	\end{cases}
+	\label{eq:eq22}
+\end{equation}
+
+The matrix $M$ serves as the basis for estimating the current horizontal location or crack length at a given stage. Zero values in the matrix indicate areas without a crack, while subsets within the crack or regions with missing information are assigned values of 1 and -1, respectively. Subsets surrounding the crack, which are of particular interest for the study, are assigned a value of 1. Constructing a sub-matrix consisting of -1, 0, and 1, one can visualise the damage evaluation as a map, providing an overview of the crack's development. Tracking the farthest subset with a value of 1 allows the determination of the last subset where the crack tip is located. To facilitate this, the parameter $\alpha$ acts as a cutoff tool, enabling the localisation of the crack position in the matrix coordinate space.
+
+The selection of the $\alpha$ parameter is not straightforward in the initial approach. To approximate its value, we first seek a correlation factor using the least squares regression method. During the test, the load-displacement curve consists of three main regions: a linear region representing a stationary zone, a second region corresponding to fracture propagation, and a third region indicating specimen rupture. By determining the correlation factor, we can identify the stage between the stationary zone and the Fracture Process Zone (FPZ). A second verification criterion based on displacement field processing is then applied to confirm the correct stage of the FPZ. By following these two steps, we can determine the stage at which the FPZ begins and the possible range of values for $\alpha$. Subsequently, we can plot the stages of crack propagation for different $\alpha$ values and assess the value of $\alpha$ that yields the largest $a(t)$ (crack length). Typically, the smallest $\alpha$ is chosen, unless a curve with simpler geometry is desired and the length of $a(t)$ remains relatively unchanged. A portion of the code enables graphical verification of the crack length by directly selecting $a_0$ and $a_f$ in Python. This allows the elimination of certain $\alpha$ values that do not yield the correct crack length.
+
+Another section of the code focuses on obtaining $a(t)$ as a function of $\alpha$. This is achieved by examining the ZOI and the subsets within it. By analysing the displacement field derived from each subset, the code calculates the distance between the centre of a subset and its displacement from one image to another. To simplify the code, this calculation is performed only on the four corner subsets. By measuring the distance between opposite corners, we obtain the maximum displacement in the $x$-direction and the displacement in the $y$-direction, which are then incorporated into a final matrix. Subsequently, the value of $a(t)$ is determined. It is equal to the initial crack length, $a_0$, specified by the user in the database, plus $\Delta a$, which represents the crack length variation over time in response to the applied force.
+
+\subsubsection{Method 2: Crack propagation based on crack opening displacement provided by DIC}
+
+Method 2 uses the crack opening along the entire length of the wooden specimen to determine the length of the crack \citep{FilhoJ2022}.
+
+From the reference and current positions of the DIC calculation points, the Euclidean distance between each pair of points can be measured and the COD can be determined as:
+
+\begin{equation}
+	VD(k,i_n)=\sqrt{(x_{11bk}-x_{11tk})^2 + (x_{22bk}-x_{22tk})^2}_{i_n} - VD(k,i_0)
+	\label{eq:eq23}
+\end{equation}
+
+where the indices $t$ and $b$ refer to the DIC data points located at the top and bottom of the crack path, $k$ is the index of the DIC point, $i_n$ is the image captured at time $n$, $VD(k, i_0)$ is the initial Euclidean distance between the computational points of the top and bottom reference DIC subset obtained from image $i_0$, and $x_{11}$ and $x_{22}$ are their coordinates in the image plane. VD can be defined as a displacement gauge along the crack path \ref{fig:fig30}.
+
+\begin{figure}[htp]
 	\centering
-	\begin{tabular}{c c}
-		\hline
-		Correlation   Coefficient: & ZNSSD \\ 
-		Interpolation order: & Bicubic Splines \\ 
-		Transformation order: & Affine \\
-		Subset size: & 21 \\
-		Step size: & 5 \\
-		Maximum rigid body estimation: & 100 \\ 
-		Strain Estimation(\%): & 5 \\ 
-		Precision: & 0.001 \\ 
-		Maximum iterations: & 20 \\ 
-		Noise handling: & Gaussian \\ 
-		Kernel Size: & 5 \\ 
-		History: & Spatial \\ 
-		Strainwindow size: & 7 \\ 
-		Tolerance on number of points: & 0 \\ 
-		Strain interpolation: & Q4 \\ 
-		Strain Convention: & Green-Lagrange \\ \hline
-	\end{tabular}
-	\caption{MatchID parameters used}
-	\label{tab:MatchID_param}
-\end{table}
-\ref{tab:MatchID_param} defines the range of values defined in this performance analysis which includes the subset size ($f_s$), subset step, affine and quadratic displacement shape functions, the strain windows size and the order of the polynomial fitting function. The pre-selected range of values are deemed to be representative of the range of acceptable DIC setting parameters. For instance, The lower pixel boundary is constrained by aliasing effects, which is a function of the speckle size on the imaged pattern. The subset size defines the target matching pattern used in the correlation algorithm. A rule of thumb will be three contrasted speckles per subset. The average speckle size was determined as 4.5 pixels. Therefore, the minimum subset step was set to 15 pixels. The upper pixel limit can be problem-dependent, taking into account the deformation gradients expected within the region of interest, in a balance between spatial resolution and resolution. As a guideline, larger subsets improves the resolution but decreases spatial resolution. Parameters such as the subset step ($f_p$) (distance between centroids of adjacent subsets, units: pixels) and the strain window $\varepsilon_w$ (number of subsets central points used to define a mesh of data points over which a piecewise polynomial fitting will be applied, using least-square regression, for strain reconstruction) will define a strain spatial resolution ($\Delta \varepsilon$) and virtual strain gauge (VSG), respectively, according to the following relationships \cite{Lava2013576,Pereira2018566}: $\Delta \varepsilon = (\varepsilon_w-1)f_p + f_s$ and $\mbox{VSG} = (\varepsilon_w-1)f_p + 1$ (unit: pixel). For convenience, these parameters can be converted to physical units in the object space (\textit{e.g.} mm), by simple multiplication by the conversion factor of the optical imaging system. All these external DIC parameters, therefore, must be carefully selected in the current study.
-
-
-Here, all the matrix, composed of the subsets from the Zone of Interest are changed by the different steps shown overhead. All the subsets are considered four by four and the displacement from one compared to it neighbor are computed. Then average and maximum values are obtained for each subset of the ZOI and put into a matrix (named K overhead). By using the $a_{0}$ data and looking to an alpha parameter, the programm compute the best shape of a(t). Alpha parameter allow to avoid the image noise but is close enough to give precise a(t) values.
-This method was the one used by \cite{Reference14} on MatLab, and have already proved obtention of good results.
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-%New chapter
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
-As shown in the code, the dimensions of the matrix take in account the number of stages, so the number of images. Indeed, the interest of the CTOD is to be followed at each stage. 
-
-Then, a loop is created, allowing to put information into others vectors
-
-Another one is also created to compared to mode II values. In the current case, the mode II can be approximate around zero, because it is a mode I test. Then all the values are obtained, for each COD pair until $ud_lim$ which is in this case equal to 10. By looking to this different curves, the chosen COD pair is chosen and a curve is plot looking to the values for this parameter chosen by the user. 
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.7]{Figures/example}
-	\caption[Subset choice and pair of subset around]{Pair of subset around the $a_{0}$ subset chosen}
-	\label{fig:subest_chosen}
+	\includegraphics[width=10cm]{Figures/fig30}
+	\caption{DIC-based virtual displacement gauge (VDG) \citep{FilhoJ2022}.}
+	\label{fig:fig30}
 \end{figure}
 
-Finally, the way to obtain CTOD, need also a well $a_{0}$ choice. Indeed, the chosen subset as presented on \ref{fig:subest_chosen}, will be determinant. Considering the image as a matrix composed of subset, the chosen subset as a position given by his m row and n column. To determinate the opening, it is necessary to have a look on the subsets in the same n column but at a different line. Indeed, the chosen subset will be the first one affected by the crack, that means, that information on the subset will not have importance anymore. While, looking to subset up and down allow to follow the displacement of the crack tip and measure it. The fact is to determine which pair of subsets is the best. The ones at the row n-1 and n+1, but maybe these ones will be on the crack at a given stage, and will lose all the necessary information. That is why, an important choice must be done. Here, COD pair was fixed equal to two. So the subset displacement analysed is the one of the pair of subset 2 on \ref{fig:subest_chosen}. Finally, by looking to these displacements, it is possible to obtain the value of the crack opening at each stages.
+The first step towards detecting the crack tip is to take the average value of $VD$ for each stage:
+
+\begin{equation}
+	\overline{VD}(i_n)=\frac{1}{k} \sum_{k=1}^{k}VD(k,i_n)
+	\label{eq:eq24}
+\end{equation}
+
+The threshold value must be adjusted using the two parameters $\alpha$ and $\beta$ which are obtained by solving the equation:
+
+\begin{equation}
+	\begin{cases}
+		VD_{th}(i_1)=\overline{VD}(i_1)(\alpha i_1 +\beta)\\
+		VD_{th}(i_f)=\overline{VD}(i_f)(\alpha i_f +\beta)\\ 
+	\end{cases}
+	\label{eq:eq25}
+\end{equation}
+
+In order to obtain $VD_{th}(i_1)$ and $VD_{th}(i_f)$, it was first necessary to read graphically the position of the crack tip of the first and last image of the Fracture Process Zone and then to find the intersection between the position of the crack tip and the crack opening VD for those two stages.
+
+Therefore, the adjusted threshold line-cut $VD_{th}(i_n)$ is given by:
+
+\begin{equation}
+	VD_{th}(i_n)=\overline{VD}(i_n)(\alpha i_n +\beta)
+	\label{eq:eq26}
+\end{equation}
+
+The intersection between each $VD_{th}(i_n)$ and the corresponding $VD(k, i_n)$ curve at time n represents the $x_{11}$ position of the crack tip, denoted by ($p_n$).
+It is therefore possible to calculate the growth of the crack at instant $n$:
+
+\begin{equation}
+	da_n=p_n-p_0
+	\label{eq:eq27}
+\end{equation}
+
+\subsubsection{Energy release rate}
+
+After using one of the two previous methods, we can calculate the energy release rate in mode I. To determine the Energy release rate, compliance method was chosen. 
+The formula used is written on \ref{eq:Energy release rate equation}:
+
+\begin{equation}
+	G_\text{I}=\displaystyle\frac{{F_{c}}^2}{2b}\ \frac{\partial C}{\partial a} \quad \text{with } C=\frac{v}{F_{c}} 	
+	\label{eq:Energy release rate equation}
+\end{equation} 
+ 
+With : 
+
+$G_c$ the value of energy release rate (in \si{\joule\per\square\meter})
+
+$F_c$ the critical force which involves the crack (in \si{\newton})
+
+b the thickness of the specimen (in \si{\milli\meter})
+
+$\partial C$ the compliance evolution (in $Pa^-1$)
+
+$\partial a$ the crack length evolution (in \si{\milli\meter})
+
+$v$ the crack opening displacement according to $y$
 
 %\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -443,18 +481,59 @@ Finally, the way to obtain CTOD, need also a well $a_{0}$ choice. Indeed, the ch
 %\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 \section{Results}\label{S:res}
-\subsection{Maximum Load}\label{S:pdcurves}
 
-The first results, obtained with the servohydraulic press were, as presented in \ref{fig:Res_Pmax}, the necessary loads to involve a propagation of the crack in all the ZOI and sometimes until the entire destruction of the specimen.
+\subsection{Load-displacement curves}
+
+Normally four distinct parts are observed on a load-displacement curve for Mode I fracture loading:
+
+\begin{itemize}
+	\item A small area visible at the beginning of the curve which corresponds to the setting up of the loaded specimen. 
+	\item A nearly linear region arises from the elastic loading phase with a static crack front.
+	\item The third segment is distinguished by a series of critical force peaks, which signify a distinct crack initiation. The progressive increase in these peaks confirms the crack's stability zone.
+	\item Lastly, the final segment entails the material's rupture, which transpires when an ultimate force is applied, marking the instability of the crack.
+\end{itemize}
+
+A characteristic curve can be seen in Figure \ref{fig:e0e1_Pdelta}.
 
 \begin{figure}[th]
 	\centering
-	\includegraphics[width=\textwidth]{Figures/example}
-	\caption[Maximal load reach for each specimen]{Maximal load reach for each specimen compared to the Moisture Content of the specimens}
-	\label{fig:Res_Pmax}
-\end{figure}
+	\includegraphics[scale=0.5]{Figures/P_e0e1}
+	\caption[MMCG specimen]{Characteristic load-displacement ($P-\delta$) curve.}
+	\label{fig:e0e1_Pdelta}
+\end{figure}.
 
-As expected, Padouck specimens need a higher load to involve the final crack. It was obvious, that the denser material is more difficult to destroy than the lower one.
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figures/P_e0e1}
+		\caption{Légende de l'image 1}
+		\label{fig:image1}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figures/a_e0e1}
+		\caption{Légende de l'image 2}
+		\label{fig:image2}
+	\end{subfigure}
+	\\
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figures/Gmet1_e0e1}
+		\caption{Légende de l'image 3}
+		\label{fig:image3}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figures/Gmet2_e0e1}
+		\caption{Légende de l'image 4}
+		\label{fig:image4}
+	\end{subfigure}
+	\caption{Description générale des images}
+	\label{fig:images}
+\end{figure}
 
 %\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -507,7 +586,7 @@ Moving forward, the geometry of the MMCG specimen, the Arcan system, and the dev
 \subsection{General guidelines for the preparation of your text}
 Avoid hyphenation at the end of a line. Symbols denoting vectors and matrices should be indicated in bold type. Scalar variable names should normally be expressed using italics. Weights and measures should be expressed in SI units. All non-standard abbreviations or symbols must be defined when first mentioned, or a glossary provided.
 
-%\begin{figure}[t]\vspace*{4pt}
+%\begin{}[t]\vspace*{4pt}
 %%\centerline{\includegraphics{fx1}\hspace*{5mm}\includegraphics{fx1}}
 %\centerline{\includegraphics{gr1}}
 %\caption{(a) first picture; (b) second picture.}
