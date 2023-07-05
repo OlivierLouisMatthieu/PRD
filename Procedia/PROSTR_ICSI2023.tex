@@ -268,7 +268,7 @@ The fracture tests were performed using a Landmark Servohydraulic testing machin
 An Alvium 1800 U-2040m Allied Vision camera and a 60 mm Nikkor lens were used for image grabbing and acquisition. The camera has a resolution of 4512 (H) $\times$ 4512 (V) and a sensor size of type 1.1. The front of the lens was positioned at a working distance of 285 mm with an aperture of f/11 and an exposure time of 60 milliseconds. The cross-head displacement of the testing machine was 0.02mm/s, and the camera had a frequency of 1 Hz (1 fps).
 A green illumination set-up was used to enhance the sensitivity of the sensor. Notably, care was taken during lens and camera adjustments to optimise focusing and exposure time, ensuring an appropriate spread of light intensity to prevent pixel saturation in the sensor. The camera was securely mounted on a tripod to ensure a stable position relative to the specimen's target surface, enabling the capture of consistent images throughout the tests. The frontal face of the specimens was coated with a suitable speckle pattern. A first layer of white paint was added and a cloud of black dots formed a second layer of paint to create a distinctive local pattern across the region of interest (ZOI) ahead of the crack tip.. Figure~\ref{fig:Speckle_DIC} shows an image of the speckle pattern, along with its corresponding image histogram. Additionally, a scale positioned in the surface plane was employed to establish the conversion factor for translating pixels into millimetres.
 
-\begin{table}[htbp]
+\begin{figure}[htbp]
 	\centering
 	\begin{tabular}{cc}
 		\begin{minipage}{0.3\textwidth}
@@ -290,7 +290,7 @@ A green illumination set-up was used to enhance the sensitivity of the sensor. N
 			\label{fig:Histogram}
 		\end{minipage} \\
 	\end{tabular}
-\end{table}
+\end{figure}
 
 %\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -373,6 +373,7 @@ The Crack Tip Opening Displacement (CTOD) is calculated by analysing subsets pos
 
 The crack length evaluation is based on the variation of the relative position between adjacent subsets, which gives an estimate of the damage occurrence \citep{Xavieretal2014}. To begin with, a matching function A(x,y) \ref{eq:eq21} is determined based on the norm of the relative position vectors as follows:
 
+\vspace{0pt}
 \begin{equation}
 	A(x,y)=max(\lVert u_i-u_k\rVert;\lVert u_j-u_l\rVert)
 	\label{eq:eq21}

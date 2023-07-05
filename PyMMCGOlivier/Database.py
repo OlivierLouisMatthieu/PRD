@@ -1,7 +1,7 @@
 # Allied Manta G-505B
-H, V  = 2448, 2050 # unit: pixels
+H = 1339 # unit: pixels
 # 'TC2336' telecentric lens
-LX, LY = 34.98, 29.18 # unit: mm
+LX = 18 # unit: mm
 
 # pixel to mm magnification factor
 Test.mm2pixel = LX / H
@@ -9,317 +9,248 @@ Test.mm2pixel = LX / H
 Test.LoadConvFactor = 1000.  # converning kN to N, unit: N
 # Displacement conversion factor - testing machine
 Test.DisplConvFactor = 1. # unit: mm
-Test.meanPreLoad = 69.1 # unit: N
+##########################################################################
+Test.thickness = 12.5 # unit  mm
 
-if Job == 'e1o1':
-    ddeplac = 0.105
-    ##########################################################################
-    Test.thickness = 14 # unit  mm
-    Test.a0 = 24.975 # unit  mm
+if Job == 'e0e1':
+    Test.a0 = 25.3 # unit  mm
     # Selecting image coordinates of subset directly from MatdhID, unit: pixels
-    a0.imgHuse, a0.imgVuse = 2314, 1013
+    a0.imgHuse, a0.imgVuse = 4124, 2285
     #af.imgHuse, af.imgVuse = 614, 1013
-    Delta = 1.525 # average okoume, unit: mm
-    Deltapix = Delta*(1/Test.mm2pixel) # convert mm to pixel
-    a0.imgH, a0.imgV = a0.imgHuse-Deltapix, a0.imgVuse
     ##########################################################################
     # Selecting pair
-    COD.cod_pair = 3
-    # Selecting alpha
-    chos_alp = 1
-    a1=27.149632
-    af=7.3875245
-    nombre=118
-    indices = [0, 10, 20, 30, 40,50,60,70,80,90,100]
-    crack = [2314, 2062, 1923, 1755, 1655,1456,1455,1229,1005,972,621]
-elif Job == 'e1o2':
-    ddeplac = 0.057
-    ##########################################################################
-    Test.thickness = 14 # unit  mm
-    Test.a0 = 24.25 # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2151,1005
-    Delta = 2.25 #average okoume
-    Deltapix = Delta*(1/Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse-Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 3
-    # Selecting alpha
-    chos_alp = 1
-elif Job == 'e1o3':
-    ddeplac = 0.041
-    ##########################################################################
-    Test.thickness = 14  # unit  mm
-    Test.a0 = 24.5  # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2140, 1126
-    Delta = 0.5
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 2
-    # Selecting alpha
-    chos_alp = 1
-elif Job == 'e1p1':
-    ddeplac = 0.3
-    ##########################################################################
-    Test.thickness = 14  # unit  mm
-    Test.a0 = 23.25  # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2120, 992
-    Delta = 2.25
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 3
+    COD.cod_pair = 1
+    inc_COD_line=31
     # Selecting alpha
     chos_alp = 0
-elif Job == 'e1p2':
-    ddeplac = 0.044
-    ##########################################################################
-    Test.thickness = 13  # unit  mm
-    Test.a0 = 23.4  # unit  mm
+    a1=55.53
+    af=8.54
+    nombre=0
+    indices = [0, 10, 20, 30, 40,45,50]
+    crack = [4124, 4113, 4104, 3477, 2618,643.8,86.72]
+    Fc_indices=[0,25,27,32,35,40,44]
+elif Job == 'e0e2':
+    Test.a0 = 24.85 # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2197, 1028
-    Delta = 1.6  # average padouck
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
+    a0.imgHuse, a0.imgVuse = 4188,2308
     ##########################################################################
     # Selecting pair
     COD.cod_pair = 2
-    # Selecting alpha
-    chos_alp = 1
-elif Job == 'e1p3':
-    ddeplac = 0.057
-    ##########################################################################
-    Test.thickness = 14  # unit  mm
-    Test.a0 = 23.5 # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2174, 1029
-    Delta = 2
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 3
+    inc_COD_line=30
     # Selecting alpha
     chos_alp = 3
-# elif Job == 'e1i1':
-#     ##########################################################################
-#     Test.thickness = 14.2  # unit  mm
-#     Test.a0 = 24.975  # unit  mm
-#     # Selecting image coordinates of subset directly from MatdhID
-#     a0.imgHuse, a0.imgVuse = 0, 0
-#     Delta = 1
-#     Deltapix = Delta * (1 / Test.mm2pixel)
-#     a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-#     ##########################################################################
-#     # Selecting pair
-#     COD.cod_pair = 2
-elif Job == 'e2o1':
-    ddeplac = 0.2
-    ##########################################################################
-    Test.thickness = 13  # unit  mm
-    Test.a0 = 26.475  # unit  mm
+    a1=55.32
+    af=3.02
+    nombre=60
+    indices = [0, 10, 20, 30, 40,45,50,60]
+    crack = [4124, 4083, 4028, 4028, 3944,3319,1768,106.9]
+    Fc_indices=[0,7,10,13,16,24,29,33,43,46]
+elif Job == 'e0e3':
+    Test.a0 = 25.65  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 1940, 895
-    Delta = 1.525  # average okoume
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 4
-    # Selecting alpha
-    chos_alp = 1
-elif Job == 'e2o2':
-    ddeplac = 0.2
-    ##########################################################################
-    Test.thickness = 14 # unit  mm
-    Test.a0 = 27.975 # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 1595, 868
-    Delta = 1.525 #average okoume
-    Deltapix = Delta*(1/Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse-Deltapix, a0.imgVuse
+    a0.imgHuse, a0.imgVuse = 4410, 2264
     ##########################################################################
     # Selecting pair
     COD.cod_pair = 2
+    inc_COD_line=30
     # Selecting alpha
-    chos_alp = 1
-elif Job == 'e2o3':
-    ddeplac = 0.2
-    ##########################################################################
-    Test.thickness = 14.5  # unit  mm
-    Test.a0 = 29  # unit  mm
+    chos_alp = 3
+    a1=59
+    af=3.07
+    nombre=47
+    indices = [0, 10, 20, 30,35, 40,50]
+    crack = [4410, 4308, 4215, 3377,1119, 569.3,177.2]
+    Fc_indices=[0,9,12,17,24,26,28,31,33]
+elif Job == 'e0e5':
+    Test.a0 = 25.6  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 1878, 982
-    Delta = 1
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
+    a0.imgHuse, a0.imgVuse = 4400, 2303
     ##########################################################################
     # Selecting pair
-    COD.cod_pair = 2
+    COD.cod_pair = 5
+    inc_COD_line=31
     # Selecting alpha
-    chos_alp = 1
-elif Job == 'e2e2': #e2p1
-    ddeplac = 0.17
-    ##########################################################################
-    Test.thickness = 14.5  # unit  mm
-    Test.a0 = 27.4  # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2161, 1002
-    #af.imgHuse, af.imgVuse = 1613, 1094
-    Delta = 1.6  # average padouck
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 3
-    # Selecting alpha
-    chos_alp = 0
-    a1=31.122
-    af=18.077
+    chos_alp = 7
+    a1=59.44
+    af=2.86
     nombre=59
-    indices = [0, 10, 20, 30, 40,50,60,70]
-    crack = [2161, 2173, 1985, 1820, 1511,1503,1301,1203]
-elif Job == 'e2p2':
-    ddeplac = 0.15
-    ##########################################################################
-    Test.thickness = 14.5  # unit  mm
-    Test.a0 = 27.9  # unit  mm
+    Fc_indices=[0,14,17,21,26,29,35,44,52]
+elif Job == 'e0e6':
+    Test.a0 = 26.3 # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2089,973
-    Delta = 1.6  # average padouck
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
+    a0.imgHuse, a0.imgVuse = 4403, 2289
     ##########################################################################
     # Selecting pair
-    COD.cod_pair = 3
+    COD.cod_pair = 2
+    inc_COD_line=28
     # Selecting alpha
     chos_alp = 0
-elif Job == 'e2p3':
-    ddeplac = 0.28
-    ##########################################################################
-    Test.thickness = 14.5  # unit  mm
-    Test.a0 = 27.5  # unit  mm
+    a1=59.34
+    af=5.73
+    nombre=59
+    Fc_indices=[0,11,16,18,24,35,37,39,41,43,47,50]
+elif Job == 'e15e1':
+    Test.a0 = 25.85  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2096, 981
-    Delta = 0.5
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 3
-    # Selecting alpha
-    chos_alp = 0
-elif Job == 'e3o1':
-    ddeplac = 0.15
-    ##########################################################################
-    Test.thickness = 14.2  # unit  mm
-    Test.a0 = 21.475  # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2274, 1024
-    Delta = 1.525  # average okoume
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 3
-    # Selecting alpha
-    chos_alp = 2
-    a1=23.52
-    #af=17.947255
-    af=0.5
-    nombre=90
-elif Job == 'e3o2':
-    ddeplac = 0.15
-    ##########################################################################
-    Test.thickness = 14  # unit  mm
-    Test.a0 = 22.75 # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2224, 1008
-    Delta = 1.25
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
+    a0.imgHuse, a0.imgVuse = 4146, 2652
     ##########################################################################
     # Selecting pair
     COD.cod_pair = 2
     # Selecting alpha
-    chos_alp = 0
-elif Job == 'e3o3':
-    ddeplac = 0.15
-    ##########################################################################
-    Test.thickness = 13.8  # unit  mm
-    Test.a0 = 21.975  # unit  mm
+    chos_alp = 4
+    a1=55.92
+    af=6.88
+    nombre=71
+    indices = [0, 10, 20, 30, 40,45,50,55,60,70]
+    crack = [4146, 4043, 4030, 4030,3829, 3179,2111,1462.3,866.7,387]
+    Fc_indices=[0,19,23,36,39,42,45,51]
+elif Job == 'e15e2':
+    Test.a0 = 25.6 # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2162, 999
-    Delta = 1.525
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 2
-    # Selecting alpha
-    chos_alp = 1
-elif Job == 'e3p1':
-    ddeplac = 0.1
-    ##########################################################################
-    Test.thickness = 14.5  # unit  mm
-    Test.a0 = 21.9  # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2379, 1018
-    Delta = 1.6  # average padouck
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
+    a0.imgHuse, a0.imgVuse = 4166, 2580
     ##########################################################################
     # Selecting pair
     COD.cod_pair = 1
     # Selecting alpha
-    chos_alp = 1
-elif Job == 'e3p2':
-    ddeplac = 0.1
-    ##########################################################################
-    Test.thickness = 14.5 # unit  mm
-    Test.a0 = 20.5 # unit  mm
+    chos_alp = 0
+    a1=55.48
+    af=5.51
+    nombre=39
+    indices = [0, 10, 20, 30,35, 40]
+    crack = [4166, 4107, 4104, 3401,2639, 182.9]
+    Fc_indices=[0,8,19,24,27,33,36,38]
+elif Job == 'e15e3':
+    Test.a0 = 25.55  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2381, 958
-    Delta = 1.6  # average padouck
-    Deltapix = Delta*(1/Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse-Deltapix, a0.imgVuse
+    a0.imgHuse, a0.imgVuse = 4189, 2469
     ##########################################################################
     # Selecting pair
-    COD.cod_pair = 3
-    # Selecting alpha
-    chos_alp = 1
-elif Job == 'e3p3':
-    ddeplac = 0.1
-    ##########################################################################
-    Test.thickness = 15  # unit  mm
-    Test.a0 = 24.6  # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2274, 954
-    Delta = 0.9
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 3
+    COD.cod_pair = 2
     # Selecting alpha
     chos_alp = 2
-elif Job == 'e4e1':
-    ddeplac = 0.1
+    a1=56.53
+    af=8.04
+    nombre=41
+    Fc_indices=[0,17,23,26,30,33,35,38]
+elif Job == 'e15e4': #e2p1
+    Test.a0 = 25.3  # unit  mm
+    # Selecting image coordinates of subset directly from MatdhID
+    a0.imgHuse, a0.imgVuse = 4203, 2462
+    #af.imgHuse, af.imgVuse = 1613, 1094
     ##########################################################################
-    Test.thickness = 14.5  # unit  mm
-    Test.a0 = 23.975  # unit  mm
+    # Selecting pair
+    COD.cod_pair = 3
+    # Selecting alpha
+    chos_alp = 1
+    a1=56.90
+    af=0.50
+    nombre=30#ou31
+    indices = [0, 10, 20, 30, 40,50,60,70]
+    crack = [2161, 2173, 1985, 1820, 1511,1503,1301,1203]
+    Fc_indices=[0,4,22,28,30]
+elif Job == 'e15e5':
+    Test.a0 = 24.85  # unit  mm
+    # Selecting image coordinates of subset directly from MatdhID
+    a0.imgHuse, a0.imgVuse = 4232,2484
+    ##########################################################################
+    # Selecting pair
+    COD.cod_pair = 2
+    # Selecting alpha
+    chos_alp = 1
+    a1=57.29
+    af=3.31
+    nombre=51
+    Fc_indices=[0,5,19,47,49]
+elif Job == 'e30e1':
+    Test.a0 = 25.55  # unit  mm
+    # Selecting image coordinates of subset directly from MatdhID
+    a0.imgHuse, a0.imgVuse = 2096, 981
+    ##########################################################################
+    # Selecting pair
+    COD.cod_pair = 1
+    # Selecting alpha
+    chos_alp = 0
+    a1=57.29
+    af=3.31
+    nombre=0
+elif Job == 'e30e2':
+    Test.a0 = 24.4  # unit  mm
+    # Selecting image coordinates of subset directly from MatdhID
+    a0.imgHuse, a0.imgVuse = 4132, 2551
+    ##########################################################################
+    # Selecting pair
+    COD.cod_pair = 5
+    # Selecting alpha
+    chos_alp = 6
+    a1=31.122
+    af=18.077
+    nombre=32
+    inc_COD_line=31
+    indices = [0, 10, 20, 30, 40,45,49,50]
+    crack = [4132, 4099, 4095, 4095, 3853,3025,1245,204.1]
+    Fc_indices=[0,11,18,33,39,42,47]
+elif Job == 'e30e3':
+    Test.a0 = 24.2 # unit  mm
+    # Selecting image coordinates of subset directly from MatdhID
+    a0.imgHuse, a0.imgVuse = 4173, 2550
+    ##########################################################################
+    # Selecting pair
+    COD.cod_pair = 2
+    # Selecting alpha
+    chos_alp = 5
+    a1=55.98
+    af=2.37
+    nombre=33
+    inc_COD_line=31
+    indices = [0, 10, 20,25, 30, 35,40]
+    crack = [4173, 4120, 3713,2754, 453, 102.4,0]
+    Fc_indices=[0,11,14,16,20,24]
+elif Job == 'e30e4':
+    Test.a0 = 25.3  # unit  mm
+    # Selecting image coordinates of subset directly from MatdhID
+    a0.imgHuse, a0.imgVuse = 2162, 999
+    ##########################################################################
+    # Selecting pair
+    COD.cod_pair = 2
+    # Selecting alpha
+    chos_alp = 1
+    Fc_indices=[0,5,11,15,27,31,34]
+elif Job == 'e30e5':
+    Test.a0 = 24.4  # unit  mm
+    # Selecting image coordinates of subset directly from MatdhID
+    a0.imgHuse, a0.imgVuse = 4109, 2501
+    ##########################################################################
+    # Selecting pair
+    COD.cod_pair = 2
+    # Selecting alpha
+    chos_alp = 0
+    a1=31.122
+    af=18.077
+    nombre=32
+    inc_COD_line=31
+    indices = [0, 10, 20, 30, 33]
+    crack = [4109, 3960, 3812,3057, 185.2]
+    #COD damage
+    Fc_indices=[0,5,11,15,27,31,34]
+elif Job == 'e30e7':
+    Test.a0 = 25.6  # unit  mm
+    # Selecting image coordinates of subset directly from MatdhID
+    a0.imgHuse, a0.imgVuse = 4030, 2572
+    ##########################################################################
+    # Selecting pair
+    COD.cod_pair = 0
+    # Selecting alpha
+    chos_alp = 2
+    a1=53.93
+    af=2.86
+    nombre=40
+    inc_COD_line=31
+    Fc_indices=[0,23,26,31,34,36]
+elif Job == 'e45e1':
+    Test.a0 = 25.8  # unit  mm
     # Selecting image coordinates of subset directly from MatdhID
     a0.imgHuse, a0.imgVuse = 2251,944
     #af.imgHuse, af.imgVuse = 1886, 1064
-    Delta = 1.525
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
     ##########################################################################
     # Selecting pair
     COD.cod_pair = 2
@@ -332,110 +263,16 @@ elif Job == 'e4e1':
     #crack = [2251, 2251, 2249, 2137,2099,1965,1878,1825,1715,1680,1603,1549,1443]
     indices = [0, 20, 40, 60, 80,100,120,140]
     crack = [2251, 2251, 2249, 2137,2099,1965,1878,1825]
-elif Job == 'e4p1':
-    ddeplac = 0.1
-    ##########################################################################
-    Test.thickness = 13.5  # unit  mm
-    Test.a0 = 23.25  # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2205, 1005
-    Delta = 2.25
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 3
-    # Selecting alpha
-    chos_alp = 1
-# elif Job == 'e4i1':
-#     ddeplac = 0.1
-#     ##########################################################################
-#     Test.thickness = 14.2  # unit  mm
-#     Test.a0 = 23.975  # unit  mm
-#     # Selecting image coordinates of subset directly from MatdhID
-#     a0.imgHuse, a0.imgVuse = 2028, 932
-#     Delta = 1  # average okoume
-#     Deltapix = Delta * (1 / Test.mm2pixel)
-#     a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-#     ##########################################################################
-#     # Selecting pair
-#     COD.cod_pair = 2
-elif Job == 'e5o1':
-    ddeplac = 0.2
-    ##########################################################################
-    Test.thickness = 14.1  # unit  mm
-    Test.a0 = 24 # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2058, 1013
-    Delta = 3  # average okoume
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 2
-    # Selecting alpha
-    chos_alp = 3
-elif Job == 'e5p1':
-    ddeplac = 0.2
-    ##########################################################################
-    Test.thickness = 14.5  # unit  mm
-    Test.a0 = 22.75  # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2307, 1029
-    Delta = 1.25
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 2
-    # Selecting alpha
-    chos_alp = 3
-# elif Job == 'e5i1':
-#     ddeplac = 0.1
-#     ##########################################################################
-#     Test.thickness = 13.8  # unit  mm
-#     Test.a0 = 23.975  # unit  mm
-#     # Selecting image coordinates of subset directly from MatdhID
-#     a0.imgHuse, a0.imgVuse = 2008, 1042
-#     Delta = 1  # average okoume
-#     Deltapix = Delta * (1 / Test.mm2pixel)
-#     a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-#     ##########################################################################
-# elif Job == 'pbis':
-#     ##########################################################################
-#     Test.thickness = 14.2  # unit  mm
-#     Test.a0 = 23.9  # unit  mm
-#     # Selecting image coordinates of subset directly from MatdhID
-#     a0.imgHuse, a0.imgVuse = 0, 0
-#     Delta = 1.6  # average padouck
-#     Deltapix = Delta * (1 / Test.mm2pixel)
-#     a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-#     ##########################################################################
-elif Job == 'pter':
-    ddeplac = 0.1
-    ##########################################################################
-    Test.thickness = 12.8  # unit  mm
-    Test.a0 = 23.25  # unit  mm
-    # Selecting image coordinates of subset directly from MatdhID
-    a0.imgHuse, a0.imgVuse = 2198, 1040
-    Delta = 2.25
-    Deltapix = Delta * (1 / Test.mm2pixel)
-    a0.imgH, a0.imgV = a0.imgHuse - Deltapix, a0.imgVuse
-    ##########################################################################
-    # Selecting pair
-    COD.cod_pair = 2
-    # Selecting alpha
-    chos_alp = 0
 elif Job == 'others':
     pass
 
 # Summary of DIC Settings
 MatchID.CorrelationCoef = 'ZNSSD'
 MatchID.InterpolationOrder = 'Bicubic spline'
-MatchID.TransformationOrder = 'Affine'
-MatchID.Subset, MatchID.Step = 21, 5
+MatchID.TransformationOrder = 'Quadratic'
+MatchID.Subset, MatchID.Step = 31, 10
 # Summary of Strain Settings
-MatchID.StrainWindow = 7
+MatchID.StrainWindow = 5
 MatchID.StrainConvention = 'GreenLagrange'
 MatchID.StrainInterpolation = 'Q4'
 ##########################################################################
