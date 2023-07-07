@@ -44,6 +44,9 @@
       linkcolor=blue,
       citecolor=blue,
       urlcolor=blue}
+  
+\usepackage{booktabs}
+\usepackage{comment}
 
 %% The ecrc package defines commands needed for running heads and logos.
 %% For running heads, you can set the journal name, the volume, the starting page and the authors
@@ -203,6 +206,22 @@ Digital image correlation \sep Mode I \sep Fracture parameters
 \end{deflist}
 \end{nomenclature}
 
+\begin{comment}
+\begin{nomenclature}
+	\begin{deflist}[A]
+		\defitem{CIRAD}\defterm{\textbf{C}entre (de coopération) \textbf{I}nternnationale (en) \textbf{R}echerche}
+		\defitem{CTOD}\defterm{\textbf{C}rack \textbf{T}ip \textbf{O}pening \textbf{D}isplacement}
+		\defitem{CTS}\defterm{\textbf{C}rack \textbf{T}ip \textbf{O}pening \textbf{D}isplacement}
+		\defitem{DCB}\defterm{\textbf{D}ouble \textbf{C}antilever \textbf{B}eam}
+		\defitem{DIC}\defterm{\textbf{D}igital \textbf{I}mage \textbf{C}orrelation}
+		\defitem{CTS}\defterm{\textbf{C}rack \textbf{T}ip \textbf{O}pening \textbf{D}isplacement}
+		\defitem{MMCG}\defterm{\textbf{M}ixed \textbf{M}ode \textbf{C}rack \textbf{G}rowth}
+		\defitem{WS}\defterm{\textbf{W}edge \textbf{S}plitting}
+		\defitem{CTS}\defterm{\textbf{C}rack \textbf{T}ip \textbf{O}pening \textbf{D}isplacement}
+	\end{deflist}
+\end{nomenclature}
+\end{comment}
+
 %\enlargethispage{-7mm}
 \section{Introduction}\label{S:intro}
 
@@ -215,16 +234,16 @@ The present document aims to study mechanical fracture of wood in mode I on silv
 
 \subsection{Material and testing}\label{Ss:spec}
 
-The MMCG specimen was initially developed by \citet{MoutouPitti2008}. This sample is a compromise between DCB and CTS samples to obtain different mixing rates and a stable crack propagation. The choice was made regarding to the good stability of the crack propagation. The Geometry, visible on \ref{fig:Fig5} was already tested in \citep{Odounga2018phd} works. The chosen MMCG specimens are Radial and Longitudinal surface specimens looking to the orthotropic directions of wood. 
+The MMCG specimen was initially developed by \citet{MoutouPitti2008}. This sample is a compromise between DCB and CTS samples to obtain different mixing rates and a stable crack propagation. The choice was made regarding to the good stability of the crack propagation. The Geometry, visible on Figure \ref{fig:Fig5} was already tested in \citep{Odounga2018phd} works.
 
 \begin{figure}[th]
 	\centering
-	\includegraphics[scale=0.5]{Figures/fig23}
+	\includegraphics[scale=0.4]{Figures/fig23}
 	\caption[MMCG specimen]{dimensions and geometry of Mixed Mode Crack Growth specimen}
 	\label{fig:Fig5}
 \end{figure}.
 
-For the tests, the chosen European species is the silver fir, which belongs to the category of coniferous trees. This softwood species is predominantly found in the northern hemisphere, similar to pines and other aged trees. Its name originates from the white colour of its wood, and its circumference typically ranges from 50 to 80 cm. According to CIRAD data, the silver fir exhibits a density of 0.45 to 0.60, a saturation fiber point (SFP) of approximately 30\%, and a compressive strength of 41 MPa. Notably, it experiences significant tangential shrinkage at 8.7\%, while the radial shrinkage measures 4\%. 
+For the tests, the chosen European species is the silver fir, which belongs to the category of coniferous trees. This softwood species is predominantly found in the northern hemisphere, similar to pines and other aged trees. Its name originates from the white colour of its wood, and its circumference typically ranges from 50 to 80 cm. According to CIRAD data, the silver fir exhibits a density of 0.45 to 0.60, a saturation fiber point (SFP) of approximately 30\%, and a compressive strength of 41 MPa.
 Wooden specimens were carefully characterised before testing by measuring weight, density, and moisture content. Before the tests, the samples were weighed, denoted as $M_H$, to determine their mass during testing. The wood density can also be derived from the sample's volume and mass. AutoCAD was employed to create a digital representation of the sample, enabling us to determine its theoretical surface, which can then be multiplied by the thickness to calculate the volume. The density of each sample can be determined by applying the formula $\rho = M/V$.
 After testing, the specimens were placed in an oven set at 100 degrees until their mass, labelled as $M_C$, stabilised. Two specimens were subjected to this process for 73 hours, and various measurements were taken until a constant mass was achieved. The moisture content of the specimens can be determined using equation \ref{eq:HI}. Consequently, we possess the average mass of 29.83g, the density of 431.3kg/m$^3$, and the moisture content of 10.3\%.
 
@@ -313,9 +332,7 @@ In DIC processing, several steps are required:
 	\item Exploit the results
 \end{itemize}
 
-It is important to highlight the significant impact of both extrinsic and intrinsic setup parameters in digital image correlation (DIC), including subset size, subset step, strain gauge window, shape functions, and correlation criterion. These parameters play a crucial role in determining the calculated strain fields, resulting in variations in spatial resolution and resolution values that can differ by an order of magnitude or more \citep{DICguide2018}. 
-
-The selected parameters for the DIC analysis play a crucial role in determining the accuracy and spatial resolution of the measured displacements and reconstructed strain fields \citep{Xavier2012207,PereiraandXavier2018}. Consequently, they are considered fundamental factors. To achieve a trade-off between spatial resolution and accuracy, a parametric analysis was conducted utilizing the Parametric Module of MatchID. The resulting DIC settings are summarized in Table~\ref{tab:MatchID_param}. It is believed that the pre-selected range of values is reflective of the permissible DIC setup parameter range.
+It is important to highlight the significant impact of both extrinsic and intrinsic setup parameters in digital image correlation (DIC), including subset size, subset step, strain gauge window, shape functions, and correlation criterion \citep{DICguide2018}. These parameters play a crucial role in determining the accuracy and spatial resolution of the measured displacements and reconstructed strain fields \citep{Xavier2012207,PereiraandXavier2018}. Consequently, they are considered fundamental factors. To achieve a trade-off between spatial resolution and accuracy, a parametric analysis was conducted utilizing the Parametric Module of MatchID. The resulting DIC settings are summarized in Table~\ref{tab:MatchID_param}. It is believed that the pre-selected range of values is reflective of the permissible DIC setup parameter range.
 
 Subsequently, data from each analysis were extracted in a matrix format for each acquisition step. These data were then subjected to further analysis using Python scripting, with the aim of evaluating fracture parameters within the scope of this study.
 
@@ -365,10 +382,19 @@ Subsequently, data from each analysis were extracted in a matrix format for each
 The Crack Tip Opening Displacement (CTOD) is calculated by analysing subsets positioned just above and below the subset that initially defines the crack tip position ($a_0$) in the pre-crack propagation images (see Figure~\ref{fig:fig29bis}). The $a_0$ subset corresponds to a specific entry in row $m$ and column $n$ in matrix representation. Observing the subsets from top to bottom makes it possible to track the displacement of the crack tip and measure it accurately. The objective is to identify the most suitable pair of subsets sufficiently close to the crack for meaningful measurements without being too close or too far. Proximity to the crack ensures relevant information, while excessive proximity or distance may compromise the accuracy of measurements. Through the analysis of these displacements, the crack opening values at each step can be obtained.
 
 \begin{figure}[htp]
-	\centering
-	\includegraphics[scale=0.5]{Figures/fig29bis}
-	\caption{Pair of subsets around the chosen subset $a_0$.}
-	\label{fig:fig29bis}
+	\begin{minipage}[c]{.46\linewidth}
+		\centering
+		\includegraphics[scale=0.4]{Figures/fig29bis}
+		\caption{Pair of subsets around the chosen subset $a_0$.}
+		\label{fig:fig29bis}
+	\end{minipage}
+	\hfill%
+	\begin{minipage}[c]{.46\linewidth}
+		\centering
+		\includegraphics[scale=0.5]{Figures/A_function}
+		\caption{A function}
+		\label{fig:A_function}
+	\end{minipage}
 \end{figure}
 
 The crack length evaluation is based on the variation of the relative position between adjacent subsets, which gives an estimate of the damage occurrence \citep{Xavieretal2014}. To begin with, a matching function A(x,y) \ref{eq:eq21} is determined based on the norm of the relative position vectors as follows:
@@ -395,8 +421,6 @@ The matrix $M$ serves as the basis for estimating the current horizontal locatio
 
 The selection of the $\alpha$ parameter is not straightforward in the initial approach. To approximate its value, we first seek a correlation factor using the least squares regression method. During the test, the load-displacement curve consists of three main regions: a linear region representing a stationary zone, a second region corresponding to fracture propagation, and a third region indicating specimen rupture. By determining the correlation factor, we can identify the stage between the stationary zone and the Fracture Process Zone (FPZ). A second verification criterion based on displacement field processing is then applied to confirm the correct stage of the FPZ. By following these two steps, we can determine the stage at which the FPZ begins and the possible range of values for $\alpha$. Subsequently, we can plot the stages of crack propagation for different $\alpha$ values and assess the value of $\alpha$ that yields the largest $a(t)$ (crack length). Typically, the smallest $\alpha$ is chosen, unless a curve with simpler geometry is desired and the length of $a(t)$ remains relatively unchanged. A portion of the code enables graphical verification of the crack length by directly selecting $a_0$ and $a_f$ in Python. This allows the elimination of certain $\alpha$ values that do not yield the correct crack length.
 
-Another section of the code focuses on obtaining $a(t)$ as a function of $\alpha$. This is achieved by examining the ZOI and the subsets within it. By analysing the displacement field derived from each subset, the code calculates the distance between the centre of a subset and its displacement from one image to another. To simplify the code, this calculation is performed only on the four corner subsets. By measuring the distance between opposite corners, we obtain the maximum displacement in the $x$-direction and the displacement in the $y$-direction, which are then incorporated into a final matrix. Subsequently, the value of $a(t)$ is determined. It is equal to the initial crack length, $a_0$, specified by the user in the database, plus $\Delta a$, which represents the crack length variation over time in response to the applied force.
-
 \subsubsection{Method 2: Crack propagation based on crack opening displacement provided by DIC}
 
 Method 2 uses the crack opening along the entire length of the wooden specimen to determine the length of the crack \citep{FilhoJ2022}.
@@ -412,7 +436,7 @@ where the indices $t$ and $b$ refer to the DIC data points located at the top an
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=10cm]{Figures/fig30}
+	\includegraphics[width=8cm]{Figures/fig30}
 	\caption{DIC-based virtual displacement gauge (VDG) \citep{FilhoJ2022}.}
 	\label{fig:fig30}
 \end{figure}
@@ -481,11 +505,10 @@ $v$ the crack opening displacement according to $y$
 
 %\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-\section{Results}\label{S:res}
+\section{Results and Discussion}\label{S:res}
 
-\subsection{Load-displacement curves}
 
-Normally four distinct parts are observed on a load-displacement curve for Mode I fracture loading:
+In the Figure \ref{fig:images}, a characteristic load-displacement curve can be seen. Normally four distinct parts are observed on a load-displacement curve for Mode I fracture loading:
 
 \begin{itemize}
 	\item A small area visible at the beginning of the curve which corresponds to the setting up of the loaded specimen. 
@@ -494,60 +517,83 @@ Normally four distinct parts are observed on a load-displacement curve for Mode 
 	\item Lastly, the final segment entails the material's rupture, which transpires when an ultimate force is applied, marking the instability of the crack.
 \end{itemize}
 
-A characteristic curve can be seen in Figure \ref{fig:e0e1_Pdelta}.
-
-\begin{figure}[th]
-	\centering
-	\includegraphics[scale=0.5]{Figures/P_e0e1}
-	\caption[MMCG specimen]{Characteristic load-displacement ($P-\delta$) curve.}
-	\label{fig:e0e1_Pdelta}
-\end{figure}.
+It is followed by a plot of the crack lengths estimated by methods 1 and 2. The blue dots are crack lengths estimated graphically using Matchid and strain fields to check that the crack length estimated by Python is correct. Finally, the two other plots represent G with method 1 and 2 and show that G reaches a sort of plateau, corresponding to a stabilised propagation range.
 
 \begin{figure}[htbp]
 	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{Figures/P_e0e1}
-		\caption{Légende de l'image 1}
+		\caption{P-Delta curve, for e0e1 specimen.}
 		\label{fig:image1}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{Figures/a_e0e1}
-		\caption{Légende de l'image 2}
+		\caption{Crack length depending on time, for e0e1 specimen.}
 		\label{fig:image2}
 	\end{subfigure}
 	\\
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{Figures/Gmet1_e0e1}
-		\caption{Légende de l'image 3}
+		\caption{Energy release rate depending on the crack length propagation method 1, for e0e1 specimen.}
 		\label{fig:image3}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{Figures/Gmet2_e0e1}
-		\caption{Légende de l'image 4}
+		\caption{Energy release rate depending on the crack length propagation method 2, for e0e1 specimen.}
 		\label{fig:image4}
 	\end{subfigure}
-	\caption{Description générale des images}
+	\caption{Mechanical fracture characteristics of specimen e0e1}
 	\label{fig:images}
 \end{figure}
 
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-%New chapter
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
-\section{Discussion}\label{S:dis}
-
-This work is really interesting compared to previous ones. In every works the MC increase phenomenon decrease the Resistance of the material. The G and the $\sigma$ were obtained on European species and this trend was confirmed. But since the beginning of tests on Tropical species, others behavior are found. \cite{Reference7} has proved by his work, that the results, regarding to the mode and the load angle applied, for Iroko, Okoume and Padouck, are similar to European ones. But no proof were already done concerning the behavior of this species to MC effect. This species from Gabon are submitted to higher temperature and relative humidity around 80\%. And looking to work as \cite{Kif1998} and \cite{Ang2017}, the density of Scots Pine and Douglas, can be compared to Okoume specimens, and then the results from these specimens can be discussed. It appears that the early wood more saturated in water than the lately one involves a decrease of the $\sigma$. A similar trend is shown on Douglas Fir regarding two MC values, 9\% and 18\%. The fact is that the Okoume species do not have this trend and is stable.
+Table \ref{fig:fig37} compares the maximum energy release rate values obtained in this study with those reported in the literature. The comparison focuses on temperate species with similar density, moisture content ranging between 9$\%$ and 12$\%$, and an initial crack oriented in the radial-longitudinal (RL) direction. Silver fir's average maximum energy release rate is highlighted in bold and compared to different species and test methods, including 2MCG, DCB, and Wedge Splitting tests.
+Firstly, it is noteworthy that the magnitude of $G$ for silver fir is within the same order of magnitude as other species. Silver fir exhibits a difference of 29$\%$ compared to alder, 36$\%$ compared to Pinus pinaster, and 33$\%$ compared to Padouk. Moreover, similar values have been reported in the work of Odounga (2018), albeit with a standard deviation 2 to 3 times greater, indicating more dispersed results.
+In the study by Xavier et al. (2014), experimental values of $G=190$ J/m² were also obtained, which aligns with the results of this study. Additionally, alder and Pinus pinaster exhibit similar densities (around 0.1) in comparison to silver fir.
+The observed scattering of results can be attributed to the inherent material properties of wood, which is known for its high natural variability and anatomical composition. Furthermore, different energy release rate measurement methods and experimental parameter variations inevitably impact the final results.
+It is worth mentioning that the specimens in this study were predominantly derived from the extremity of the tree trunk rather than the central portion. The inclination of tree rings is apparent when observing our specimens, which could explain the slightly lower value obtained in our tests since $G_{RL} > G_{TL}$, as demonstrated in the article by Reiterer (2002).
 
 
+\begin{table}[H]
+	\centering
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{cccccccc}
+			\toprule % ligne horizontale en haut du tableau
+			& References & Wood species & Test type & Orientation & Density & $G_{\max}(J/m^2)$ & Standard deviation \\
+			\midrule
+			& & \textbf{Silver fir} & \textbf{2MCG} & \textbf{RL} & \textbf{0.43} & \textbf{170} & \textbf{77} \\
+			\midrule
+			& \citep{Angellier2017} & Douglas fir & DCB & RL & 0.54 & 784 &  \\
+			\midrule
+			& \cite{Angellier2017} & White fir & DCB & RL & 0.49 & 570 &  \\
+			\midrule
+			& \citep{Xavieretal2014} & Pinus Pinaster & DCB & RL & 0.543 & 270 & 64 \\
+			\midrule
+			& \citep{Reiterer2002} & Spruce & WS & RL & 0.479 & 337 & 47 \\
+			\midrule
+			& \cite{Reiterer2002} & Alder & WS & RL & 0.510 & 244 & 41 \\
+			\midrule
+			& \cite{Reiterer2002} & Oak & WS & RL & 0.553 & 348 & 38 \\
+			\midrule
+			& \citep{Reiterer2002} & Ash & WS & RL & 0.701 & 551 & 38 \\
+			\midrule
+			& \citep{Odounga2018phd} & Okoumé & 2MCG & RL & 0.39-0.5 & 317 & 160 \\
+			\midrule
+			& \citep{Odounga2018phd} & Iroko & 2MCG & RL & 0.56-0.7 & 323 & 200 \\
+			\midrule
+			& \citep{Odounga2018phd} & Padouk & 2MCG & RL & 0.7-0.88 & 255 & 200 \\
+			\bottomrule % ligne horizontale en bas du tableau
+		\end{tabular}
+	}
+	\caption{Comparison of mean max G values for specimens in the literature, 2MCG: Mixed Mode Crack Growth, DCB: Double Cantilever Beam, WS: Wedge Splitting test, RL: Radial Longitudinal.}
+	\label{fig:fig37}
+\end{table}
 
 %\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
