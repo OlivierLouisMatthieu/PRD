@@ -87,10 +87,18 @@
 
 %% The amssymb package provides various useful mathematical symbols
 
-\usepackage{amssymb}
+\usepackage{amssymb,amsmath,amsthm,enumitem}
 \usepackage{siunitx}
 \usepackage{physics}
 \usepackage{float}
+\usepackage{xpatch}
+\usepackage{mathtools, nccmath}
+\xpatchcmd{\NCC@ignorepar}{%
+\abovedisplayskip\abovedisplayshortskip}
+{%
+\abovedisplayskip\abovedisplayshortskip%
+\belowdisplayskip\belowdisplayshortskip}
+{}{}
 
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
@@ -170,13 +178,15 @@
 %% \address[label2]{<address>}
 
 \author[a]{O. Cochet}
-\author[b]{J. Xavier\corref{cor1}}
-\author[b]{R.F. Martins}
+\author[b,c]{J. Xavier\corref{cor1}}
+\author[b,c]{R.F. Martins}
 \author[a]{R. Moutou Pitti}
 
 
 \address[a]{Université Clermont Auvergne, Clermont Auvergne INP, Institut Pascal, Clermont-Ferrand, France}
-\address[b]{UNIDEMI, Department of Mechanical and Industrial Engineering, NOVA School of Science and Technology, Universidade NOVA de Lisboa, Caparica, 2829-516, Portugal}
+\address[b]{UNIDEMI, Department of Mechanical and Industrial Engineering, NOVA School of Science and Technology, Universidade NOVA de Lisboa, 2829-516 Caparica, Portugal}
+\address[c]{Laboratório Associado de Sistemas Inteligentes, LASI, 4800-058 Guimarães, Portugal}
+
 
 \begin{abstract}
 In this study, we investigate the cracking behaviour of softwood species using MMCG specimens. We aim to accurately determine crack length during fracture propagation and related fracture parameters, which is often challenging to obtain in wood. To achieve this, we employ the Arcan system to load the specimen, which has the advantage of inspecting from pure to mixed mode fracture loading to activate different failure modes. Digital Image Correlation (DIC) measures displacement and strain fields near the crack.
@@ -287,13 +297,7 @@ A green illumination set-up was used to enhance the sensitivity of the sensor. N
 			\includegraphics[width=\textwidth]{Figures/Speckle_DIC}
 			\caption{Speckle pattern typically obtained with DIC Histogram of the speckle image.}
 			\label{fig:Speckle_DIC}
-		\end{minipage} \\
-		& \begin{minipage}{0.6\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{Figures/histogram}
-			\caption{Histogram of the speckle image.}
-			\label{fig:Histogram}
-		\end{minipage} \\
+		\end{minipage}
 	\end{tabular}
 \end{figure}
 
@@ -323,37 +327,39 @@ In this work the MatchID DIC 2D software was used, and Python-based scripting wa
 	\label{tab:MatchID_param}
 \end{table}
 
-\subsection{Python code}
+\subsection{DIC post-processing}
 
 \subsubsection{Method 1: Crack propagation based on full-field displacement fields provided by DIC}
 
-The Crack Tip Opening Displacement (CTOD) is calculated by analysing subsets positioned just above and below the subset that initially defines the crack tip position ($a_0$) in the pre-crack propagation images (see Figure~\ref{fig:fig29bis}). The $a_0$ subset corresponds to a specific entry in row $m$ and column $n$ in matrix representation. Observing the subsets from top to bottom makes it possible to track the displacement of the crack tip and measure it accurately. The objective is to identify the most suitable pair of subsets sufficiently close to the crack for meaningful measurements without being too close or too far. Proximity to the crack ensures relevant information, while excessive proximity or distance may compromise the accuracy of measurements. Through the analysis of these displacements, the crack opening values at each step can be obtained.
+The Crack Tip Opening Displacement (CTOD) is calculated by analysing subsets positioned just above and below the subset that initially defines the crack tip position ($a_0$) in the pre-crack propagation images. The $a_0$ subset corresponds to a specific entry in row $m$ and column $n$ in matrix representation. Observing the subsets from top to bottom makes it possible to track the displacement of the crack tip and measure it accurately. The objective is to identify the most suitable pair of subsets sufficiently close to the crack for meaningful measurements without being too close or too far. Proximity to the crack ensures relevant information, while excessive proximity or distance may compromise the accuracy of measurements. Through the analysis of these displacements, the crack opening values at each step can be obtained.
 
-\begin{figure}[htp]
-	\begin{minipage}[c]{.46\linewidth}
-		\centering
-		\includegraphics[scale=0.4]{Figures/fig29bis}
-		\caption{Pair of subsets around the chosen subset $a_0$.}
-		\label{fig:fig29bis}
-	\end{minipage}
-	\hfill%
-	\begin{minipage}[c]{.46\linewidth}
-		\centering
-		\includegraphics[scale=0.5]{Figures/A_function}
-		\caption{A function}
-		\label{fig:A_function}
-	\end{minipage}
-\end{figure}
+% (see Figure~\ref{fig:fig29bis})
 
-The crack length evaluation is based on the variation of the relative position between adjacent subsets, which gives an estimate of the damage occurrence \citep{Xavieretal2014}. To begin with, a matching function A(x,y) \ref{eq:eq21} is determined based on the norm of the relative position vectors as follows:
+% \begin{figure}[htp]
+% 	\begin{minipage}[c]{.46\linewidth}
+% 		\centering
+% 		\includegraphics[scale=0.4]{Figures/fig29bis}
+% 		\caption{Pair of subsets around the chosen subset $a_0$.}
+% 		\label{fig:fig29bis}
+% 	\end{minipage}
+% 	\hfill%
+% 	\begin{minipage}[c]{.46\linewidth}
+% 		\centering
+% 		\includegraphics[scale=0.5]{Figures/A_function}
+% 		\caption{A function}
+% 		\label{fig:A_function}
+% 	\end{minipage}
+% \end{figure}
+
+The crack length evaluation is based on the variation of the relative position between adjacent subsets, which gives an estimate of the damage occurrence. To begin with, a matching function A(x,y) is determined based on the norm of the relative position vectors as follows \citep{Xavieretal2014}:
 
 \vspace{0pt}
 \begin{equation}
-	A(x,y)=max(\lVert u_i-u_k\rVert;\lVert u_j-u_l\rVert)
+	A(x,y)=\max(\lVert u_i-u_k\rVert;\lVert u_j-u_l\rVert)
 	\label{eq:eq21}
 \end{equation}
 
-where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. A mapping mask is then defined, assuming threshold segmentation according to the following inequalities.
+\noindent where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. A mapping mask is then defined, assuming threshold segmentation according to the following inequalities:
 
 \begin{equation}
 	M(x,y)=
@@ -365,38 +371,38 @@ where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. 
 	\label{eq:eq22}
 \end{equation}
 
-The matrix $M$ serves as the basis for estimating the current horizontal location or crack length at a given stage. Zero values in the matrix indicate areas without a crack, while subsets within the crack or regions with missing information are assigned values of 1 and -1, respectively. Subsets surrounding the crack, which are of particular interest for the study, are assigned a value of 1. Constructing a sub-matrix consisting of -1, 0, and 1, one can visualise the damage evaluation as a map, providing an overview of the crack's development. Tracking the farthest subset with a value of 1 allows the determination of the last subset where the crack tip is located. To facilitate this, the parameter $\alpha$ acts as a cutoff tool, enabling the localisation of the crack position in the matrix coordinate space.
+\noindent The $M$ matrix estimates the current horizontal location or crack length at a given stage. Zero values in the matrix indicate crack-free areas, while subsets within the crack or regions with missing information are given values of 1 and -1, respectively. Subsets around the crack, which are of particular interest for the study, are assigned a value of 1. By creating a sub-matrix containing -1, 0, and 1, one can visualize the damage assessment as a map, providing an overview of how the crack progresses. Tracking the furthest subset with a value of 1 helps determine the last subset where the crack tip is located. The parameter $\alpha$ acts as a cutoff tool (Eq. \ref*{eq:eq22}), enabling the localization of the crack's position in the matrix's coordinate space.
 
-The selection of the $\alpha$ parameter is not straightforward in the initial approach. To approximate its value, we first seek a correlation factor using the least squares regression method. During the test, the load-displacement curve consists of three main regions: a linear region representing a stationary zone, a second region corresponding to fracture propagation, and a third region indicating specimen rupture. By determining the correlation factor, we can identify the stage between the stationary zone and the Fracture Process Zone (FPZ). A second verification criterion based on displacement field processing is then applied to confirm the correct stage of the FPZ. By following these two steps, we can determine the stage at which the FPZ begins and the possible range of values for $\alpha$. Subsequently, we can plot the stages of crack propagation for different $\alpha$ values and assess the value of $\alpha$ that yields the largest $a(t)$ (crack length). Typically, the smallest $\alpha$ is chosen, unless a curve with simpler geometry is desired and the length of $a(t)$ remains relatively unchanged. A portion of the code enables graphical verification of the crack length by directly selecting $a_0$ and $a_f$ in Python. This allows the elimination of certain $\alpha$ values that do not yield the correct crack length.
+The selection of the $\alpha$ parameter is not straightforward in the initial approach. To approximate its value, we first seek a correlation factor using the least squares regression method. During the test, the load-displacement curve consists of three main regions: a linear region representing a stationary zone, a second region corresponding to fracture propagation, and a third region indicating specimen rupture. By determining the correlation factor, we can identify the stage between the stationary zone and the Fracture Process Zone (FPZ). A second verification criterion based on displacement field processing is then applied to confirm the correct stage of the FPZ. By following these two steps, we can determine the stage at which the FPZ begins and the possible range of values for $\alpha$. Subsequently, we can plot the stages of crack propagation for different $\alpha$ values and assess the value of $\alpha$ that yields the largest $a(t)$ (crack length). Typically, the smallest $\alpha$ is chosen, unless a curve with simpler geometry is desired and the length of $a(t)$ remains relatively unchanged. A portion of the code enables graphical verification of the crack length by directly selecting $a_0$ and $a_f$ (final crack length). This allows the elimination of certain $\alpha$ values that do not yield the correct crack length.
 
 \subsubsection{Method 2: Crack propagation based on crack opening displacement provided by DIC}
 
-Method 2 uses the crack opening along the entire length of the wooden specimen to determine the length of the crack \citep{FilhoJ2022}.
-
-From the reference and current positions of the DIC calculation points, the Euclidean distance between each pair of points can be measured and the COD can be determined as:
+Method 2 uses the crack opening along the entire length of the wooden specimen to determine the length of the crack \citep{FilhoJ2022}. From the reference and current positions of the DIC calculation points, the Euclidean distance between each pair of points can be measured and the COD can be determined as:
 
 \begin{equation}
 	VD(k,i_n)=\sqrt{(x_{11bk}-x_{11tk})^2 + (x_{22bk}-x_{22tk})^2}_{i_n} - VD(k,i_0)
 	\label{eq:eq23}
 \end{equation}
 
-where the indices $t$ and $b$ refer to the DIC data points located at the top and bottom of the crack path, $k$ is the index of the DIC point, $i_n$ is the image captured at time $n$, $VD(k, i_0)$ is the initial Euclidean distance between the computational points of the top and bottom reference DIC subset obtained from image $i_0$, and $x_{11}$ and $x_{22}$ are their coordinates in the image plane. VD can be defined as a displacement gauge along the crack path \ref{fig:fig30}.
+\noindent where the indices $t$ and $b$ refer to the DIC data points located at the top and bottom of the crack path, $k$ is the index of the DIC point, $i_n$ is the image captured at time $n$, $VD(k, i_0)$ is the initial Euclidean distance between the computational points of the top and bottom reference DIC subset obtained from image $i_0$, and $x_{11}$ and $x_{22}$ are their coordinates in the image plane. VD can be defined as a displacement gauge along the crack path.
 
-\begin{figure}[htp]
-	\centering
-	\includegraphics[width=8cm]{Figures/fig30}
-	\caption{DIC-based virtual displacement gauge (VDG) \citep{FilhoJ2022}.}
-	\label{fig:fig30}
-\end{figure}
+% (Figure~\ref{fig:fig30})
 
-The first step towards detecting the crack tip is to take the average value of $VD$ for each stage:
+% \begin{figure}[htp]
+% 	\centering
+% 	\includegraphics[width=8cm]{Figures/fig30}
+% 	\caption{DIC-based virtual displacement gauge (VDG) \citep{FilhoJ2022}.}
+% 	\label{fig:fig30}
+% \end{figure}
+
+\noindent The first step towards detecting the crack tip is to take the average value of $VD$ for each stage:
 
 \begin{equation}
 	\overline{VD}(i_n)=\frac{1}{k} \sum_{k=1}^{k}VD(k,i_n)
 	\label{eq:eq24}
 \end{equation}
 
-The threshold value must be adjusted using the two parameters $\alpha$ and $\beta$ which are obtained by solving the equation:
+\noindent The threshold value must be adjusted using the two parameters $\alpha$ and $\beta$ which are obtained by solving the equation:
 
 \begin{equation}
 	\begin{cases}
@@ -406,9 +412,7 @@ The threshold value must be adjusted using the two parameters $\alpha$ and $\bet
 	\label{eq:eq25}
 \end{equation}
 
-In order to obtain $VD_{th}(i_1)$ and $VD_{th}(i_f)$, it was first necessary to read graphically the position of the crack tip of the first and last image of the Fracture Process Zone and then to find the intersection between the position of the crack tip and the crack opening VD for those two stages.
-
-Therefore, the adjusted threshold line-cut $VD_{th}(i_n)$ is given by:
+\noindent In order to obtain $VD_{th}(i_1)$ and $VD_{th}(i_f)$, it was first necessary to read graphically the position of the crack tip of the first and last image of the Fracture Process Zone and then to find the intersection between the position of the crack tip and the crack opening VD for those two stages. Therefore, the adjusted threshold line-cut $VD_{th}(i_n)$ is given by:
 
 \begin{equation}
 	VD_{th}(i_n)=\overline{VD}(i_n)(\alpha i_n +\beta)
@@ -425,33 +429,15 @@ It is therefore possible to calculate the growth of the crack at instant $n$:
 
 \subsubsection{Energy release rate}
 
-After using one of the two previous methods, we can calculate the energy release rate in mode I. To determine the Energy release rate, compliance method was chosen. 
-The formula used is written on \ref{eq:Energy release rate equation}:
+After using one of the two previous methods, we can calculate the energy release rate in mode I. To determine the Energy release rate, compliance method was chosen:
 
 \begin{equation}
-	G_\text{I}=\displaystyle\frac{{F_{c}}^2}{2b}\ \frac{\partial C}{\partial a} \quad \text{with } C=\frac{v}{F_{c}} 	
+	G_\text{I}=\displaystyle\frac{{F_{c}}^2}{2b}\ \frac{\partial C}{\partial a} \quad \text{with} \quad C=\frac{v}{F_{c}} 	
 	\label{eq:Energy release rate equation}
 \end{equation} 
  
-With : 
+\noindent where: $G_c$ is the value of energy release rate (in \si{\joule\per\square\meter}); $F_c$ is the critical force which involves the crack (in \si{\newton}); $b$ is the thickness of the specimen (in \si{\milli\meter}); $v$ is the crack opening displacement according to $y$.
 
-$G_c$ the value of energy release rate (in \si{\joule\per\square\meter})
-
-$F_c$ the critical force which involves the crack (in \si{\newton})
-
-b the thickness of the specimen (in \si{\milli\meter})
-
-$\partial C$ the compliance evolution (in $Pa^-1$)
-
-$\partial a$ the crack length evolution (in \si{\milli\meter})
-
-$v$ the crack opening displacement according to $y$
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-%New chapter
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 \section{Results and Discussion}\label{S:res}
 
@@ -505,7 +491,7 @@ Table \ref{fig:fig37} compares the maximum energy release rate values obtained i
 Firstly, it is noteworthy that the magnitude of $G$ for silver fir is within the same order of magnitude as other species. Silver fir exhibits a difference of 29$\%$ compared to alder, 36$\%$ compared to Pinus pinaster, and 33$\%$ compared to Padouk. Moreover, similar values have been reported in the work of Odounga (2018), albeit with a standard deviation 2 to 3 times greater, indicating more dispersed results.
 In the study by Xavier et al. (2014), experimental values of $G=190$ J/m² were also obtained, which aligns with the results of this study. Additionally, alder and Pinus pinaster exhibit similar densities (around 0.1) in comparison to silver fir.
 The observed scattering of results can be attributed to the inherent material properties of wood, which is known for its high natural variability and anatomical composition. Furthermore, different energy release rate measurement methods and experimental parameter variations inevitably impact the final results.
-It is worth mentioning that the specimens in this study were predominantly derived from the extremity of the tree trunk rather than the central portion. The inclination of tree rings is apparent when observing our specimens, which could explain the slightly lower value obtained in our tests since $G_{RL} > G_{TL}$, as demonstrated in the article by Reiterer (2002).
+It is worth mentioning that the specimens in this study were predominantly derived from the extremity of the tree trunk rather than the central portion. The inclination of tree rings is apparent when observing our specimens, which could explain the slightly lower value obtained in our tests since $G_{RL} > G_{TL}$, as demonstrated in the article by \citep{Reiterer2002}.
 
 
 \begin{table}
@@ -516,25 +502,15 @@ It is worth mentioning that the specimens in this study were predominantly deriv
 			& References & Wood species & Test type & Orientation & Density & $G_{\max}(J/m^2)$ & Standard deviation \\
 			\midrule
 			& & \textbf{Silver fir} & \textbf{MMCG} & \textbf{RL} & \textbf{0.43} & \textbf{170} & \textbf{77} \\
-			\midrule
 			& \citep{Angellier2017} & Douglas fir & DCB & RL & 0.54 & 784 &  \\
-			\midrule
 			& \cite{Angellier2017} & White fir & DCB & RL & 0.49 & 570 &  \\
-			\midrule
 			& \citep{Xavieretal2014} & Pinus Pinaster & DCB & RL & 0.543 & 270 & 64 \\
-			\midrule
 			& \citep{Reiterer2002} & Spruce & WS & RL & 0.479 & 337 & 47 \\
-			\midrule
 			& \cite{Reiterer2002} & Alder & WS & RL & 0.510 & 244 & 41 \\
-			\midrule
 			& \cite{Reiterer2002} & Oak & WS & RL & 0.553 & 348 & 38 \\
-			\midrule
 			& \citep{Reiterer2002} & Ash & WS & RL & 0.701 & 551 & 38 \\
-			\midrule
 			& \citep{Odounga2018phd} & Okoumé & MMCG & RL & 0.39-0.5 & 317 & 160 \\
-			\midrule
 			& \citep{Odounga2018phd} & Iroko & MMCG & RL & 0.56-0.7 & 323 & 200 \\
-			\midrule
 			& \citep{Odounga2018phd} & Padouk & MMCG & RL & 0.7-0.88 & 255 & 200 \\
 			\bottomrule % ligne horizontale en bas du tableau
 		\end{tabular}
@@ -578,9 +554,6 @@ Moving forward, the geometry of the MMCG specimen, the Arcan system, and the dev
 %If the author may not able to view the references in output same could be done by copying the bibliography section from ``filename.bbl'' file and paste in TeX file.
 
 
-\subsection{General guidelines for the preparation of your text}
-Avoid hyphenation at the end of a line. Symbols denoting vectors and matrices should be indicated in bold type. Scalar variable names should normally be expressed using italics. Weights and measures should be expressed in SI units. All non-standard abbreviations or symbols must be defined when first mentioned, or a glossary provided.
-
 %\begin{}[t]\vspace*{4pt}
 %%\centerline{\includegraphics{fx1}\hspace*{5mm}\includegraphics{fx1}}
 %\centerline{\includegraphics{gr1}}
@@ -595,10 +568,8 @@ Avoid hyphenation at the end of a line. Symbols denoting vectors and matrices sh
 %\end{equation}
 
 \section*{Acknowledgements}
-
-This research was funded by the project UIDB/00667/2020 (UNIDEMI) supported
-by Fundação para a Ciência e a Tecnologia (FCT-MCTES), the Portuguese
-national funding agency for science, research and technology.
+Authors acknowledge the Portuguese Fundação para a Ciência e a Tecnologia (FCT -
+MCTES) for its financial support via the project UIDB/00667/2020 and UIDP/00667/2020 (UNIDEMI)
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
