@@ -176,7 +176,7 @@
 
 
 \address[a]{Université Clermont Auvergne, Clermont Auvergne INP, Institut Pascal, Clermont-Ferrand, France}
-\address[b]{UNIDEMI, Department of Mechanical and Industrial Engineering, NOVA School of Science and Technology, NOVA University Lisbon, 2829-516 Caparica, Portugal}
+\address[b]{UNIDEMI, Department of Mechanical and Industrial Engineering, NOVA School of Science and Technology, Universidade NOVA de Lisboa, Caparica, 2829-516, Portugal}
 
 \begin{abstract}
 In this study, we investigate the cracking behaviour of softwood species using MMCG specimens. We aim to accurately determine crack length during fracture propagation and related fracture parameters, which is often challenging to obtain in wood. To achieve this, we employ the Arcan system to load the specimen, which has the advantage of inspecting from pure to mixed mode fracture loading to activate different failure modes. Digital Image Correlation (DIC) measures displacement and strain fields near the crack.
@@ -270,7 +270,7 @@ The fracture tests were performed using a Landmark Servohydraulic testing machin
 
 \subsection{Optical set-up and settings}\label{Ss:optical}
 
-An Alvium 1800 U-2040m Allied Vision camera and a 60 mm Nikkor lens were used for image grabbing and acquisition. The camera has a resolution of 4512 (H) $\times$ 4512 (V) and a sensor size of type 1.1. The front of the lens was positioned at a working distance of 285 mm with an aperture of f/11 and an exposure time of 60 milliseconds. The cross-head displacement of the testing machine was 0.02mm/s, and the camera had a frequency of 1 Hz (1 fps).
+The optial system used an Alvium 1800 U-2040m Allied Vision camera and a 60 mm Nikkor lens for image grabbing and acquisition. The camera has a resolution of 4512 (H) $\times$ 4512 (V) and a sensor size of type 1.1. The front of the lens was positioned at a working distance of 285 mm with an aperture of f/11 and an exposure time of 60 milliseconds. The cross-head displacement of the testing machine was 0.02mm/s, and the camera had a frequency of 1 Hz (1 fps).
 A green illumination set-up was used to enhance the sensitivity of the sensor. Notably, care was taken during lens and camera adjustments to optimise focusing and exposure time, ensuring an appropriate spread of light intensity to prevent pixel saturation in the sensor. The camera was securely mounted on a tripod to ensure a stable position relative to the specimen's target surface, enabling the capture of consistent images throughout the tests. The frontal face of the specimens was coated with a suitable speckle pattern. A first layer of white paint was added and a cloud of black dots formed a second layer of paint to create a distinctive local pattern across the region of interest (ZOI) ahead of the crack tip.. Figure~\ref{fig:Speckle_DIC} shows an image of the speckle pattern, along with its corresponding image histogram. Additionally, a scale positioned in the surface plane was employed to establish the conversion factor for translating pixels into millimetres.
 
 \begin{figure}[htbp]
@@ -297,69 +297,31 @@ A green illumination set-up was used to enhance the sensitivity of the sensor. N
 	\end{tabular}
 \end{figure}
 
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-%New chapter
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
 \subsection{Digital image correlation}\label{Ss:dic}
 
-Digital image correlation (DIC) was developed in 1983. It is a 2D or 3D optical method that measures displacements between two images. It enables the generation of displacement and strain maps, providing valuable kinematic information. The MatchID DIC 2D software was used in this study, and Python-based scripting was coded for post-processing purposes.
-The focus of this study was the evaluation of crack opening displacement and crack length variation during the fracture tests with regard to the applied load.
-In DIC processing, several steps are required:
-
-\begin{itemize}
-	\item Choose a reference image that corresponds to the first image of the test 
-	\item Select multiple deformed images
-	\item Define the zone of interest (ZOI) in which the crack propagates
-	\item Define the  DIC setting parameters
-	\item Start the DIC analysis
-	\item Exploit the results
-\end{itemize}
-
-It is important to highlight the significant impact of both extrinsic and intrinsic setup parameters in digital image correlation (DIC), including subset size, subset step, strain gauge window, shape functions, and correlation criterion \citep{DICguide2018}. These parameters play a crucial role in determining the accuracy and spatial resolution of the measured displacements and reconstructed strain fields \citep{Xavier2012207,PereiraandXavier2018}. Consequently, they are considered fundamental factors. To achieve a trade-off between spatial resolution and accuracy, a parametric analysis was conducted utilizing the Parametric Module of MatchID. The resulting DIC settings are summarized in Table~\ref{tab:MatchID_param}. It is believed that the pre-selected range of values is reflective of the permissible DIC setup parameter range.
-
-Subsequently, data from each analysis were extracted in a matrix format for each acquisition step. These data were then subjected to further analysis using Python scripting, with the aim of evaluating fracture parameters within the scope of this study.
+In this work the MatchID DIC 2D software was used, and Python-based scripting was coded for post-processing purposes in view of the fracture parameter measurements. The focus of this study was the evaluation of crack opening displacement and crack length variation during the fracture tests with regard to the applied load. In DIC processing it is fundamental to property select the DIC settings, including subset size, subset step, strain gauge window, shape functions, and correlation criterion \citep{DICguide2018}. These parameters play a crucial role in determining the accuracy and spatial resolution of the measured displacements and reconstructed strain fields \citep{Xavier2012207,PereiraandXavier2018}. To achieve a trade-off between spatial resolution and accuracy, a parametric analysis was conducted utilizing the Parametric Module of MatchID. The resulting DIC settings are summarized in Table~\ref{tab:MatchID_param}. Subsequently, data from each analysis were extracted in a matrix format for each acquisition step. These data were then subjected to further analysis using Python scripting, with the aim of evaluating fracture parameters within the scope of this study.
 
 \begin{table}[h]
 	\centering
-	\begin{tabular}{|m{0.3\textwidth}|m{0.4\textwidth}|}
-		\hline
-		\textbf{Parameter} & \textbf{Setting} \\
-		\hline
+	\begin{tabular}{m{0.3\textwidth} m{0.4\textwidth}}
+		\toprule
+		\textbf{Setting} & \textbf{Selection} \\
+		\midrule
 		Correlation Coefficient & ZNCC \\
-		\hline
 		Interpolation order & Bicubic Splines \\ 
-		\hline
 		Transformation order & Quadratic \\
-		\hline
 		Prefiltering & Gaussian \\
-		\hline
 		Progress history & Spatial \\
-		\hline
 		Subset size & 31 \\
-		\hline
 		Step size & 10 \\
-		\hline
 		Strain window size & 5 \\ 
-		\hline
 		Virtual Strain Gauge & 71 pixels \\
-		\hline
 		Strain interpolation & Bilinear (Q4) Lagrange polynomials \\
-		\hline
-		Strain Convention & Green-Lagrange \\
-		\hline
+		Strain Convention & Green-Lagrange \\\bottomrule
 	\end{tabular}
 	\caption{DIC setting parameters used in the MatchID software for the analyses.}
 	\label{tab:MatchID_param}
 \end{table}
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-%New chapter
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 \subsection{Python code}
 
