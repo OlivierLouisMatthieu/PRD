@@ -301,6 +301,14 @@ A green illumination set-up was used to enhance the sensitivity of the sensor. N
 	\end{tabular}
 \end{figure}
 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{Fig1}
+	\caption{Experimental set-up.}
+	\label{F:Fig1}
+	\subcaption*{(a)}\hspace{1cm}\subcaption*{(b)}\hspace{1cm}\subcaption*{(c)}
+\end{figure}
+
 \subsection{Digital image correlation}\label{Ss:dic}
 
 In this work the MatchID DIC 2D software was used, and Python-based scripting was coded for post-processing purposes in view of the fracture parameter measurements. The focus of this study was the evaluation of crack opening displacement and crack length variation during the fracture tests with regard to the applied load. In DIC processing it is fundamental to property select the DIC settings, including subset size, subset step, strain gauge window, shape functions, and correlation criterion \citep{DICguide2018}. These parameters play a crucial role in determining the accuracy and spatial resolution of the measured displacements and reconstructed strain fields \citep{Xavier2012207,PereiraandXavier2018}. To achieve a trade-off between spatial resolution and accuracy, a parametric analysis was conducted utilizing the Parametric Module of MatchID. The resulting DIC settings are summarized in Table~\ref{tab:MatchID_param}. Subsequently, data from each analysis were extracted in a matrix format for each acquisition step. These data were then subjected to further analysis using Python scripting, with the aim of evaluating fracture parameters within the scope of this study.
