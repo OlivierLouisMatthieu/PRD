@@ -361,19 +361,26 @@ The crack length evaluation is based on the variation of the relative position b
 	\label{eq:eq21}
 \end{equation}
 
-\noindent where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. A mapping mask is then defined, assuming threshold segmentation according to the following inequalities:
+\noindent where $u_{i,j,k,l}$ represent the displacement vector of four adjacent subsets. A mapping mask is then defined, assuming threshold segmentation according to the following inequalities: $M(x,y) = 1, \text{ if } A(x, y) \geq \alpha \overline{A}$; $M(x,y) = 0, \text{ if } A(x, y) < \alpha \overline{A}$; $M(x,y) = -1, \text{ if } A(x, y) = \text{NaN}$. The $M$ matrix estimates the current horizontal location or crack length at a given stage. Zero values in the matrix indicate crack-free areas, while subsets within the crack or regions with missing information are given values of 1 and -1, respectively. Subsets around the crack, which are of particular interest for the study, are assigned a value of 1. By creating a sub-matrix containing -1, 0, and 1, one can visualize the damage assessment as a map, providing an overview of how the crack progresses. Tracking the furthest subset with a value of 1 helps determine the last subset where the crack tip is located. The parameter $\alpha$ acts as a cutoff tool, enabling the localization of the crack's position in the matrix's coordinate space.
 
-\begin{equation}
-	M(x,y)=
-	\begin{cases}
-		1, & \text{if } A(x, y) \geq \alpha \overline{A} \\
-		0, & \text{if } A(x, y) < \alpha \overline{A} \\
-		-1, & \text{if } A(x, y) = \textrm{NaN}
-	\end{cases}
-	\label{eq:eq22}
-\end{equation}
+% \begin{equation}
+% 	M(x,y)=
+% 	\begin{cases}
+% 		1, & \text{if } A(x, y) \geq \alpha \overline{A} \\
+% 		0, & \text{if } A(x, y) < \alpha \overline{A} \\
+% 		-1, & \text{if } A(x, y) = \textrm{NaN}
+% 	\end{cases}
+% 	\label{eq:eq22}
+% \end{equation}
 
-\noindent The $M$ matrix estimates the current horizontal location or crack length at a given stage. Zero values in the matrix indicate crack-free areas, while subsets within the crack or regions with missing information are given values of 1 and -1, respectively. Subsets around the crack, which are of particular interest for the study, are assigned a value of 1. By creating a sub-matrix containing -1, 0, and 1, one can visualize the damage assessment as a map, providing an overview of how the crack progresses. Tracking the furthest subset with a value of 1 helps determine the last subset where the crack tip is located. The parameter $\alpha$ acts as a cutoff tool (Eq. \ref*{eq:eq22}), enabling the localization of the crack's position in the matrix's coordinate space.
+% % \begin{equation}
+% %     \begin{aligned}
+% %     M(x,y) = 1, & \text{ if } A(x, y) \geq \alpha \overline{A}, \\
+% %     M(x,y) = 0, & \text{ if } A(x, y) < \alpha \overline{A}, \\
+% %     M(x,y) = -1, & \text{ if } A(x, y) = \text{NaN}.
+% %     \end{aligned}
+% %     \label{eq:eq22}
+% % \end{equation}
 
 The selection of the $\alpha$ parameter is not straightforward in the initial approach. To approximate its value, we first seek a correlation factor using the least squares regression method. During the test, the load-displacement curve consists of three main regions: a linear region representing a stationary zone, a second region corresponding to fracture propagation, and a third region indicating specimen rupture. By determining the correlation factor, we can identify the stage between the stationary zone and the Fracture Process Zone (FPZ). A second verification criterion based on displacement field processing is then applied to confirm the correct stage of the FPZ. By following these two steps, we can determine the stage at which the FPZ begins and the possible range of values for $\alpha$. Subsequently, we can plot the stages of crack propagation for different $\alpha$ values and assess the value of $\alpha$ that yields the largest $a(t)$ (crack length). Typically, the smallest $\alpha$ is chosen, unless a curve with simpler geometry is desired and the length of $a(t)$ remains relatively unchanged. A portion of the code enables graphical verification of the crack length by directly selecting $a_0$ and $a_f$ (final crack length). This allows the elimination of certain $\alpha$ values that do not yield the correct crack length.
 
@@ -407,10 +414,9 @@ Method 2 uses the crack opening along the entire length of the wooden specimen t
 \noindent The threshold value must be adjusted using the two parameters $\alpha$ and $\beta$ which are obtained by solving the equation:
 
 \begin{equation}
-	\begin{cases}
-		VD_{th}(i_1)=\overline{VD}(i_1)(\alpha i_1 +\beta)\\
-		VD_{th}(i_f)=\overline{VD}(i_f)(\alpha i_f +\beta)\\ 
-	\end{cases}
+		VD_{th}(i_1)=\overline{VD}(i_1)(\alpha i_1 +\beta)
+		\quad\wedge\quad
+		VD_{th}(i_f)=\overline{VD}(i_f)(\alpha i_f +\beta)
 	\label{eq:eq25}
 \end{equation}
 
@@ -455,32 +461,32 @@ In the Figure \ref{fig:images}, a characteristic load-displacement curve can be 
 
 It is followed by a plot of the crack lengths estimated by methods 1 and 2. The blue dots are crack lengths estimated graphically using Matchid and strain fields to check that the crack length estimated by Python is correct. Finally, the two other plots represent G with method 1 and 2 and show that G reaches a sort of plateau, corresponding to a stabilised propagation range.
 
-\begin{figure}[htbp]
+\begin{figure}[t]
 	\centering
 	\begin{subfigure}[b]{0.475\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{Fig2a}
+		\includegraphics[width=.9\textwidth]{Fig2a}
 		\caption{}
 		\label{fig:image1}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.475\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{Fig2b}
+		\includegraphics[width=.95\textwidth]{Fig2b}
 		\caption{}
 		\label{fig:image2}
 	\end{subfigure}
 	\\
 	\begin{subfigure}[b]{0.475\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{Figures/Gmet1_e0e1}
+		\includegraphics[width=.9\textwidth]{Fig2c}
 		\caption{}
 		\label{fig:image3}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.475\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{Figures/Gmet2_e0e1}
+		\includegraphics[width=.9\textwidth]{Fig2d}
 		\caption{}
 		\label{fig:image4}
 	\end{subfigure}
