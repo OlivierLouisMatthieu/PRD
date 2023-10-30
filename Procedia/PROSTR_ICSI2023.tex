@@ -62,7 +62,7 @@
 
 %% Give the author list to appear in the running head
 %% Example \runauth{C.V. Radhakrishnan et al.}
-\runauth{Valente et al.}
+\runauth{Cochet et al.}
 
 %% The choice of journal logo is determined by the \jid and \jnltitlelogo commands.
 %% A user-supplied logo with the name <\jid>logo.pdf will be inserted if present.
@@ -179,7 +179,6 @@
 \address[b]{UNIDEMI, Department of Mechanical and Industrial Engineering, NOVA School of Science and Technology, NOVA University Lisbon, 2829-516 Caparica, Portugal}
 
 \begin{abstract}
-Wood is an increasingly popular engineering material due to its potential for reducing pollution and combating global warming. Its use in construction has been recognised as a promising solution for sustainable and efficient building design. However, ensuring the safety and reliability of wooden structures requires a comprehensive understanding of the fracture mechanics of wood.
 In this study, we investigate the cracking behaviour of softwood species using MMCG specimens. We aim to accurately determine crack length during fracture propagation and related fracture parameters, which is often challenging to obtain in wood. To achieve this, we employ the Arcan system to load the specimen, which has the advantage of inspecting from pure to mixed mode fracture loading to activate different failure modes. Digital Image Correlation (DIC) measures displacement and strain fields near the crack.
 Our primary focus is on open I mode crack growth, and we generate force versus crack opening curves from the measurements. In addition, we use the imposed displacement compliance method to determine the strain energy release rate for opening mode.
 This study highlights the importance of fracture mechanics in ensuring the safety and reliability of wooden structures. Knowledge of the fracture parameters of wood can aid in the design and development of more efficient and sustainable wooden products. Accurate determination of crack length is critical in this regard. Therefore, using digital image correlation techniques and imposed displacement compliance methods can improve our understanding of the fracture behaviour of wood and aid in the design of more reliable and efficient wooden structures.
@@ -227,34 +226,31 @@ Digital image correlation \sep Mode I \sep Fracture parameters
 %\enlargethispage{-7mm}
 \section{Introduction}\label{S:intro}
 
-Wood is a natural resource present on all continents. In France, it represents 15 million hectares and 3.3 million hectares in Portugal. It is a natural, renewable, low energy cost, recyclable and biologically degradable material. Today, global warming is a significant concern and using wood in the construction sector would make it less polluting. It is used for many applications. It can be used as energy, in timber frames and constructions, for packaging, furniture and joinery, in the paper industry or the chemical industry, for example. In addition, the cost of wood is one of the lowest. However, the mechanical behavior of wood, and more specifically its failure properties needs to be more studied in order to design reliable structures. This lack of study may lead for instance to the sudden failure of structures during their service life, which is not acceptable. Studying the failure properties of wood is therefore crucial to guide local engineers in their choice of building materials other than concrete and steel. One of the defects of wood is its natural origin. This gives it a great source of variability in its characteristics. It is subject to weathering and, depending on the climatic conditions, it will not have the same properties. This is why it must often be used after a specific treatment.
-The present document aims to study mechanical fracture of wood in mode I on silver fir specimens of type 2MCG. The proposed work consists mainly in conducting measurements carried out by kinematic field measurements obtained by the method known as image correlation or DIC. Integrating the DIC method through the MatchID software and subsequent Python-based data processing will be instrumental in attaining the desired outcomes. Two Python programs will be compared in order to verify the acuity of each method. This project consists of modelling the observed behaviour, both from the crack initiation and propagation point of view. The study will focus solely on a single wood species, and variations in wood moisture content will not be considered. The tests were carried out in a universal testing machine with a homemade Arcan fixture. This data can be used in future studies to develop computational simulations of fracture testing to determine fracture parameters from inverse methods.
+Wood is a natural, renewable, low energy cost, recyclable and biologically degradable material. Wood is an increasingly popular engineering material due to its potential for reducing pollution and combating global warming. Its use in structural applications has been recognised as a promising solution for sustainable and efficient building design. However, ensuring the safety and reliability of wooden structures requires a comprehensive understanding of the fracture mechanics of wood. Studying the failure properties of wood is therefore crucial to further enhance adding-value structural applications.
 
+The present document aims to study mechanical fracture of wood in mode I on silver fir specimens of type MMCG. The proposed work consists mainly in conducting measurements carried out by kinematic field measurements obtained by the method known as image correlation or DIC. Integrating the DIC method through the MatchID software and subsequent Python-based data processing will be instrumental in attaining the desired outcomes. Two Python programs will be compared in order to verify the acuity of each method. This project consists of modelling the observed behaviour, both from the crack initiation and propagation point of view. The study will focus solely on a single wood species, and variations in wood moisture content will not be considered. The tests were carried out in a universal testing machine with a homemade Arcan fixture. This data can be used in future studies to develop computational simulations of fracture testing to determine fracture parameters from inverse methods.
 
 %\cite{Dong201975}
 \section{Methods}\label{S:method}
 
-\subsection{Material and testing}\label{Ss:spec}
+\subsection{Material and MMCG fracture test}\label{Ss:spec}
 
-The MMCG specimen was initially developed by \citet{MoutouPitti2008}. This sample is a compromise between DCB and CTS samples to obtain different mixing rates and a stable crack propagation. The choice was made regarding to the good stability of the crack propagation. The Geometry, visible on Figure \ref{fig:Fig5} was already tested in \citep{Odounga2018phd} works.
+The MMCG fracture test was initially developed by \citet{MoutouPitti2008}. The proposed fracture test is a compromise between DCB and CTS fracture tests, to obtain different mixing rates under a stable crack propagation. The nominal geometry of the MMCG specimen is shown in Figure~\ref{fig:Fig5}.
 
 \begin{figure}[th]
 	\centering
-	\includegraphics[scale=0.4]{Figures/fig23}
+	\includegraphics[width=0.4\textwidth]{Figures/fig23}
 	\caption[MMCG specimen]{dimensions and geometry of Mixed Mode Crack Growth specimen}
 	\label{fig:Fig5}
-\end{figure}.
+\end{figure}
 
-For the tests, the chosen European species is the silver fir, which belongs to the category of coniferous trees. This softwood species is predominantly found in the northern hemisphere, similar to pines and other aged trees. Its name originates from the white colour of its wood, and its circumference typically ranges from 50 to 80 cm. According to CIRAD data, the silver fir exhibits a density of 0.45 to 0.60, a saturation fiber point (SFP) of approximately 30\%, and a compressive strength of 41 MPa.
+Fracture test were carried out on Silver Fir, which belongs to the category of coniferous trees. This softwood species is predominantly found in the northern hemisphere, similar to pines and other aged trees. Its name originates from the white colour of its wood, and its circumference typically ranges from 50 to 80 cm. According to CIRAD data, the Silver Fir exhibits a density of 0.45 to 0.60, a saturation fiber point (SFP) of approximately 30\%, and a compressive strength of 41 MPa [-].
 Wooden specimens were carefully characterised before testing by measuring weight, density, and moisture content. Before the tests, the samples were weighed, denoted as $M_H$, to determine their mass during testing. The wood density can also be derived from the sample's volume and mass. The density of each sample can be determined by applying the formula $\rho = M/V$.
-After testing, the specimens were placed in an oven set at 100 degrees until their mass, labelled as $M_C$, stabilised. Two specimens were subjected to this process for 73 hours, and various measurements were taken until a constant mass was achieved. The moisture content of the specimens can be determined using equation \ref{eq:HI}. Consequently, we possess the average mass $M_H$ of 29.83g, the density of 431.3kg/m$^3$, and the moisture content of 10.3\%.
+After testing, the specimens were placed in an oven set at 100 degrees until their mass, labelled as $M_C$, stabilised. Two specimens were subjected to this process for 73 hours, and various measurements were taken until a constant mass was achieved. The moisture content of the specimens were then determined: $(M_{H}-M_{0})/M_{0}$ (\%). In summary, specimens had an average mass $M_H$ of 29.83g, a density of 431.3kg/m$^3$, and a moisture content of 10.3\%.
 
-\begin{equation}
-	HI(\%) = \frac{M_{H}-M_{0}}{M_{0}}
-	\label{eq:HI}
-\end{equation}
+An Arcan fixture system is required to perform the MMCG fracture tests. Indeed, this part allows the connection of the MMCG wood specimen (Figure \ref{fig:Fig5}) to the cross-head displacement of the test frame. Figure \ref{fig:Fig6} shows the Arcan device we will use, inspired by the thesis of \citep{Odounga2018phd}. The fixing holes enables to load the specimen with different angular values of the angle in relation to the vertical direction in order to activate different failure modes depending on the load angle.  The fixture was designed and assembled using SolidWorks software, and detailed technical drawings were produced for manufacturing (Figure \ref{fig:Fig8}).
 
-An Arcan fixture system is required to perform the  2MCG fracture tests. Indeed, this part allows the connection of the 2MCG wood specimen (Figure \ref{fig:Fig5}) to the cross-head displacement of the test frame. Figure \ref{fig:Fig6} shows the Arcan device we will use, inspired by the thesis of \citep{Odounga2018phd}.
+The fracture tests were performed using a Landmark Servohydraulic testing machine with a maximum capacity of 100 kN. Figure~\ref{fig:Setup0°} shows the experimental set-up, which includes the Arcan fixture and the optical camera-lens-illumination devices. The Arcan fixture was mounted to the testing machine using standard bolts, with washers inserted between the specimen and the Arcan system to reinforce the attachment points. To facilitate specimen changes between tests, manual controls were employed to elevate the moving part of the testing machine, minimising residual tension between the bolt holes and the Arcan system. Furthermore, before testing, an arbitrary pre-load was applied to the specimen to prevent any clearance or unintended movement of the specimen (which could cause image defocusing). Load and cross-head displacement data were recorded at a frequency of 5 Hz . Additionally, a real-time plot was generated during the test for visualisation.
 
 \begin{figure}[htp]
 	\begin{minipage}[c]{.46\linewidth}
@@ -272,19 +268,7 @@ An Arcan fixture system is required to perform the  2MCG fracture tests. Indeed,
 	\end{minipage}
 \end{figure}
 
-The fixing holes enables to load the specimen with different angular values of the angle in relation to the vertical direction in order to activate different failure modes depending on the load angle. 
-The fixture was designed and assembled using SolidWorks software, and detailed technical drawings were produced for manufacturing (Figure \ref{fig:Fig8}).
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-%New chapter
-
-%\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
 \subsection{Optical set-up and settings}\label{Ss:optical}
-
-The fracture tests were performed using a Landmark Servohydraulic testing machine with a maximum capacity of 100 kN. Figure~\ref{fig:Setup0°} shows the experimental set-up, which includes the Arcan fixture and the optical camera-lens-illumination devices. The Arcan fixture was mounted to the testing machine using standard bolts, with washers inserted between the specimen and the Arcan system to reinforce the attachment points. To facilitate specimen changes between tests, manual controls were employed to elevate the moving part of the testing machine, minimising residual tension between the bolt holes and the Arcan system. Furthermore, before testing, an arbitrary pre-load was applied to the specimen to prevent any clearance or unintended movement of the specimen (which could cause image defocusing). Load and cross-head displacement data were recorded at a frequency of 5 Hz . Additionally, a real-time plot was generated during the test for visualisation.
-
 
 An Alvium 1800 U-2040m Allied Vision camera and a 60 mm Nikkor lens were used for image grabbing and acquisition. The camera has a resolution of 4512 (H) $\times$ 4512 (V) and a sensor size of type 1.1. The front of the lens was positioned at a working distance of 285 mm with an aperture of f/11 and an exposure time of 60 milliseconds. The cross-head displacement of the testing machine was 0.02mm/s, and the camera had a frequency of 1 Hz (1 fps).
 A green illumination set-up was used to enhance the sensitivity of the sensor. Notably, care was taken during lens and camera adjustments to optimise focusing and exposure time, ensuring an appropriate spread of light intensity to prevent pixel saturation in the sensor. The camera was securely mounted on a tripod to ensure a stable position relative to the specimen's target surface, enabling the capture of consistent images throughout the tests. The frontal face of the specimens was coated with a suitable speckle pattern. A first layer of white paint was added and a cloud of black dots formed a second layer of paint to create a distinctive local pattern across the region of interest (ZOI) ahead of the crack tip.. Figure~\ref{fig:Speckle_DIC} shows an image of the speckle pattern, along with its corresponding image histogram. Additionally, a scale positioned in the surface plane was employed to establish the conversion factor for translating pixels into millimetres.
@@ -555,7 +539,7 @@ It is followed by a plot of the crack lengths estimated by methods 1 and 2. The 
 \end{figure}
 
 
-Table \ref{fig:fig37} compares the maximum energy release rate values obtained in this study with those reported in the literature. The comparison focuses on temperate species with similar density, moisture content ranging between 9$\%$ and 12$\%$, and an initial crack oriented in the radial-longitudinal (RL) direction. Silver fir's average maximum energy release rate is highlighted in bold and compared to different species and test methods, including 2MCG, DCB, and Wedge Splitting tests.
+Table \ref{fig:fig37} compares the maximum energy release rate values obtained in this study with those reported in the literature. The comparison focuses on temperate species with similar density, moisture content ranging between 9$\%$ and 12$\%$, and an initial crack oriented in the radial-longitudinal (RL) direction. Silver fir's average maximum energy release rate is highlighted in bold and compared to different species and test methods, including MMCG, DCB, and Wedge Splitting tests.
 Firstly, it is noteworthy that the magnitude of $G$ for silver fir is within the same order of magnitude as other species. Silver fir exhibits a difference of 29$\%$ compared to alder, 36$\%$ compared to Pinus pinaster, and 33$\%$ compared to Padouk. Moreover, similar values have been reported in the work of Odounga (2018), albeit with a standard deviation 2 to 3 times greater, indicating more dispersed results.
 In the study by Xavier et al. (2014), experimental values of $G=190$ J/m² were also obtained, which aligns with the results of this study. Additionally, alder and Pinus pinaster exhibit similar densities (around 0.1) in comparison to silver fir.
 The observed scattering of results can be attributed to the inherent material properties of wood, which is known for its high natural variability and anatomical composition. Furthermore, different energy release rate measurement methods and experimental parameter variations inevitably impact the final results.
@@ -569,7 +553,7 @@ It is worth mentioning that the specimens in this study were predominantly deriv
 			\toprule % ligne horizontale en haut du tableau
 			& References & Wood species & Test type & Orientation & Density & $G_{\max}(J/m^2)$ & Standard deviation \\
 			\midrule
-			& & \textbf{Silver fir} & \textbf{2MCG} & \textbf{RL} & \textbf{0.43} & \textbf{170} & \textbf{77} \\
+			& & \textbf{Silver fir} & \textbf{MMCG} & \textbf{RL} & \textbf{0.43} & \textbf{170} & \textbf{77} \\
 			\midrule
 			& \citep{Angellier2017} & Douglas fir & DCB & RL & 0.54 & 784 &  \\
 			\midrule
@@ -585,15 +569,15 @@ It is worth mentioning that the specimens in this study were predominantly deriv
 			\midrule
 			& \citep{Reiterer2002} & Ash & WS & RL & 0.701 & 551 & 38 \\
 			\midrule
-			& \citep{Odounga2018phd} & Okoumé & 2MCG & RL & 0.39-0.5 & 317 & 160 \\
+			& \citep{Odounga2018phd} & Okoumé & MMCG & RL & 0.39-0.5 & 317 & 160 \\
 			\midrule
-			& \citep{Odounga2018phd} & Iroko & 2MCG & RL & 0.56-0.7 & 323 & 200 \\
+			& \citep{Odounga2018phd} & Iroko & MMCG & RL & 0.56-0.7 & 323 & 200 \\
 			\midrule
-			& \citep{Odounga2018phd} & Padouk & 2MCG & RL & 0.7-0.88 & 255 & 200 \\
+			& \citep{Odounga2018phd} & Padouk & MMCG & RL & 0.7-0.88 & 255 & 200 \\
 			\bottomrule % ligne horizontale en bas du tableau
 		\end{tabular}
 	}
-	\caption{Comparison of mean max G values for specimens in the literature, 2MCG: Mixed Mode Crack Growth, DCB: Double Cantilever Beam, WS: Wedge Splitting test, RL: Radial Longitudinal.}
+	\caption{Comparison of mean max G values for specimens in the literature, MMCG: Mixed Mode Crack Growth, DCB: Double Cantilever Beam, WS: Wedge Splitting test, RL: Radial Longitudinal.}
 	\label{fig:fig37}
 \end{table}
 
